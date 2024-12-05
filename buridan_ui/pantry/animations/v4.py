@@ -1,8 +1,8 @@
-import asyncio
+from __future__ import annotations
 
-import reflex as rx
 import re
 
+import reflex as rx
 from reflex.constants.colors import Color
 
 PATTERN: str = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
@@ -15,7 +15,7 @@ class Animation(rx.State):
     opacity: str = "0"
     background: str | Color = "none"
 
-    async def run_animation(self, new_value: str):
+    async def run_animation(self, new_value: str) -> None:
         self.value = new_value
 
     async def run_validation(self, _):

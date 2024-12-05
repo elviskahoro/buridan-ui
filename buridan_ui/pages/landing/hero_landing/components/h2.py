@@ -1,9 +1,8 @@
-import reflex as rx
 from dataclasses import dataclass, field
 
-from docutils.nodes import transition
+import reflex as rx
 
-from ..state import HeroLandingState, passive_component
+from ..state import HeroLandingState
 
 
 @dataclass
@@ -16,7 +15,7 @@ class LoginStyle:
             "cursor": "pointer",
             "variant": "surface",
             "color_scheme": "gray",
-        }
+        },
     )
 
 

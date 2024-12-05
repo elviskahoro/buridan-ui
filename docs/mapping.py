@@ -1,1 +1,1 @@
-""" Markdown mapping components for buridan ui library """
+"""Markdown mapping components for buridan ui library."""
