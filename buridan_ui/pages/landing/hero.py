@@ -14,7 +14,9 @@ from .style import LandingPageStyle
 from .wrapper.wrapper import landing_page_section_wrapper
 
 
-def count_python_files_in_folder(folder_name):
+def count_python_files_in_folder(
+    folder_name,
+):
     total_files = 0
 
     for _dirpath, _dirnames, filenames in os.walk(folder_name):

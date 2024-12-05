@@ -65,7 +65,10 @@ class InputV1State(rx.State):
         [*item, InputsV1Style.passive_border["border"]] for item in data
     ]
 
-    def on_entry_select(self, strings: list[str]) -> None:
+    def on_entry_select(
+        self,
+        strings: list[str],
+    ) -> None:
         self.data = [
             (
                 [*strings[:2], InputsV1Style.active_border["border"]]
@@ -75,17 +78,25 @@ class InputV1State(rx.State):
             for item in self.get_value(self.data)
         ]
 
-    def on_entry_blur(self, e=None) -> None:
+    def on_entry_blur(
+        self,
+        e=None,
+    ) -> None:
         self.data = [
             [*item[:2], InputsV1Style.passive_border["border"]] for item in data
         ]
 
 
-def title(txt: str) -> rx.Component:
+def title(
+    txt: str,
+) -> rx.Component:
     return rx.text(txt, **InputsV1Style.text)
 
 
-def entry(placeholder: str, strings: list[str]) -> rx.Component:
+def entry(
+    placeholder: str,
+    strings: list[str],
+) -> rx.Component:
     return rx.input(
         placeholder=placeholder,
         on_focus=InputV1State.on_entry_select(strings),
@@ -94,7 +105,9 @@ def entry(placeholder: str, strings: list[str]) -> rx.Component:
     )
 
 
-def stack(strings: list[str]) -> rx.Component:
+def stack(
+    strings: list[str],
+) -> rx.Component:
     return rx.vstack(
         title(strings[0]),
         entry(strings[1], strings),

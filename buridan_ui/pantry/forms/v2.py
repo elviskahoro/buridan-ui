@@ -4,11 +4,17 @@ department = ["Team", "Billing", "Deployment", "Account", "Support"]
 priority = ["1 - highest", "2", "3", "4 - lowest"]
 
 
-def create_menu(default: str, items: list[str]):
+def create_menu(
+    default: str,
+    items: list[str],
+):
     return rx.select(items, placeholder=default, width="48%")
 
 
-def create_button(name: str, flex_width: str):
+def create_button(
+    name: str,
+    flex_width: str,
+):
     return rx.button(
         name,
         variant="soft",

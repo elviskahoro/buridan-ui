@@ -27,7 +27,9 @@ info = [
 ]
 
 
-def color(shade: int) -> Color:
+def color(
+    shade: int,
+) -> Color:
     return rx.color("slate", shade)
 
 
@@ -87,7 +89,11 @@ class CardV2Style:
 CardV2Style: CardV2Style = CardV2Style()
 
 
-def item(image: str, name: str, job: str):
+def item(
+    image: str,
+    name: str,
+    job: str,
+):
     return rx.vstack(
         rx.image(src=image, **CardV2Style.image),
         rx.vstack(

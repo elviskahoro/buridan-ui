@@ -3,7 +3,10 @@ import reflex as rx
 BORDER_SIDES = {"top": "bottom", "bottom": "top", "left": "right", "right": "left"}
 
 
-def createAuthBorders(direction: str, gradient_direction: str) -> rx.box:
+def createAuthBorders(
+    direction: str,
+    gradient_direction: str,
+) -> rx.box:
     return rx.box(
         position="absolute",
         width="140%" if direction in ["top", "bottom"] else "4px",

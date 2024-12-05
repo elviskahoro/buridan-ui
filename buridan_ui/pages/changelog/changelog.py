@@ -5,7 +5,10 @@ from buridan_ui.routes.routes import ChartRoutes, PantryRoutes
 from .style import ChangelogStyle
 
 
-def info(txt: str, *args) -> rx.Component:
+def info(
+    txt: str,
+    *args,
+) -> rx.Component:
     return rx.text(txt, size="2", color=rx.color("slate", 11), *args)
 
 
@@ -16,7 +19,11 @@ def blip():
     )
 
 
-def wrapper(title: str, date: str, components: list[rx.Component] = []):
+def wrapper(
+    title: str,
+    date: str,
+    components: list[rx.Component] = [],
+):
     return rx.hstack(
         rx.vstack(
             rx.vstack(
@@ -34,7 +41,10 @@ def wrapper(title: str, date: str, components: list[rx.Component] = []):
     )
 
 
-def changelog_badge(tag: str, text: str):
+def changelog_badge(
+    tag: str,
+    text: str,
+):
     return rx.hstack(
         rx.box(
             rx.icon(tag=tag, size=14),
@@ -56,7 +66,9 @@ def changelog_badge(tag: str, text: str):
     )
 
 
-def create_pantry_links(item_list: list[dict[str, str]]):
+def create_pantry_links(
+    item_list: list[dict[str, str]],
+):
     return rx.vstack(
         *[
             rx.link(
@@ -77,7 +89,10 @@ def create_pantry_links(item_list: list[dict[str, str]]):
     )
 
 
-def create_link(name: str, path: str):
+def create_link(
+    name: str,
+    path: str,
+):
     return rx.link(
         rx.text(
             name,

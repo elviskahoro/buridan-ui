@@ -15,10 +15,16 @@ class Animation(rx.State):
     opacity: str = "0"
     background: str | Color = "none"
 
-    async def run_animation(self, new_value: str) -> None:
+    async def run_animation(
+        self,
+        new_value: str,
+    ) -> None:
         self.value = new_value
 
-    async def run_validation(self, _):
+    async def run_validation(
+        self,
+        _,
+    ):
         if re.match(PATTERN, self.value):
             self.position, self.opacity, self.background = (
                 "10px",

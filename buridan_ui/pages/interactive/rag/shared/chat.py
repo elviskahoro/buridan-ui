@@ -5,7 +5,9 @@ from ..style import Style, Typography
 from .style import ChatAreaStyle
 
 
-def chat_message(data: dict[str, str]):
+def chat_message(
+    data: dict[str, str],
+):
     return rx.vstack(
         rx.text(data["role"], size="1", weight="bold", **Typography.passive),
         rx.text(

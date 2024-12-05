@@ -3,7 +3,9 @@ import reflex as rx
 from buridan_ui.wrappers.state import ComponentWrapperState
 
 
-def color_scheme_boxes(color: str):
+def color_scheme_boxes(
+    color: str,
+):
 
     common_box_props = {
         "width": "13px",

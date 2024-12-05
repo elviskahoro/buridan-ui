@@ -52,7 +52,12 @@ def get_source(
     return source
 
 
-def create_export(func, directory, version, has_theme=True):
+def create_export(
+    func,
+    directory,
+    version,
+    has_theme=True,
+):
     @component_wrapper(f"{BASE_PATH}{directory}/v{version}.py", has_theme)
     def export():
         return [func(), get_source(func), randint(0, 100000)]

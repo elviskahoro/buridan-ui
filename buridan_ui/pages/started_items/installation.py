@@ -3,7 +3,12 @@ import reflex as rx
 from buridan_ui.pantry.timeline.v1 import blip
 
 
-def wrapper(title: str, instructions: str, components=None, **kwargs):
+def wrapper(
+    title: str,
+    instructions: str,
+    components=None,
+    **kwargs,
+):
     if components is None:
         components = []
     return rx.hstack(
@@ -40,7 +45,9 @@ def wrapper(title: str, instructions: str, components=None, **kwargs):
     )
 
 
-def create_code_line(code_string: str):
+def create_code_line(
+    code_string: str,
+):
     return rx.hstack(
         rx.code_block(
             code_string,

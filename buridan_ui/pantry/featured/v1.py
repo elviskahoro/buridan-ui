@@ -24,7 +24,10 @@ data = [
 ]
 
 
-def create_featured(title: str, description: str):
+def create_featured(
+    title: str,
+    description: str,
+):
     return rx.hstack(
         rx.box(
             width="42px",

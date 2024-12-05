@@ -9,7 +9,9 @@ from buridan_ui.templates.wrapper.wrapper import menu_wrapper
 from .style import SideMenuStyle
 
 
-def create_sidebar_menu_items(routes: list[dict[str, str | Color]]):
+def create_sidebar_menu_items(
+    routes: list[dict[str, str | Color]],
+):
 
     def item(
         data,

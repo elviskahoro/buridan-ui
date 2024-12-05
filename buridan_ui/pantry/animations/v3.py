@@ -8,7 +8,10 @@ class Animation(rx.State):
     value: str
     position: dict = PASSIVE
 
-    async def run_animation(self, new_value: str):
+    async def run_animation(
+        self,
+        new_value: str,
+    ):
         self.value = new_value
 
         if len(self.value) >= 1:

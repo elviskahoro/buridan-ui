@@ -6,7 +6,10 @@ import reflex as rx
 current_year = datetime.now().year
 
 
-def create_menu(default: str, items: list[str]):
+def create_menu(
+    default: str,
+    items: list[str],
+):
     return rx.box(rx.select(items, placeholder=default, width="100%"), flex_grow="1")
 
 

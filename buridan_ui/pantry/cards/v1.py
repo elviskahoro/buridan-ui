@@ -4,7 +4,9 @@ import reflex as rx
 from reflex.constants.colors import Color
 
 
-def color(shade: int) -> Color:
+def color(
+    shade: int,
+) -> Color:
     return rx.color("slate", shade)
 
 

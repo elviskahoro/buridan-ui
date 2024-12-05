@@ -48,12 +48,19 @@ from .timeline.v1 import timeline_v1
 BASE_PATH: str = "https://github.com/LineIndent/buridan-ui/blob/main/buridan_ui/pantry/"
 
 
-def get_source(directory: str, filename: str):
+def get_source(
+    directory: str,
+    filename: str,
+):
     with open(os.path.join("buridan_ui", "pantry", directory, filename)) as file:
         return file.read()
 
 
-def create_export(func, directory, version):
+def create_export(
+    func,
+    directory,
+    version,
+):
     @component_wrapper(f"{BASE_PATH}{directory}/v{version}.py")
     def export():
         return [func(), get_source(directory, f"v{version}.py"), randint(0, 100000)]

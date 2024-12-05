@@ -37,7 +37,10 @@ class Numbers(rx.State):
     eleven: str = "_"
     twelve: str = "_"
 
-    async def show_number(self, place_name: str):
+    async def show_number(
+        self,
+        place_name: str,
+    ):
         for _ in range(35):
             number = str(randint(0, 9))
             setattr(self, place_name, number)

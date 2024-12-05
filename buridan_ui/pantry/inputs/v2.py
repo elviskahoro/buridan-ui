@@ -3,7 +3,9 @@ import reflex as rx
 data = ["🇪🇺 EUR", "🇺🇸 USD", "🇨🇦 CAD", "🇬🇧 GBP", "🇦🇺 AUD"]
 
 
-def title(name: str) -> rx.Component:
+def title(
+    name: str,
+) -> rx.Component:
     return rx.text(name, size="1", weight="bold", color=rx.color("slate", 11))
 
 
@@ -22,7 +24,9 @@ def select() -> rx.Component:
     )
 
 
-def entry(placeholder: str) -> rx.Component:
+def entry(
+    placeholder: str,
+) -> rx.Component:
     return rx.input(
         select(),
         placeholder=placeholder,

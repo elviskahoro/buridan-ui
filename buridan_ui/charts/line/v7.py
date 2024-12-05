@@ -100,10 +100,16 @@ def linechart_v7():
         current_data: str = "mobile"
         with_dots: bool = False
 
-        def toggle_with_dots(self, state: bool) -> None:
+        def toggle_with_dots(
+            self,
+            state: bool,
+        ) -> None:
             self.with_dots = not self.with_dots
 
-        def toggle_chart_data(self, name: str) -> None:
+        def toggle_chart_data(
+            self,
+            name: str,
+        ) -> None:
             self.current_data = name
 
     return rx.center(

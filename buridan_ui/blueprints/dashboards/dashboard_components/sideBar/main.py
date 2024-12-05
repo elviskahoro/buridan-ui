@@ -39,7 +39,10 @@ def sidebarMenuHeader() -> rx.hstack:
     )
 
 
-def sidebarMenuItem(icon: str, name: str) -> rx.hstack:
+def sidebarMenuItem(
+    icon: str,
+    name: str,
+) -> rx.hstack:
     return rx.hstack(
         rx.icon(tag=icon, size=14, color=rx.color("slate", 11)),
         rx.text(name, weight="medium", size="2", color=rx.color("slate", 11)),

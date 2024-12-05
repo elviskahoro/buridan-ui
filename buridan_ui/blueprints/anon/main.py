@@ -5,15 +5,21 @@ from .state import SandboxAuthState, numberList
 from .style import SandboxAuthStyle
 
 
-def authTitle(name: str) -> rx.text:
+def authTitle(
+    name: str,
+) -> rx.text:
     return rx.text(name, size="5", weight="bold", color=rx.color("slate", 12))
 
 
-def authSubtitle(name: str) -> rx.text:
+def authSubtitle(
+    name: str,
+) -> rx.text:
     return rx.text(name, size="2", weight="regular", color=rx.color("slate", 11))
 
 
-def authNumberButton(name: str) -> rx.button:
+def authNumberButton(
+    name: str,
+) -> rx.button:
     return rx.button(
         name,
         width="100%",
@@ -27,7 +33,9 @@ def authNumberButton(name: str) -> rx.button:
     )
 
 
-def authLoginButton(name: str) -> rx.button:
+def authLoginButton(
+    name: str,
+) -> rx.button:
     return rx.button(
         name,
         width="100%",
@@ -48,7 +56,12 @@ def authLoginEntry() -> rx.button:
     )
 
 
-def authInterPageLinking(start: str, link: str, path: str, end: str) -> rx.text:
+def authInterPageLinking(
+    start: str,
+    link: str,
+    path: str,
+    end: str,
+) -> rx.text:
     return rx.text(
         start,
         rx.link(f"{link}", href=path),
@@ -59,7 +72,9 @@ def authInterPageLinking(start: str, link: str, path: str, end: str) -> rx.text:
     )
 
 
-def createAuthAccountNumber(numberList: list[str]) -> rx.hstack:
+def createAuthAccountNumber(
+    numberList: list[str],
+) -> rx.hstack:
     return rx.hstack(
         *[
             rx.text(getattr(SandboxAuthState, number), size="5")

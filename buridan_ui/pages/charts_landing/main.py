@@ -18,7 +18,9 @@ GridStyleSheet = {
 }
 
 
-def chartsWrapper(chart: rx.Component) -> rx.Component:
+def chartsWrapper(
+    chart: rx.Component,
+) -> rx.Component:
     return rx.vstack(
         chart,
         width="100%",

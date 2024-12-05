@@ -100,7 +100,9 @@ class AnimationState(rx.State):
 dash = rx.box(**AnimationStyle.dash, style=AnimationState.runner)
 
 
-def blip(delay: int):
+def blip(
+    delay: int,
+):
 
     return rx.badge(
         "-",
@@ -119,7 +121,12 @@ def blip(delay: int):
     )
 
 
-def wrapper(issue: str, response: str, posY: str, delay: int) -> rx.box:
+def wrapper(
+    issue: str,
+    response: str,
+    posY: str,
+    delay: int,
+) -> rx.box:
     return rx.box(
         rx.hstack(
             rx.vstack(

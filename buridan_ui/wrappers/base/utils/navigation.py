@@ -9,7 +9,10 @@ from buridan_ui.routes.routes import (
 from buridan_ui.states.routing import SiteRoutingState
 
 
-def create_button(route, direction):
+def create_button(
+    route,
+    direction,
+):
     if len(route) > 1:
         return rx.hstack(
             (
@@ -40,7 +43,9 @@ def create_button(route, direction):
     return rx.spacer()
 
 
-def render_prev_and_next_ui(routes: list[dict[str, str]]):
+def render_prev_and_next_ui(
+    routes: list[dict[str, str]],
+):
     _prev, _next = routes
 
     prev_button = create_button(_prev, "left")
@@ -64,7 +69,10 @@ def render_prev_and_next_ui(routes: list[dict[str, str]]):
     )
 
 
-def page_navigation(path: str, routes: list[dict]) -> rx.Component:
+def page_navigation(
+    path: str,
+    routes: list[dict],
+) -> rx.Component:
     for i, route in enumerate(routes):
         if route["path"] == path:
             prev_page = routes[i - 1] if i > 0 else [""]
@@ -75,17 +83,25 @@ def page_navigation(path: str, routes: list[dict]) -> rx.Component:
     return rx.spacer()
 
 
-def pantry_in_page_navigation(path: str) -> rx.Component:
+def pantry_in_page_navigation(
+    path: str,
+) -> rx.Component:
     return page_navigation(path, PantryRoutes)
 
 
-def charts_in_page_navigation(path: str) -> rx.Component:
+def charts_in_page_navigation(
+    path: str,
+) -> rx.Component:
     return page_navigation(path, ChartRoutes)
 
 
-def getting_started_in_page_navigation(path: str) -> rx.Component:
+def getting_started_in_page_navigation(
+    path: str,
+) -> rx.Component:
     return page_navigation(path, GettingStartedRoutes)
 
 
-def blueprints_in_page_navigation(path: str) -> rx.Component:
+def blueprints_in_page_navigation(
+    path: str,
+) -> rx.Component:
     return page_navigation(path, BlueprintRoutes)

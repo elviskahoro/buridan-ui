@@ -1,7 +1,9 @@
 import reflex as rx
 
 
-def title(name: str) -> rx.Component:
+def title(
+    name: str,
+) -> rx.Component:
     return rx.text(name, size="1", weight="bold", color=rx.color("slate", 11))
 
 
@@ -16,7 +18,9 @@ def tip() -> rx.Component:
     )
 
 
-def entry(placeholder: str) -> rx.Component:
+def entry(
+    placeholder: str,
+) -> rx.Component:
     return rx.input(
         rx.tooltip(tip(), content="We store your data securely."),
         placeholder=placeholder,

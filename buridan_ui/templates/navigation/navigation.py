@@ -9,7 +9,9 @@ from buridan_ui.templates.drawer.state import DrawerState
 from .style import NavigationStyle
 
 
-def nav_icon(component: rx.Component) -> rx.badge:
+def nav_icon(
+    component: rx.Component,
+) -> rx.badge:
     return rx.badge(
         component,
         color_scheme="gray",
@@ -54,7 +56,9 @@ github = nav_icon(
 )
 
 
-def navigation_links(data: dict[str, str | Color]):
+def navigation_links(
+    data: dict[str, str | Color],
+):
     return rx.link(
         rx.text(data["name"], size="1", weight="bold", color=rx.color("slate", 12)),
         href=data["path"],

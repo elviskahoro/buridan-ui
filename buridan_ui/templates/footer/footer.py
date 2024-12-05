@@ -5,7 +5,10 @@ from buridan_ui.states.routing import SiteRoutingState
 from .style import FooterStyle
 
 
-def create_footer_item(title: str, routes: list[dict[str, str]]):
+def create_footer_item(
+    title: str,
+    routes: list[dict[str, str]],
+):
     def item(
         data,
     ):

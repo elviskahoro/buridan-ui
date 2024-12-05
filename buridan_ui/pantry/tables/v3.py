@@ -41,7 +41,11 @@ class Table(rx.State):
     ]
 
 
-def create_sidebar_menu_item(name: str, tag: str, color: str):
+def create_sidebar_menu_item(
+    name: str,
+    tag: str,
+    color: str,
+):
     return rx.hstack(
         rx.icon(tag=tag, size=14),
         rx.text(name, font_size="11px", color_scheme="gray"),
@@ -84,7 +88,9 @@ def sidebar_item_option_menu():
     )
 
 
-def create_data_row(data: dict[str, str]):
+def create_data_row(
+    data: dict[str, str],
+):
     return rx.table.row(
         rx.table.cell(
             rx.hstack(

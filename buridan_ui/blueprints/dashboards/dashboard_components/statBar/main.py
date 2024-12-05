@@ -86,7 +86,9 @@ statbarDataSet = {
 }
 
 
-def statbarChart(dataSet: dict[str, str]) -> rx.recharts.line_chart:
+def statbarChart(
+    dataSet: dict[str, str],
+) -> rx.recharts.line_chart:
     return rx.recharts.line_chart(
         rx.recharts.line(
             data_key=list(dataSet[0].keys())[1],

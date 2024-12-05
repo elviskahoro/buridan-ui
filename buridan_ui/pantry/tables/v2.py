@@ -47,7 +47,9 @@ class Table(rx.State):
     }
 
 
-def create_data_row(data: dict[str, str]):
+def create_data_row(
+    data: dict[str, str],
+):
     return rx.table.row(
         rx.table.cell(
             rx.hstack(

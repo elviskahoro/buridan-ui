@@ -68,7 +68,10 @@ class SandboxAuthState(rx.State):
         else:
             yield rx.toast.warning("No account number generated yet.")
 
-    async def run_number_animation(self, place_name: str):
+    async def run_number_animation(
+        self,
+        place_name: str,
+    ):
         for _ in range(35):
             number = str(randint(0, 9))
             setattr(self, place_name, number)

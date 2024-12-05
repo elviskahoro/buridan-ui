@@ -16,7 +16,11 @@ class Content(rx.State):
     index: int = 0
     position_y: str = "10px"
 
-    async def toggle_table_content(self, index: int, item: dict[str, str]) -> None:
+    async def toggle_table_content(
+        self,
+        index: int,
+        item: dict[str, str],
+    ) -> None:
         self.links = [
             (
                 {**data, "color": rx.color("slate", 11)}
@@ -28,7 +32,10 @@ class Content(rx.State):
         self.position_y = f"{10 + (index * 30)}px"
 
 
-def items(index: int, data: dict[str, str]):
+def items(
+    index: int,
+    data: dict[str, str],
+):
     return rx.hstack(
         rx.link(
             rx.text(

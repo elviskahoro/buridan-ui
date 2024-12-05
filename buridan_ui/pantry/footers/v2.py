@@ -43,7 +43,9 @@ class FooterV2Style:
 FooterV2Style: FooterV2Style = FooterV2Style()
 
 
-def media(name: str) -> rx.Component:
+def media(
+    name: str,
+) -> rx.Component:
     return rx.link(rx.text(name, **FooterV1Style.link), href="#")
 
 

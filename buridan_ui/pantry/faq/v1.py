@@ -28,11 +28,17 @@ data: list[dict[str, str]] = [
 ]
 
 
-def txt(string: str, shade: int) -> rx.Component:
+def txt(
+    string: str,
+    shade: int,
+) -> rx.Component:
     return rx.text(string, weight="bold", color=rx.color("gray", shade))
 
 
-def question_and_answer(question: str, answer: str):
+def question_and_answer(
+    question: str,
+    answer: str,
+):
     return rx.hstack(
         rx.vstack(
             rx.box(rx.icon(tag="circle-help", size=15), padding="5px 0px"),

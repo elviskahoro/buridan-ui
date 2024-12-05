@@ -22,7 +22,10 @@ class LoginStyle:
 LoginStyle: LoginStyle = LoginStyle()
 
 
-def login_button(name: str, *args) -> rx.button:
+def login_button(
+    name: str,
+    *args,
+) -> rx.button:
     return rx.button(*args, name, **LoginStyle.LoginButton)
 
 

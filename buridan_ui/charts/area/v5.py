@@ -110,7 +110,10 @@ def areachart_v5():
         current_selection: list[dict[str, str]] = data
 
         @rx.event
-        def change_data_time(self, value: str) -> None:
+        def change_data_time(
+            self,
+            value: str,
+        ) -> None:
             self.current_selection = self.dataMap[value]
 
     return rx.center(

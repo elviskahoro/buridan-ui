@@ -21,7 +21,10 @@ class CreditBannerStyle:
 CreditBannerStyle: CreditBannerStyle = CreditBannerStyle()
 
 
-def link(name: str, url: str) -> rx.Component:
+def link(
+    name: str,
+    url: str,
+) -> rx.Component:
     return rx.link(
         name,
         href=url,

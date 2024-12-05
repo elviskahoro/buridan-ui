@@ -21,7 +21,10 @@ class ComponentWrapperState(rx.State):
     default_theme: dict[int, Color] = color_map["blue"]
     selected_theme: rx.Field[str] = rx.field("blue")
 
-    async def toggle_theme(self, color: str) -> None:
+    async def toggle_theme(
+        self,
+        color: str,
+    ) -> None:
         self.selected_theme = color
         self.default_theme = color_map[color]
 
@@ -33,5 +36,9 @@ class ComponentWrapperState(rx.State):
         await asyncio.sleep(1)
         self.default_icon = True
 
-    def resize(self, uuid: int, size: str) -> None:
+    def resize(
+        self,
+        uuid: int,
+        size: str,
+    ) -> None:
         self.uuid[uuid] = size

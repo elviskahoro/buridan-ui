@@ -99,7 +99,10 @@ def barchart_v5():
     class Chart(rx.State):
         current_data: str = "mobile"
 
-        def toggle_chart_data(self, name: str) -> None:
+        def toggle_chart_data(
+            self,
+            name: str,
+        ) -> None:
             self.current_data = name
 
     return rx.center(

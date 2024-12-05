@@ -62,7 +62,10 @@ features = {
 }
 
 
-def feature_item_title(tag: str, title: str) -> rx.Component:
+def feature_item_title(
+    tag: str,
+    title: str,
+) -> rx.Component:
     return rx.hstack(
         rx.badge(
             rx.icon(tag=tag, size=20),
@@ -77,13 +80,19 @@ def feature_item_title(tag: str, title: str) -> rx.Component:
     )
 
 
-def feature_item_description(description: str) -> rx.Component:
+def feature_item_description(
+    description: str,
+) -> rx.Component:
     return rx.hstack(
         rx.text(description, weight="medium", size="1", color=rx.color("slate", 11)),
     )
 
 
-def feature_item(_: str, __: str, ___: str) -> rx.Component:
+def feature_item(
+    _: str,
+    __: str,
+    ___: str,
+) -> rx.Component:
     return rx.vstack(
         feature_item_title(_, __),
         feature_item_description(___),

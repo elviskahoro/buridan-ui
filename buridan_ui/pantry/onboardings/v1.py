@@ -27,7 +27,9 @@ steps = [
 ]
 
 
-def create_progress_item(data: dict[str, int | str]):
+def create_progress_item(
+    data: dict[str, int | str],
+):
     return rx.hstack(
         rx.vstack(
             rx.vstack(

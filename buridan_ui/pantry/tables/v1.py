@@ -61,7 +61,10 @@ class Table(rx.State):
         self.paginated_data = self.main_data[start:end]
         self.current_page = (self.offset // self.current_limit) + 1
 
-    def delta_limit(self, limit: str) -> None:
+    def delta_limit(
+        self,
+        limit: str,
+    ) -> None:
         self.current_limit = int(limit)
         self.offset = 0
         self.total_pages = (
@@ -88,12 +91,18 @@ class Table(rx.State):
         self.paginate()
 
 
-def create_table_header(title: str):
+def create_table_header(
+    title: str,
+):
     return rx.table.column_header_cell(title)
 
 
-def create_query_rows(data: dict[str, str]):
-    def fill_rows_with_data(data_):
+def create_query_rows(
+    data: dict[str, str],
+):
+    def fill_rows_with_data(
+        data_,
+    ):
         return rx.table.cell(f"{data_[1]}", cursor="pointer")
 
     return rx.table.row(

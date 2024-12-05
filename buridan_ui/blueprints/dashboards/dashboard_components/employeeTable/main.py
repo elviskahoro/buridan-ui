@@ -68,7 +68,11 @@ employeeDataSet: list[dict[str, str]] = [
 ]
 
 
-def employeTableMenuItem(name: str, tag: str, color: str) -> rx.hstack:
+def employeTableMenuItem(
+    name: str,
+    tag: str,
+    color: str,
+) -> rx.hstack:
     return rx.hstack(
         rx.icon(tag=tag, size=14),
         rx.text(name, font_size="11px", color_scheme="gray"),
@@ -91,7 +95,9 @@ def emplyeeTableMenu() -> rx.menu.root:
     )
 
 
-def employeeDataRow(data: dict[str, str]) -> rx.table.row:
+def employeeDataRow(
+    data: dict[str, str],
+) -> rx.table.row:
     return rx.table.row(
         rx.table.cell(
             rx.hstack(

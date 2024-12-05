@@ -90,7 +90,11 @@ class PubMedState(rx.State):
 
         self.is_processing = False
 
-    async def search_pubmed(self, query, max_results=10):
+    async def search_pubmed(
+        self,
+        query,
+        max_results=10,
+    ):
         base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
         params = {
             "db": "pubmed",
@@ -107,7 +111,10 @@ class PubMedState(rx.State):
             print("Error:", response.status_code)
             return []
 
-    async def fetch_article_details(self, pmids):
+    async def fetch_article_details(
+        self,
+        pmids,
+    ):
         base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
         params = {
             "db": "pubmed",
@@ -142,7 +149,11 @@ class PubMedState(rx.State):
             print("Error:", response.status_code)
             return []
 
-    async def compile_selected_article(self, state: bool, identifier: str) -> None:
+    async def compile_selected_article(
+        self,
+        state: bool,
+        identifier: str,
+    ) -> None:
         article = next(
             (item for item in self.articles if item["id"] == identifier),
             None,

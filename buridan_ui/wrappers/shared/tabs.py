@@ -1,7 +1,10 @@
 import reflex as rx
 
 
-def tab_menu_wrapper(name: str, value: str):
+def tab_menu_wrapper(
+    name: str,
+    value: str,
+):
     return rx.tabs.trigger(
         rx.text(name),
         value=value,

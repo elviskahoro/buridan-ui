@@ -48,7 +48,12 @@ class TooltipStyles:
 tooltip_styles = TooltipStyles()
 
 
-def info(title: str, size: str, subtitle: str, align: str) -> rx.Component:
+def info(
+    title: str,
+    size: str,
+    subtitle: str,
+    align: str,
+) -> rx.Component:
     return rx.vstack(
         rx.heading(title, size=size, weight="bold"),
         rx.text(subtitle, size="1", color=rx.color("slate", 11), weight="medium"),

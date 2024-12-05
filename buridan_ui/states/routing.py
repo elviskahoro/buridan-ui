@@ -45,7 +45,10 @@ class SiteRoutingState(rx.State):
     on_page_item: str
 
     @rx.event
-    async def toggle_page_change(self, data: dict[str, str]) -> rx.event.redirect:
+    async def toggle_page_change(
+        self,
+        data: dict[str, str],
+    ) -> rx.event.redirect:
         if data is not None:
             # Special handling for Home path
             if data["path"] == "/":

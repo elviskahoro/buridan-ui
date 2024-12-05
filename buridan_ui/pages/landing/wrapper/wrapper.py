@@ -10,7 +10,12 @@ ButtonStyle = Literal["classic", "ghost", "outline", "soft", "solid", "surface"]
 KeyDisplay = ["none" if i <= 2 else "flex" for i in range(6)]
 
 
-def button(tag: str, name: str, style: ButtonStyle, func: callable) -> rx.Component:
+def button(
+    tag: str,
+    name: str,
+    style: ButtonStyle,
+    func: callable,
+) -> rx.Component:
     return rx.button(
         rx.icon(tag=tag, size=18),
         rx.text(name, size="2", weight="bold"),
@@ -67,7 +72,10 @@ def landing_page_section_wrapper(
     )
 
 
-def landing_page_section_wrapper_main(title: str, subtitle: str) -> rx.vstack:
+def landing_page_section_wrapper_main(
+    title: str,
+    subtitle: str,
+) -> rx.vstack:
     return rx.vstack(
         # ... badge, title, subtitle, and link
         rx.vstack(
@@ -107,7 +115,9 @@ def landing_page_section_wrapper_main(title: str, subtitle: str) -> rx.vstack:
     )
 
 
-def blip(tag: str) -> rx.box:
+def blip(
+    tag: str,
+) -> rx.box:
     return rx.box(rx.icon(tag=tag, size=12), **LandingPageSectionWrapperStyle.blip)
 
 

@@ -9,11 +9,15 @@ from .style import DrawerStyle
 active = rx.color("slate", 12)
 
 
-def drawer_menu_header(title: str):
+def drawer_menu_header(
+    title: str,
+):
     return rx.text(title, size="1", color=active, weight="bold", padding="0em 1.25em")
 
 
-def drawer_menu_link(stack: rx.vstack):
+def drawer_menu_link(
+    stack: rx.vstack,
+):
     return rx.vstack(stack, **DrawerStyle.drawer_menu_link)
 
 

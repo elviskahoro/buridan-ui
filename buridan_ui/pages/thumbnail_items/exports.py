@@ -88,7 +88,9 @@ def combine_items(
     return combined_items
 
 
-def create_thumbnails(combined_items: list[dict[str, str]]) -> list[str]:
+def create_thumbnails(
+    combined_items: list[dict[str, str]],
+) -> list[str]:
 
     return [
         pantry_thumbnail(

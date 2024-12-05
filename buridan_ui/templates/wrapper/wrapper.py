@@ -3,7 +3,10 @@ import reflex as rx
 from .style import BaseHeaderWrapper, MenuWrapperStyle
 
 
-def menu_wrapper(title: str, components: list[rx.Component] = []):
+def menu_wrapper(
+    title: str,
+    components: list[rx.Component] = [],
+):
     return rx.hstack(
         rx.vstack(
             rx.vstack(
@@ -25,7 +28,10 @@ def menu_wrapper(title: str, components: list[rx.Component] = []):
     )
 
 
-def baseWrapperHeader(path_name: rx.Component, title: str) -> rx.Component:
+def baseWrapperHeader(
+    path_name: rx.Component,
+    title: str,
+) -> rx.Component:
     return rx.vstack(
         rx.vstack(
             path_name,

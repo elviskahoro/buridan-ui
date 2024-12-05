@@ -47,7 +47,11 @@ def trafficMenuQuantity() -> rx.hstack:
     )
 
 
-def trafficMenuItem(color: str, title: str, qty: str) -> rx.hstack:
+def trafficMenuItem(
+    color: str,
+    title: str,
+    qty: str,
+) -> rx.hstack:
     return rx.hstack(
         rx.hstack(
             rx.box(

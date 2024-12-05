@@ -18,7 +18,10 @@ utilityIconMap = {
 }
 
 
-def navbarUtilityIcons(icon: str, msg: str) -> rx.hover_card:
+def navbarUtilityIcons(
+    icon: str,
+    msg: str,
+) -> rx.hover_card:
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.icon(tag=icon, size=14, color=rx.color("slate", 11)),

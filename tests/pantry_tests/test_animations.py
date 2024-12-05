@@ -9,7 +9,10 @@ from buridan_ui.pantry.animations import v1, v2, v3, v4, v5, v6
 
 class TestAnimationComponent(unittest.TestCase):
 
-    def _test_render_main_stack(self, animation_func) -> None:
+    def _test_render_main_stack(
+        self,
+        animation_func,
+    ) -> None:
         """Test if the component is an instance of VStack."""
         component = animation_func()
         assert isinstance(
@@ -17,7 +20,10 @@ class TestAnimationComponent(unittest.TestCase):
             VStack | Center | HStack,
         ), "Component is not an instance of VStack!"
 
-    def _test_stack_children(self, animation_func) -> None:
+    def _test_stack_children(
+        self,
+        animation_func,
+    ) -> None:
         """Test if all children are Reflex components."""
         component = animation_func()
         for child in component.children:

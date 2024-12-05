@@ -22,7 +22,11 @@ def user_query() -> rx.Component:
     )
 
 
-def button(name: str, color: str, kwargs: Optional = None) -> rx.Component:
+def button(
+    name: str,
+    color: str,
+    kwargs: Optional = None,
+) -> rx.Component:
     return rx.button(
         name,
         color_scheme=color,
@@ -42,7 +46,9 @@ def loader_txt() -> rx.Component:
     )
 
 
-def hover(txt: str) -> rx.Component:
+def hover(
+    txt: str,
+) -> rx.Component:
     return rx.hover_card.root(
         rx.hover_card.trigger(rx.text(txt, width="300px", **txt_overflow)),
         rx.hover_card.content(rx.text(txt)),

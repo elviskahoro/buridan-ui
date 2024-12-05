@@ -43,10 +43,16 @@ class State(rx.State):
     # ... other chat vars
     is_generating: bool = False
 
-    async def set_units(self, unit: str) -> None:
+    async def set_units(
+        self,
+        unit: str,
+    ) -> None:
         self.selected_unit = unit
 
-    async def set_profile_stats(self, info: list[str]) -> None:
+    async def set_profile_stats(
+        self,
+        info: list[str],
+    ) -> None:
         self.data["height"], self.data["weight"], self.data["age"] = (
             self.height + self.units[self.selected_unit]["height"],
             self.weight + self.units[self.selected_unit]["weight"],
@@ -103,6 +109,9 @@ class State(rx.State):
             self.prompt = ""
             self.is_generating = False
 
-    async def send_message_to_chat(self, message):
+    async def send_message_to_chat(
+        self,
+        message,
+    ):
         response = chat_session.send_message(message)
         return response.text

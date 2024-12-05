@@ -63,15 +63,22 @@ data: list[list[str]] = [
 ]
 
 
-def title(txt: str) -> rx.Component:
+def title(
+    txt: str,
+) -> rx.Component:
     return rx.text(txt, **InputsV1Style.text)
 
 
-def entry(placeholder: str, strings: list[str]) -> rx.Component:
+def entry(
+    placeholder: str,
+    strings: list[str],
+) -> rx.Component:
     return rx.input(placeholder=placeholder, **InputsV1Style.entry)
 
 
-def stack(strings: list[str]) -> rx.Component:
+def stack(
+    strings: list[str],
+) -> rx.Component:
     return rx.vstack(
         title(strings[0]),
         entry(strings[1], strings),

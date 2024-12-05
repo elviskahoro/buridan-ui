@@ -48,7 +48,9 @@ def pricingHeader(
     )
 
 
-def pricingSpecs(specs: list[str]) -> rx.Component:
+def pricingSpecs(
+    specs: list[str],
+) -> rx.Component:
     return rx.vstack(
         *[
             rx.hstack(
@@ -67,7 +69,9 @@ def pricingSpecs(specs: list[str]) -> rx.Component:
     )
 
 
-def pricingButton(style: str) -> rx.Component:
+def pricingButton(
+    style: str,
+) -> rx.Component:
     return rx.button("Sign Up", width="100%", padding="0.75em", variant=style)
 
 

@@ -17,7 +17,10 @@ skills = [
 ]
 
 
-def create_list_item(title: str, items: list[str]):
+def create_list_item(
+    title: str,
+    items: list[str],
+):
     return rx.hstack(
         rx.text(title, weight="medium", color=rx.color("slate", 11), size="1"),
         rx.hstack(

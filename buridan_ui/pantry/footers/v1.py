@@ -88,11 +88,17 @@ class FooterV1Style:
 FooterV1Style: FooterV1Style = FooterV1Style()
 
 
-def styled_text(text_: str, style: dict[str, str]) -> rx.Component:
+def styled_text(
+    text_: str,
+    style: dict[str, str],
+) -> rx.Component:
     return rx.text(text_, **style)
 
 
-def company(brand: str, copyright_: str) -> rx.Component:
+def company(
+    brand: str,
+    copyright_: str,
+) -> rx.Component:
     return rx.vstack(
         styled_text(brand, FooterV1Style.title),
         styled_text(copyright_, FooterV1Style.link),
@@ -100,7 +106,10 @@ def company(brand: str, copyright_: str) -> rx.Component:
     )
 
 
-def with_note(link_text: str, note: str) -> rx.Component:
+def with_note(
+    link_text: str,
+    note: str,
+) -> rx.Component:
     return rx.hstack(
         link_text,
         rx.text(note, color=rx.color("blue")),
@@ -109,7 +118,10 @@ def with_note(link_text: str, note: str) -> rx.Component:
     )
 
 
-def stack(title: str, data: list[FooterItem]) -> rx.Component:
+def stack(
+    title: str,
+    data: list[FooterItem],
+) -> rx.Component:
     return rx.vstack(
         rx.text(title, **FooterV1Style.title),
         *[
@@ -127,11 +139,15 @@ def stack(title: str, data: list[FooterItem]) -> rx.Component:
 icons = Literal["github", "twitter", "facebook"]
 
 
-def icon(name: icons) -> rx.Component:
+def icon(
+    name: icons,
+) -> rx.Component:
     return rx.icon(tag=name, **FooterV1Style.icon)
 
 
-def text(name: str) -> rx.Component:
+def text(
+    name: str,
+) -> rx.Component:
     return rx.text(name, **FooterV1Style.link)
 
 

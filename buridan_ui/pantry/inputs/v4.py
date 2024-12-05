@@ -6,13 +6,22 @@ class InputsV4State(rx.State):
     string: str
     tip: str = "Password must include at least 6 characters"
 
-    def on_entry_focus(self, event=None) -> None:
+    def on_entry_focus(
+        self,
+        event=None,
+    ) -> None:
         self.is_open = not self.is_open
 
-    def on_entry_blur(self, event=None) -> None:
+    def on_entry_blur(
+        self,
+        event=None,
+    ) -> None:
         self.is_open = False
 
-    def entry_value_update(self, value: str) -> None:
+    def entry_value_update(
+        self,
+        value: str,
+    ) -> None:
         self.string = value
 
         self.tip = (
@@ -22,7 +31,9 @@ class InputsV4State(rx.State):
         )
 
 
-def title(name: str) -> rx.Component:
+def title(
+    name: str,
+) -> rx.Component:
     return rx.text(name, size="1", weight="bold", color=rx.color("slate", 11))
 
 
@@ -37,7 +48,9 @@ def tip() -> rx.Component:
     )
 
 
-def entry(placeholder: str) -> rx.Component:
+def entry(
+    placeholder: str,
+) -> rx.Component:
     return rx.input(
         tip(),
         placeholder=placeholder,

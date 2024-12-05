@@ -3,7 +3,13 @@ import reflex as rx
 from .style import ThumbnailStyle
 
 
-def pantry_thumbnail(path: str, image: str, title: str, quantity: str, **kwargs):
+def pantry_thumbnail(
+    path: str,
+    image: str,
+    title: str,
+    quantity: str,
+    **kwargs,
+):
 
     return rx.link(
         rx.vstack(

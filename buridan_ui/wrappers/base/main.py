@@ -19,7 +19,11 @@ from .utils.navigation import (
 from .utils.routes import base_content_path_ui
 
 
-def base_footer_responsive(component: rx.Component, start: str, end: str):
+def base_footer_responsive(
+    component: rx.Component,
+    start: str,
+    end: str,
+):
     return rx.box(
         component,
         display=[start if i <= 3 else end for i in range(6)],
@@ -27,9 +31,14 @@ def base_footer_responsive(component: rx.Component, start: str, end: str):
     )
 
 
-def base(url: str, page_name: str):
+def base(
+    url: str,
+    page_name: str,
+):
 
-    def decorator(content: Callable[[], list[rx.Component]]):
+    def decorator(
+        content: Callable[[], list[rx.Component]],
+    ):
         @wraps(content)
         def template():
             contents = content()
