@@ -23,7 +23,9 @@ class TestAnimationComponent(unittest.TestCase):
         for child in component.children:
             assert isinstance(child, rx.Component), f"{child} is not a Reflex component"
 
-    def test_all_animations(self) -> None:
+    def test_all_animations(
+        self,
+    ) -> None:
         """Dynamically test all animation versions."""
         # You can dynamically load animation functions based on the versioned imports
         animation_versions = [

@@ -53,7 +53,9 @@ class Table(rx.State):
     number_of_rows: int = len(main_data)
     total_pages: int = (number_of_rows + current_limit - 1) // current_limit
 
-    def paginate(self) -> None:
+    def paginate(
+        self,
+    ) -> None:
         start = self.offset
         end = start + self.current_limit
         self.paginated_data = self.main_data[start:end]
@@ -67,7 +69,9 @@ class Table(rx.State):
         ) // self.current_limit
         self.paginate()
 
-    def previous(self) -> None:
+    def previous(
+        self,
+    ) -> None:
         if self.offset >= self.current_limit:
             self.offset -= self.current_limit
         else:
@@ -75,7 +79,9 @@ class Table(rx.State):
 
         self.paginate()
 
-    def next(self) -> None:
+    def next(
+        self,
+    ) -> None:
         if self.offset + self.current_limit < self.number_of_rows:
             self.offset += self.current_limit
 

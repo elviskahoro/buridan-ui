@@ -44,7 +44,9 @@ class Numbers(rx.State):
             yield
             await asyncio.sleep(0.061)
 
-    async def run_numbers(self):
+    async def run_numbers(
+        self,
+    ):
         self.is_disabled = True
         yield
         tasks = [self.show_number(number) for number in number_list]

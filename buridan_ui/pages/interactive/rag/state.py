@@ -55,11 +55,15 @@ class State(rx.State):
 
         self.data[info[0]] = info[1]
 
-    async def check_form_if_complete(self) -> bool:
+    async def check_form_if_complete(
+        self,
+    ) -> bool:
         return len(self.data) == 8
 
     @rx.var
-    def track_profil_stat_changes(self) -> dict[str, str]:
+    def track_profil_stat_changes(
+        self,
+    ) -> dict[str, str]:
         if chat_session.history:
             chat_session.history.pop(0)
 
@@ -75,7 +79,9 @@ class State(rx.State):
 
         return self.data
 
-    async def send_prompt(self):
+    async def send_prompt(
+        self,
+    ):
         if self.prompt:
 
             self.is_generating = True

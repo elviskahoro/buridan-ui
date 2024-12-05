@@ -37,7 +37,9 @@ class PubMedState(rx.State):
 
     summary: str
 
-    async def generate_abstract_summary(self):
+    async def generate_abstract_summary(
+        self,
+    ):
         if self.selection:
             self.is_generating = True
             yield
@@ -59,7 +61,9 @@ class PubMedState(rx.State):
 
         self.is_generating = False
 
-    async def process_request(self):
+    async def process_request(
+        self,
+    ):
         self.articles, self.selection, self.summary = [], [], ""
         self.is_processing = True
         self.loader_txt = f"Searching for articles related to '{self.user_query}'..."

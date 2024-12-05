@@ -88,7 +88,9 @@ class SiteRoutingState(rx.State):
                 index["border_left"] = passive["border_left"]
                 index["background"] = passive["background"]
 
-    async def update_navigation_route(self) -> None:
+    async def update_navigation_route(
+        self,
+    ) -> None:
         # Loop through the navigation routes to highlight the active page
         for index in self.NavigationRoutes:
             # Check if the current page is part of the route path

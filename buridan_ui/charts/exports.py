@@ -40,7 +40,9 @@ from .radar.v6 import radar_v6
 BASE_PATH: str = "https://github.com/LineIndent/buridan-ui/blob/main/buridan_ui/charts/"
 
 
-def get_source(func) -> str:
+def get_source(
+    func,
+) -> str:
     source: str = ""
     with open("buridan_ui/charts/style.py") as file:
         source += file.read()

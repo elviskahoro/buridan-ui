@@ -11,14 +11,20 @@ BASE_PATH: str = (
 )
 
 
-def get_source(directory: str, filename: str):
+def get_source(
+    directory: str,
+    filename: str,
+):
     with open(
         os.path.join("buridan_ui", "blueprints", directory, filename),
     ) as file:
         return file.read()
 
 
-def create_export(func, directory):
+def create_export(
+    func,
+    directory,
+):
 
     @blueprint_app_wrapper(f"{BASE_PATH}{directory}")
     def export():

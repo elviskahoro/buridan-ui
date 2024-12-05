@@ -11,7 +11,9 @@ from .style import SideMenuStyle
 
 def create_sidebar_menu_items(routes: list[dict[str, str | Color]]):
 
-    def item(data):
+    def item(
+        data,
+    ):
         return rx.hstack(
             rx.link(
                 rx.text(

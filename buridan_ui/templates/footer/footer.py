@@ -6,7 +6,9 @@ from .style import FooterStyle
 
 
 def create_footer_item(title: str, routes: list[dict[str, str]]):
-    def item(data):
+    def item(
+        data,
+    ):
         return rx.hstack(
             rx.link(
                 rx.text(

@@ -25,7 +25,10 @@ app = rx.App(
 )
 
 
-def get_exports(directory: str, config_file: dict[str, list[callable]]):
+def get_exports(
+    directory: str,
+    config_file: dict[str, list[callable]],
+):
     return [export() for export in config_file[directory]]
 
 

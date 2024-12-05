@@ -58,7 +58,9 @@ class SandboxAuthState(rx.State):
     accountNumber: str
 
     @rx.event
-    async def can_copy_account_number(self) -> rx.event:
+    async def can_copy_account_number(
+        self,
+    ) -> rx.event:
         if self.accountNumber:
             yield rx.set_clipboard(self.accountNumber)
             yield rx.toast.info("Copied account number.")
@@ -74,7 +76,9 @@ class SandboxAuthState(rx.State):
             await asyncio.sleep(0.061)
 
     @rx.event
-    async def run_animation_task(self) -> AsyncGenerator:
+    async def run_animation_task(
+        self,
+    ) -> AsyncGenerator:
         self.authGenButton = AuthDynamicStyle.active
         yield
         tasks = [self.run_number_animation(number) for number in numberList]

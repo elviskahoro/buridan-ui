@@ -72,7 +72,9 @@ class AnimationState(rx.State):
 
     runner: dict[str, str] = {}
 
-    async def run_animation(self):
+    async def run_animation(
+        self,
+    ):
         self.is_disabled = True
         yield
 
@@ -88,7 +90,9 @@ class AnimationState(rx.State):
         await self.stop_animation()
         self.is_disabled = False
 
-    async def stop_animation(self) -> None:
+    async def stop_animation(
+        self,
+    ) -> None:
         self.reset()
         self.runner = {}
 

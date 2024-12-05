@@ -45,7 +45,9 @@ class Animation(rx.State):
     animate: dict[str, str] = {}
     is_disabled: bool = False
 
-    async def run_animation(self):
+    async def run_animation(
+        self,
+    ):
         if self.is_disabled:  # Prevent running if already animating
             return
 

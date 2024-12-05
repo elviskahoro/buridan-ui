@@ -8,6 +8,8 @@ class HeroLandingState(rx.State):
 
     component: dict[str, str] = passive_component
 
-    def on_hero_page_load(self) -> None:
+    def on_hero_page_load(
+        self,
+    ) -> None:
         self.reset()
         self.component = active_component

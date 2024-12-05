@@ -25,7 +25,9 @@ class ComponentWrapperState(rx.State):
         self.selected_theme = color
         self.default_theme = color_map[color]
 
-    async def toggle_icon(self):
+    async def toggle_icon(
+        self,
+    ):
         self.default_icon = False
         yield
         await asyncio.sleep(1)
