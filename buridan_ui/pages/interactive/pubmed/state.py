@@ -1,12 +1,10 @@
 import asyncio
+import os
 from xml.etree import ElementTree as ET
-import reflex as rx
-import httpx
 
 import google.generativeai as genai
-
-import os
-
+import httpx
+import reflex as rx
 
 key = os.getenv("KEY")
 genai.configure(api_key=key)
@@ -39,7 +37,9 @@ class PubMedState(rx.State):
 
     summary: str
 
-    async def generate_abstract_summary(self):
+    async def generate_abstract_summary(
+        self,
+    ):
         if self.selection:
             self.is_generating = True
             yield
@@ -61,7 +61,9 @@ class PubMedState(rx.State):
 
         self.is_generating = False
 
-    async def process_request(self):
+    async def process_request(
+        self,
+    ):
         self.articles, self.selection, self.summary = [], [], ""
         self.is_processing = True
         self.loader_txt = f"Searching for articles related to '{self.user_query}'..."
@@ -80,7 +82,7 @@ class PubMedState(rx.State):
                         "date": article["pubdate"],
                         "url": article["url"],
                         "abstract": article["abstract"],
-                    }
+                    },
                 )
 
         else:
@@ -88,7 +90,11 @@ class PubMedState(rx.State):
 
         self.is_processing = False
 
-    async def search_pubmed(self, query, max_results=10):
+    async def search_pubmed(
+        self,
+        query,
+        max_results=10,
+    ):
         base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esearch.fcgi"
         params = {
             "db": "pubmed",
@@ -102,11 +108,13 @@ class PubMedState(rx.State):
             if response.status_code == 200:
                 result = response.json()
                 return result["esearchresult"]["idlist"]
-            else:
-                print("Error:", response.status_code)
-                return []
+            print("Error:", response.status_code)
+            return []
 
-    async def fetch_article_details(self, pmids):
+    async def fetch_article_details(
+        self,
+        pmids,
+    ):
         base_url = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
         params = {
             "db": "pubmed",
@@ -135,16 +143,20 @@ class PubMedState(rx.State):
                             "abstract": abstract,
                             "pubdate": pubdate,
                             "url": url,
-                        }
+                        },
                     )
                 return articles
-            else:
-                print("Error:", response.status_code)
-                return []
+            print("Error:", response.status_code)
+            return []
 
-    async def compile_selected_article(self, state: bool, identifier: str):
+    async def compile_selected_article(
+        self,
+        state: bool,
+        identifier: str,
+    ) -> None:
         article = next(
-            (item for item in self.articles if item["id"] == identifier), None
+            (item for item in self.articles if item["id"] == identifier),
+            None,
         )
         if self.articles:
             article_copy = dict(article)

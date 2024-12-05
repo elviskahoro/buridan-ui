@@ -1,15 +1,24 @@
 import reflex as rx
 
+from buridan_ui.states.routing import SiteRoutingState
+
 from .style import FooterStyle
-from ...states.routing import SiteRoutingState
 
 
-def create_footer_item(title: str, routes: list[dict[str, str]]):
-    def item(data):
+def create_footer_item(
+    title: str,
+    routes: list[dict[str, str]],
+):
+    def item(
+        data,
+    ):
         return rx.hstack(
             rx.link(
                 rx.text(
-                    data["name"], size="1", weight="medium", color=rx.color("slate", 11)
+                    data["name"],
+                    size="1",
+                    weight="medium",
+                    color=rx.color("slate", 11),
                 ),
                 href=data["path"],
                 text_decoration="none",
@@ -41,7 +50,8 @@ def footer():
     return rx.vstack(
         create_footer_item("Home", SiteRoutingState.GettingStartedRoutes),
         create_footer_item(
-            "Interactive Applications", SiteRoutingState.InteractiveRoutes
+            "Interactive Applications",
+            SiteRoutingState.InteractiveRoutes,
         ),
         create_footer_item("Blueprint Templates", SiteRoutingState.BlueprintRoutes),
         create_footer_item("Charts UI", SiteRoutingState.ChartRoutes),

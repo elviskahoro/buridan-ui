@@ -1,20 +1,25 @@
-import reflex as rx
+from __future__ import annotations
 
-from typing import Callable, List
 from functools import wraps
+from typing import Callable
 
+import reflex as rx
 from reflex.components.datadisplay.code import Theme
 
+from buridan_ui.wrappers.shared.responsive import component_wrapper_responsive_menu
+from buridan_ui.wrappers.shared.scheme import component_wrapper_color_scheme
+from buridan_ui.wrappers.shared.source import component_wrapper_source_code
+from buridan_ui.wrappers.shared.tabs import component_wrapper_tab_menu
 from buridan_ui.wrappers.state import ComponentWrapperState
+
 from .style import ComponentWrapperStyle, InnerCode
 
-from buridan_ui.wrappers.shared.tabs import component_wrapper_tab_menu
-from buridan_ui.wrappers.shared.responsive import component_wrapper_responsive_menu
-from buridan_ui.wrappers.shared.source import component_wrapper_source_code
-from buridan_ui.wrappers.shared.scheme import component_wrapper_color_scheme
 
-
-def component_wrapper_menu_bar(has_theme: bool, component_id: int, path: str):
+def component_wrapper_menu_bar(
+    has_theme: bool,
+    component_id: int,
+    path: str,
+):
     return rx.hstack(
         rx.hstack(
             (component_wrapper_color_scheme() if has_theme else rx.spacer()),
@@ -44,7 +49,9 @@ def component_wrapper_menu_bar(has_theme: bool, component_id: int, path: str):
     )
 
 
-def component_wrapper_menu_bar_no_code(path: str):
+def component_wrapper_menu_bar_no_code(
+    path: str,
+):
     return rx.hstack(
         rx.badge("Responsive UI", size="1", variant="surface"),
         component_wrapper_source_code(path),
@@ -54,7 +61,10 @@ def component_wrapper_menu_bar_no_code(path: str):
     )
 
 
-def component_wrapper_preview_content(component: rx.Component, component_id: int):
+def component_wrapper_preview_content(
+    component: rx.Component,
+    component_id: int,
+):
     return rx.tabs.content(
         rx.vstack(
             component,
@@ -97,8 +107,13 @@ def component_wrapper_code_base(
     )
 
 
-def component_wrapper(path: str, has_theme: bool = False):
-    def decorator(func: Callable[[], List[rx.Component | str | int]]):
+def component_wrapper(
+    path: str,
+    has_theme: bool = False,
+):
+    def decorator(
+        func: Callable[[], list[rx.Component | str | int]],
+    ):
         @wraps(func)
         def wrapper():
             component, component_code, component_id = func()

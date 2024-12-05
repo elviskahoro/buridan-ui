@@ -18,7 +18,9 @@ statement = rx.text(
 )
 
 
-def create_card_specs(description: str):
+def create_card_specs(
+    description: str,
+):
     return rx.hstack(
         rx.icon(tag="check", size=14),
         rx.text(

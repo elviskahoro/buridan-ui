@@ -1,13 +1,19 @@
 import reflex as rx
 
 from buridan_ui.wrappers.state import ComponentWrapperState
+
 from .style import ComponentWrapperUtilStyle
 
 IconMap = {"100%": "monitor", "60%": "tablet", "30%": "smartphone"}
 PaddingMap = {0: "6px 0px 0px 6px", 1: "0px", 2: "0px 6px 6px 0px"}
 
 
-def _(index: int, icon: str, resize: str, idd: int):
+def _(
+    index: int,
+    icon: str,
+    resize: str,
+    idd: int,
+):
     return rx.hover_card.root(
         rx.hover_card.trigger(
             rx.button(
@@ -35,7 +41,9 @@ def _(index: int, icon: str, resize: str, idd: int):
     )
 
 
-def component_wrapper_responsive_menu(idd: int) -> rx.hstack:
+def component_wrapper_responsive_menu(
+    idd: int,
+) -> rx.hstack:
     return rx.hstack(
         *[
             _(index, IconMap[resize], resize, idd)
@@ -47,7 +55,9 @@ def component_wrapper_responsive_menu(idd: int) -> rx.hstack:
     )
 
 
-def component_wrapper_responsive_menu_hero(idd: int) -> rx.hstack:
+def component_wrapper_responsive_menu_hero(
+    idd: int,
+) -> rx.hstack:
     return rx.hstack(
         *[
             _(index, IconMap[resize], resize, idd)

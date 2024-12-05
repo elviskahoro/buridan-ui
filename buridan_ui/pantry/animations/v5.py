@@ -1,7 +1,7 @@
-import reflex as rx
+import asyncio
 from random import randint
 
-import asyncio
+import reflex as rx
 
 number_list: list[str] = [
     "one",
@@ -37,14 +37,19 @@ class Numbers(rx.State):
     eleven: str = "_"
     twelve: str = "_"
 
-    async def show_number(self, place_name: str):
+    async def show_number(
+        self,
+        place_name: str,
+    ):
         for _ in range(35):
             number = str(randint(0, 9))
             setattr(self, place_name, number)
             yield
             await asyncio.sleep(0.061)
 
-    async def run_numbers(self):
+    async def run_numbers(
+        self,
+    ):
         self.is_disabled = True
         yield
         tasks = [self.show_number(number) for number in number_list]
@@ -79,5 +84,5 @@ def animation_v5():
         height="30vh",
         align="center",
         justify="center",
-        position="relative"
+        position="relative",
     )

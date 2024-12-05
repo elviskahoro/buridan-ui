@@ -1,14 +1,15 @@
-from typing import Callable
-
 import reflex as rx
+
+from buridan_ui.routes.routes import ChartRoutes, PantryRoutes
 
 from .style import ChangelogStyle
 
-from ...routes.routes import PantryRoutes, ChartRoutes
 
-info: Callable[[str, any], rx.Component] = lambda txt, *args: rx.text(
-    txt, size="2", color=rx.color("slate", 11), *args
-)
+def info(
+    txt: str,
+    *args,
+) -> rx.Component:
+    return rx.text(txt, size="2", color=rx.color("slate", 11), *args)
 
 
 def blip():
@@ -18,7 +19,11 @@ def blip():
     )
 
 
-def wrapper(title: str, date: str, components: list[rx.Component] = []):
+def wrapper(
+    title: str,
+    date: str,
+    components: list[rx.Component] = [],
+):
     return rx.hstack(
         rx.vstack(
             rx.vstack(
@@ -36,7 +41,10 @@ def wrapper(title: str, date: str, components: list[rx.Component] = []):
     )
 
 
-def changelog_badge(tag: str, text: str):
+def changelog_badge(
+    tag: str,
+    text: str,
+):
     return rx.hstack(
         rx.box(
             rx.icon(tag=tag, size=14),
@@ -58,7 +66,9 @@ def changelog_badge(tag: str, text: str):
     )
 
 
-def create_pantry_links(item_list: list[dict[str, str]]):
+def create_pantry_links(
+    item_list: list[dict[str, str]],
+):
     return rx.vstack(
         *[
             rx.link(
@@ -79,7 +89,10 @@ def create_pantry_links(item_list: list[dict[str, str]]):
     )
 
 
-def create_link(name: str, path: str):
+def create_link(
+    name: str,
+    path: str,
+):
     return rx.link(
         rx.text(
             name,
@@ -118,7 +131,7 @@ def changelog():
                     [
                         info("New blueprint items: Dashboards & Layouts."),
                         info(
-                            "Major code refactoring for pantry, charts, and blueprint wrappers."
+                            "Major code refactoring for pantry, charts, and blueprint wrappers.",
                         ),
                         changelog_badge("party-popper", "buridan/ui v0.3.4"),
                     ],
@@ -128,7 +141,7 @@ def changelog():
                     "November 20, 2024",
                     [
                         info(
-                            "Blueprints templates consist of in-depth, more well-rounded apps that can be used out of the box with minor changes."
+                            "Blueprints templates consist of in-depth, more well-rounded apps that can be used out of the box with minor changes.",
                         ),
                         rx.link(
                             "Authentication",

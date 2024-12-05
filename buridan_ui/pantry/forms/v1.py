@@ -7,7 +7,10 @@ services = [
 ]
 
 
-def item_and_title(title: str, placeholder: str):
+def item_and_title(
+    title: str,
+    placeholder: str,
+):
     return rx.vstack(
         rx.text(title, font_size="11px", weight="medium", color_scheme="gray"),
         rx.input(placeholder=placeholder, width="100%"),
@@ -16,7 +19,9 @@ def item_and_title(title: str, placeholder: str):
     )
 
 
-def check_box_item(name: str):
+def check_box_item(
+    name: str,
+):
     return rx.box(rx.checkbox(name), width="100%")
 
 

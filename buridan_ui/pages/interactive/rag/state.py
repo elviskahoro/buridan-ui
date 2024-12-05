@@ -1,10 +1,8 @@
 import asyncio
-
-import reflex as rx
-import google.generativeai as genai
-
 import os
 
+import google.generativeai as genai
+import reflex as rx
 
 key = os.getenv("KEY")
 genai.configure(api_key=key)
@@ -45,10 +43,16 @@ class State(rx.State):
     # ... other chat vars
     is_generating: bool = False
 
-    async def set_units(self, unit: str):
+    async def set_units(
+        self,
+        unit: str,
+    ) -> None:
         self.selected_unit = unit
 
-    async def set_profile_stats(self, info: list[str]):
+    async def set_profile_stats(
+        self,
+        info: list[str],
+    ) -> None:
         self.data["height"], self.data["weight"], self.data["age"] = (
             self.height + self.units[self.selected_unit]["height"],
             self.weight + self.units[self.selected_unit]["weight"],
@@ -57,11 +61,15 @@ class State(rx.State):
 
         self.data[info[0]] = info[1]
 
-    async def check_form_if_complete(self):
-        return True if len(self.data) == 8 else False
+    async def check_form_if_complete(
+        self,
+    ) -> bool:
+        return len(self.data) == 8
 
     @rx.var
-    def track_profil_stat_changes(self) -> dict[str, str]:
+    def track_profil_stat_changes(
+        self,
+    ) -> dict[str, str]:
         if chat_session.history:
             chat_session.history.pop(0)
 
@@ -70,14 +78,16 @@ class State(rx.State):
             {
                 "role": "user",
                 "parts": [
-                    f"Take into account the following details when generating your answer {self.data}"
+                    f"Take into account the following details when generating your answer {self.data}",
                 ],
             },
         )
 
         return self.data
 
-    async def send_prompt(self):
+    async def send_prompt(
+        self,
+    ):
         if self.prompt:
 
             self.is_generating = True
@@ -99,6 +109,9 @@ class State(rx.State):
             self.prompt = ""
             self.is_generating = False
 
-    async def send_message_to_chat(self, message):
+    async def send_message_to_chat(
+        self,
+        message,
+    ):
         response = chat_session.send_message(message)
         return response.text

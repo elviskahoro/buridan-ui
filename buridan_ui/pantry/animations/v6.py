@@ -1,7 +1,7 @@
-from typing import Callable
 import asyncio
-import reflex as rx
 from dataclasses import dataclass, field
+
+import reflex as rx
 
 
 @dataclass
@@ -38,17 +38,17 @@ class AnimationStyle:
             "cursor": "pointer",
             "position": "absolute",
             "border_radius": "0px 0px 0px 8px",
-        }
+        },
     )
 
     dash_animation: dict[str, str] = field(
         default_factory=lambda: {
-            "@keyframes drop": {"0%": {"top": "-50%"}, "100%": {"top": "100%"}}
-        }
+            "@keyframes drop": {"0%": {"top": "-50%"}, "100%": {"top": "100%"}},
+        },
     )
 
     text: dict[str, str] = field(
-        default_factory=lambda: {"size": "1", "weight": "bold"}
+        default_factory=lambda: {"size": "1", "weight": "bold"},
     )
 
 
@@ -72,7 +72,9 @@ class AnimationState(rx.State):
 
     runner: dict[str, str] = {}
 
-    async def run_animation(self):
+    async def run_animation(
+        self,
+    ):
         self.is_disabled = True
         yield
 
@@ -88,7 +90,9 @@ class AnimationState(rx.State):
         await self.stop_animation()
         self.is_disabled = False
 
-    async def stop_animation(self):
+    async def stop_animation(
+        self,
+    ) -> None:
         self.reset()
         self.runner = {}
 
@@ -96,7 +100,9 @@ class AnimationState(rx.State):
 dash = rx.box(**AnimationStyle.dash, style=AnimationState.runner)
 
 
-def blip(delay: int):
+def blip(
+    delay: int,
+):
 
     return rx.badge(
         "-",
@@ -115,8 +121,13 @@ def blip(delay: int):
     )
 
 
-wrapper: Callable[[str, str, str, int], rx.box] = (
-    lambda issue, response, posY, delay: rx.box(
+def wrapper(
+    issue: str,
+    response: str,
+    posY: str,
+    delay: int,
+) -> rx.box:
+    return rx.box(
         rx.hstack(
             rx.vstack(
                 rx.vstack(
@@ -151,7 +162,6 @@ wrapper: Callable[[str, str, str, int], rx.box] = (
         ),
         position="relative",
     )
-)
 
 
 def animation_v6():

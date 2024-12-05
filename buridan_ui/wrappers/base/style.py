@@ -24,7 +24,7 @@ class BaseWrapperStyle:
             "overflow": "auto",
             "scrollbar_width": "thin",
             "background": rx.color("slate", 2),
-        }
+        },
     )
 
     content: dict[str, str] = field(
@@ -35,7 +35,7 @@ class BaseWrapperStyle:
             "padding": "54px 0px 0px 0px",
             "position": "relative",
             "transition": "all 350ms ease",
-        }
+        },
     )
 
     header: dict[str, str] = field(
@@ -47,7 +47,7 @@ class BaseWrapperStyle:
             "align": "center",
             "min_height": "25vh",
             "justify": "center",
-        }
+        },
     )
 
     background: dict[str, str] = field(
@@ -64,7 +64,7 @@ class BaseWrapperStyle:
             "top": "0",
             "left": "0",
             "z_index": "-2",
-        }
+        },
     )
 
 

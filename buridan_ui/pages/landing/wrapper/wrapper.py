@@ -1,24 +1,38 @@
-from typing import Literal, Callable
+from typing import Literal
 
 import reflex as rx
-from ....states.routing import SiteRoutingState
-from .style import LandingPageSectionWrapperStyle, LandingPageButtons
+
+from buridan_ui.states.routing import SiteRoutingState
+
+from .style import LandingPageButtons, LandingPageSectionWrapperStyle
 
 ButtonStyle = Literal["classic", "ghost", "outline", "soft", "solid", "surface"]
 KeyDisplay = ["none" if i <= 2 else "flex" for i in range(6)]
 
-button: Callable[[str, str, ButtonStyle, callable], rx.Component] = (
-    lambda tag, name, style, func: rx.button(
+
+def button(
+    tag: str,
+    name: str,
+    style: ButtonStyle,
+    func: callable,
+) -> rx.Component:
+    return rx.button(
         rx.icon(tag=tag, size=18),
         rx.text(name, size="2", weight="bold"),
         on_click=func,
         variant=style,
         **LandingPageButtons.base,
     )
-)
 
-button_with_key: Callable[[str, str, str, ButtonStyle, callable], rx.Component] = (
-    lambda tag, cmd, name, style, func: rx.button(
+
+def button_with_key(
+    tag: str,
+    cmd: str,
+    name: str,
+    style: ButtonStyle,
+    func: callable,
+) -> rx.Component:
+    return rx.button(
         rx.icon(tag=tag, size=18),
         rx.text(name, size="2", weight="bold"),
         rx.badge(
@@ -33,7 +47,6 @@ button_with_key: Callable[[str, str, str, ButtonStyle, callable], rx.Component] 
         variant=style,
         **LandingPageButtons.base,
     )
-)
 
 
 def landing_page_section_wrapper(
@@ -59,7 +72,10 @@ def landing_page_section_wrapper(
     )
 
 
-def landing_page_section_wrapper_main(title: str, subtitle: str) -> rx.vstack:
+def landing_page_section_wrapper_main(
+    title: str,
+    subtitle: str,
+) -> rx.vstack:
     return rx.vstack(
         # ... badge, title, subtitle, and link
         rx.vstack(
@@ -76,7 +92,7 @@ def landing_page_section_wrapper_main(title: str, subtitle: str) -> rx.vstack:
                     "Explore Pantry",
                     "solid",
                     SiteRoutingState.toggle_page_change(
-                        {"name": "Animations", "path": "/pantry/animations"}
+                        {"name": "Animations", "path": "/pantry/animations"},
                     ),
                 ),
                 button(
@@ -99,12 +115,17 @@ def landing_page_section_wrapper_main(title: str, subtitle: str) -> rx.vstack:
     )
 
 
-def blip(tag: str) -> rx.box:
+def blip(
+    tag: str,
+) -> rx.box:
     return rx.box(rx.icon(tag=tag, size=12), **LandingPageSectionWrapperStyle.blip)
 
 
 def landing_page_features_wrapper(
-    subtitle: str, title: str, tag: str, components: list[rx.Component] = []
+    subtitle: str,
+    title: str,
+    tag: str,
+    components: list[rx.Component] = [],
 ) -> rx.hstack:
     return rx.hstack(
         rx.vstack(

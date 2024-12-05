@@ -1,4 +1,5 @@
 import asyncio
+
 import reflex as rx
 from reflex.constants.colors import Color
 
@@ -20,15 +21,24 @@ class ComponentWrapperState(rx.State):
     default_theme: dict[int, Color] = color_map["blue"]
     selected_theme: rx.Field[str] = rx.field("blue")
 
-    async def toggle_theme(self, color: str):
+    async def toggle_theme(
+        self,
+        color: str,
+    ) -> None:
         self.selected_theme = color
         self.default_theme = color_map[color]
 
-    async def toggle_icon(self):
+    async def toggle_icon(
+        self,
+    ):
         self.default_icon = False
         yield
         await asyncio.sleep(1)
         self.default_icon = True
 
-    def resize(self, uuid: int, size: str):
+    def resize(
+        self,
+        uuid: int,
+        size: str,
+    ) -> None:
         self.uuid[uuid] = size

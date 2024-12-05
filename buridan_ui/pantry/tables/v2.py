@@ -47,13 +47,18 @@ class Table(rx.State):
     }
 
 
-def create_data_row(data: dict[str, str]):
+def create_data_row(
+    data: dict[str, str],
+):
     return rx.table.row(
         rx.table.cell(
             rx.hstack(
                 rx.avatar(src=data["avatar"], size="1"),
                 rx.text(
-                    data["name"], color_scheme="gray", font_size="11px", weight="medium"
+                    data["name"],
+                    color_scheme="gray",
+                    font_size="11px",
+                    weight="medium",
                 ),
                 align="center",
             ),
@@ -68,11 +73,14 @@ def create_data_row(data: dict[str, str]):
                 font_size="11px",
                 _hover={"text_decoration_line": "underline"},
                 cursor="pointer",
-            )
+            ),
         ),
         rx.table.cell(
             rx.text(
-                data["phone"], color_scheme="gray", font_size="11px", weight="regular"
+                data["phone"],
+                color_scheme="gray",
+                font_size="11px",
+                weight="regular",
             ),
         ),
         rx.table.cell(rx.icon(tag="pencil", size=13, color="gray")),
@@ -89,9 +97,9 @@ def tables_v2():
                 rx.foreach(
                     ["Employee", "Job Title", "Email", "Phone", "", ""],
                     lambda title: rx.table.column_header_cell(
-                        rx.text(title, font_size="12px", weight="bold")
+                        rx.text(title, font_size="12px", weight="bold"),
                     ),
-                )
+                ),
             ),
         ),
         rx.table.body(

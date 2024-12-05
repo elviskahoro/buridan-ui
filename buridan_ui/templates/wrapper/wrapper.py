@@ -1,16 +1,21 @@
 import reflex as rx
 
-from typing import Callable
-from .style import MenuWrapperStyle, BaseHeaderWrapper
+from .style import BaseHeaderWrapper, MenuWrapperStyle
 
 
-def menu_wrapper(title: str, components: list[rx.Component] = []):
+def menu_wrapper(
+    title: str,
+    components: list[rx.Component] = [],
+):
     return rx.hstack(
         rx.vstack(
             rx.vstack(
                 rx.hstack(
                     rx.text(
-                        title, size="1", weight="bold", color=rx.color("slate", 11)
+                        title,
+                        size="1",
+                        weight="bold",
+                        color=rx.color("slate", 11),
                     ),
                     align="center",
                 ),
@@ -23,8 +28,11 @@ def menu_wrapper(title: str, components: list[rx.Component] = []):
     )
 
 
-baseWrapperHeader: Callable[[rx.Component, str], rx.Component] = (
-    lambda path_name, title: rx.vstack(
+def baseWrapperHeader(
+    path_name: rx.Component,
+    title: str,
+) -> rx.Component:
+    return rx.vstack(
         rx.vstack(
             path_name,
             rx.heading(title, font_weight="900", size="9"),
@@ -38,4 +46,3 @@ baseWrapperHeader: Callable[[rx.Component, str], rx.Component] = (
         min_height="35vh",
         **BaseHeaderWrapper.wrapper,
     )
-)

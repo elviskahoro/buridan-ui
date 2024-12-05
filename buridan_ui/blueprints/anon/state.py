@@ -1,13 +1,12 @@
-from typing import List, AsyncGenerator
+import asyncio
+from collections.abc import AsyncGenerator
 from random import randint
+
+import reflex as rx
 
 from .style import AuthDynamicStyle
 
-import asyncio
-import reflex as rx
-
-
-numberList: List[str] = [
+numberList: list[str] = [
     "one",
     "two",
     "three",
@@ -59,7 +58,9 @@ class SandboxAuthState(rx.State):
     accountNumber: str
 
     @rx.event
-    async def can_copy_account_number(self) -> rx.event:
+    async def can_copy_account_number(
+        self,
+    ) -> rx.event:
         if self.accountNumber:
             yield rx.set_clipboard(self.accountNumber)
             yield rx.toast.info("Copied account number.")
@@ -67,7 +68,10 @@ class SandboxAuthState(rx.State):
         else:
             yield rx.toast.warning("No account number generated yet.")
 
-    async def run_number_animation(self, place_name: str):
+    async def run_number_animation(
+        self,
+        place_name: str,
+    ):
         for _ in range(35):
             number = str(randint(0, 9))
             setattr(self, place_name, number)
@@ -75,7 +79,9 @@ class SandboxAuthState(rx.State):
             await asyncio.sleep(0.061)
 
     @rx.event
-    async def run_animation_task(self) -> AsyncGenerator:
+    async def run_animation_task(
+        self,
+    ) -> AsyncGenerator:
         self.authGenButton = AuthDynamicStyle.active
         yield
         tasks = [self.run_number_animation(number) for number in numberList]

@@ -1,7 +1,10 @@
 import reflex as rx
 
 
-def text_wrapper(title: str, description: str):
+def text_wrapper(
+    title: str,
+    description: str,
+):
     return rx.vstack(
         rx.hstack(
             rx.text(

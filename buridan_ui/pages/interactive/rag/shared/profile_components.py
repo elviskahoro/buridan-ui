@@ -2,11 +2,9 @@ from typing import Callable
 
 import reflex as rx
 
-
-from .style import ProfileComponentStyle
-from ..style import Typography
-
 from ..state import State
+from ..style import Typography
+from .style import ProfileComponentStyle
 
 
 def profile_item_unit():
@@ -19,7 +17,11 @@ def profile_item_unit():
     )
 
 
-def profile_item_physical_stats(value: str, unit: str, fn: Callable):
+def profile_item_physical_stats(
+    value: str,
+    unit: str,
+    fn: Callable,
+):
 
     return rx.hstack(
         rx.input(
@@ -39,7 +41,10 @@ def profile_item_physical_stats(value: str, unit: str, fn: Callable):
     )
 
 
-def profile_item_activity_stats(title: str, options: list[str]):
+def profile_item_activity_stats(
+    title: str,
+    options: list[str],
+):
 
     return rx.vstack(
         rx.text(title, size="1", weight="bold", **Typography.passive),
