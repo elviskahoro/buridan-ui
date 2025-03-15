@@ -59,6 +59,8 @@ ChartRoutes = sorted(
         {"name": "Line Charts", "path": f"{_C}line-charts", "dir": "line"},
         {"name": "Pie Charts", "path": f"{_C}pie-charts", "dir": "pie"},
         {"name": "Radar Charts", "path": f"{_C}radar-charts", "dir": "radar"},
+        {"name": "Scatter Charts", "path": f"{_C}scatter-charts", "dir": "scatter"},
+        {"name": "Doughnut Charts", "path": f"{_C}doughnut-charts", "dir": "doughnut"},
     ],
     key=lambda x: x["name"],
 )

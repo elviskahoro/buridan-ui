@@ -45,6 +45,8 @@ class ExportConfig:
             "line": {"versions": range(1, 8), "func_prefix": "linechart"},
             "pie": {"versions": range(1, 7), "func_prefix": "piechart"},
             "radar": {"versions": range(1, 7), "func_prefix": "radar"},
+            "scatter": {"versions": [1], "func_prefix": "scatterchart"},
+            "doughnut": {"versions": range(1, 3), "func_prefix": "doughnutchart"},
         }
 
         # Grid configurations
