@@ -12,10 +12,33 @@ def component_wrapper(path: str):
     def decorator(func: Callable[[], list[rx.Component | str | int]]):
         @wraps(func)
         def wrapper():
-            component, component_code = func()
+            component, component_code, flexgen_path = func()
 
             return rx.box(
                 rx.box(
+                    (
+                        rx.box(
+                            rx.el.label(
+                                "Flexgen ",
+                                class_name="text-sm font-medium hover:cursor-pointer",
+                            ),
+                            rx.link(
+                                rx.icon(
+                                    tag="external-link",
+                                    size=13,
+                                ),
+                                href=flexgen_path,
+                                is_external=True,
+                                text_cdecoration="none",
+                                color=rx.color("slate", 11),
+                                _hover={"color": rx.color("slate", 12)},
+                            ),
+                            border=f"1px solid {rx.color('gray', 5)}",
+                            class_name="cursor-pointer rounded-lg py-1 px-2 flex items-center justify-center gap-x-3",
+                        )
+                        if flexgen_path
+                        else rx.spacer()
+                    ),
                     rx.box(
                         view_code(component, component_code),
                         button_with_icon(
@@ -32,7 +55,7 @@ def component_wrapper(path: str):
                         class_name="flex align-center gap-2",
                     ),
                     border_bottom=f"0.81px solid {rx.color('gray', 5)}",
-                    class_name="px-4 py-3 w-full flex align-center justify-end shadow-sm",
+                    class_name="px-4 py-3 w-full flex align-center justify-between shadow-sm",
                 ),
                 rx.box(
                     component,

@@ -37,7 +37,11 @@ class ExportConfig:
         # Chart configurations
         self.CHARTS = {
             "bar": {"versions": [1, 2, 3, 4, 5, 6, 7], "func_prefix": "barchart"},
-            "area": {"versions": range(1, 8), "func_prefix": "areachart"},
+            "area": {
+                "versions": range(1, 8),
+                "func_prefix": "areachart",
+                "flexgen": "https://reflex.build/gen/85caad0f-95d1-4180-b4eb-fc72edafdc9a/",
+            },
             "line": {"versions": range(1, 8), "func_prefix": "linechart"},
             "pie": {"versions": range(1, 7), "func_prefix": "piechart"},
             "radar": {"versions": range(1, 7), "func_prefix": "radar"},
@@ -80,7 +84,7 @@ class ExportFactory:
 
     @staticmethod
     def create_pantry_export(
-        directory: str, version: int, func_prefix: str
+        directory: str, version: int, func_prefix: str, flexgen_url: str = ""
     ) -> Callable:
         """Create an export function for a pantry component."""
         # Import the component dynamically
@@ -96,12 +100,18 @@ class ExportFactory:
             return [
                 component_func(),
                 SourceRetriever.pantry_source(directory, f"v{version}.py"),
+                flexgen_url,
             ]
 
         return export
 
     @staticmethod
-    def create_chart_export(directory: str, version: int, func_prefix: str) -> Callable:
+    def create_chart_export(
+        directory: str,
+        version: int,
+        func_prefix: str,
+        flexgen_url: str = "",
+    ) -> Callable:
         """Create an export function for a chart component."""
         # Import the chart component dynamically
         chart_func = ExportFactory._import_component(
@@ -113,7 +123,11 @@ class ExportFactory:
 
         @component_wrapper(f"{BASE_CHART_PATH}{directory}/v{version}.py")
         def export():
-            return [chart_func(), SourceRetriever.chart_source(chart_func)]
+            return [
+                chart_func(),
+                SourceRetriever.chart_source(chart_func),
+                flexgen_url,
+            ]
 
         return export
 

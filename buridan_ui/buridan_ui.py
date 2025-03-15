@@ -1,6 +1,7 @@
 import reflex as rx
 
 from .landing.hero import hero
+from .templates.settings.settings import SiteThemeColor
 from .wrappers.base.main import base
 
 from .start.buridan import buridan
@@ -14,8 +15,12 @@ from buridan_ui.config import SiteTheme, SiteMetaTags
 
 
 app = rx.App(
-    theme=rx.theme(appearance=SiteTheme, accent_color="blue"),
-    style={rx.el.label: {"font_family": "IBM Plex Mono,ui-monospace,monospace"}},
+    theme=rx.theme(appearance=SiteTheme, accent_color=SiteThemeColor.value),
+    style={
+        rx.heading: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
+        rx.text: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
+        rx.el.label: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
+    },
 )
 
 
