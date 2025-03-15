@@ -1,37 +1,16 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
 def barchart_v7():
 
     data = [
-        {
-            "browser": "Chrome",
-            "visitors": 275,
-            "fill": rx.color(ComponentWrapperState.selected_theme, 7),
-        },
-        {
-            "browser": "Safari",
-            "visitors": 200,
-            "fill": rx.color(ComponentWrapperState.selected_theme, 8),
-        },
-        {
-            "browser": "Firefox",
-            "visitors": 187,
-            "fill": rx.color(ComponentWrapperState.selected_theme, 9),
-        },
-        {
-            "browser": "Edge",
-            "visitors": 173,
-            "fill": rx.color(ComponentWrapperState.selected_theme, 10),
-        },
-        {
-            "browser": "Other",
-            "visitors": 90,
-            "fill": rx.color(ComponentWrapperState.selected_theme, 11),
-        },
+        {"browser": "Chrome", "visitors": 275, "fill": rx.color("accent", 7)},
+        {"browser": "Safari", "visitors": 200, "fill": rx.color("accent", 8)},
+        {"browser": "Firefox", "visitors": 187, "fill": rx.color("accent", 9)},
+        {"browser": "Edge", "visitors": 173, "fill": rx.color("accent", 10)},
+        {"browser": "Other", "visitors": 90, "fill": rx.color("accent", 11)},
     ]
 
     return rx.center(

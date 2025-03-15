@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 

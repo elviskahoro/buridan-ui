@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.component.wrapper import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -42,9 +41,9 @@ def radar_v5():
             rx.recharts.radar(
                 data_key="score",
                 dot=True,
-                stroke=ComponentWrapperState.default_theme[0],
+                stroke=rx.color("accent"),
                 custom_attrs={
-                    "fill": ComponentWrapperState.default_theme[1],
+                    "fill": rx.color("accent", 8),
                     "strokeWidth": 2,
                 },
             ),

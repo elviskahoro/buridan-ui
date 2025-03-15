@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -30,8 +29,8 @@ def areachart_v3():
                 ),
                 rx.recharts.area(
                     data_key="desktop",
-                    fill=ComponentWrapperState.default_theme[1],
-                    stroke=ComponentWrapperState.default_theme[2],
+                    fill=rx.color("accent"),
+                    stroke=rx.color("accent", 8),
                     type_="step",
                 ),
                 rx.recharts.x_axis(

@@ -2,7 +2,6 @@ from datetime import datetime
 
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -127,7 +126,7 @@ def barchart_v5():
                 ),
                 rx.recharts.bar(
                     data_key=Chart.current_data,
-                    fill=ComponentWrapperState.default_theme[0],
+                    fill=rx.color("accent"),
                     radius=[2, 2, 0, 0],
                 ),
                 rx.recharts.y_axis(type_="number", hide=True),

@@ -2,7 +2,6 @@ from datetime import datetime
 
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -136,7 +135,8 @@ def linechart_v7():
                 ),
                 rx.recharts.line(
                     data_key=Chart.current_data,
-                    stroke=ComponentWrapperState.default_theme[1],
+                    stroke=rx.color("accent", 8),
+                    stroke_width=2,
                     type_="natural",
                     dot=Chart.with_dots,
                 ),

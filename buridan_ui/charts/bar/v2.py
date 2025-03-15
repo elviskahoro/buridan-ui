@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -27,7 +26,7 @@ def barchart_v2():
                 rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
                 rx.recharts.bar(
                     data_key="desktop",
-                    fill=ComponentWrapperState.default_theme[0],
+                    fill=rx.color("accent"),
                     radius=6,
                 ),
                 rx.recharts.x_axis(type_="number", hide=True, tick_size=0),

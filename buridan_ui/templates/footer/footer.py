@@ -1,40 +1,33 @@
 import reflex as rx
 
-from buridan_ui.states.routing import SiteRoutingState
 
 from .style import FooterStyle
+from buridan_ui.static.routes import GettingStartedRoutes, ChartRoutes, PantryRoutes
 
 
 def create_footer_item(title: str, routes: list[dict[str, str]]):
     def item(data):
-        return rx.hstack(
+        return rx.el.div(
             rx.link(
-                rx.text(
-                    data["name"],
-                    size="1",
-                    weight="medium",
-                    color=rx.color("slate", 11),
+                rx.el.label(
+                    (
+                        data["name"]
+                        if data["name"] != "Frequently Asked Questions"
+                        else "FAQ"
+                    ),
+                    _hover={"color": rx.color("slate", 12)},
+                    class_name="text-sm font-regular cursor-pointer "
+                    + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                 ),
                 href=data["path"],
                 text_decoration="none",
-                on_click=SiteRoutingState.toggle_page_change(data),
             ),
-            rx.cond(
-                data["is_beta"],
-                rx.badge("In Progress", color_scheme="orange"),
-                rx.cond(
-                    data["is_new"],
-                    rx.badge("New", color_scheme="grass"),
-                    rx.spacer(),
-                ),
-            ),
-            width="100%",
-            align="center",
+            class_name="w-full",
         )
 
     return rx.vstack(
         rx.text(title, weight="bold", size="1", color=rx.color("slate", 12)),
-        rx.hstack(rx.foreach(routes, item), **FooterStyle.footer_item),
+        rx.hstack(*[item(data) for data in routes], **FooterStyle.footer_item),
         width="100%",
         padding="0.5em 0em",
         spacing="2",
@@ -43,38 +36,38 @@ def create_footer_item(title: str, routes: list[dict[str, str]]):
 
 def footer():
     return rx.vstack(
-        create_footer_item("Home", SiteRoutingState.GettingStartedRoutes),
-        create_footer_item("Analytics UI", SiteRoutingState.AnalyticsRoutes),
-        create_footer_item("Charts UI", SiteRoutingState.ChartRoutes),
-        create_footer_item("Pantry UI", SiteRoutingState.PantryRoutes),
-        rx.divider(height="2em", opacity="0"),
+        create_footer_item("Home", GettingStartedRoutes),
+        create_footer_item("Charts UI", ChartRoutes),
+        create_footer_item("Pantry UI", PantryRoutes),
         rx.vstack(
-            rx.heading("buridan/ui", size="3", font_weight="900"),
-            rx.text(
-                "© 2025 Ahmad Hakim. All rights reserved.",
-                size="1",
-                weight="bold",
-                color=rx.color("gray", 11),
+            rx.el.label(
+                f"buridan/ui",
+                class_name="text-sm font-bold",
+            ),
+            rx.el.label(
+                "© 2024 - 2025 Ahmad Hakim. All rights reserved.",
+                class_name="text-sm font-light",
             ),
             width="100%",
             spacing="2",
         ),
-        **FooterStyle.base,
+        class_name="p-4",
     )
 
 
 def desktop_footer():
     return rx.vstack(
         rx.vstack(
-            rx.heading("buridan/ui", size="3", font_weight="900"),
-            rx.text(
-                "© 2025 Ahmad Hakim. All rights reserved.",
-                size="1",
-                weight="medium",
-                color=rx.color("slate", 11),
+            rx.el.label(
+                f"buridan/ui",
+                class_name="text-sm font-bold",
+            ),
+            rx.el.label(
+                "© 2024 - 2025 Ahmad Hakim. All rights reserved.",
+                class_name="text-sm font-light",
             ),
             spacing="2",
             width="100%",
         ),
-        **FooterStyle.base,
+        class_name="py-5",
     )

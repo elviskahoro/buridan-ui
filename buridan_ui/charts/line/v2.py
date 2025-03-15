@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -32,7 +31,8 @@ def linechart_v2():
                 ),
                 rx.recharts.line(
                     data_key="desktop",
-                    stroke=ComponentWrapperState.default_theme[1],
+                    stroke=rx.color("accent", 8),
+                    stroke_width=2,
                     type_="linear",
                     dot=False,
                 ),

@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -15,7 +14,7 @@ def areachart_v1():
         {"month": "Jun", "desktop": 214},
     ]
 
-    return rx.center(
+    return rx.el.div(
         rx.vstack(
             info(
                 "Area Chart",
@@ -30,8 +29,8 @@ def areachart_v1():
                 ),
                 rx.recharts.area(
                     data_key="desktop",
-                    fill=ComponentWrapperState.default_theme[0],
-                    stroke=ComponentWrapperState.default_theme[3],
+                    fill=rx.color("accent"),
+                    stroke=rx.color("accent", 8),
                 ),
                 rx.recharts.x_axis(
                     data_key="month",
@@ -54,6 +53,7 @@ def areachart_v1():
             width="100%",
             class_name=tooltip_styles.general_style,
         ),
-        width="100%",
-        padding="0.5em",
+        class_name="size-full p-2 flex",
+        # width="100%",
+        # padding="0.5em",
     )

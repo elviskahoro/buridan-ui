@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.component.wrapper import ComponentWrapperState
 from ..style import info
 
 
@@ -39,7 +38,7 @@ def radar_v1():
             rx.recharts.radar(
                 data_key="score",
                 stroke="none",
-                custom_attrs={"fill": ComponentWrapperState.default_theme[1]},
+                custom_attrs={"fill": rx.color("accent")},
             ),
             data=stats,
             width="100%",

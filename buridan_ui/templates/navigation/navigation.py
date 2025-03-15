@@ -3,55 +3,10 @@ from __future__ import annotations
 import reflex as rx
 from reflex.constants.colors import Color
 
-from buridan_ui.states.routing import SiteRoutingState
-from buridan_ui.templates.drawer.state import DrawerState
-
 from .style import NavigationStyle
-
-
-def nav_icon(component: rx.Component) -> rx.badge:
-    return rx.badge(
-        component,
-        color_scheme="gray",
-        variant="soft",
-        width="21px",
-        height="21px",
-        display="flex",
-        align_items="center",
-        justify_content="center",
-        background="none",
-    )
-
-
-theme = nav_icon(
-    rx.el.button(
-        rx.color_mode.icon(
-            light_component=rx.icon(
-                "moon",
-                size=14,
-                color=rx.color("slate", 12),
-            ),
-            dark_component=rx.icon(
-                "sun",
-                size=14,
-                color=rx.color("slate", 12),
-            ),
-        ),
-        on_click=rx.toggle_color_mode,
-    ),
-)
-
-github = nav_icon(
-    rx.link(
-        rx.icon(
-            tag="github",
-            size=14,
-            color=rx.color("slate", 12),
-        ),
-        href="https://github.com/LineIndent/buridan-ui",
-        display=["none", "none", "none", "none", "flex", "flex"],
-    ),
-)
+from ..drawer.drawer import drawer
+from buridan_ui.static.routes import NavigationRoutes
+from ...ui.atoms.buttons import button_with_link, theme_button
 
 
 def navigation_links(data: dict[str, str | Color]):
@@ -59,41 +14,23 @@ def navigation_links(data: dict[str, str | Color]):
         rx.text(data["name"], size="1", weight="medium", color=rx.color("slate", 12)),
         href=data["path"],
         text_decoration="none",
-        on_click=SiteRoutingState.toggle_page_change(data),
-    )
-
-
-def navigation_right_side_items():
-    return rx.hstack(
-        rx.hstack(github, theme, align="center", spacing="2"),
-        rx.el.button(
-            rx.icon(tag="align-right", size=15),
-            on_click=DrawerState.toggle_drawer,
-            size="1",
-            variant="ghost",
-            color_scheme="gray",
-            cursor="pointer",
-            display=["flex", "flex", "flex", "flex", "none", "none"],
-        ),
-        align="center",
     )
 
 
 def navigation_left_side_items():
     return rx.hstack(
-        rx.heading(
-            "buridan/ui",
-            font_size="0.9em",
-            font_weight="800",
-            cursor="pointer",
-            on_click=[
-                SiteRoutingState.toggle_page_change({"name": "Home", "path": "/"}),
-                rx.redirect("/"),
-            ],
+        rx.link(
+            rx.el.label(
+                f"buridan/ui",
+                class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2 "
+                + rx.color_mode_cond("text-slate-700", "text-slate-200"),
+            ),
+            text_decoration="none",
+            href="/",
         ),
         rx.divider(width="0.75em", opacity="0"),
         rx.hstack(
-            rx.foreach(SiteRoutingState.NavigationRoutes, navigation_links),
+            rx.foreach(NavigationRoutes, navigation_links),
             display=["none", "none", "none", "none", "flex", "flex"],
             align="center",
         ),
@@ -102,53 +39,18 @@ def navigation_left_side_items():
     )
 
 
-def navigation():
-    return rx.hstack(
-        navigation_left_side_items(),
-        navigation_right_side_items(),
-        **NavigationStyle.base,
-    )
-
-
-def docs_navigation():
-    return rx.hstack(
-        rx.hstack(
-            rx.heading(
-                "buridan/ui",
-                font_size="0.9em",
-                font_weight="800",
-                cursor="pointer",
-                on_click=[
-                    SiteRoutingState.toggle_page_change({"name": "Home", "path": "/"}),
-                    rx.redirect("/"),
-                ],
-            ),
-            align="center",
-        ),
-        rx.hstack(
-            rx.hstack(github, theme, align="center", spacing="2"),
-            rx.el.button(
-                rx.icon(
-                    tag="align-right",
-                    size=15,
-                    cursor="pointer",
-                ),
-                on_click=DrawerState.toggle_drawer,
-                size="1",
-                variant="soft",
-                color_scheme="gray",
-                cursor="pointer",
-                display=["flex", "flex", "flex", "flex", "none", "none"],
-            ),
-            align="center",
-        ),
-        **NavigationStyle.base,
-    )
-
-
 def landing_page_navigation():
     return rx.hstack(
         navigation_left_side_items(),
-        navigation_right_side_items(),
+        rx.el.div(
+            theme_button(),
+            button_with_link("github", "https://github.com/buridan-ui/ui"),
+            class_name="flex flex-row gap-x-2",
+            display=["none" if i <= 3 else "flex" for i in range(6)],
+        ),
+        rx.box(
+            drawer(),
+            display=["flex" if i <= 3 else "none" for i in range(6)],
+        ),
         **NavigationStyle.landing_page_nav,
     )

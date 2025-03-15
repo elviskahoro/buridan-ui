@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -14,7 +13,7 @@ def piechart_v1():
     ]
 
     data = [
-        {**item, "fill": rx.color(ComponentWrapperState.selected_theme, index + 4)}
+        {**item, "fill": rx.color("accent", index + 4)}
         for index, item in enumerate(data)
     ]
 

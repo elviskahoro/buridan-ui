@@ -1,6 +1,5 @@
 import reflex as rx
 
-from ...wrappers.state import ComponentWrapperState
 from ..style import info, tooltip_styles
 
 
@@ -31,7 +30,7 @@ def barchart_v1():
                 *[
                     rx.recharts.bar(
                         data_key=name,
-                        fill=ComponentWrapperState.default_theme[index],
+                        fill=rx.color("accent", 7 + index),
                         radius=6,
                     )
                     for index, name in enumerate(["desktop", "mobile"])
