@@ -3,13 +3,14 @@ _GS_Base = "/getting-started/"
 _P = "/pantry/"
 _C = "/charts/"
 
-# ... main site routes
-
+# main site routes
 # ... getting started paths
 GettingStartedRoutes = [
     {"name": "Introduction", "path": f"{_GS_Base}introduction", "dir": "introduction"},
-    {"name": "Installation", "path": f"{_GS_Base}installation", "dir": "installation"},
     {"name": "Who is Buridan?", "path": f"{_GS_Base}who-is-buridan", "dir": "buridan"},
+    {"name": "Installation", "path": f"{_GS_Base}installation", "dir": "installation"},
+    {"name": "Charting Walkthrough", "path": f"{_GS_Base}charting", "dir": "charting"},
+    {"name": "Flexgen", "path": f"{_GS_Base}flexgen", "dir": "flexgen"},
     {"name": "Changelog", "path": f"{_GS_Base}changelog", "dir": "changelog"},
 ]
 
@@ -64,7 +65,6 @@ ChartRoutes = sorted(
     ],
     key=lambda x: x["name"],
 )
-
 
 # ... navigation menu paths
 NavigationRoutes = [

@@ -1,6 +1,8 @@
 import reflex as rx
 
 from .landing.hero import hero
+from .start.charting import charting
+from .start.flexgen import flexgen
 from .templates.settings.settings import SiteThemeColor
 from .wrappers.base.main import base
 
@@ -82,6 +84,20 @@ app.add_page(
     installation(),
     route="/getting-started/installation",
     title=f"Installation - Buridan UI",
+    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
+    meta=SiteMetaTags,
+)
+app.add_page(
+    charting(),
+    route="/getting-started/charting",
+    title=f"Charting - Buridan UI",
+    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
+    meta=SiteMetaTags,
+)
+app.add_page(
+    flexgen(),
+    route="/getting-started/flexgen",
+    title=f"Flexgen - Buridan UI",
     image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
     meta=SiteMetaTags,
 )

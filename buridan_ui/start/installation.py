@@ -1,7 +1,4 @@
 import reflex as rx
-from reflex.components.datadisplay.code import Theme
-
-from buridan_ui.pantry.timeline.v1 import blip
 from buridan_ui.wrappers.base.main import base
 
 
@@ -12,7 +9,6 @@ def wrapper(title: str, instructions: str, components=None, **kwargs):
         rx.vstack(
             rx.vstack(
                 rx.hstack(
-                    # blip(),
                     rx.text(
                         title,
                         size="1",

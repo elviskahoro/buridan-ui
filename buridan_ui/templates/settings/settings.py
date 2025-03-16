@@ -54,7 +54,8 @@ def app_settings():
                                 border_top=f"1.25px dashed {rx.color('blue', 5)}",
                                 border_bottom=f"1.25px dashed {rx.color('blue', 5)}",
                                 color=rx.color("blue", 8),
-                                class_name="h-full p-4 col-start-2 row-span-full row-start-1 max-sm:hidden bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] flex justify-center align-center items-center hover:brightness-125",
+                                # max-sm:hidden
+                                class_name="h-full p-4 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] flex justify-center align-center items-center hover:brightness-125",
                             ),
                             href="/",
                             is_external=True,
@@ -64,14 +65,14 @@ def app_settings():
                         rx.link(
                             rx.box(
                                 rx.el.label(
-                                    "ui",
+                                    "lab",
                                     color=rx.color("slate", 11),
                                     class_name="text-md font-bold",
                                 ),
                                 border_top=f"1.25px dashed {rx.color('grass', 5)}",
                                 border_bottom=f"1.25px dashed {rx.color('grass', 5)}",
                                 color=rx.color("grass", 8),
-                                class_name="h-full p-4 col-start-2 row-span-full row-start-1 max-sm:hidden bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] flex justify-center align-center items-center hover:brightness-125",
+                                class_name="h-full p-4 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)] flex justify-center align-center items-center hover:brightness-125",
                             ),
                             is_external=True,
                             href="https://buridan-lab.reflex.run/",

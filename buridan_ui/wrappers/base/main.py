@@ -83,7 +83,7 @@ def base(url: str, page_name: str):
                         border_top=f"1.25px dashed {rx.color('gray', 5)}",
                         border_bottom=f"1.25px dashed {rx.color('gray', 5)}",
                         color=rx.color("gray", 3),
-                        class_name="w-full p-4 col-start-2 row-span-full row-start-1 max-sm:hidden bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+                        class_name="w-full p-4 col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
                     ),
                     rx.el.div(
                         base_footer_responsive(desktop_footer(), "none", "flex"),
