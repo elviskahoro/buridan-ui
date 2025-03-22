@@ -27,7 +27,7 @@ def component_wrapper(path: str):
                                     tag="external-link",
                                     size=13,
                                 ),
-                                href=flexgen_path,
+                                href="https://reflex.build/gen/85caad0f-95d1-4180-b4eb-fc72edafdc9a/",
                                 is_external=True,
                                 text_cdecoration="none",
                                 color=rx.color("slate", 11),
@@ -36,8 +36,8 @@ def component_wrapper(path: str):
                             border=f"1px solid {rx.color('gray', 5)}",
                             class_name="cursor-pointer rounded-lg py-1 px-2 flex items-center justify-center gap-x-3",
                         )
-                        if flexgen_path
-                        else rx.spacer()
+                        # if flexgen_path
+                        # else rx.spacer()
                     ),
                     rx.box(
                         view_code(component, component_code),

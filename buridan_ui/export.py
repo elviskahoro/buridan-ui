@@ -3,9 +3,9 @@ import inspect
 import importlib
 
 from typing import Callable, Dict, List
-from buridan_ui.wrappers.component.wrapper import component_wrapper
 from buridan_ui.config import BASE_PANTRY_PATH, BASE_CHART_PATH
 from buridan_ui.ui.organisms.grid import responsive_grid
+from buridan_ui.wrappers.component.wrapper import component_wrapper
 
 
 # Define a unified configuration system
@@ -36,7 +36,7 @@ class ExportConfig:
 
         # Chart configurations
         self.CHARTS = {
-            "bar": {"versions": [1, 2, 3, 4, 5, 6, 7], "func_prefix": "barchart"},
+            "bar": {"versions": range(1, 10), "func_prefix": "barchart"},
             "area": {
                 "versions": range(1, 8),
                 "func_prefix": "areachart",
@@ -53,7 +53,6 @@ class ExportConfig:
         self.GRID_CONFIGS = {
             "animations": {"lg": 2, "gap": 8},
             "backgrounds": {"lg": 2},
-            # Add other custom grid configs as needed
         }
 
 
@@ -86,7 +85,10 @@ class ExportFactory:
 
     @staticmethod
     def create_pantry_export(
-        directory: str, version: int, func_prefix: str, flexgen_url: str = ""
+        directory: str,
+        version: int,
+        func_prefix: str,
+        flexgen_url: str = "https://reflex.build/gen/85caad0f-95d1-4180-b4eb-fc72edafdc9a/",
     ) -> Callable:
         """Create an export function for a pantry component."""
         # Import the component dynamically
@@ -125,11 +127,7 @@ class ExportFactory:
 
         @component_wrapper(f"{BASE_CHART_PATH}{directory}/v{version}.py")
         def export():
-            return [
-                chart_func(),
-                SourceRetriever.chart_source(chart_func),
-                flexgen_url,
-            ]
+            return [chart_func(), SourceRetriever.chart_source(chart_func), flexgen_url]
 
         return export
 

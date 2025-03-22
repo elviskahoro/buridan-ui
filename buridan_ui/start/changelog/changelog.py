@@ -101,6 +101,26 @@ def changelog():
             rx.box(
                 rx.vstack(
                     wrapper(
+                        "Site Refactoring & Major Changes",
+                        "March 22, 2025",
+                        [
+                            info("Major site refactoring of the codebase."),
+                            info("Major updates to site UI & UX"),
+                            info(
+                                "Several sections have been removed or added elsewhere."
+                            ),
+                            info("Landing page has been removed."),
+                            info("New landing page routes to either UI or Lab apps"),
+                            info("New charts: Doughnut and Scatter Charts"),
+                            info("New feature: Download repo directly from the site."),
+                            info("New feature: Code view now separate from tab."),
+                            info(
+                                "Site is almost completely stateless (aim to make site static in the near future)"
+                            ),
+                            changelog_badge("party-popper", "buridan/ui v0.6.1"),
+                        ],
+                    ),
+                    wrapper(
                         "Buridan Dev Labs: Charts",
                         "December 17, 2024",
                         [

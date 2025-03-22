@@ -6,6 +6,8 @@ from ..style import info, tooltip_styles
 
 
 def linechart_v7():
+    from reflex.experimental import ClientStateVar
+
     data = [
         {"date": "2024-04-01", "desktop": 222, "mobile": 150},
         {"date": "2024-04-02", "desktop": 97, "mobile": 180},
@@ -95,15 +97,8 @@ def linechart_v7():
         for item in data
     ]
 
-    class Chart(rx.State):
-        current_data: str = "mobile"
-        with_dots: bool = False
-
-        def toggle_with_dots(self, state: bool) -> None:
-            self.with_dots = not self.with_dots
-
-        def toggle_chart_data(self, name: str) -> None:
-            self.current_data = name
+    SelectedType = ClientStateVar.create("selected_line", "mobile")
+    DotTrigger = ClientStateVar.create("dot_trigger", False)
 
     return rx.center(
         rx.vstack(
@@ -115,11 +110,20 @@ def linechart_v7():
                     "start",
                 ),
                 rx.hstack(
-                    rx.checkbox("Show Dots", on_change=Chart.toggle_with_dots),
-                    rx.select(
-                        ["mobile", "desktop"],
-                        default_value="mobile",
-                        on_change=Chart.toggle_chart_data,
+                    rx.checkbox(
+                        "Show Dots", on_change=DotTrigger.set_value(~DotTrigger.value)
+                    ),
+                    rx.el.select(
+                        rx.el.option(
+                            "Mobile", on_click=SelectedType.set_value("mobile")
+                        ),
+                        rx.el.option(
+                            "Desktop", on_click=SelectedType.set_value("desktop")
+                        ),
+                        default_value="Mobile",
+                        bg=rx.color("gray", 2),
+                        border=f"1px solid {rx.color('gray', 4)}",
+                        class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
                     ),
                     align="center",
                 ),
@@ -134,11 +138,11 @@ def linechart_v7():
                     horizontal=True, vertical=False, class_name="opacity-25"
                 ),
                 rx.recharts.line(
-                    data_key=Chart.current_data,
+                    data_key=SelectedType.value,
                     stroke=rx.color("accent", 8),
                     stroke_width=2,
                     type_="natural",
-                    dot=Chart.with_dots,
+                    dot=DotTrigger.value,
                 ),
                 rx.recharts.y_axis(type_="number", hide=True),
                 rx.recharts.x_axis(

@@ -6,6 +6,8 @@ from ..style import info, tooltip_styles
 
 
 def barchart_v5():
+    from reflex.experimental import ClientStateVar
+
     data = [
         {"date": "2024-04-01", "desktop": 222, "mobile": 150},
         {"date": "2024-04-02", "desktop": 97, "mobile": 180},
@@ -94,11 +96,7 @@ def barchart_v5():
         for item in data
     ]
 
-    class Chart(rx.State):
-        current_data: str = "mobile"
-
-        def toggle_chart_data(self, name: str) -> None:
-            self.current_data = name
+    SelectedType = ClientStateVar.create("selected", "mobile")
 
     return rx.center(
         rx.vstack(
@@ -109,10 +107,13 @@ def barchart_v5():
                     "Showing total visitors for the last 6 months",
                     "start",
                 ),
-                rx.select(
-                    ["mobile", "desktop"],
-                    default_value="mobile",
-                    on_change=Chart.toggle_chart_data,
+                rx.el.select(
+                    rx.el.option("Mobile", on_click=SelectedType.set_value("mobile")),
+                    rx.el.option("Desktop", on_click=SelectedType.set_value("desktop")),
+                    default_value="Mobile",
+                    bg=rx.color("gray", 2),
+                    border=f"1px solid {rx.color('gray', 4)}",
+                    class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
                 ),
                 align="center",
                 justify="between",
@@ -125,7 +126,7 @@ def barchart_v5():
                     horizontal=True, vertical=False, class_name="opacity-25"
                 ),
                 rx.recharts.bar(
-                    data_key=Chart.current_data,
+                    data_key=SelectedType.value,
                     fill=rx.color("accent"),
                     radius=[2, 2, 0, 0],
                 ),

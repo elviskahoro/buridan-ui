@@ -5,7 +5,7 @@ from buridan_ui.wrappers.base.main import base
 def label(text, add_ons: str = ""):
     return rx.el.label(
         text,
-        class_name=f"text-[14px] font-regular {add_ons}",
+        class_name=f"text-[13px] font-regular {add_ons}",
         color=rx.color("slate", 11),
     )
 
@@ -48,7 +48,7 @@ def text_wrapper(title: str, description: str):
         rx.el.label(title, class_name="text-md font-bold"),
         rx.el.label(
             description,
-            class_name="text-[14px] font-regular",
+            class_name="text-[13px] font-regular",
             color=rx.color("slate", 11),
         ),
         class_name="flex flex-col gap-y-2",

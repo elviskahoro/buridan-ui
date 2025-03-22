@@ -14,7 +14,7 @@ def areachart_v1():
         {"month": "Jun", "desktop": 214},
     ]
 
-    return rx.el.div(
+    return rx.box(
         rx.vstack(
             info(
                 "Area Chart",
@@ -53,7 +53,6 @@ def areachart_v1():
             width="100%",
             class_name=tooltip_styles.general_style,
         ),
-        class_name="size-full p-2 flex",
-        # width="100%",
-        # padding="0.5em",
+        width="100%",
+        padding="0.5em",
     )

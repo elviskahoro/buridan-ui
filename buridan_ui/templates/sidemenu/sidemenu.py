@@ -136,14 +136,14 @@ def sidemenu(in_drawer=False):
                     rx.link(
                         rx.el.label(
                             f"buridan/ui",
-                            class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2 "
+                            class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2 cursor-pointer "
                             + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                         ),
                         text_decoration="none",
                         href="/",
                     ),
                     rx.el.label(
-                        "v.0.6.0",
+                        "v.0.6.1",
                         class_name="text-xs font-medium",
                         color=rx.color("slate", 11),
                     ),
@@ -179,7 +179,16 @@ def sidemenu(in_drawer=False):
                         class_name="text-sm font-light pt-1 pb-2 "
                         + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                     ),
-                    create_sidebar_menu_items(GettingStartedRoutes),
+                    rx.el.div(
+                        rx.box(
+                            border_left=f"1.25px dashed {rx.color('accent', 7)}",
+                            border_right=f"1.25px dashed {rx.color('accent', 7)}",
+                            color=rx.color("accent", 6),
+                            class_name="w-[4px] col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+                        ),
+                        create_sidebar_menu_items(GettingStartedRoutes),
+                        class_name="flex flex-row h-full w-full gap-x-2",
+                    ),
                     class_name="flex flex-col p-0 m-0",
                 ),
                 _getting_started,
@@ -200,7 +209,16 @@ def sidemenu(in_drawer=False):
                         class_name="text-sm font-light pt-1 pb-2 "
                         + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                     ),
-                    create_sidebar_menu_items(ChartRoutes),
+                    rx.el.div(
+                        rx.box(
+                            border_left=f"1.25px dashed {rx.color('accent', 7)}",
+                            border_right=f"1.25px dashed {rx.color('accent', 7)}",
+                            color=rx.color("accent", 6),
+                            class_name="w-[4px] col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+                        ),
+                        create_sidebar_menu_items(ChartRoutes),
+                        class_name="flex flex-row h-full w-full gap-x-2",
+                    ),
                     class_name="flex flex-col p-0 m-0",
                 ),
                 _chart_components,
@@ -221,12 +239,21 @@ def sidemenu(in_drawer=False):
                         class_name="text-sm font-light pt-1 pb-2 "
                         + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                     ),
-                    create_sidebar_menu_items(PantryRoutes),
+                    rx.el.div(
+                        rx.box(
+                            border_left=f"1.25px dashed {rx.color('accent', 7)}",
+                            border_right=f"1.25px dashed {rx.color('accent', 7)}",
+                            color=rx.color("accent", 6),
+                            class_name="w-[4px] col-start-2 row-span-full row-start-1 bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+                        ),
+                        create_sidebar_menu_items(PantryRoutes),
+                        class_name="flex flex-row h-full w-full gap-x-2",
+                    ),
                     class_name="flex flex-col p-0 m-0",
                 ),
                 _pantry_components,
             ),
-            class_name="flex flex-col w-full h-full pt-11",
+            class_name="flex flex-col w-full h-full pt-12",
         ),
         height="100vh",
         class_name="flex flex-col max-w-[300px] w-full gap-y-2 align-start sticky top-0 left-0 [&_.rt-ScrollAreaScrollbar]:mr-[0.1875rem] z-[10]",

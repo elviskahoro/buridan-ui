@@ -8,7 +8,7 @@ def text_wrapper(title: str, description: str):
         rx.el.label(title, class_name="text-md font-bold"),
         rx.el.label(
             description,
-            class_name="text-[14px] font-regular",
+            class_name="text-[13px] font-regular",
             color=rx.color("slate", 11),
         ),
         class_name="flex flex-col gap-y-2",

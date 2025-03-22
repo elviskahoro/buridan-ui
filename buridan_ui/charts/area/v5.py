@@ -4,6 +4,7 @@ from ..style import info, tooltip_styles
 
 
 def areachart_v5():
+    from reflex.experimental import ClientStateVar
 
     data = [
         {"date": "Apr 01", "desktop": 222, "mobile": 150},
@@ -99,18 +100,7 @@ def areachart_v5():
         {"date": "Jun 30", "desktop": 446, "mobile": 400},
     ]
 
-    class AreaChart(rx.State):
-        dataMap: dict[str, list[dict[str, str]]] = {
-            "Last 3 months": data,
-            "Last 30 days": data[-30:],
-            "Last 7 days": data[-7:],
-        }
-
-        current_selection: list[dict[str, str]] = data
-
-        @rx.event
-        def change_data_time(self, value: str) -> None:
-            self.current_selection = self.dataMap[value]
+    SelectedRange = ClientStateVar.create("selected", data)
 
     return rx.center(
         rx.vstack(
@@ -121,10 +111,20 @@ def areachart_v5():
                     "Showing total visitors for the last 6 months",
                     "start",
                 ),
-                rx.select(
-                    ["Last 3 months", "Last 30 days", "Last 7 days"],
+                rx.el.select(
+                    rx.el.option(
+                        "Last 3 Months", on_click=SelectedRange.set_value(data)
+                    ),
+                    rx.el.option(
+                        "Last 30 days", on_click=SelectedRange.set_value(data[-30:])
+                    ),
+                    rx.el.option(
+                        "Last 7 days", on_click=SelectedRange.set_value(data[-7:])
+                    ),
                     default_value="Last 3 months",
-                    on_change=AreaChart.change_data_time,
+                    bg=rx.color("gray", 2),
+                    border=f"1px solid {rx.color('gray', 4)}",
+                    class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
                 ),
                 align="center",
                 justify="between",
@@ -135,12 +135,12 @@ def areachart_v5():
                 rx.el.svg.defs(
                     rx.el.svg.linear_gradient(
                         rx.el.svg.stop(
-                            stop_color=rx.color("blue", 7),
+                            stop_color=rx.color("accent", 7),
                             offset="0%",
                             stop_opacity=0.3,
                         ),
                         rx.el.svg.stop(
-                            stop_color=rx.color("blue", 8),
+                            stop_color=rx.color("accent", 8),
                             offset="95%",
                             stop_opacity=0.1,
                         ),
@@ -184,6 +184,7 @@ def areachart_v5():
                             rx.color("accent", 8),
                             rx.color("orange", 8),
                         ),
+                        animation_easing="linear",
                     )
                     for index, name in enumerate(["desktop", "mobile"])
                 ],
@@ -196,7 +197,8 @@ def areachart_v5():
                     custom_attrs={"fontSize": "12px"},
                     interval="preserveStartEnd",
                 ),
-                data=AreaChart.current_selection,
+                # data=AreaChart.current_selection,
+                data=SelectedRange.value,
                 width="100%",
                 height=280,
             ),

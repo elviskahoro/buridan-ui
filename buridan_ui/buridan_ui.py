@@ -13,8 +13,12 @@ from .start.changelog.changelog import changelog
 
 from buridan_ui.export import pantry_exports_config, charts_exports_config
 from buridan_ui.static.routes import PantryRoutes, ChartRoutes
-from buridan_ui.config import SiteTheme, SiteMetaTags
-
+from buridan_ui.config import (
+    SiteTheme,
+    SiteMetaTags,
+    LOCAL_BASE_CHART_PATH,
+    LOCAL_BASE_PANTRY_PATH,
+)
 
 app = rx.App(
     theme=rx.theme(appearance=SiteTheme, accent_color=SiteThemeColor.value),
@@ -33,10 +37,19 @@ def get_exports(directory: str, config_file: dict[str, list[callable]]):
 def add_routes(
     routes: list[dict[str, str]],
     export_config: dict[str, list[callable]],
+    parent_dir: str,
 ) -> None:
+
+    import os
+
     for route in routes:
 
-        @base(route["path"], route["name"])
+        dir_meta = {
+            "charts": os.path.join(LOCAL_BASE_CHART_PATH, route["dir"], ""),
+            "pantry": os.path.join(LOCAL_BASE_PANTRY_PATH, route["dir"], ""),
+        }
+
+        @base(route["path"], route["name"], dir_meta[parent_dir])
         def export_page() -> callable:
             return get_exports(route["dir"], export_config)
 
@@ -49,6 +62,9 @@ def add_routes(
         )
 
 
+add_routes(PantryRoutes, pantry_exports_config, "pantry")
+add_routes(ChartRoutes, charts_exports_config, "charts")
+
 app.add_page(
     hero(),
     route="/",
@@ -56,9 +72,6 @@ app.add_page(
     image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
     meta=SiteMetaTags,
 )
-
-add_routes(PantryRoutes, pantry_exports_config)
-add_routes(ChartRoutes, charts_exports_config)
 app.add_page(
     buridan(),
     route="/getting-started/who-is-buridan",

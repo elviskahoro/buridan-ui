@@ -1,3 +1,18 @@
+import os
+
+# ------------------------ DO NOT EDIT ---------------------------- #
+
+# Explicitly set the project root
+project_root = "/Users/ahmad/sandbox"
+
+# Now, you can use a relative path starting from the project root
+LOCAL_BASE_CHART_PATH = os.path.join(project_root, "buridan_ui", "buridan_ui", "charts")
+LOCAL_BASE_PANTRY_PATH = os.path.join(
+    project_root, "buridan_ui", "buridan_ui", "pantry"
+)
+
+# ------------------------ DO NOT EDIT ---------------------------- #
+
 BASE_PANTRY_PATH = (
     "https://github.com/LineIndent/buridan-ui/blob/main/buridan_ui/pantry/"
 )

@@ -88,7 +88,7 @@ def app_settings():
                     bg="transparent",
                 ),
                 rx.el.div(
-                    rx.el.label("Site Theme", class_name="text-sm font-bold"),
+                    rx.el.label("Site Theme Color", class_name="text-sm font-bold"),
                     rx.el.label(
                         "Use to visualize charts in different colors.",
                         class_name="text-xs font-light "
@@ -99,7 +99,12 @@ def app_settings():
                             rx.el.div(
                                 bg=rx.color(index),
                                 on_click=SiteThemeColor.set_value(index),
-                                class_name="size-4 p-2 rounded-full cursor-pointer hover:brightness-125",
+                                class_name="size-4 p-2 rounded-full cursor-pointer "
+                                + rx.color_mode_cond(
+                                    "hover:brightness-110",
+                                    "hover:brightness-125",
+                                ),
+                                title=index,
                             )
                             for index in color
                         ],

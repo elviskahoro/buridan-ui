@@ -9,6 +9,7 @@ from buridan_ui.templates.sidemenu.sidemenu import sidemenu
 from .style import BaseWrapperStyle
 from .utils.routes import base_content_path_ui
 from ...templates.settings.settings import app_settings
+from .utils.meta import get_file_times
 
 
 def base_footer_responsive(component: rx.Component, start: str, end: str):
@@ -19,13 +20,66 @@ def base_footer_responsive(component: rx.Component, start: str, end: str):
     )
 
 
-def base(url: str, page_name: str):
+def page_meta(created, updated, dir_count):
+    return rx.el.div(
+        rx.el.div(
+            rx.icon(
+                tag="file-plus-2",
+                size=13,
+                color=rx.color("slate", 11),
+            ),
+            rx.el.label(
+                created,
+                class_name="text-sm",
+            ),
+            class_name="flex flex-row items-center justify-start gap-x-2",
+            title="Created On",
+        ),
+        rx.el.div(
+            rx.icon(
+                tag="file-pen-line",
+                size=13,
+                color=rx.color("slate", 11),
+            ),
+            rx.el.label(
+                updated,
+                class_name="text-sm",
+            ),
+            class_name="flex flex-row items-center justify-start gap-x-2",
+            title="Last Update",
+        ),
+        rx.el.div(
+            rx.icon(
+                tag="cuboid",
+                size=13,
+                color=rx.color("slate", 11),
+            ),
+            rx.el.label(
+                f"{dir_count} Component(s)",
+                class_name="text-sm",
+            ),
+            class_name="flex flex-row items-center justify-start gap-x-2",
+        ),
+        class_name="flex flex-row flex-wrap items-center gap-x-6 gap-y-4",
+    )
+
+
+def base(url: str, page_name: str, dir_meta: str = ""):
 
     def decorator(content: Callable[[], list[rx.Component]]):
 
         @wraps(content)
         def template():
             contents = content()
+
+            # Properly handle the conditional
+            if dir_meta:
+                created, updated, dir_count = get_file_times(dir_meta)
+                meta = page_meta(created, updated, dir_count)
+
+            else:
+                meta = rx.el.div(class_name="hidden")
+
             return rx.hstack(
                 sidemenu(),
                 rx.box(
@@ -65,16 +119,10 @@ def base(url: str, page_name: str):
                         rx.el.div(
                             rx.el.label(
                                 page_name,
-                                class_name="text-4xl sm:4xl font-bold pl-4 py-6",
+                                class_name="text-4xl sm:4xl font-bold py-6",
                             ),
-                            # _page_meta_data("4 months ago", "clock-arrow-up"),
-                            class_name="w-full justify-start flex flex-col pb-9",
-                        ),
-                        rx.box(
-                            border_top=f"1.25px dashed {rx.color('gray', 5)}",
-                            border_bottom=f"1.25px dashed {rx.color('gray', 5)}",
-                            color=rx.color("gray", 3),
-                            class_name="h-full p-4 col-start-2 row-span-full row-start-1 max-sm:hidden bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
+                            meta,
+                            class_name="w-full justify-start flex flex-col pb-9 pl-4",
                         ),
                         *contents,
                         class_name="flex flex-col p-0 gap-y-2 min-h-[100vh] w-full",
