@@ -68,7 +68,7 @@ add_routes(ChartRoutes, charts_exports_config, "charts")
 app.add_page(
     hero(),
     route="/",
-    title=f"Buridan Collection",
+    title=f"Buridan Stack",
     image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
     meta=SiteMetaTags,
 )
