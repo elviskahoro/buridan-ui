@@ -220,5 +220,5 @@ def generate_chart_exports() -> Dict[str, List]:
 
 
 # Generate the exports
-# pantry_exports_config = generate_pantry_exports()
-# charts_exports_config = generate_chart_exports()
+pantry_exports_config = generate_pantry_exports()
+charts_exports_config = generate_chart_exports()
