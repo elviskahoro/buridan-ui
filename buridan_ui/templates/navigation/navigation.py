@@ -21,7 +21,7 @@ def navigation_left_side_items():
     return rx.hstack(
         rx.link(
             rx.el.label(
-                f"buridan/ui",
+                "buridan/ui",
                 class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2 "
                 + rx.color_mode_cond("text-slate-700", "text-slate-200"),
             ),
