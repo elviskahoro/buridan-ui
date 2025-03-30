@@ -1,10 +1,9 @@
 import reflex as rx
 
-from ..style import info, tooltip_styles
+from ..style import info, tooltip
 
 
 def radar_v6():
-
     stats = [
         {"category": "Farming", "score": 7},
         {"category": "Fighting", "score": 6},
@@ -22,11 +21,11 @@ def radar_v6():
             "center",
         ),
         rx.recharts.radar_chart(
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.polar_grid(
                 class_name=rx.color_mode_cond(
                     "text-sm stroke-gray-300 fill-[gray] opacity-20",
-                    f"text-sm stroke-gray-700 fill-[gray] opacity-20",
+                    "text-sm stroke-gray-700 fill-[gray] opacity-20",
                 ),
                 grid_type="circle",
             ),

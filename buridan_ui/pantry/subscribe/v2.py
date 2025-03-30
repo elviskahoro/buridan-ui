@@ -2,7 +2,6 @@ import reflex as rx
 
 
 def subscribe_v2():
-
     return rx.center(
         rx.vstack(
             rx.text(

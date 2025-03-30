@@ -53,7 +53,6 @@ class Tables(rx.State):
 
 
 def tables_v4():
-
     def render_row(data: dict[str, str]):
         return rx.table.row(
             rx.table.cell(

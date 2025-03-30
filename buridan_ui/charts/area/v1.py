@@ -1,10 +1,9 @@
 import reflex as rx
 
-from ..style import info, tooltip_styles
+from ..style import info, tooltip
 
 
 def areachart_v1():
-
     data = [
         {"month": "Jan", "desktop": 186},
         {"month": "Feb", "desktop": 305},
@@ -23,7 +22,7 @@ def areachart_v1():
                 "start",
             ),
             rx.recharts.area_chart(
-                rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+                rx.recharts.graphing_tooltip(**tooltip),
                 rx.recharts.cartesian_grid(
                     horizontal=True, vertical=False, class_name="opacity-25"
                 ),
@@ -31,6 +30,8 @@ def areachart_v1():
                     data_key="desktop",
                     fill=rx.color("accent"),
                     stroke=rx.color("accent", 8),
+                    # fill="hsl(139 65% 20%)",
+                    # stoke="var(--chart-2)",
                 ),
                 rx.recharts.x_axis(
                     data_key="month",
@@ -50,9 +51,7 @@ def areachart_v1():
                 "January - June 2024",
                 "start",
             ),
-            width="100%",
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
-        width="100%",
-        padding="0.5em",
+        class_name="w-[100%] p-1",
     )

@@ -33,7 +33,6 @@ def login_button(name: str, *args) -> rx.button:
 
 
 def logins_v1():
-
     return rx.vstack(
         rx.vstack(
             rx.heading("Create an account", size="5", weight="bold"),

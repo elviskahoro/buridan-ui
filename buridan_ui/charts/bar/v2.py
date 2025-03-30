@@ -1,10 +1,9 @@
 import reflex as rx
 
-from ..style import info, tooltip_styles
+from ..style import info, tooltip
 
 
 def barchart_v2():
-
     data = [
         {"month": "Jan", "desktop": 186},
         {"month": "Feb", "desktop": 305},
@@ -23,7 +22,7 @@ def barchart_v2():
                 "start",
             ),
             rx.recharts.bar_chart(
-                rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+                rx.recharts.graphing_tooltip(**tooltip),
                 rx.recharts.bar(
                     data_key="desktop",
                     fill=rx.color("accent"),
@@ -46,8 +45,7 @@ def barchart_v2():
                 margin={"left": -20},
             ),
             info("Trending up by 5.2% this month", "2", "January - June 2024", "start"),
-            width="100%",
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
         width="100%",
         padding="0.5em",

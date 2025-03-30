@@ -1,5 +1,5 @@
 import reflex as rx
-from ..style import tooltip_styles
+from ..style import tooltip
 
 
 def barchart_v8():
@@ -73,7 +73,7 @@ def barchart_v8():
                 axis_line=False,
                 tick_line=False,
             ),
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             data=data,
             width="100%",
             height=250,
@@ -98,8 +98,7 @@ def barchart_v8():
             rx.tabs.content(create_chart(EUROPE), value="1", margin_top="-5px"),
             rx.tabs.content(create_chart(ASIA), value="2", margin_top="-5px"),
             default_value="1",
-            width="100%",
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
         width="100%",
         padding="0.5em",

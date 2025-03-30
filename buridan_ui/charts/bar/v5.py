@@ -2,7 +2,7 @@ from datetime import datetime
 
 import reflex as rx
 
-from ..style import info, tooltip_styles
+from ..style import info, tooltip
 
 
 def barchart_v5():
@@ -121,7 +121,7 @@ def barchart_v5():
                 wrap="wrap",
             ),
             rx.recharts.bar_chart(
-                rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+                rx.recharts.graphing_tooltip(**tooltip),
                 rx.recharts.cartesian_grid(
                     horizontal=True, vertical=False, class_name="opacity-25"
                 ),
@@ -146,8 +146,7 @@ def barchart_v5():
                 height=280,
             ),
             info("Trending up by 5.2% this month", "2", "January - June 2024", "start"),
-            width="100%",
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
         width="100%",
         padding="0.5em",

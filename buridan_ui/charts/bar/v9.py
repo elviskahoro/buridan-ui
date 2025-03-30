@@ -1,5 +1,5 @@
 import reflex as rx
-from ..style import tooltip_styles
+from ..style import tooltip
 
 
 def barchart_v9():
@@ -29,7 +29,7 @@ def barchart_v9():
             class_name="py-4 px-4 flex w-full flex justify-center gap-8",
         ),
         rx.recharts.bar_chart(
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.bar(data_key="desktop", fill=rx.color("red", 7), radius=4),
             rx.recharts.bar(data_key="mobile", fill=rx.color("sky", 7), radius=4),
             rx.recharts.bar(data_key="tablet", fill=rx.color("orange", 7), radius=4),
@@ -46,6 +46,5 @@ def barchart_v9():
             bar_size=18,
             bar_category_gap="30%",
         ),
-        width="100%",
-        class_name=f"{tooltip_styles.general_style} flex flex-col",
+        class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
     )

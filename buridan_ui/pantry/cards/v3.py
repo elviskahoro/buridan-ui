@@ -21,7 +21,6 @@ class SlidingViewsState(rx.State):
     ]
 
     def next(self):
-
         if self.active_index < len(self.views) - 1:
             self.active_index += 1
 

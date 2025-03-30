@@ -1,10 +1,9 @@
 import reflex as rx
 
-from ..style import info, tooltip_styles
+from ..style import info, tooltip
 
 
 def linechart_v1():
-
     data = [
         {"month": "Jan", "desktop": 186},
         {"month": "Feb", "desktop": 305},
@@ -23,7 +22,7 @@ def linechart_v1():
                 "start",
             ),
             rx.recharts.line_chart(
-                rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+                rx.recharts.graphing_tooltip(**tooltip),
                 rx.recharts.cartesian_grid(
                     horizontal=True, vertical=False, class_name="opacity-25"
                 ),
@@ -47,8 +46,7 @@ def linechart_v1():
                 height=250,
             ),
             info("Trending up by 5.2% this month", "2", "January - June 2024", "start"),
-            width="100%",
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
         width="100%",
         padding="0.5em",
@@ -82,7 +80,7 @@ def _line_chart():
             class_name="py-4 px-4 flex w-full flex justify-center gap-8",
         ),
         rx.recharts.line_chart(
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.line(
                 data_key="desktop",
                 stroke=rx.color("red"),

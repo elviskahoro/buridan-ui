@@ -40,7 +40,6 @@ def create_list_item(title: str, items: list[str]):
 
 
 def lists_v1():
-
     return rx.vstack(
         create_list_item("Design Tools:", design),
         create_list_item("Development:", development),

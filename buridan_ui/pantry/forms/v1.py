@@ -21,7 +21,6 @@ def check_box_item(name: str):
 
 
 def forms_v1():
-
     return rx.vstack(
         rx.vstack(
             rx.heading("Contact our team", size="5", weight="bold"),

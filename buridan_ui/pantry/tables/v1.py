@@ -40,7 +40,6 @@ data = [
 
 
 class Table(rx.State):
-
     main_data: list[dict[str, str]] = data
     paginated_data: list[dict[str, str]] = data[:10]
 
@@ -112,7 +111,7 @@ def create_pagination():
         ),
         rx.hstack(
             rx.text(
-                f"Page { Table.current_page } of { Table.total_pages }",
+                f"Page {Table.current_page} of {Table.total_pages}",
                 width="100px",
                 weight="bold",
                 font_size="12px",

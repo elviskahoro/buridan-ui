@@ -54,7 +54,7 @@ class CardV1Style:
         default_factory=lambda: {
             "background_size": "16px 16px",
             "background_image": f"radial-gradient(circle, {rx.color('gray', 12)} 1px, transparent 1px)",
-            "mask": f"radial-gradient(100% 100% at 100% 100%, hsl(0, 0%, 0%, 0.81), hsl(0, 0%, 0%, 0))",
+            "mask": "radial-gradient(100% 100% at 100% 100%, hsl(0, 0%, 0%, 0.81), hsl(0, 0%, 0%, 0))",
             "width": "100%",
             "height": "100%",
             "position": "absolute",

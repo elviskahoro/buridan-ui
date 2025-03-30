@@ -1,5 +1,5 @@
 import reflex as rx
-from ..style import tooltip_styles
+from ..style import tooltip
 
 
 def linechart_v8():
@@ -29,7 +29,7 @@ def linechart_v8():
             class_name="py-4 px-4 flex w-full flex justify-center gap-8",
         ),
         rx.recharts.line_chart(
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.line(
                 data_key="desktop",
                 stroke=rx.color("red"),
@@ -55,7 +55,6 @@ def linechart_v8():
             data=data,
             width="100%",
             height=250,
-            class_name=tooltip_styles.general_style,
         ),
-        width="100%",
+        class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
     )

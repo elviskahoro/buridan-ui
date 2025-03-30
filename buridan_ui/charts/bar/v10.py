@@ -1,9 +1,8 @@
 import reflex as rx
-from ..style import tooltip_styles
+from ..style import tooltip
 
 
 def barchart_v10():
-
     sport = [
         {"date": "Jan 23", "Running": 167, "Cycling": 145},
         {"date": "Feb 23", "Running": 125, "Cycling": 110},
@@ -16,7 +15,7 @@ def barchart_v10():
 
     def create_alternating_chart(data, colors, active):
         return rx.recharts.bar_chart(
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.foreach(
                 ["Running", "Cycling"],
                 lambda key, index: rx.recharts.bar(
@@ -72,6 +71,5 @@ def barchart_v10():
             default_value="1",
             width="100%",
         ),
-        width="100%",
-        class_name=tooltip_styles.general_style,
+        class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
     )

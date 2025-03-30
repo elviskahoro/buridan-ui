@@ -60,7 +60,6 @@ data: list[list[str]] = [
 
 
 class InputV1State(rx.State):
-
     data: list[list[str]] = [
         [*item, InputsV1Style.passive_border["border"]] for item in data
     ]

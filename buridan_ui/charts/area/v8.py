@@ -1,5 +1,5 @@
 import reflex as rx
-from ..style import tooltip_styles
+from ..style import tooltip
 
 
 def areachart_v8():
@@ -41,7 +41,7 @@ def areachart_v8():
                     x2=0,
                     y1=0,
                     y2=1,
-                    id=f"red",
+                    id="red",
                 ),
             ),
             rx.el.svg.defs(
@@ -56,10 +56,10 @@ def areachart_v8():
                     x2=0,
                     y1=0,
                     y2=1,
-                    id=f"blue",
+                    id="blue",
                 ),
             ),
-            rx.recharts.graphing_tooltip(**vars(tooltip_styles)),
+            rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.area(
                 data_key="desktop",
                 fill="url(#red)",
@@ -84,6 +84,5 @@ def areachart_v8():
             width="100%",
             height=250,
         ),
-        width="100%",
-        class_name=tooltip_styles.general_style,
+        class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
     )

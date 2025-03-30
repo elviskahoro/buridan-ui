@@ -4,7 +4,6 @@ from ..style import info
 
 
 def radar_v1():
-
     stats = [
         {"category": "Farming", "score": 8},
         {"category": "Fighting", "score": 7},

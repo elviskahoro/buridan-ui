@@ -19,7 +19,6 @@ def create_button(name: str, flex_width: str):
 
 
 def forms_v2():
-
     return rx.vstack(
         rx.vstack(
             rx.heading("Report an issue", size="5", weight="bold"),

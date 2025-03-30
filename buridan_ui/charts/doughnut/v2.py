@@ -1,11 +1,7 @@
 import reflex as rx
-from reflex.experimental import ClientStateVar
-
-from buridan_ui.charts.style import tooltip_styles
 
 
 def doughnutchart_v2():
-
     data = [
         {"browser": "chrome", "visitors": 275},
         {"browser": "safari", "visitors": 200},
@@ -40,7 +36,7 @@ def doughnutchart_v2():
             ),
             width="100%",
             height=350,
-            class_name=tooltip_styles.general_style,
+            class_name="w-[100%] [&_.recharts-tooltip-item-separator]:w-full",
         ),
         class_name="flex flex-col size-full relative",
     )
