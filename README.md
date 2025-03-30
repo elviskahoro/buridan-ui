@@ -13,7 +13,7 @@ Visit the [Pantry](https://buridan-ui.reflex.run/pantry/animations/) section to 
 
 ## Charts
 
-Visit the [Charts](https://buridan-ui.reflex.run/charts/ui/) section to view the available pre-built charts for data visualization. 
+Visit the [Charts](https://buridan-ui.reflex.run/charts/area-charts/) section to view the available pre-built charts for data visualization. 
 
 
 ## Contributing
