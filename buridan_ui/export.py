@@ -36,17 +36,20 @@ class ExportConfig:
 
         # Chart configurations
         self.CHARTS = {
-            "bar": {"versions": range(1, 10), "func_prefix": "barchart"},
             "area": {
-                "versions": range(1, 8),
+                "versions": range(1, 9),
                 "func_prefix": "areachart",
                 "flexgen": "https://reflex.build/gen/85caad0f-95d1-4180-b4eb-fc72edafdc9a/",
             },
-            "line": {"versions": range(1, 8), "func_prefix": "linechart"},
+            "bar": {"versions": range(1, 11), "func_prefix": "barchart"},
+            "line": {"versions": range(1, 9), "func_prefix": "linechart"},
             "pie": {"versions": range(1, 7), "func_prefix": "piechart"},
             "radar": {"versions": range(1, 7), "func_prefix": "radar"},
             "scatter": {"versions": [1], "func_prefix": "scatterchart"},
             "doughnut": {"versions": range(1, 3), "func_prefix": "doughnutchart"},
+            "sunburst": {"versions": [1], "func_prefix": "sunburst"},
+            "bump": {"versions": [1], "func_prefix": "bump"},
+            "chord": {"versions": [1], "func_prefix": "chord"},
         }
 
         # Grid configurations
@@ -73,10 +76,17 @@ class SourceRetriever:
     def chart_source(func: Callable) -> str:
         """Get source for chart components including style.py."""
         source: str = ""
-        with open("buridan_ui/charts/style.py") as file:
-            source += file.read()
-            source += "\n"
-            source += inspect.getsource(func)
+
+        # Check if the function name starts with 'sunburst' or 'bump'
+        if not (
+            func.__name__.startswith("sunburst") or func.__name__.startswith("bump")
+        ):
+            # Only read the file if the name doesn't start with 'sunburst' or 'bump'
+            with open("buridan_ui/charts/style.py") as file:
+                source += file.read()
+                source += "\n"
+
+        source += inspect.getsource(func)
         return source
 
 
@@ -210,5 +220,5 @@ def generate_chart_exports() -> Dict[str, List]:
 
 
 # Generate the exports
-pantry_exports_config = generate_pantry_exports()
-charts_exports_config = generate_chart_exports()
+# pantry_exports_config = generate_pantry_exports()
+# charts_exports_config = generate_chart_exports()

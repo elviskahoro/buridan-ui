@@ -55,13 +55,16 @@ PantryRoutes = sorted(
 # ... chart component paths
 ChartRoutes = sorted(
     [
-        {"name": "Bar Charts", "path": f"{_C}bar-charts", "dir": "bar"},
         {"name": "Area Charts", "path": f"{_C}area-charts", "dir": "area"},
+        {"name": "Bar Charts", "path": f"{_C}bar-charts", "dir": "bar"},
         {"name": "Line Charts", "path": f"{_C}line-charts", "dir": "line"},
         {"name": "Pie Charts", "path": f"{_C}pie-charts", "dir": "pie"},
         {"name": "Radar Charts", "path": f"{_C}radar-charts", "dir": "radar"},
         {"name": "Scatter Charts", "path": f"{_C}scatter-charts", "dir": "scatter"},
         {"name": "Doughnut Charts", "path": f"{_C}doughnut-charts", "dir": "doughnut"},
+        {"name": "Sunburst Charts", "path": f"{_C}sunburst-charts", "dir": "sunburst"},
+        {"name": "Area-Bump Charts", "path": f"{_C}bump-charts", "dir": "bump"},
+        {"name": "Chord Charts", "path": f"{_C}chord-charts", "dir": "chord"},
     ],
     key=lambda x: x["name"],
 )
@@ -73,3 +76,36 @@ NavigationRoutes = [
     {"name": "Pantry", "path": PantryRoutes[0]["path"]},
     {"name": "Charts", "path": ChartRoutes[0]["path"]},
 ]
+
+
+#
+
+# .dark (blue)
+#   --chart-1: 221.2 83.2% 53.3%;
+#   --chart-2: 212 95% 68%;
+#   --chart-3: 216 92% 60%;
+#   --chart-4: 210 98% 78%;
+#   --chart-5: 212 97% 87%;
+
+
+# light (blue)
+#   --chart-1: 221.2 83.2% 53.3%;
+#   --chart-2: 212 95% 68%;
+#   --chart-3: 216 92% 60%;
+#   --chart-4: 210 98% 78%;
+#   --chart-5: 212 97% 87%;
+
+
+# .dark (red)
+# --chart-1: 347 77% 50%;
+#   --chart-2: 349 77% 62%;
+#   --chart-3: 350 80% 72%;
+#   --chart-4: 351 83% 82%;
+#   --chart-5: 352 83% 91%;
+
+# .light (red)
+# --chart-1: 347 77% 50%;
+#   --chart-2: 352 83% 91%;
+#   --chart-3: 350 80% 72%;
+#   --chart-4: 351 83% 82%;
+#   --chart-5: 349 77% 62%;
