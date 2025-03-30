@@ -1,18 +1,19 @@
 import os
 
 # ------------------------ DO NOT EDIT ---------------------------- #
+# Get the directory of the current script/module
+current_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Explicitly set the project root
-project_root = "/Users/ahmad/sandbox"
+# Navigate up to your project root if needed
+project_root = os.path.abspath(os.path.join(current_dir, "..", ".."))
 
-# Now, you can use a relative path starting from the project root
 LOCAL_BASE_CHART_PATH = os.path.join(project_root, "buridan_ui", "buridan_ui", "charts")
 LOCAL_BASE_PANTRY_PATH = os.path.join(
     project_root, "buridan_ui", "buridan_ui", "pantry"
 )
 
 # ------------------------ DO NOT EDIT ---------------------------- #
-
+VERSION = "v.0.6.1"
 BASE_PANTRY_PATH = (
     "https://github.com/LineIndent/buridan-ui/blob/main/buridan_ui/pantry/"
 )
@@ -25,9 +26,7 @@ SiteFont = "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;
 
 SiteTheme = "dark"
 
-SiteFontTypography: str = (
-    "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-)
+SiteFontTypography: str = "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
 
 SiteMetaTags = [
     {"name": "application-name", "content": "Buridan UI"},

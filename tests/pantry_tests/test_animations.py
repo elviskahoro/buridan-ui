@@ -8,7 +8,6 @@ from buridan_ui.pantry.animations import v1, v2, v3, v4, v5
 
 
 class TestAnimationComponent(unittest.TestCase):
-
     def _test_render_main_stack(self, animation_func) -> None:
         """Test if the component is an instance of VStack."""
         component = animation_func()

@@ -6,10 +6,8 @@ from buridan_ui.templates.drawer.drawer import drawer
 from buridan_ui.templates.footer.footer import desktop_footer, footer
 from buridan_ui.templates.sidemenu.sidemenu import sidemenu
 
-from .style import BaseWrapperStyle
 from .utils.routes import base_content_path_ui
 from ...templates.settings.settings import app_settings
-from .utils.meta import get_file_times
 
 
 def base_footer_responsive(component: rx.Component, start: str, end: str):
@@ -64,17 +62,15 @@ def page_meta(created, updated, dir_count):
     )
 
 
-def base(url: str, page_name: str, dir_meta: str = ""):
-
+def base(url: str, page_name: str, dir_meta: list[str | int] = []):
     def decorator(content: Callable[[], list[rx.Component]]):
-
         @wraps(content)
         def template():
             contents = content()
 
             # Properly handle the conditional
             if dir_meta:
-                created, updated, dir_count = get_file_times(dir_meta)
+                created, updated, dir_count = dir_meta
                 meta = page_meta(created, updated, dir_count)
 
             else:
@@ -97,7 +93,7 @@ def base(url: str, page_name: str, dir_meta: str = ""):
                             display=["none" if i <= 3 else "flex" for i in range(6)],
                         ),
                         rx.el.label(
-                            f"buridan/ui",
+                            "buridan/ui",
                             class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2",
                             display=["flex" if i <= 3 else "none" for i in range(6)],
                         ),
@@ -148,7 +144,7 @@ def base(url: str, page_name: str, dir_meta: str = ""):
                     color=rx.color("gray", 3),
                     class_name="h-full p-4 col-start-2 row-span-full row-start-1 max-sm:hidden bg-[size:10px_10px] bg-fixed bg-[image:repeating-linear-gradient(315deg,currentColor_0,currentColor_1px,_transparent_0,_transparent_50%)]",
                 ),
-                **BaseWrapperStyle.parent,
+                class_name="w-[100%] h-[100vh] gap-x-0 bg-background",
             )
 
         return template

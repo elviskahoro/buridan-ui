@@ -9,7 +9,7 @@ class ChangelogStyle:
         default_factory=lambda: {
             "width": "100%",
             "min_height": "100vh",
-            "background": rx.color("gray", 2),
+            # "background": rx.color("gray", 2),
             "align": "center",
         },
     )

@@ -4,7 +4,7 @@ import reflex as rx
 from reflex.constants.colors import Color
 from reflex.experimental import ClientStateVar
 
-
+from buridan_ui.config import VERSION
 from buridan_ui.static.routes import ChartRoutes, PantryRoutes, GettingStartedRoutes
 from buridan_ui.static.scripts import count_python_files_in_folder
 from buridan_ui.templates.sidemenu.download import download_site_source
@@ -105,7 +105,6 @@ def side_bar_wrapper(title: str, component, state: ClientStateVar):
 
 
 def create_sidebar_menu_items(routes: list[dict[str, str | Color]]):
-
     def item(data):
         return rx.el.div(
             rx.link(
@@ -135,7 +134,7 @@ def sidemenu(in_drawer=False):
                 rx.el.div(
                     rx.link(
                         rx.el.label(
-                            f"buridan/ui",
+                            "buridan/ui",
                             class_name="text-sm font-bold font-sans flex items-center align-center gap-x-2 cursor-pointer "
                             + rx.color_mode_cond("text-slate-700", "text-slate-200"),
                         ),
@@ -143,15 +142,14 @@ def sidemenu(in_drawer=False):
                         href="/",
                     ),
                     rx.el.label(
-                        "v.0.6.1",
+                        VERSION,
                         class_name="text-xs font-medium",
                         color=rx.color("slate", 11),
                     ),
                     class_name="w-full flex flex-row justify-between align-end items-end",
                 ),
                 border_bottom=f"1.25px dashed {rx.color('gray', 5)}",
-                bg=rx.color("gray", 2),
-                class_name="w-full h-12 px-4 py-3 absolute top-0 left-0 z-[99]",
+                class_name="w-full h-12 px-4 py-3 absolute top-0 left-0 z-[99] bg-background",
             ),
             side_bar_wrapper(
                 "Site Settings",

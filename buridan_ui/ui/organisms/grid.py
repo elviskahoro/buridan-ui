@@ -9,7 +9,6 @@ def create_grid_item_chart_section(
     lg_span: int = 1,
     padding: int = 0,
 ) -> rx.Component:
-
     span_classes = (
         f"col-span-{sm_span} "
         f"sm:col-span-{sm_span} "
@@ -35,7 +34,6 @@ def create_grid_item(
     lg_span: int = 1,
     padding: int = 4,
 ) -> rx.Component:
-
     span_classes = (
         f"col-span-{sm_span} "
         f"sm:col-span-{sm_span} "
@@ -62,7 +60,6 @@ def responsive_grid(
     gap: int = 8,
     padding: int = 4,
 ) -> rx.Component:
-
     # Generate Tailwind classes for each breakpoint
     breakpoint_classes = (
         f"sm:grid-cols-{sm} "  # Small screens

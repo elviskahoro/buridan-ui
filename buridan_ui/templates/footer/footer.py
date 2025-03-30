@@ -41,7 +41,7 @@ def footer():
         create_footer_item("Pantry UI", PantryRoutes),
         rx.vstack(
             rx.el.label(
-                f"buridan/ui",
+                "buridan/ui",
                 class_name="text-sm font-bold",
             ),
             rx.el.label(
@@ -59,7 +59,7 @@ def desktop_footer():
     return rx.vstack(
         rx.vstack(
             rx.el.label(
-                f"buridan/ui",
+                "buridan/ui",
                 class_name="text-sm font-bold",
             ),
             rx.el.label(

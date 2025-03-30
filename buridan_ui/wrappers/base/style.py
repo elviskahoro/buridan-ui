@@ -10,7 +10,7 @@ class BaseWrapperStyle:
             "spacing": "0",
             "width": "100%",
             "scrollbar_width": "thin",
-            "background": rx.color("gray", 2),
+            # "background": rx.color("gray", 2),
             "height": ["100%" if i == 0 else "100vh" for i in range(6)],
         },
     )
