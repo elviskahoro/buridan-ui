@@ -1,35 +1,18 @@
-from dataclasses import dataclass, field
-
 import reflex as rx
 
 
-@dataclass
-class LoginStyle:
-    base: dict[str, str] = field(
-        default_factory=lambda: {
-            "width": "100%",
-            "max_width": "21em",
-            "height": "100%",
-            "justify": "center",
-            "align": "center",
-        },
-    )
-
-    LoginButton: dict[str, str] = field(
-        default_factory=lambda: {
+def login_button(name: str, *args, **kwargs) -> rx.button:
+    return rx.button(
+        *args,
+        name,
+        **kwargs,
+        **{
             "width": "100%",
             "cursor": "pointer",
             "variant": "surface",
             "color_scheme": "gray",
         },
     )
-
-
-LoginStyle: LoginStyle = LoginStyle()
-
-
-def login_button(name: str, *args) -> rx.button:
-    return rx.button(*args, name, **LoginStyle.LoginButton)
 
 
 def logins_v1():
@@ -46,8 +29,18 @@ def logins_v1():
             spacing="1",
             align="center",
         ),
-        rx.input(width="100%", placeholder="something@example.com"),
-        login_button("Sign In with Email"),
+        rx.form(
+            rx.box(
+                rx.input(
+                    width="100%", placeholder="something@example.com", name="input"
+                ),
+                login_button("Sign In with Email", type="submit"),
+                class_name="w-full gap-y-2 flex flex-col",
+            ),
+            on_submit=lambda data: rx.toast(
+                f"You submitted the following data: {rx.Var.create(data).to_string()}"
+            ),
+        ),
         rx.hstack(
             rx.divider(width="30%"),
             rx.text("OR CONTINUE WITH", font_size="10px", color_scheme="gray"),
@@ -69,5 +62,9 @@ def logins_v1():
             text_align="center",
             padding="5px 0px",
         ),
-        **LoginStyle.base,
+        width="100%",
+        max_width="21em",
+        height="100%",
+        justify="center",
+        align="center",
     )

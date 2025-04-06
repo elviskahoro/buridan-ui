@@ -1,35 +1,18 @@
-from dataclasses import dataclass, field
-
 import reflex as rx
 
 
-@dataclass
-class LoginStyle:
-    base: dict[str, str] = field(
-        default_factory=lambda: {
-            "width": "100%",
-            "max_width": "21em",
-            "height": "100%",
-            "justify": "center",
-            "align": "center",
-        },
-    )
-
-    LoginButton: dict[str, str] = field(
-        default_factory=lambda: {
+def login_button(name: str, *args, **kwargs) -> rx.button:
+    return rx.button(
+        *args,
+        name,
+        **kwargs,
+        **{
             "flex": "1",
             "cursor": "pointer",
             "variant": "surface",
             "color_scheme": "gray",
         },
     )
-
-
-LoginStyle: LoginStyle = LoginStyle()
-
-
-def login_button(name: str, *args, **kwargs) -> rx.button:
-    return rx.button(*args, name, **kwargs, **LoginStyle.LoginButton)
 
 
 def logins_v2():
@@ -60,14 +43,30 @@ def logins_v2():
             justify="center",
             padding="5px 0px",
         ),
-        rx.input(width="100%", placeholder="something@example.com"),
-        rx.input(width="100%", placeholder="password", type="password"),
-        rx.button(
-            "Create Account",
-            width="100%",
-            cursor="pointer",
-            variant="surface",
-            color_scheme="gray",
+        rx.form(
+            rx.vstack(
+                rx.input(
+                    width="100%", placeholder="something@example.com", name="email"
+                ),
+                rx.input(
+                    width="100%",
+                    placeholder="password",
+                    type="password",
+                    name="password",
+                ),
+                rx.button(
+                    "Create Account",
+                    width="100%",
+                    cursor="pointer",
+                    variant="surface",
+                    color_scheme="gray",
+                    type="submit",
+                ),
+                width="100%",
+            ),
+            on_submit=lambda data: rx.toast(
+                f"You submitted the following data: {rx.Var.create(data).to_string()}"
+            ),
         ),
         rx.text(
             "By clicking continue, you agree to our ",
@@ -80,5 +79,9 @@ def logins_v2():
             text_align="center",
             padding="5px 0px",
         ),
-        **LoginStyle.base,
+        width="100%",
+        max_width="21em",
+        height="100%",
+        justify="center",
+        align="center",
     )

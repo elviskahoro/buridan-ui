@@ -3,7 +3,6 @@ _GS_Base = "/getting-started/"
 _P = "/pantry/"
 _C = "/charts/"
 
-# main site routes
 # ... getting started paths
 GettingStartedRoutes = [
     {"name": "Introduction", "path": f"{_GS_Base}introduction", "dir": "introduction"},
@@ -17,6 +16,7 @@ GettingStartedRoutes = [
 # ... pantry component paths
 PantryRoutes = sorted(
     [
+        {"name": "Accordions", "path": f"{_P}accordions", "dir": "accordions"},
         {"name": "Logins", "path": f"{_P}logins", "dir": "logins"},
         {"name": "Standard Forms", "path": f"{_P}standard-forms", "dir": "forms"},
         {"name": "Standard Tables", "path": f"{_P}standard-tables", "dir": "tables"},
@@ -68,44 +68,3 @@ ChartRoutes = sorted(
     ],
     key=lambda x: x["name"],
 )
-
-# ... navigation menu paths
-NavigationRoutes = [
-    {"name": "Home", "path": "/"},
-    {"name": "Getting Started", "path": GettingStartedRoutes[0]["path"]},
-    {"name": "Pantry", "path": PantryRoutes[0]["path"]},
-    {"name": "Charts", "path": ChartRoutes[0]["path"]},
-]
-
-
-#
-
-# .dark (blue)
-#   --chart-1: 221.2 83.2% 53.3%;
-#   --chart-2: 212 95% 68%;
-#   --chart-3: 216 92% 60%;
-#   --chart-4: 210 98% 78%;
-#   --chart-5: 212 97% 87%;
-
-
-# light (blue)
-#   --chart-1: 221.2 83.2% 53.3%;
-#   --chart-2: 212 95% 68%;
-#   --chart-3: 216 92% 60%;
-#   --chart-4: 210 98% 78%;
-#   --chart-5: 212 97% 87%;
-
-
-# .dark (red)
-# --chart-1: 347 77% 50%;
-#   --chart-2: 349 77% 62%;
-#   --chart-3: 350 80% 72%;
-#   --chart-4: 351 83% 82%;
-#   --chart-5: 352 83% 91%;
-
-# .light (red)
-# --chart-1: 347 77% 50%;
-#   --chart-2: 352 83% 91%;
-#   --chart-3: 350 80% 72%;
-#   --chart-4: 351 83% 82%;
-#   --chart-5: 349 77% 62%;

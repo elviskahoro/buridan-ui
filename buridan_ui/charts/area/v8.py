@@ -11,6 +11,24 @@ def areachart_v8():
         {"month": "May", "desktop": 209, "mobile": 130},
         {"month": "Jun", "desktop": 214, "mobile": 140},
     ]
+
+    def create_gradient(color_key):
+        return rx.el.svg.defs(
+            rx.el.svg.linear_gradient(
+                rx.el.svg.stop(
+                    stop_color=rx.color(color_key, 7), offset="0%", stop_opacity=0.3
+                ),
+                rx.el.svg.stop(
+                    stop_color=rx.color(color_key, 7), offset="75%", stop_opacity=0
+                ),
+                x1=0,
+                x2=0,
+                y1=0,
+                y2=1,
+                id=color_key,
+            ),
+        )
+
     return rx.vstack(
         rx.hstack(
             rx.foreach(
@@ -29,36 +47,8 @@ def areachart_v8():
             class_name="py-4 px-4 flex w-full flex justify-center gap-8",
         ),
         rx.recharts.area_chart(
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color=rx.color("red", 7), offset="0%", stop_opacity=0.3
-                    ),
-                    rx.el.svg.stop(
-                        stop_color=rx.color("red", 7), offset="75%", stop_opacity=0
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="red",
-                ),
-            ),
-            rx.el.svg.defs(
-                rx.el.svg.linear_gradient(
-                    rx.el.svg.stop(
-                        stop_color=rx.color("blue", 7), offset="0%", stop_opacity=0.3
-                    ),
-                    rx.el.svg.stop(
-                        stop_color=rx.color("blue", 7), offset="75%", stop_opacity=0
-                    ),
-                    x1=0,
-                    x2=0,
-                    y1=0,
-                    y2=1,
-                    id="blue",
-                ),
-            ),
+            create_gradient("red"),
+            create_gradient("blue"),
             rx.recharts.graphing_tooltip(**tooltip),
             rx.recharts.area(
                 data_key="desktop",

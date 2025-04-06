@@ -24,9 +24,11 @@ BASE_CHART_PATH = (
 
 SiteFont = "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
 
-SiteTheme = "dark"
+SiteTheme = "light"
 
-SiteFontTypography: str = "https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
+# original font family:  "IBM Plex Mono,ui-monospace,monospace"
+FontFamily = "JetBrains Mono,ui-monospace,monospace"
+
 
 SiteMetaTags = [
     {"name": "application-name", "content": "Buridan UI"},

@@ -1,10 +1,8 @@
 import reflex as rx
 
 from buridan_ui.landing.hero import hero
-
-from buridan_ui.static.routes import PantryRoutes, ChartRoutes
+from buridan_ui.static.routes import ChartRoutes, PantryRoutes
 from buridan_ui.static.meta import ChartMetaData, PantryMetaData
-
 from buridan_ui.start.flexgen import flexgen
 from buridan_ui.start.buridan import buridan
 from buridan_ui.start.charting import charting
@@ -13,17 +11,21 @@ from buridan_ui.start.introduction import introduction
 from buridan_ui.start.changelog.changelog import changelog
 
 from buridan_ui.wrappers.base.main import base
-from buridan_ui.config import SiteTheme, SiteMetaTags
+from buridan_ui.config import SiteTheme, SiteMetaTags, FontFamily
 from buridan_ui.templates.settings.settings import SiteThemeColor
-from buridan_ui.export import pantry_exports_config, charts_exports_config
+from buridan_ui.export import charts_exports_config, pantry_exports_config
 
+# Base configuration
+BASE_IMAGE_URL = "https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG"
+
+# Create app with consistent styling
 app = rx.App(
     theme=rx.theme(appearance=SiteTheme, accent_color=SiteThemeColor.value),
-    stylesheets=["css/globals.css"],
+    stylesheets=["/css/globals.css"],
     style={
-        rx.heading: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
-        rx.text: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
-        rx.el.label: {"font_family": "IBM Plex Mono,ui-monospace,monospace"},
+        rx.heading: {"font_family": FontFamily},
+        rx.text: {"font_family": FontFamily},
+        rx.el.label: {"font_family": FontFamily},
     },
 )
 
@@ -39,71 +41,70 @@ def add_routes(
 ) -> None:
     metadata_source = ChartMetaData if parent_dir == "charts" else PantryMetaData
 
-    for route in routes:
-        dir_meta = metadata_source[route["dir"]]
+    for _route in routes:
+        dir_meta = metadata_source[_route["dir"]]
 
-        @base(route["path"], route["name"], dir_meta)
+        @base(_route["path"], _route["name"], dir_meta)
         def export_page() -> callable:
-            return get_exports(route["dir"], export_config)
+            return get_exports(_route["dir"], export_config)
 
-        app.add_page(
-            export_page(),
-            route=route["path"],
-            title=f"{route['name']} - Buridan UI",
-            image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-            meta=SiteMetaTags,
-        )
+        add_page(export_page(), _route["path"], f"{_route['name']} - Buridan UI")
 
 
+def add_page(page_component, route_path, title):
+    """Helper function to add pages with consistent metadata"""
+    app.add_page(
+        page_component,
+        route=route_path,
+        title=title,
+        image=BASE_IMAGE_URL,
+        meta=SiteMetaTags,
+    )
+
+
+# Add dynamic routes from configurations
 add_routes(ChartRoutes, charts_exports_config, "charts")
 add_routes(PantryRoutes, pantry_exports_config, "pantry")
 
-app.add_page(
-    hero(),
-    route="/",
-    title="Buridan Stack",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    buridan(),
-    route="/getting-started/who-is-buridan",
-    title="Who Is Buridan - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    changelog(),
-    route="/getting-started/changelog",
-    title="Changelog - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    introduction(),
-    route="/getting-started/introduction",
-    title="Introduction - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    installation(),
-    route="/getting-started/installation",
-    title="Installation - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    charting(),
-    route="/getting-started/charting",
-    title="Charting - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
-app.add_page(
-    flexgen(),
-    route="/getting-started/flexgen",
-    title="Flexgen - Buridan UI",
-    image="https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG",
-    meta=SiteMetaTags,
-)
+# Define static routes with consistent structure
+STATIC_ROUTES = [
+    {
+        "path": "/",
+        "component": hero,
+        "title": "Buridan Stack",
+    },
+    {
+        "path": "/getting-started/who-is-buridan",
+        "component": buridan,
+        "title": "Who Is Buridan - Buridan UI",
+    },
+    {
+        "path": "/getting-started/changelog",
+        "component": changelog,
+        "title": "Changelog - Buridan UI",
+    },
+    {
+        "path": "/getting-started/introduction",
+        "component": introduction,
+        "title": "Introduction - Buridan UI",
+    },
+    {
+        "path": "/getting-started/installation",
+        "component": installation,
+        "title": "Installation - Buridan UI",
+    },
+    {
+        "path": "/getting-started/charting",
+        "component": charting,
+        "title": "Charting - Buridan UI",
+    },
+    {
+        "path": "/getting-started/flexgen",
+        "component": flexgen,
+        "title": "Flexgen - Buridan UI",
+    },
+]
+
+# Add static routes
+for route in STATIC_ROUTES:
+    add_page(route["component"](), route["path"], route["title"])

@@ -30,8 +30,6 @@ def areachart_v1():
                     data_key="desktop",
                     fill=rx.color("accent"),
                     stroke=rx.color("accent", 8),
-                    # fill="hsl(139 65% 20%)",
-                    # stoke="var(--chart-2)",
                 ),
                 rx.recharts.x_axis(
                     data_key="month",

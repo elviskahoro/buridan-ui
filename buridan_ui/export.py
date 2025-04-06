@@ -13,6 +13,7 @@ class ExportConfig:
     def __init__(self):
         # Component configurations
         self.COMPONENTS = {
+            "accordions": {"versions": range(1, 2), "func_prefix": "accordion"},
             "animations": {"versions": range(1, 7), "func_prefix": "animation"},
             "backgrounds": {"versions": range(1, 5), "func_prefix": "background"},
             "cards": {"versions": range(1, 4), "func_prefix": "card"},
