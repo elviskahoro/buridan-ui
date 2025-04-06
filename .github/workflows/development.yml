@@ -1,0 +1,37 @@
+name: Development Environment
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - main
+
+jobs:
+  setup_dev_environment:
+    name: Setup Dev Environment
+    runs-on: ubuntu-latest
+
+    environment:
+      name: development
+      url: ${{ steps.set_url.outputs.env_url }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Set environment URL
+        id: set_url
+        run: echo "env_url=https://github.com/${{ github.repository }}/pull/${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+
+      - name: Install dependencies and run app
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          reflex run &  # Run in background mode
+          sleep 10  # Give it time to start up
+          echo "Development environment is running for PR #${{ github.event.pull_request.number }}"
