@@ -13,7 +13,11 @@ from buridan_ui.start.changelog.changelog import changelog
 from buridan_ui.wrappers.base.main import base
 from buridan_ui.config import SiteTheme, SiteMetaTags, FontFamily
 from buridan_ui.templates.settings.settings import SiteThemeColor
-from buridan_ui.export import charts_exports_config, pantry_exports_config
+from buridan_ui.export import (
+    charts_exports_config,
+    pantry_exports_config,
+    filter_routes,
+)
 
 # Base configuration
 BASE_IMAGE_URL = "https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG"
@@ -34,6 +38,23 @@ def get_exports(directory: str, config_file: dict[str, list[callable]]):
     return [export for export in config_file[directory]]
 
 
+# def add_routes(
+#     routes: list[dict[str, str]],
+#     export_config: dict[str, list[callable]],
+#     parent_dir: str,
+# ) -> None:
+#     metadata_source = ChartMetaData if parent_dir == "charts" else PantryMetaData
+#
+#     for _route in routes:
+#         dir_meta = metadata_source[_route["dir"]]
+#
+#         @base(_route["path"], _route["name"], dir_meta)
+#         def export_page() -> callable:
+#             return get_exports(_route["dir"], export_config)
+#
+#         add_page(export_page(), _route["path"], f"{_route['name']} - Buridan UI")
+
+
 def add_routes(
     routes: list[dict[str, str]],
     export_config: dict[str, list[callable]],
@@ -41,7 +62,10 @@ def add_routes(
 ) -> None:
     metadata_source = ChartMetaData if parent_dir == "charts" else PantryMetaData
 
-    for _route in routes:
+    # Filter the routes based on development settings
+    filtered_routes = filter_routes(routes)
+
+    for _route in filtered_routes:
         dir_meta = metadata_source[_route["dir"]]
 
         @base(_route["path"], _route["name"], dir_meta)
