@@ -38,23 +38,6 @@ def get_exports(directory: str, config_file: dict[str, list[callable]]):
     return [export for export in config_file[directory]]
 
 
-# def add_routes(
-#     routes: list[dict[str, str]],
-#     export_config: dict[str, list[callable]],
-#     parent_dir: str,
-# ) -> None:
-#     metadata_source = ChartMetaData if parent_dir == "charts" else PantryMetaData
-#
-#     for _route in routes:
-#         dir_meta = metadata_source[_route["dir"]]
-#
-#         @base(_route["path"], _route["name"], dir_meta)
-#         def export_page() -> callable:
-#             return get_exports(_route["dir"], export_config)
-#
-#         add_page(export_page(), _route["path"], f"{_route['name']} - Buridan UI")
-
-
 def add_routes(
     routes: list[dict[str, str]],
     export_config: dict[str, list[callable]],
