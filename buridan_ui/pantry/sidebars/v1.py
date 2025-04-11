@@ -37,7 +37,7 @@ SIDEBAR_CONTENT_THREE = [
 def create_divider():
     """Create a consistent divider."""
     return rx.divider(
-        border_bottom=f"1px solid {rx.color('gray', 5)}", bg="transparent"
+        border_bottom=f"0.81px solid {rx.color('gray', 4)}", bg="transparent"
     )
 
 

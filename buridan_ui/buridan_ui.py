@@ -13,7 +13,11 @@ from buridan_ui.start.changelog.changelog import changelog
 from buridan_ui.wrappers.base.main import base
 from buridan_ui.config import SiteTheme, SiteMetaTags, FontFamily
 from buridan_ui.templates.settings.settings import SiteThemeColor
-from buridan_ui.export import charts_exports_config, pantry_exports_config
+from buridan_ui.export import (
+    charts_exports_config,
+    pantry_exports_config,
+    filter_routes,
+)
 
 # Base configuration
 BASE_IMAGE_URL = "https://raw.githubusercontent.com/buridan-ui/ui/refs/heads/main/assets/new_logo.PNG"
@@ -41,7 +45,10 @@ def add_routes(
 ) -> None:
     metadata_source = ChartMetaData if parent_dir == "charts" else PantryMetaData
 
-    for _route in routes:
+    # Filter the routes based on development settings
+    filtered_routes = filter_routes(routes)
+
+    for _route in filtered_routes:
         dir_meta = metadata_source[_route["dir"]]
 
         @base(_route["path"], _route["name"], dir_meta)

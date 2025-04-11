@@ -1,8 +1,8 @@
 import os
 import inspect
 import importlib
+from typing import Callable, Dict, List, Any
 
-from typing import Callable, Dict, List
 from buridan_ui.config import BASE_PANTRY_PATH, BASE_CHART_PATH
 from buridan_ui.ui.organisms.grid import responsive_grid
 from buridan_ui.wrappers.component.wrapper import component_wrapper
@@ -13,7 +13,7 @@ class ExportConfig:
     def __init__(self):
         # Component configurations
         self.COMPONENTS = {
-            "sidebars": {"versions": range(1, 2), "func_prefix": "sidebar"},
+            "sidebars": {"versions": range(1, 4), "func_prefix": "sidebar"},
             "accordions": {"versions": range(1, 2), "func_prefix": "accordion"},
             "animations": {"versions": range(1, 7), "func_prefix": "animation"},
             "backgrounds": {"versions": range(1, 5), "func_prefix": "background"},
@@ -59,6 +59,74 @@ class ExportConfig:
             "animations": {"lg": 2, "gap": 8},
             "backgrounds": {"lg": 2},
         }
+
+        # Development mode settings
+        self.development_mode = False
+        self.selected_components = set()
+        self.selected_charts = set()
+
+        # Keep a complete list of all component and chart names
+        self.all_component_names = set(self.COMPONENTS.keys())
+        self.all_chart_names = set(self.CHARTS.keys())
+
+        # Initialize development environment from environment variables
+        self._init_from_env()
+
+    def _init_from_env(self):
+        """Initialize development settings from environment variables."""
+        self.development_mode = os.environ.get("BURIDAN_DEV_MODE", "").lower() in (
+            "true",
+            "1",
+            "yes",
+        )
+
+        if self.development_mode:
+            components = os.environ.get("BURIDAN_COMPONENTS", "")
+            if components:
+                self.selected_components = {
+                    c.strip() for c in components.split(",") if c.strip()
+                }
+
+            charts = os.environ.get("BURIDAN_CHARTS", "")
+            if charts:
+                self.selected_charts = {
+                    c.strip() for c in charts.split(",") if c.strip()
+                }
+
+            # Print development settings
+            print("Development mode: Enabled")
+            if self.selected_components:
+                print(f"Selected components: {', '.join(self.selected_components)}")
+            if self.selected_charts:
+                print(f"Selected charts: {', '.join(self.selected_charts)}")
+
+    def should_include_component(self, component_name: str) -> bool:
+        """Check if a component should be included based on development settings."""
+        if not self.development_mode:
+            return True
+
+        # If charts are specifically selected and components aren't, exclude all components
+        if self.selected_charts and not self.selected_components:
+            return False
+
+        if not self.selected_components:
+            return True
+
+        return component_name in self.selected_components
+
+    def should_include_chart(self, chart_name: str) -> bool:
+        """Check if a chart should be included based on development settings."""
+        if not self.development_mode:
+            return True
+
+        # If components are specifically selected and charts aren't, exclude all charts
+        if self.selected_components and not self.selected_charts:
+            return False
+
+        if not self.selected_charts:
+            return True
+
+        return chart_name in self.selected_charts
 
 
 # Create a singleton config instance
@@ -173,7 +241,13 @@ def generate_pantry_exports() -> Dict[str, List]:
     """Generate all pantry component exports dynamically."""
     exports = {}
 
-    for directory, details in config.COMPONENTS.items():
+    # Filter components if in development mode
+    component_configs = {}
+    for name, details in config.COMPONENTS.items():
+        if config.should_include_component(name):
+            component_configs[name] = details
+
+    for directory, details in component_configs.items():
         versions = details["versions"]
         func_prefix = details["func_prefix"]
         component_exports = []
@@ -199,7 +273,13 @@ def generate_chart_exports() -> Dict[str, List]:
     """Generate all chart exports dynamically."""
     exports = {}
 
-    for chart_type, details in config.CHARTS.items():
+    # Filter charts if in development mode
+    chart_configs = {}
+    for name, details in config.CHARTS.items():
+        if config.should_include_chart(name):
+            chart_configs[name] = details
+
+    for chart_type, details in chart_configs.items():
         versions = details["versions"]
         func_prefix = details["func_prefix"]
         chart_exports = []
@@ -221,6 +301,42 @@ def generate_chart_exports() -> Dict[str, List]:
     return exports
 
 
-# Generate the exports
+def filter_routes(routes_list: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Filter routes based on development settings.
+
+    This function should be used to filter PantryRoutes and ChartRoutes before adding them.
+
+    Args:
+        routes_list: The original list of route dictionaries
+
+    Returns:
+        A filtered list of routes based on development settings
+    """
+    if not config.development_mode:
+        return routes_list
+
+    filtered_routes = []
+
+    for route in routes_list:
+        directory = route.get("dir")
+        if directory:
+            # Check if this is a component or chart route
+            if directory in config.all_component_names:
+                if config.should_include_component(directory):
+                    filtered_routes.append(route)
+            elif directory in config.all_chart_names:
+                if config.should_include_chart(directory):
+                    filtered_routes.append(route)
+            else:
+                # If it's neither, include it by default
+                filtered_routes.append(route)
+        else:
+            # Include routes without a directory by default
+            filtered_routes.append(route)
+
+    return filtered_routes
+
+
+# Generate the exports based on the configuration
 pantry_exports_config = generate_pantry_exports()
 charts_exports_config = generate_chart_exports()
