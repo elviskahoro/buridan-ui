@@ -1,4 +1,4 @@
-"""Hugeicons Icon component."""
+#--
 
 from reflex.components.component import Component
 from reflex.utils.imports import ImportVar
@@ -10,46 +10,56 @@ CORE_ICONS_LIBRARY = "@hugeicons/core-free-icons@4.2.1"
 
 
 class HugeIcon(CoreComponent):
-    """A HugeIcon component using HugeiconsIcon from @hugeicons/react."""
+    #--
 
     library = REACT_LIBRARY
     tag = "HugeiconsIcon"
 
-    # Main icon
+    ##
+
     icon: Var[str]
 
-    # Alternative icon
+    ##
+
     alt_icon: Var[str | None]
 
-    # Toggle alt icon
+    ##
+
     show_alt: Var[bool]
 
-    # Size (px or css value)
+    ##
+
     size: Var[int | str] = Var.create(16)
 
-    # Colors
+    ##
+
     color: Var[str]
     primary_color: Var[str]
     secondary_color: Var[str]
 
-    # Stroke options
+    ##
+
     stroke_width: Var[float] = Var.create(1.5)
     absolute_stroke_width: Var[bool]
 
-    # Multicolor option
+    ##
+
     disable_secondary_opacity: Var[bool]
 
     @classmethod
     def create(cls, *children, **props) -> Component:
-        """Create icon component."""
+        #--
 
-        # Support:
-        # hi("HomeIcon")
+        ##
+
+        ##
+
         if children and isinstance(children[0], str) and "icon" not in props:
             props["icon"] = children[0]
             children = children[1:]
 
-        # Convert icon strings into import-backed Vars
+        ##
+
         for prop in ("icon", "alt_icon"):
             value = props.get(prop)
 

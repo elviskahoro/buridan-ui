@@ -3,7 +3,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 
 class ClassNames:

@@ -1,8 +1,0 @@
-from .component import CoreComponent
-
-PACKAGE_NAME = "@base-ui/react"
-PACKAGE_VERSION = "1.6.0"
-
-
-class BaseUIComponent(CoreComponent):
-    lib_dependencies: list[str] = [f"{PACKAGE_NAME}@{PACKAGE_VERSION}"]

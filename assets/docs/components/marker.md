@@ -21,7 +21,7 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 MarkerVariant = Literal["default", "separator", "border"]
 
@@ -106,12 +106,7 @@ marker = Marker()
 Use the following composition to build a `Marker` component.
 
 
-```python
-marker.root(
-    marker.icon(),
-    marker.content(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Usage

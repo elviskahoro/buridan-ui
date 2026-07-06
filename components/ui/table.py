@@ -1,5 +1,3 @@
-"""Custom Table component."""
-
 from typing import Any, Literal
 
 from reflex.components.component import Component, ComponentNamespace
@@ -17,15 +15,12 @@ from reflex_components_core.el import (
     Tr,
 )
 
-from ..utils.twmerge import cn
-from .component import CoreComponent
+from .core import CoreComponent, cn
 
 LiteralAlign = Literal["left", "center", "right"]
 
 
 class ClassNames:
-    """Class names for table components."""
-
     ROOT = "w-full overflow-auto rounded-lg border border-input bg-card shadow-sm"
     TABLE = "w-full caption-bottom text-sm border-collapse"
     HEADER = "[&_tr]:border-b bg-secondary/50 backdrop-blur-sm sticky top-0"
@@ -38,13 +33,11 @@ class ClassNames:
 
 
 class TableRoot(Div, CoreComponent):
-    """The root of the table, providing the scrolling container."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
-        """Create the table root component."""
+
         cls.set_class_name(ClassNames.ROOT, props)
-        # Separate the table itself from the root container
+
         table_props = {
             "class_name": ClassNames.TABLE,
         }
@@ -52,8 +45,6 @@ class TableRoot(Div, CoreComponent):
 
 
 class TableHeader(Thead, CoreComponent):
-    """The header of the table."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.HEADER, props)
@@ -61,8 +52,6 @@ class TableHeader(Thead, CoreComponent):
 
 
 class TableBody(Tbody, CoreComponent):
-    """The body of the table."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.BODY, props)
@@ -70,8 +59,6 @@ class TableBody(Tbody, CoreComponent):
 
 
 class TableFooter(Tfoot, CoreComponent):
-    """The footer of the table."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.FOOTER, props)
@@ -79,8 +66,6 @@ class TableFooter(Tfoot, CoreComponent):
 
 
 class TableRow(Tr, CoreComponent):
-    """A row in the table."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.ROW, props)
@@ -88,8 +73,6 @@ class TableRow(Tr, CoreComponent):
 
 
 class TableHead(Th, CoreComponent):
-    """A cell in the table header."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.HEAD, props)
@@ -97,8 +80,6 @@ class TableHead(Th, CoreComponent):
 
 
 class TableCell(Td, CoreComponent):
-    """A cell in the table body."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.CELL, props)
@@ -106,8 +87,6 @@ class TableCell(Td, CoreComponent):
 
 
 class TableCaption(Caption, CoreComponent):
-    """A caption for the table."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.CAPTION, props)
@@ -115,8 +94,6 @@ class TableCaption(Caption, CoreComponent):
 
 
 class HighLevelTable(TableRoot):
-    """High level wrapper for the Table component."""
-
     @classmethod
     def create(
         cls,
@@ -125,20 +102,8 @@ class HighLevelTable(TableRoot):
         striped: bool = False,
         **props,
     ) -> Component:
-        """Create a high level table component.
 
-        Args:
-            data: The list of dictionaries containing the table data.
-            columns: Optional list of column definitions.
-                Each dict can have 'header', 'accessor', 'align', 'class_name'.
-            striped: Whether to apply zebra striping.
-            **props: Additional properties to apply to the table root.
-
-        Returns:
-            The table component with all necessary subcomponents.
-        """
         if columns is None and isinstance(data, list) and len(data) > 0:
-            # Auto-generate columns from the first row keys
             columns = [
                 {"header": k.replace("_", " ").title(), "accessor": k}
                 for k in data[0].keys()
@@ -146,7 +111,6 @@ class HighLevelTable(TableRoot):
         elif columns is None:
             columns = []
 
-        # Header
         header_row = TableRow.create(
             *[
                 TableHead.create(
@@ -161,9 +125,7 @@ class HighLevelTable(TableRoot):
             ]
         )
 
-        # Body
         if isinstance(data, Var):
-            # Dynamic data via foreach
             body_content = foreach(
                 data,
                 lambda row: TableRow.create(
@@ -184,7 +146,6 @@ class HighLevelTable(TableRoot):
                 ),
             )
         else:
-            # Static data
             body_content = [
                 TableRow.create(
                     *[
@@ -215,8 +176,6 @@ class HighLevelTable(TableRoot):
 
 
 class TableNamespace(ComponentNamespace):
-    """Namespace for Table components."""
-
     root = staticmethod(TableRoot.create)
     header = staticmethod(TableHeader.create)
     body = staticmethod(TableBody.create)

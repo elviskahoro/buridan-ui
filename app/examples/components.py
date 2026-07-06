@@ -8,6 +8,7 @@ from components.ui.avatar import avatar
 from components.ui.badge import badge
 from components.ui.button import button
 from components.ui.checkbox import checkbox
+from components.ui.core import cn
 from components.ui.input import input
 from components.ui.input_group import input_group
 from components.ui.metric import metric
@@ -15,7 +16,6 @@ from components.ui.slider import slider
 from components.ui.switch import switch
 from components.ui.table import table
 from components.ui.tabs import tabs
-from components.utils.twmerge import cn
 
 
 @masonry_card(label="General")

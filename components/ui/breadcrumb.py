@@ -1,7 +1,7 @@
 import reflex as rx
 
 from ..icons.hugeicon import hi
-from ..utils.twmerge import cn
+from .core import cn
 
 
 class Breadcrumb:

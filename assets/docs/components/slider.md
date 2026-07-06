@@ -24,7 +24,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 LiteralOrientation = Literal["horizontal", "vertical"]
 
@@ -213,16 +213,7 @@ from components.ui.slider import Slider
 Use the following composition to build a `Slider` component.
 
 
-```python
-slider.root(
-    slider.control(
-        slider.track(
-            slider.indicator(),
-            slider.thumb(),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 

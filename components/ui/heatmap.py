@@ -4,7 +4,7 @@ from reflex.components.component import Component
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from ..utils.twmerge import cn
+from .core import cn
 
 
 class ClassNames:
@@ -330,29 +330,8 @@ function BuridanHeatmapSSR(props) {
 
 
 class BuridanHeatmap(Component):
-    """
-    Data structure:
-        data = [
-            {"date": "2025-01-01", "value": 3},
-            {"date": "2025-01-15", "value": 7},
-        ]
+    ##
 
-    Props:
-        data        — list of {"date": "YYYY-MM-DD", "value": int}
-        start_date  — "YYYY-MM-DD" string, start of the range
-        end_date    — "YYYY-MM-DD" string, end of the range
-        cell_size   — int, size of each cell in px (default 14)
-        gap         — int, gap between cells in px (default 3)
-        color_mode  — "discrete" | "interpolate" (default "discrete")
-        color_scale — list of hex color strings for discrete mode
-                      (default: GitHub green scale, 5 levels)
-        min_color   — hex string for interpolate mode low end (default "#9be9a8")
-        max_color   — hex string for interpolate mode high end (default "#216e39")
-        interpolation — "linear" | "sqrt" | "log" (default "linear")
-        show_dow    — bool, show day-of-week labels (default True)
-        show_months — bool, show month labels (default True)
-        value_label — string appended to tooltip count (default "contributions")
-    """
 
     tag = "BuridanHeatmapSSR"
     is_default = False

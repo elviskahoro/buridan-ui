@@ -1,5 +1,3 @@
-"""Custom Metric component."""
-
 from typing import Literal
 
 import reflex as rx
@@ -7,15 +5,12 @@ from reflex.components.component import Component, ComponentNamespace
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from ..utils.twmerge import cn
-from .component import CoreComponent
+from .core import CoreComponent, cn
 
 LiteralTrendDirection = Literal["up", "down", "neutral"]
 
 
 class ClassNames:
-    """Class names for metric components."""
-
     ROOT = "flex flex-col gap-y-2 p-4 rounded-lg border border-input bg-card shadow-sm"
     LABEL = "text-sm font-medium text-muted-foreground"
     VALUE = "text-3xl font-bold tracking-tight text-foreground"
@@ -24,8 +19,6 @@ class ClassNames:
 
 
 class MetricRoot(Div, CoreComponent):
-    """The root container for a metric."""
-
     @classmethod
     def create(cls, *children, **props) -> Component:
         cls.set_class_name(ClassNames.ROOT, props)
@@ -33,8 +26,6 @@ class MetricRoot(Div, CoreComponent):
 
 
 class HighLevelMetric(MetricRoot):
-    """High level wrapper for the Metric component."""
-
     @classmethod
     def create(
         cls,
@@ -44,7 +35,6 @@ class HighLevelMetric(MetricRoot):
         trend_direction: Var[LiteralTrendDirection] | LiteralTrendDirection = "neutral",
         **props,
     ) -> Component:
-        """Create a high level metric component."""
 
         trend_color = rx.match(
             trend_direction,
@@ -77,8 +67,6 @@ class HighLevelMetric(MetricRoot):
 
 
 class MetricNamespace(ComponentNamespace):
-    """Namespace for Metric components."""
-
     root = staticmethod(MetricRoot.create)
     __call__ = staticmethod(HighLevelMetric.create)
 

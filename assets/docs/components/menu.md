@@ -26,8 +26,7 @@ from reflex.vars.base import Var
 from reflex_components_core.el import Span
 
 from ..icons.hugeicon import hi
-from .base_ui import PACKAGE_NAME, BaseUIComponent
-from .component import CoreComponent
+from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 LiteralOpenChangeReason = Literal[
     "arrowKey",
@@ -379,7 +378,8 @@ class MenuGroupLabel(MenuBaseComponent):
 
 
 class MenuShortcut(Span, CoreComponent):
-    """Visual inline keystroke reminder flags for parent drop actions."""
+    ##
+
 
     @classmethod
     def create(cls, *children, **props) -> Span:
@@ -536,39 +536,7 @@ from components.ui.menu import Menu
 Use the following composition to build a `Menu` component.
 
 
-```python
-menu.root(
-    menu.trigger(),
-    menu.portal(
-        menu.positioner(
-            menu.popup(
-                menu.item(),
-                menu.separator(),
-                menu.group(
-                    menu.group_label(),
-                    menu.item(),
-                ),
-                menu.checkbox_item(
-                    menu.checkbox_item_indicator(),
-                ),
-                menu.radio_group(
-                    menu.radio_item(
-                        menu.radio_item_indicator(),
-                    ),
-                ),
-                menu.submenu_root(
-                    menu.submenu_trigger(),
-                    menu.portal(
-                        menu.positioner(
-                            menu.popup(),
-                        ),
-                    ),
-                ),
-            ),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Example

@@ -17,8 +17,6 @@ buridan add component scroll_area
 ### Manual Installation
 
 ```python
-"""Custom scroll area component."""
-
 from typing import Literal
 
 from reflex.components.component import Component, ComponentNamespace
@@ -26,15 +24,12 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.core.cond import cond
 
-from ..utils.twmerge import cn
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent, cn
 
 LiteralOrientation = Literal["horizontal", "vertical"]
 
 
 class ClassNames:
-    """Class names for scroll area components."""
-
     ROOT = "h-full outline-none focus:outline-none"
     VIEWPORT = "h-full overscroll-contain"
     CONTENT = ""
@@ -46,81 +41,60 @@ class ClassNames:
 
 
 class ScrollAreaBaseComponent(BaseUIComponent):
-    """Base component for scroll area components."""
-
     library = f"{PACKAGE_NAME}/scroll-area"
 
     @property
     def import_var(self):
-        """Return the import variable for the scroll area component."""
         return ImportVar(tag="ScrollArea", package_path="", install=False)
 
 
 class ScrollAreaRoot(ScrollAreaBaseComponent):
-    """The root of the scroll area."""
-
     tag = "ScrollArea.Root"
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area root component."""
         props["data-slot"] = "scroll-area"
         cls.set_class_name(ClassNames.ROOT, props)
         return super().create(*children, **props)
 
 
 class ScrollAreaViewport(ScrollAreaBaseComponent):
-    """The viewport of the scroll area."""
-
     tag = "ScrollArea.Viewport"
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area viewport component."""
         props["data-slot"] = "scroll-area-viewport"
         cls.set_class_name(ClassNames.VIEWPORT, props)
         return super().create(*children, **props)
 
 
 class ScrollAreaContent(ScrollAreaBaseComponent):
-    """A container for the content of the scroll area."""
-
     tag = "ScrollArea.Content"
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area content component."""
         props["data-slot"] = "scroll-area-content"
         cls.set_class_name(ClassNames.CONTENT, props)
         return super().create(*children, **props)
 
 
 class ScrollAreaScrollbar(ScrollAreaBaseComponent):
-    """The scrollbar of the scroll area."""
-
     tag = "ScrollArea.Scrollbar"
 
-    # Orientation of the scrollbar
     orientation: Var[LiteralOrientation] = Var.create("vertical")
 
-    # Whether to keep the HTML element in the DOM when the viewport isn't scrollable
     keep_mounted: Var[bool] = Var.create(False)
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area scrollbar component."""
         props["data-slot"] = "scroll-area-scrollbar"
         orientation = props.get("orientation", "vertical")
 
@@ -138,61 +112,38 @@ class ScrollAreaScrollbar(ScrollAreaBaseComponent):
 
 
 class ScrollAreaThumb(ScrollAreaBaseComponent):
-    """The thumb of the scrollbar."""
-
     tag = "ScrollArea.Thumb"
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area thumb component."""
         props["data-slot"] = "scroll-area-thumb"
         cls.set_class_name(ClassNames.THUMB, props)
         return super().create(*children, **props)
 
 
 class ScrollAreaCorner(ScrollAreaBaseComponent):
-    """A small rectangular area that appears at the intersection of horizontal and vertical scrollbars."""
-
     tag = "ScrollArea.Corner"
 
-    # Render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the scroll area corner component."""
         props["data-slot"] = "scroll-area-corner"
         cls.set_class_name(ClassNames.CORNER, props)
         return super().create(*children, **props)
 
 
 class HighLevelScrollArea(ScrollAreaRoot):
-    """High level wrapper for the Scroll Area component."""
-
-    # Orientation of the scroll area
     orientation: Var[LiteralOrientation] = Var.create("vertical")
 
-    # Whether to keep the HTML element in the DOM when the viewport isn't scrollable
     keep_mounted: Var[bool] = Var.create(False)
 
-    # Props for different component parts
     _scrollbar_props = {"orientation", "keep_mounted"}
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create a high level scroll area component.
-
-        Args:
-            *children: The content to be scrollable.
-            **props: Additional properties to apply to the scroll area component.
-
-        Returns:
-            The scroll area component.
-        """
-        # Extract props for different parts
         scrollbar_props = {k: props.pop(k) for k in cls._scrollbar_props & props.keys()}
 
         return ScrollAreaRoot.create(
@@ -210,8 +161,6 @@ class HighLevelScrollArea(ScrollAreaRoot):
 
 
 class ScrollArea(ComponentNamespace):
-    """Namespace for Scroll Area components."""
-
     root = staticmethod(ScrollAreaRoot.create)
     viewport = staticmethod(ScrollAreaViewport.create)
     content = staticmethod(ScrollAreaContent.create)
@@ -238,17 +187,7 @@ from components.ui.scroll_area import scroll_area
 Use the following composition to build a `Scroll Area` component.
 
 
-```python
-scroll_area.root(
-    scroll_area.viewport(
-        scroll_area.content(),
-    ),
-    scroll_area.scrollbar(
-        scroll_area.thumb(),
-    ),
-    scroll_area.corner(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 

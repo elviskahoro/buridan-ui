@@ -22,7 +22,7 @@ from typing import Literal
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 
 class ClassNames:
@@ -65,9 +65,7 @@ from components.ui.separator import separator
 Use the following composition to build a `Separator` component.
 
 
-```python
-separator()
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

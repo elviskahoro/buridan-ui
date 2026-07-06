@@ -23,7 +23,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
 from ..icons.hugeicon import hi
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 
 class ClassNames:
@@ -109,11 +109,7 @@ from components.ui.checkbox import Checkbox
 Use the following composition to build a `Checkbox` component.
 
 
-```python
-checkbox.root(
-    checkbox.indicator(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

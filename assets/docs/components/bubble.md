@@ -26,7 +26,7 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 BubbleVariant = Literal[
     "default",
@@ -201,12 +201,7 @@ from components.ui.bubble import Bubble
 Use the following composition to build a `Bubble` component.
 
 
-```python
-bubble.root(
-    bubble.content(),
-    bubble.reactions(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Features

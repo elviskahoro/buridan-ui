@@ -504,7 +504,7 @@ def cmd_add(component_names: list[str]):
 
 def cmd_list():
     """List all available components."""
-    skip = {"twmerge", "component", "base_ui", "hugeicon", "others_icons"}
+    skip = {"core", "hugeicon"}
     names = sorted(n for n in COMPONENT_REGISTRY if n not in skip)
     print(f"Available components ({len(names)}):\n")
     for name in names:

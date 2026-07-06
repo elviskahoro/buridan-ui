@@ -75,7 +75,8 @@ class _ChartTooltipContent:
         """
 
         if swatch == "border":
-            # Single vertical left border on the tooltip label using first color
+            ##
+
             first_color = chart_colors[0]
             base += f"""
                 [&_.recharts-tooltip-label]:!border-l-2
@@ -97,7 +98,8 @@ class _ChartTooltipContent:
                     [&_.recharts-tooltip-item:nth-child({i})]:before:!bg-[var(--chart-{color_idx})]
                     [&_.recharts-tooltip-item:nth-child({i})]:before:!block
                 """)
-            else:  # square
+            else:  ##
+
                 lines.append(f"""
                     [&_.recharts-tooltip-item:nth-child({i})]:before:!content-['']
                     [&_.recharts-tooltip-item:nth-child({i})]:before:!w-3

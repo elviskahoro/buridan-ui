@@ -24,7 +24,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 LiteralOrientation = Literal["horizontal", "vertical"]
 
@@ -180,15 +180,7 @@ from components.ui.tabs import tabs
 Use the following composition to build a `Tabs` component.
 
 
-```python
-tabs.root(
-    tabs.list(
-        tabs.tab(),
-        tabs.indicator(),
-    ),
-    tabs.panel(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Example

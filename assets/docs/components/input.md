@@ -20,8 +20,7 @@ buridan add component input
 from reflex.components.component import ComponentNamespace
 from reflex_components_core.el import Input as BaseInput
 
-from ..utils.twmerge import cn
-from .component import CoreComponent
+from .core import CoreComponent, cn
 
 
 class ClassNames:
@@ -77,9 +76,7 @@ from components.ui.input import input
 Use the following composition to build an `Input` component.
 
 
-```python
-input()
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 

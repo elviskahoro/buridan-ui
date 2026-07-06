@@ -6,8 +6,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
-from .component import CoreComponent
+from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 
 class ClassNames:

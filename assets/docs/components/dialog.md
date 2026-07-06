@@ -25,8 +25,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
-from .component import CoreComponent
+from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 
 class ClassNames:
@@ -199,19 +198,7 @@ from components.ui.dialog import Dialog
 Use the following composition to build a `Dialog` component.
 
 
-```python
-dialog.root(
-    dialog.trigger(),
-    dialog.portal(
-        dialog.backdrop(),
-        dialog.popup(
-            dialog.title(),
-            dialog.description(),
-            dialog.close(),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

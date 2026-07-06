@@ -23,7 +23,7 @@ import reflex as rx
 from reflex.components.component import ComponentNamespace
 
 from ..ui.button import button
-from ..utils.twmerge import cn
+from .core import cn
 
 AttachmentOrientation = Literal["horizontal", "vertical"]
 AttachmentSize = Literal["default", "sm", "xs"]
@@ -280,18 +280,7 @@ from components.ui.attachment import Attachment
 Use the following composition to build an `Attachment` component.
 
 
-```python
-attachment.root(
-    attachment.media(),
-    attachment.content(
-        attachment.title(),
-        attachment.description(),
-    ),
-    attachment.actions(
-        attachment.action()
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Features

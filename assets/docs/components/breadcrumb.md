@@ -20,7 +20,7 @@ buridan add component breadcrumb
 import reflex as rx
 
 from ..icons.hugeicon import hi
-from ..utils.twmerge import cn
+from .core import cn
 
 
 class Breadcrumb:
@@ -160,19 +160,7 @@ breadcrumb = Breadcrumb
 Use the following composition to build a `Breadcrumb` component.
 
 
-```python
-breadcrumb(
-    breadcrumb_list(
-        breadcrumb_item(
-            breadcrumb_link(),
-        ),
-        breadcrumb_separator(),
-        breadcrumb_item(
-            breadcrumb_page(),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

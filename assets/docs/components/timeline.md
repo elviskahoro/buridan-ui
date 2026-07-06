@@ -22,7 +22,7 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 LiteralOrientation = Literal["horizontal", "vertical"]
 
@@ -176,19 +176,7 @@ from components.ui.timeline import timeline
 # Anatomy
 
 
-```python
-timeline.root(
-    timeline.item(
-        timeline.indicator(),
-        timeline.separator(),
-        timeline.header(
-            timeline.date(),
-            timeline.title(),
-        ),
-        timeline.content(),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

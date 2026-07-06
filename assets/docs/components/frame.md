@@ -24,7 +24,7 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 LiteralVariant = Literal["default", "inverse", "ghost"]
 LiteralSpacing = Literal["xs", "sm", "default", "lg"]
@@ -166,17 +166,7 @@ from components.ui.frame import frame
 Use the following composition to build a `Frame` component.
 
 
-```python
-frame.root(
-    frame.panel(
-        frame.header(
-            frame.title(),
-            frame.description(),
-        ),
-        frame.footer(),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

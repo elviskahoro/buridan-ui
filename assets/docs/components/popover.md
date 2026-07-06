@@ -25,8 +25,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from ..utils.twmerge import cn
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent, cn
 
 LiteralAlign = Literal["start", "center", "end"]
 LiteralSide = Literal["bottom", "inline-end", "inline-start", "left", "right", "top"]
@@ -254,23 +253,7 @@ from components.ui.popover import Popover
 Use the following composition to build a `Popover` component.
 
 
-```python
-popover.root(
-    popover.trigger(),
-    popover.portal(
-        popover.backdrop(),
-        popover.positioner(
-            popover.popup(
-                popover.header(
-                    popover.title(),
-                    popover.description(),
-                ),
-                popover.close(),
-            ),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 

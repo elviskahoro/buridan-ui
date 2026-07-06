@@ -3,7 +3,7 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 BubbleVariant = Literal[
     "default",

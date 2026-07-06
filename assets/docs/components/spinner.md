@@ -20,7 +20,7 @@ buridan add component spinner
 import reflex as rx
 from reflex_components_core.el import svg
 
-from ..utils.twmerge import cn
+from .core import cn
 
 
 def spinner(class_name: str = "", **props) -> rx.Component:
@@ -54,9 +54,7 @@ from components.ui.spinner import spinner
 Use the following composition to build a `Spinner` component.
 
 
-```python
-spinner()
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

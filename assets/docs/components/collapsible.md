@@ -22,7 +22,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 
 class ClassNames:
@@ -105,12 +105,7 @@ from components.ui.collapsible import Collapsible
 Use the following composition to build a `Collapsible` component.
 
 
-```python
-collapsible.root(
-    collapsible.trigger(),
-    collapsible.panel(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Controlled State

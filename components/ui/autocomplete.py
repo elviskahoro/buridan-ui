@@ -5,7 +5,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from ..utils.twmerge import cn
+from .core import cn
 
 
 class ClassNames:

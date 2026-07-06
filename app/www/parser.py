@@ -140,7 +140,7 @@ class DocParser:
                 )
 
             if cmd == "anatomy":
-                from app.www.anatomy import ANATOMY
+                from app.registry.anatomy import ANATOMY
 
                 src = ANATOMY.get(str(name).lower())
                 if not src:

@@ -1,8 +1,7 @@
 from reflex.components.component import ComponentNamespace
 from reflex_components_core.el import Input as BaseInput
 
-from ..utils.twmerge import cn
-from .component import CoreComponent
+from .core import CoreComponent, cn
 
 
 class ClassNames:

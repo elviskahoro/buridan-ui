@@ -195,5 +195,5 @@ def line_chart_03():
             ),
         ),
         size="sm",
-        class_name=(chart_tooltip_content([1, 2], "square") + " w-full p-0 !ring-0"),
+        class_name=(chart_tooltip_content([1, 2], "square") + " w-full p-4 !ring-0"),
     )

@@ -4,7 +4,7 @@ import reflex as rx
 from reflex.components.component import ComponentNamespace
 
 from ..ui.button import button
-from ..utils.twmerge import cn
+from .core import cn
 
 AttachmentOrientation = Literal["horizontal", "vertical"]
 AttachmentSize = Literal["default", "sm", "xs"]

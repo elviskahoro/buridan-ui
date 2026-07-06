@@ -21,7 +21,7 @@ from reflex.components.component import ComponentNamespace
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from components.ui.component import CoreComponent
+from .core import CoreComponent
 
 
 class ClassNames:
@@ -132,17 +132,7 @@ from components.ui.card import Card
 Use the following composition to build a `Card` component.
 
 
-```python
-card.root(
-    card.header(
-        card.title(),
-        card.description(),
-        card.action(),
-    ),
-    card.content(),
-    card.footer(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

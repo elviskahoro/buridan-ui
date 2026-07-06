@@ -96,5 +96,5 @@ def bar_chart_02():
             rx.el.div(_chart(show_y_axis=True), class_name="hidden sm:block"),
         ),
         size="sm",
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0 !ring-0",
+        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-4 !ring-0",
     )

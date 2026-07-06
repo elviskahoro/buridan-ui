@@ -15,8 +15,6 @@ buridan add component select
 ### Manual Installation
 
 ```python
-"""Custom select component."""
-
 from typing import Any, Literal
 
 from reflex.components.component import Component, ComponentNamespace
@@ -26,10 +24,7 @@ from reflex.vars.base import Var
 from reflex_components_core.core.foreach import foreach as foreach
 
 from ..icons.hugeicon import hi
-from ..icons.others import select_arrow
-from ..utils.twmerge import cn
-from .base_ui import PACKAGE_NAME, BaseUIComponent
-from .button import button
+from .core import PACKAGE_NAME, BaseUIComponent
 
 LiteralSelectSize = Literal["xs", "sm", "md", "lg", "xl"]
 LiteralAlign = Literal["start", "center", "end"]
@@ -39,8 +34,6 @@ LiteralOrientation = Literal["horizontal", "vertical"]
 
 
 class ClassNames:
-    """Class names for select components."""
-
     TRIGGER = "flex w-fit items-center justify-between gap-1.5 rounded-lg border border-input bg-transparent py-2 pr-2 pl-2.5 text-sm whitespace-nowrap transition-colors outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 data-placeholder:text-muted-foreground data-[size=default]:h-8 data-[size=sm]:h-7 data-[size=sm]:rounded-[min(var(--radius-md),10px)] *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1.5 dark:bg-input/30 dark:hover:bg-input/50 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
     VALUE = "flex-1 text-left cursor-default"
     ICON = "flex size-4 text-secondary-10 group-data-[disabled]/trigger:text-current"
@@ -58,205 +51,135 @@ class ClassNames:
 
 
 class SelectBaseComponent(BaseUIComponent):
-    """Base component for select components."""
-
     library = f"{PACKAGE_NAME}/select"
 
     @property
     def import_var(self):
-        """Return the import variable for the select component."""
         return ImportVar(tag="Select", package_path="", install=False)
 
 
 class SelectRoot(SelectBaseComponent):
-    """Groups all parts of the select. Doesn't render its own HTML element."""
-
     tag = "Select.Root"
 
-    # Identifies the field when a form is submitted.
     name: Var[str]
 
-    # The uncontrolled value of the select when it's initially rendered.
-    # To render a controlled select, use the `value` prop instead.
     default_value: Var[Any]
 
-    # The value of the select
     value: Var[Any]
 
-    # Callback fired when the value of the select changes. Use when controlled.
     on_value_change: EventHandler[passthrough_event_spec(str)]
 
-    # Whether the select popup is initially open.
-    # To render a controlled select popup, use the `open` prop instead.
     default_open: Var[bool]
 
-    # Whether the select popup is currently open
     open: Var[bool]
 
-    # Event handler called when the select popup is opened or closed
     on_open_change: EventHandler[passthrough_event_spec(bool)]
 
-    # A ref to imperative actions.
-    # When specified, the select will not be unmounted when closed.
-    # Instead, the `unmount` function must be called to unmount the select manually.
-    # Useful when the select's animation is controlled by an external library.
     actions_ref: Var[str]
 
-    # Custom comparison logic used to determine if a select item value matches the current selected value.
-    # Useful when item values are objects without matching referentially.
-    # Defaults to `Object.is` comparison.
     is_item_equal_to_value: Var[Any]
 
-    # When the item values are objects, this function converts the object value to a string representation for display in the trigger.
-    # If the shape of the object is `{ value, label }`, the label will be used automatically without needing to specify this prop.
     item_to_string_label: Var[Any]
 
-    # When the item values are objects, this function converts the object value to a string representation for form submission.
-    # If the shape of the object is `{ value, label }`, the value will be used automatically without needing to specify this prop.
     item_to_string_value: Var[Any]
 
-    # Data structure of the items rendered in the select popup.
-    # When specified, `<Select.Value>` renders the label of the selected item instead of the raw value.
     items: Var[Any]
 
-    # Determines if the select enters a modal state when open.
-    # - True: user interaction is limited to the select: document page scroll is locked and pointer interactions on outside elements are disabled.
-    # - False: user interaction with the rest of the document is allowed. Defaults to True.
     modal: Var[bool]
 
-    # Whether multiple items can be selected. Defaults to False.
     multiple: Var[bool]
 
-    # Event handler called after any animations complete when the select popup is opened or closed
     on_open_change_complete: EventHandler[passthrough_event_spec(bool)]
 
-    # Whether the component should ignore user interaction. Defaults to False.
     disabled: Var[bool]
 
-    # Whether the user should be unable to choose a different option from the select popup. Defaults to False.
     read_only: Var[bool]
 
-    # Whether the user must choose a value before submitting a form. Defaults to False.
     required: Var[bool]
 
-    # A ref to access the hidden input element.
     input_ref: Var[Any]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the select root component."""
         props["data-slot"] = "select"
         return super().create(*children, **props)
 
 
 class SelectTrigger(SelectBaseComponent):
-    """A button that opens the select menu."""
-
     tag = "Select.Trigger"
 
-    # Whether the component should ignore user interaction. Defaults to False.
     disabled: Var[bool]
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the select trigger component."""
+
         props["data-slot"] = "select-trigger"
 
-        # 1. Pull out the size prop (defaulting to "default" just like shadcn)
         size = props.pop("size", "default")
 
-        # 2. Explicitly bind it as the data-size attribute
         props["data_size"] = size
 
-        # 3. Apply the base CSS classes
         cls.set_class_name(ClassNames.TRIGGER, props)
         return super().create(*children, **props)
 
 
 class SelectValue(SelectBaseComponent):
-    """Text label of the currently selected item."""
-
     tag = "Select.Value"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-value"
         cls.set_class_name(ClassNames.VALUE, props)
         return super().create(*children, **props)
 
 
 class SelectBackdrop(SelectBaseComponent):
-    """An overlay displayed beneath the menu popup."""
-
     tag = "Select.Backdrop"
 
-    # The render prop
     render_: Var[Component]
 
 
 class SelectPortal(SelectBaseComponent):
-    """A portal element that moves the popup to a different part of the DOM.
-    By default, the portal element is appended to <body>.
-    """
-
     tag = "Select.Portal"
 
-    # A parent element to render the portal element into.
     container: Var[str]
 
 
 class SelectPositioner(SelectBaseComponent):
-    """Positions the select menu popup."""
-
     tag = "Select.Positioner"
 
-    # How to align the popup relative to the specified side. Defaults to "center".
     align: Var[LiteralAlign]
 
-    # Additional offset along the alignment axis in pixels. Defaults to 0.
     align_offset: Var[int]
 
-    # Which side of the anchor element to align the popup against. May automatically change to avoid collisions. Defaults to "bottom".
     side: Var[LiteralSide]
 
-    # Minimum distance to maintain between the arrow and the edges of the popup.
-    # Use it to prevent the arrow element from hanging out of the rounded corners of a popup. Defaults to 5.
     arrow_padding: Var[int]
 
-    # Additional space to maintain from the edge of the collision boundary. Defaults to 5.
     collision_padding: Var[int | list[int]]
 
-    # Whether to maintain the popup in the viewport after the anchor element was scrolled out of view. Defaults to False.
     sticky: Var[bool]
 
-    # Determines which CSS position property to use. Defaults to "absolute".
     position_method: Var[LiteralPosition]
 
-    # Whether the positioner overlaps the trigger so the selected item's text is aligned with the trigger's value text. This only applies to mouse input and is automatically disabled if there is not enough space. Defaults to False.
     align_item_with_trigger: Var[bool] = Var.create(False)
 
-    # Whether the popup tracks any layout shift of its positioning anchor. Defaults to True.
     track_anchor: Var[bool]
 
-    # Distance between the anchor and the popup in pixels. Defaults to 0.
     side_offset: Var[int]
 
-    # Determines how to handle collisions when positioning the popup.
     collision_avoidance: Var[str]
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-positioner"
         props.setdefault("side_offset", 4)
         cls.set_class_name(ClassNames.POSITIONER, props)
@@ -264,76 +187,57 @@ class SelectPositioner(SelectBaseComponent):
 
 
 class SelectPopup(SelectBaseComponent):
-    """A container for the select items."""
-
     tag = "Select.Popup"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-popup"
         cls.set_class_name(ClassNames.POPUP, props)
         return super().create(*children, **props)
 
 
 class SelectList(SelectBaseComponent):
-    """A list component that wraps select items. Renders a <div> element."""
-
     tag = "Select.List"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the select list component.
 
-        Returns:
-            The component.
-        """
         props["data-slot"] = "select-list"
         return super().create(*children, **props)
 
 
 class SelectItem(SelectBaseComponent):
-    """An individual option in the select menu."""
-
     tag = "Select.Item"
 
-    # Overrides the text label to use on the trigger when this item is selected and when the item is matched during keyboard text navigation.
     label: Var[str]
 
-    # A unique value that identifies this select item.
     value: Var[Any]
 
-    # Whether the component should ignore user interaction.
     disabled: Var[bool]
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-item"
         cls.set_class_name(ClassNames.ITEM, props)
         return super().create(*children, **props)
 
 
 class SelectItemText(SelectBaseComponent):
-    """A text label of the select item."""
-
     tag = "Select.ItemText"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-item-text"
         cls.set_class_name(ClassNames.ITEM_TEXT, props)
         return super().create(*children, **props)
@@ -356,51 +260,41 @@ class SelectItemIndicator(SelectBaseComponent):
 
 
 class SelectGroup(SelectBaseComponent):
-    """Groups related select items with the corresponding label."""
-
     tag = "Select.Group"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-group"
         cls.set_class_name(ClassNames.GROUP, props)
         return super().create(*children, **props)
 
 
 class SelectGroupLabel(SelectBaseComponent):
-    """An accessible label that is automatically associated with its parent group."""
-
     tag = "Select.GroupLabel"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-group-label"
         cls.set_class_name(ClassNames.GROUP_LABEL, props)
         return super().create(*children, **props)
 
 
 class SelectSeparator(SelectBaseComponent):
-    """A separator element accessible to screen readers."""
-
     tag = "Select.Separator"
 
-    # The orientation of the separator.
     orientation: Var[LiteralOrientation] = Var.create("horizontal")
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-separator"
         cls.set_class_name(ClassNames.SEPARATOR, props)
         return super().create(*children, **props)
@@ -423,24 +317,19 @@ class SelectIcon(SelectBaseComponent):
 
 
 class SelectArrow(SelectBaseComponent):
-    """Displays an element positioned against the select menu anchor."""
-
     tag = "Select.Arrow"
 
-    # The render prop
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-arrow"
         cls.set_class_name(ClassNames.ARROW, props)
         return super().create(*children, **props)
 
 
 class SelectScrollUpArrow(SelectBaseComponent):
-    """An element that scrolls the select menu up when hovered."""
-
     tag = "Select.ScrollUpArrow"
 
     keep_mounted: Var[bool]
@@ -449,7 +338,7 @@ class SelectScrollUpArrow(SelectBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-scroll-up-arrow"
         cls.set_class_name(ClassNames.SCROLL_ARROW_UP, props)
 
@@ -460,8 +349,6 @@ class SelectScrollUpArrow(SelectBaseComponent):
 
 
 class SelectScrollDownArrow(SelectBaseComponent):
-    """An element that scrolls the select menu down when hovered."""
-
     tag = "Select.ScrollDownArrow"
 
     keep_mounted: Var[bool]
@@ -469,7 +356,7 @@ class SelectScrollDownArrow(SelectBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        """Create the dialog trigger component."""
+
         props["data-slot"] = "select-scroll-down-arrow"
         cls.set_class_name(ClassNames.SCROLL_ARROW_DOWN, props)
 
@@ -479,140 +366,7 @@ class SelectScrollDownArrow(SelectBaseComponent):
         return super().create(*children, **props)
 
 
-class HighLevelSelect(SelectRoot):
-    """High level wrapper for the Select component."""
-
-    # The list of items to display in the select dropdown
-    items: Var[list[str]]
-
-    # The placeholder text to display when no item is selected
-    placeholder: Var[str]
-
-    # The size of the select component. Defaults to "md".
-    size: Var[LiteralSelectSize]
-
-    # Props for different component parts
-    _trigger_props = {"placeholder", "size"}
-    _items_props = {"items"}
-    _positioner_props = {
-        "align",
-        "align_offset",
-        "side",
-        "arrow_padding",
-        "collision_padding",
-        "sticky",
-        "position_method",
-        "align_item_with_trigger",
-        "track_anchor",
-        "side_offset",
-        "collision_avoidance",
-    }
-    _portal_props = {"container"}
-
-    @classmethod
-    def create(cls, *children, **props) -> BaseUIComponent:
-        """Create a select component.
-
-        Args:
-            *children: Additional children to include in the select.
-            **props: Additional properties to apply to the select component.
-
-        Returns:
-            The select component.
-        """
-        # Extract props for different parts
-        trigger_props = {k: props.pop(k) for k in cls._trigger_props & props.keys()}
-        items_props = {k: props.pop(k) for k in cls._items_props & props.keys()}
-        positioner_props = {
-            k: props.pop(k) for k in cls._positioner_props & props.keys()
-        }
-        portal_props = {k: props.pop(k) for k in cls._portal_props & props.keys()}
-
-        # Get extracted values with defaults
-        size = trigger_props.get("size", "sm")
-        items = items_props.get("items", [])
-
-        # Create the items children
-        if isinstance(items, Var):
-            items_children = foreach(
-                items,
-                lambda item: SelectItem.create(
-                    render_=button(
-                        SelectItemText.create(item),
-                        SelectItemIndicator.create(
-                            hi(
-                                "Tick02Icon",
-                                class_name="size-4",
-                            ),
-                        ),
-                        variant="ghost",
-                        size=size,
-                        type="button",
-                        class_name=ClassNames.ITEM,
-                        disabled=props.get("disabled", False),
-                    ),
-                    value=item,
-                    key=item,
-                ),
-            )
-        else:
-            items_children = [
-                SelectItem.create(
-                    render_=button(
-                        SelectItemText.create(item),
-                        SelectItemIndicator.create(
-                            hi(
-                                "Tick02Icon",
-                                class_name="size-4",
-                            ),
-                        ),
-                        variant="ghost",
-                        size=size,
-                        type="button",
-                        class_name=ClassNames.ITEM,
-                    ),
-                    value=item,
-                    key=item,
-                )
-                for item in items
-            ]
-
-        return SelectRoot.create(
-            SelectTrigger.create(
-                render_=button(
-                    SelectValue.create(),
-                    SelectIcon.create(
-                        select_arrow(class_name="size-4 text-secondary-9")
-                    ),
-                    variant="outline",
-                    size=size,
-                    type="button",
-                    class_name=ClassNames.TRIGGER,
-                    disabled=props.get("disabled", False),
-                ),
-            ),
-            SelectPortal.create(
-                SelectPositioner.create(
-                    SelectPopup.create(
-                        items_children,
-                        class_name=cn(
-                            ClassNames.POPUP,
-                            "",
-                            "rounded-lg",
-                        ),
-                    ),
-                    **positioner_props,
-                ),
-                **portal_props,
-            ),
-            *children,
-            **props,
-        )
-
-
 class Select(ComponentNamespace):
-    """Namespace for Select components."""
-
     root = staticmethod(SelectRoot.create)
     trigger = staticmethod(SelectTrigger.create)
     value = staticmethod(SelectValue.create)
@@ -632,7 +386,6 @@ class Select(ComponentNamespace):
     group_label = staticmethod(SelectGroupLabel.create)
     separator = staticmethod(SelectSeparator.create)
     class_names = ClassNames
-    __call__ = staticmethod(HighLevelSelect.create)
 
 
 select = Select()
@@ -642,35 +395,14 @@ select = Select()
 # Usage
 
 ```python
-from components.ui.select import select
+from components.ui.select import Select
 ```
 
 
 # Anatomy 
 Use the following composition to build a `Select` component.
 
-```python
-select.root(
-    select.trigger(
-        select.value(),
-        select.icon(),
-    ),
-    select.portal(
-        select.positioner(
-            select.popup(
-                select.group(
-                    select.group_label(),
-                    select.item(
-                        select.item_text(),
-                        select.item_indicator(),
-                    ),
-                ),
-                select.separator(),
-            ),
-        ),
-    ),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

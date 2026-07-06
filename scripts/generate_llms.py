@@ -11,7 +11,7 @@ from app.utils.routes import (
     UTILITIES,
 )
 
-BASE_URL = "https://buridan.reflex.run"
+BASE_URL = "https://ui.buridan.dev"
 
 
 def generate_llms_txt() -> str:

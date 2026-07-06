@@ -1,29 +1,26 @@
-"""Core component for all components."""
-
 from typing import Any
 
 from reflex.components.component import Component
-from reflex.vars.base import Var
+from reflex.utils.imports import ImportVar
+from reflex.vars import FunctionVar, Var
+from reflex.vars.base import VarData
 
-from ..utils.twmerge import cn
+PACKAGE_NAME = "@base-ui/react"
+PACKAGE_VERSION = "1.6.0"
+PACKAGE_CN = "clsx-for-tailwind@1.0.0"
+CN = Var("cn", _var_data=VarData(imports={PACKAGE_CN: ImportVar(tag="cn")})).to(
+    FunctionVar
+)
 
 
 class CoreComponent(Component):
-    """Core component for all components."""
-
     unstyled: Var[bool]
 
     @classmethod
     def set_class_name(
         cls, default_class_name: str | Var[str], props: dict[str, Any]
     ) -> None:
-        """Set the class name in props, merging with the default if necessary.
 
-        Args:
-            props: The component props dictionary
-            default_class_name: The default class name to use
-
-        """
         if "render_" in props:
             return
 
@@ -40,3 +37,11 @@ class CoreComponent(Component):
             *super()._exclude_props(),
             "unstyled",
         ]
+
+
+class BaseUIComponent(CoreComponent):
+    lib_dependencies: list[str] = [f"{PACKAGE_NAME}@{PACKAGE_VERSION}"]
+
+
+def cn(*classes: Var | str | tuple | list | None) -> Var:
+    return CN.call(*classes).to(str)

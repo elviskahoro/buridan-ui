@@ -23,7 +23,7 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from .base_ui import PACKAGE_NAME, BaseUIComponent
+from .core import PACKAGE_NAME, BaseUIComponent
 
 LiteralSwitchSize = Literal["default", "sm"]
 
@@ -81,13 +81,11 @@ class SwitchRoot(SwitchBaseComponent):
     def create(cls, *children, **props) -> BaseUIComponent:
         props["data-slot"] = "switch"
 
-        # Pull or default size prop and put it in data attribute
         size = props.pop("size", "default")
         props["data-size"] = size
 
         cls.set_class_name(ClassNames.ROOT, props)
 
-        # If no explicit thumb/child is given, auto-inject it like Shadcn does!
         if not children:
             children = (SwitchThumb.create(),)
 
@@ -128,11 +126,7 @@ from components.ui.switch import Switch
 Use the following composition to build a `Switch` component.
 
 
-```python
-switch.root(
-    switch.thumb(),
-)
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples

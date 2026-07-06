@@ -4,9 +4,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Div, Span
 
-from ..utils.twmerge import cn
-from .base_ui import PACKAGE_NAME, BaseUIComponent
-from .component import CoreComponent
+from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent, cn
 
 
 class ClassNames:

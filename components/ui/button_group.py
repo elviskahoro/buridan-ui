@@ -4,8 +4,7 @@ from reflex.components.component import ComponentNamespace
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from .base_ui import BaseUIComponent
-from .component import CoreComponent
+from .core import BaseUIComponent, CoreComponent
 from .separator import SeparatorComponent
 
 

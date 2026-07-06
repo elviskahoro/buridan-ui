@@ -2,7 +2,7 @@ from reflex.components.component import ComponentNamespace
 from reflex.vars.base import Var
 from reflex_components_core.el import Div
 
-from components.ui.component import CoreComponent
+from .core import CoreComponent
 
 
 class ClassNames:

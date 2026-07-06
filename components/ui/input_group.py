@@ -4,9 +4,8 @@ from reflex.components.component import ComponentNamespace
 from reflex_components_core.el import Div as ElDiv
 from reflex_components_core.el import Span as ElSpan
 
-from ..utils.twmerge import cn
 from .button import button
-from .component import CoreComponent
+from .core import CoreComponent, cn
 from .input import input
 from .textarea import textarea
 
@@ -15,8 +14,6 @@ LiteralSize = Literal["xs", "sm", "icon-xs", "icon-sm"]
 
 
 class ClassNames:
-    """Design tokens for the input group structural parts."""
-
     ROOT = (
         "group/input-group relative flex h-8 w-full min-w-0 items-center rounded-lg border border-input "
         "transition-colors outline-none in-data-[slot=combobox-content]:focus-within:border-inherit "
@@ -71,8 +68,6 @@ class ClassNames:
 
 
 class InputGroupRoot(ElDiv, CoreComponent):
-    """The master wrapper layout that manages inner contextual focus states."""
-
     @classmethod
     def create(cls, *children, **props) -> ElDiv:
         props["role"] = "group"
@@ -83,8 +78,6 @@ class InputGroupRoot(ElDiv, CoreComponent):
 
 
 class InputGroupAddon(ElDiv, CoreComponent):
-    """Slots for badges, icons, prefix indicators, and descriptive side notes."""
-
     @classmethod
     def create(cls, *children, **props) -> ElDiv:
         props["role"] = "group"
@@ -99,7 +92,7 @@ class InputGroupAddon(ElDiv, CoreComponent):
         return super().create(*children, **props)
 
     def add_custom_code(self) -> list[str]:
-        """Injects the focus redirection script directly into the component scope."""
+
         focus_script = """
         if (typeof window !== "undefined") {
             const bindInputGroupAddons = () => {
@@ -130,8 +123,6 @@ class InputGroupAddon(ElDiv, CoreComponent):
 
 
 class InputGroupText(ElSpan, CoreComponent):
-    """Inline typography labels tailored for input headers."""
-
     @classmethod
     def create(cls, *children, **props) -> ElSpan:
         cls.set_class_name(ClassNames.TEXT, props)
@@ -139,8 +130,6 @@ class InputGroupText(ElSpan, CoreComponent):
 
 
 class InputGroupButton(CoreComponent):
-    """Clean mini action button targeting inside input headers or tags."""
-
     @classmethod
     def create(cls, *children, **props):
         props.setdefault("type", "button")
@@ -159,8 +148,6 @@ class InputGroupButton(CoreComponent):
 
 
 class InputGroupInput(CoreComponent):
-    """Stripped field layout optimized for placement inside a group box row."""
-
     @classmethod
     def create(cls, *children, **props):
         props.setdefault("type", "text")
@@ -174,8 +161,6 @@ class InputGroupInput(CoreComponent):
 
 
 class InputGroupTextarea(CoreComponent):
-    """Stripped textarea configuration context optimized for layout flow blocks."""
-
     @classmethod
     def create(cls, *children, **props):
         props["data_slot"] = "input-group-control"
@@ -187,8 +172,6 @@ class InputGroupTextarea(CoreComponent):
 
 
 class InputGroupNamespace(ComponentNamespace):
-    """Unified layout construction tree for complex group components."""
-
     root = staticmethod(InputGroupRoot.create)
     addon = staticmethod(InputGroupAddon.create)
     button = staticmethod(InputGroupButton.create)

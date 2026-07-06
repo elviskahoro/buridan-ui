@@ -1,7 +1,7 @@
 import reflex as rx
 from reflex_components_core.el import svg
 
-from ..utils.twmerge import cn
+from .core import cn
 
 
 def spinner(class_name: str = "", **props) -> rx.Component:

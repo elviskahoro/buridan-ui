@@ -1,11 +1,9 @@
-"""Message component — chat bubble layout with avatar, content, header and footer slots."""
-
 from typing import Literal
 
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..utils.twmerge import cn
+from .core import cn
 
 MessageAlign = Literal["start", "end"]
 
@@ -44,7 +42,8 @@ class ClassNames:
 
 
 def message_group(*children, class_name: str = "", **props) -> rx.Component:
-    """Vertical stack of message rows."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message-group",
@@ -59,7 +58,8 @@ def message_root(
     class_name: str = "",
     **props,
 ) -> rx.Component:
-    """Single message row. Use align='end' for outgoing messages."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message",
@@ -70,7 +70,8 @@ def message_root(
 
 
 def message_avatar(*children, class_name: str = "", **props) -> rx.Component:
-    """Avatar slot — anchored to bottom of message, shifts up when footer is present."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message-avatar",
@@ -80,7 +81,8 @@ def message_avatar(*children, class_name: str = "", **props) -> rx.Component:
 
 
 def message_content(*children, class_name: str = "", **props) -> rx.Component:
-    """Content area — holds bubbles, header, and footer."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message-content",
@@ -90,7 +92,8 @@ def message_content(*children, class_name: str = "", **props) -> rx.Component:
 
 
 def message_header(*children, class_name: str = "", **props) -> rx.Component:
-    """Sender name or timestamp above the bubble."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message-header",
@@ -100,7 +103,8 @@ def message_header(*children, class_name: str = "", **props) -> rx.Component:
 
 
 def message_footer(*children, class_name: str = "", **props) -> rx.Component:
-    """Actions or reactions below the bubble."""
+    ##
+
     return rx.el.div(
         *children,
         data_slot="message-footer",
@@ -110,7 +114,8 @@ def message_footer(*children, class_name: str = "", **props) -> rx.Component:
 
 
 class Message(ComponentNamespace):
-    """Message namespace."""
+    ##
+
 
     group = staticmethod(message_group)
     root = staticmethod(message_root)

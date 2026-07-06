@@ -19,7 +19,7 @@ buridan add component textarea
 ```python
 from reflex_components_core.el import Textarea
 
-from .component import CoreComponent
+from .core import CoreComponent
 
 
 class ClassNames:
@@ -66,9 +66,7 @@ from components.ui.textarea import textarea
 Use the following composition to build a `Textarea` component.
 
 
-```python
-textarea()
-```
+> **Error in anatomy: No module named 'app.www.anatomy'**
 
 
 # Examples
