@@ -1,16 +1,16 @@
+> **NOTE** Repo is currently unmaintained (July 16, 2026). New library here: https://github.com/LineIndent/native
+
 # buridan/ui
 
- Composable, themeable components designed for Reflex. Extend, override, and ship without fighting the framework. Open source. 
- 
+Composable, themeable components designed for Reflex. Extend, override, and ship without fighting the framework. Open source.
+
 <p align="center">
   <img src="assets/readme_image.webp" alt="Logo" width="100%" style="border-radius: 10px; box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); border: 2px solid #333;">
 </p>
 
-
 ## Documentation
 
 Visit [Docs](https://ui.buridan.dev/docs/getting-started/introduction) section to get started.
-
 
 ## Contributing
 
