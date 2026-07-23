@@ -4,10 +4,28 @@ from app.templates.docsidebar import sidebar
 from app.templates.footer import footer
 from app.templates.navbar import navbar
 
+banner = rx.el.div(
+    rx.el.div(
+        rx.el.p(
+            rx.el.span("New components library - ", class_name="font-medium"),
+            rx.el.a(
+                rx.el.strong("Native UI"),
+                href="https://native.buridan.dev/",
+                target="_blank",
+                rel="noopener noreferrer",
+            ),
+            class_name="text-sm",
+        ),
+        class_name="px-1",
+    ),
+    class_name="w-full h-10 bg-primary flex items-center justify-center text-primary-foreground",
+)
+
 
 def docpage(main_content, toc_content):
     """The template for all documentation pages."""
     return rx.el.div(
+        banner,
         rx.el.header(navbar(), class_name="sticky top-0 z-50"),
         rx.el.main(
             rx.el.div(

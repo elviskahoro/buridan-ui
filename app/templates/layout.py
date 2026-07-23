@@ -5,6 +5,23 @@ import reflex as rx
 from app.templates.footer import footer
 from app.templates.navbar import navbar
 
+banner = rx.el.div(
+    rx.el.div(
+        rx.el.p(
+            rx.el.span("New components library - ", class_name="font-medium"),
+            rx.el.a(
+                rx.el.strong("Native UI"),
+                href="https://native.buridan.dev/",
+                target="_blank",
+                rel="noopener noreferrer",
+            ),
+            class_name="text-sm",
+        ),
+        class_name="px-1",
+    ),
+    class_name="w-full h-10 bg-primary flex items-center justify-center text-primary-foreground",
+)
+
 
 def layout_decorator(
     title: str,
@@ -24,6 +41,7 @@ def layout_decorator(
 
             return rx.el.div(
                 rx.el.div(
+                    banner,
                     rx.el.header(
                         navbar(with_create_page_cta=with_create_page_cta),
                         class_name="sticky top-0 z-50 w-full bg-background",
