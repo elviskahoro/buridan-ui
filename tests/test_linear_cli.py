@@ -6,6 +6,7 @@ exercises the real pydantic-settings resolution against an empty directory
 """
 
 import json
+import os
 import sys
 import types
 import unittest.mock as mock
@@ -61,10 +62,6 @@ def _patch_workflow(inner: mock.MagicMock) -> mock._patch:
 
 def _team() -> types.SimpleNamespace:
     return types.SimpleNamespace(id="team-uuid", key="EKK", name="Elvis")
-
-
-# The lockfile pins click >= 8.2, where CliRunner interleaves stderr into
-# result.output, so substring assertions can use result.output alone.
 
 
 # ---------------------------------------------------------------------------
@@ -173,11 +170,12 @@ def test_issue_not_found_exits_1() -> None:
 
 
 def test_missing_api_key_exits_1(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
-    # Deterministic: gtm-linear 0.2.1's LinearSettings reads only CWD-relative
-    # ".env" / ".env.local" files plus LINEAR_* env vars (verified against its
-    # settings.py), so an empty tmp_path with the env var deleted hides every
-    # key source.
-    monkeypatch.delenv("LINEAR_API_KEY", raising=False)
+    # Integration smoke test of the real settings resolution; the patched
+    # test below is the authoritative one for CLI handling. LinearSettings
+    # reads LINEAR_* env vars and .env/.env.local relative to the cwd, so an
+    # empty tmp_path with every LINEAR_* var cleared hides all key sources.
+    for name in [n for n in os.environ if n.startswith("LINEAR_")]:
+        monkeypatch.delenv(name, raising=False)
     monkeypatch.chdir(tmp_path)
 
     result = runner.invoke(linear_cli.app, ["viewer"])
@@ -199,6 +197,21 @@ def test_from_env_validation_error_exits_1() -> None:
 
     assert result.exit_code == 1
     assert "no LINEAR_API_KEY" in result.output
+
+
+def test_unrelated_from_env_error_is_not_misreported() -> None:
+    # Only ValidationError maps to the "no LINEAR_API_KEY" message; anything
+    # else must surface as itself rather than being misreported.
+    with mock.patch.object(
+        linear_cli.LinearClient,
+        "from_env",
+        side_effect=ValueError("kaboom"),
+    ):
+        result = runner.invoke(linear_cli.app, ["viewer"])
+
+    assert result.exit_code == 1
+    assert isinstance(result.exception, ValueError)
+    assert "no LINEAR_API_KEY" not in result.output
 
 
 def test_main_maps_linear_api_error_to_clean_stderr_and_exit_1(capsys) -> None:
