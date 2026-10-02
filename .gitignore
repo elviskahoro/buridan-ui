@@ -13,5 +13,9 @@ wheels/
 *.egg-info
 codebook.toml
 
+# Local secrets (used by scripts/linear_cli.py via gtm-linear) — never commit
+.env
+.env.local
+
 # Virtual environments
 .venv
