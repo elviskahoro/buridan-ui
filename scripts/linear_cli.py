@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Read-only Linear CLI built on the gtm-linear SDK.
+"""Read-only Linear CLI built on the gtm-linear SDK, powered by Typer.
 
 The gtm-linear package (github.com/elviskahoro/sdk-python-linear) is a Python
 SDK and deliberately ships no ``linear`` executable, so this thin wrapper
@@ -11,8 +11,8 @@ Auth: ``LINEAR_API_KEY`` (``lin_api_...``) resolved from the environment or a
 ``LinearClient.from_env()`` performs. The workspace-root ``.env.local`` holds
 the key and is gitignored.
 
-Usage (from the workspace root; gtm-linear is a dev dependency, so ``uv run``
-installs it automatically):
+Usage (from the workspace root; gtm-linear and typer are dev dependencies, so
+``uv run`` installs them automatically):
 
     uv run scripts/linear_cli.py viewer
     uv run scripts/linear_cli.py teams
@@ -26,11 +26,11 @@ read-only; for writes use the SDK directly (``gtm_linear.LinearMutations``).
 
 from __future__ import annotations
 
-import argparse
+import enum
 import json
-import sys
 from typing import Any
 
+import typer
 from pydantic import ValidationError
 
 from gtm_linear import (
@@ -38,6 +38,11 @@ from gtm_linear import (
     LinearClient,
     LinearWorkflow,
     PaginationOrderBy,
+)
+
+app = typer.Typer(
+    help="Fetch Linear issues via the gtm-linear SDK (read-only).",
+    no_args_is_help=True,
 )
 
 # Linear's page-size ceiling for issue connections; larger --limit values are
@@ -49,15 +54,27 @@ MAX_PAGE_SIZE = 100
 PRIORITY_LABELS = {1: "Urgent", 2: "High", 3: "Medium", 4: "Low"}
 
 
+class State(enum.Enum):
+    """Which issues a team listing includes."""
+
+    open = "open"
+    all = "all"
+
+
+# --- helpers (logic kept separate from the thin Typer command functions) ---
+
+
 def _workflow() -> LinearWorkflow:
     """Build a LinearWorkflow from env/dotenv auth, exiting with help on failure."""
     try:
         client = LinearClient.from_env()
     except ValidationError:
-        sys.exit(
+        typer.secho(
             "error: no LINEAR_API_KEY found. Set it in the environment or in a "
             ".env / .env.local file in the working directory (lin_api_... key).",
+            err=True,
         )
+        raise typer.Exit(code=1) from None
     return LinearWorkflow(client.api_key)
 
 
@@ -87,11 +104,11 @@ def _priority_label(priority: float | None) -> str:
 def _print_issues(issues: list[Any], *, as_json: bool, verbose: bool = False) -> None:
     """Render an issue list as JSON or an aligned table."""
     if as_json:
-        print(json.dumps([_issue_dict(i) for i in issues], indent=2))
+        typer.echo(json.dumps([_issue_dict(i) for i in issues], indent=2))
         return
 
     if not issues:
-        print("no issues found")
+        typer.echo("no issues found")
         return
 
     columns = ("IDENTIFIER", "STATE", "PRIORITY", "ASSIGNEE", "TITLE")
@@ -109,172 +126,160 @@ def _print_issues(issues: list[Any], *, as_json: bool, verbose: bool = False) ->
         max(len(header), *(len(row[n]) for row in rows)) if rows else len(header)
         for n, header in enumerate(columns)
     ]
-    header = "  ".join(header.ljust(widths[n]) for n, header in enumerate(columns))
-    print(header)
-    print("  ".join("-" * w for w in widths))
+    typer.echo("  ".join(header.ljust(widths[n]) for n, header in enumerate(columns)))
+    typer.echo("  ".join("-" * w for w in widths))
     for row in rows:
-        print("  ".join(cell.ljust(widths[n]) for n, cell in enumerate(row)))
+        typer.echo("  ".join(cell.ljust(widths[n]) for n, cell in enumerate(row)))
     if verbose:
         for issue in issues:
-            print(f"\n{issue.identifier}  {issue.url}")
-            print(f"  description: {issue.description or '-'}")
+            typer.echo(f"\n{issue.identifier}  {issue.url}")
+            typer.echo(f"  description: {issue.description or '-'}")
 
 
-def cmd_viewer(args: argparse.Namespace) -> int:
+# --- commands ---
+
+
+@app.command()
+def viewer(
+    as_json: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit JSON instead of human-readable output.",
+    ),
+) -> None:
     """Auth check: print the user the API key belongs to."""
     with _workflow() as linear:
         user = linear.get_viewer()
-    if args.json:
-        print(json.dumps({"id": user.id, "name": user.name, "email": user.email}, indent=2))
+    if as_json:
+        typer.echo(
+            json.dumps({"id": user.id, "name": user.name, "email": user.email}, indent=2),
+        )
     else:
-        print(f"{user.name} <{user.email}>  (id: {user.id})")
-    return 0
+        typer.echo(f"{user.name} <{user.email}>  (id: {user.id})")
 
 
-def cmd_teams(args: argparse.Namespace) -> int:
-    """List teams. Not wrapped by the SDK, so this uses the raw GraphQL escape hatch."""
+@app.command()
+def teams(
+    as_json: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit JSON instead of human-readable output.",
+    ),
+) -> None:
+    """List teams (key, name, id)."""
+    # Not wrapped by the SDK, so this uses the raw GraphQL escape hatch.
     with _workflow() as linear:
         data = linear.client.execute(
             "query { teams(first: 100) { nodes { id key name } } }",
         )
     nodes = data["teams"]["nodes"]
-    if args.json:
-        print(json.dumps(nodes, indent=2))
-        return 0
+    if as_json:
+        typer.echo(json.dumps(nodes, indent=2))
+        return
     for team in nodes:
-        print(f"{team['key']:<10} {team['name']}  (id: {team['id']})")
-    return 0
+        typer.echo(f"{team['key']:<10} {team['name']}  (id: {team['id']})")
 
 
-def cmd_issues(args: argparse.Namespace) -> int:
-    """List a team's issues, newest updated first (open ones by default)."""
-    limit = min(args.limit, MAX_PAGE_SIZE)
+@app.command()
+def issues(
+    team: str = typer.Option(..., help="Team key, e.g. ENG."),
+    state: State = typer.Option(
+        State.open,
+        help="Open (default) excludes completed and canceled issues.",
+    ),
+    limit: int = typer.Option(
+        25,
+        help=f"Max issues to fetch (default 25, capped at {MAX_PAGE_SIZE}).",
+    ),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
+    as_json: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit JSON instead of human-readable output.",
+    ),
+) -> None:
+    """List a team's issues, newest updated first."""
+    limit = min(limit, MAX_PAGE_SIZE)
     with _workflow() as linear:
-        team = linear.get_team_by_key(args.team)
-        if team is None:
-            sys.exit(f"error: no Linear team with key {args.team!r}")
-        if args.state == "open":
-            issues = linear.list_open_team_issues(team.id, first=limit)
+        resolved = linear.get_team_by_key(team)
+        if resolved is None:
+            typer.secho(f"error: no Linear team with key {team!r}", err=True)
+            raise typer.Exit(code=1)
+        if state is State.open:
+            fetched = linear.list_open_team_issues(resolved.id, first=limit)
         else:
             page = linear.list_issues_page(
-                {"team": {"id": {"eq": team.id}}},
+                {"team": {"id": {"eq": resolved.id}}},
                 first=limit,
                 order_by=PaginationOrderBy.updatedAt,
             )
-            issues = list(page.nodes)
-    _print_issues(issues, as_json=args.json, verbose=args.verbose)
-    return 0
+            fetched = list(page.nodes)
+    _print_issues(fetched, as_json=as_json, verbose=verbose)
 
 
-def cmd_issue(args: argparse.Namespace) -> int:
-    """Fetch a single issue by its human identifier (e.g. ENG-123)."""
-    identifier = args.identifier.upper()
+@app.command()
+def issue(
+    identifier: str = typer.Argument(help="Issue identifier, e.g. ENG-123."),
+    as_json: bool = typer.Option(
+        False,
+        "--json",
+        help="Emit JSON instead of human-readable output.",
+    ),
+) -> None:
+    """Fetch one issue by its human identifier."""
+    identifier = identifier.upper()
     with _workflow() as linear:
         # get_issue() only accepts Linear UUIDs, so resolve the human identifier
         # through search and match on the exact identifier.
         result = linear.search_issues(identifier, first=25)
     match = next((i for i in result.nodes if i.identifier == identifier), None)
     if match is None:
-        print(f"error: no issue found with identifier {identifier}", file=sys.stderr)
-        return 1
-    if args.json:
-        print(json.dumps(_issue_dict(match), indent=2))
-        return 0
-    issue = match
-    print(f"{issue.identifier}: {issue.title}")
-    print(f"  url:      {issue.url}")
-    print(f"  state:    {issue.state.name if issue.state else '-'}")
-    print(f"  priority: {_priority_label(issue.priority)}")
-    print(f"  assignee: {issue.assignee.name if issue.assignee else '-'}")
-    print(f"  id:       {issue.id}")
-    if issue.description:
-        print("  description:")
-        for line in issue.description.splitlines():
-            print(f"    {line}")
-    return 0
+        typer.secho(f"error: no issue found with identifier {identifier}", err=True)
+        raise typer.Exit(code=1)
+    if as_json:
+        typer.echo(json.dumps(_issue_dict(match), indent=2))
+        return
+    typer.echo(f"{match.identifier}: {match.title}")
+    typer.echo(f"  url:      {match.url}")
+    typer.echo(f"  state:    {match.state.name if match.state else '-'}")
+    typer.echo(f"  priority: {_priority_label(match.priority)}")
+    typer.echo(f"  assignee: {match.assignee.name if match.assignee else '-'}")
+    typer.echo(f"  id:       {match.id}")
+    if match.description:
+        typer.echo("  description:")
+        for line in match.description.splitlines():
+            typer.echo(f"    {line}")
 
 
-def cmd_search(args: argparse.Namespace) -> int:
-    """Search issues across the workspace by free-text term."""
-    limit = min(args.limit, MAX_PAGE_SIZE)
-    with _workflow() as linear:
-        result = linear.search_issues(args.term, first=limit)
-    _print_issues(list(result.nodes), as_json=args.json, verbose=args.verbose)
-    return 0
-
-
-def build_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser(
-        prog="linear_cli.py",
-        description="Fetch Linear issues via the gtm-linear SDK (read-only).",
-    )
-    json_parent = argparse.ArgumentParser(add_help=False)
-    json_parent.add_argument(
+@app.command()
+def search(
+    term: str = typer.Argument(help="Search term."),
+    limit: int = typer.Option(
+        10,
+        help=f"Max results (default 10, capped at {MAX_PAGE_SIZE}).",
+    ),
+    verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
+    as_json: bool = typer.Option(
+        False,
         "--json",
-        action="store_true",
-        help="emit JSON instead of a human-readable table",
-    )
-    subparsers = parser.add_subparsers(dest="command", required=True)
-
-    viewer = subparsers.add_parser(
-        "viewer",
-        help="who the LINEAR_API_KEY belongs to (auth check)",
-        parents=[json_parent],
-    )
-    viewer.set_defaults(func=cmd_viewer)
-
-    teams = subparsers.add_parser(
-        "teams",
-        help="list teams (key, name, id)",
-        parents=[json_parent],
-    )
-    teams.set_defaults(func=cmd_teams)
-
-    issues = subparsers.add_parser(
-        "issues",
-        help="list a team's issues, newest updated first",
-        parents=[json_parent],
-    )
-    issues.add_argument("--team", required=True, help="team key, e.g. ENG")
-    issues.add_argument(
-        "--state",
-        choices=("open", "all"),
-        default="open",
-        help="open (default) excludes completed and canceled issues",
-    )
-    issues.add_argument("--limit", type=int, default=25, help=f"max issues (default 25, cap {MAX_PAGE_SIZE})")
-    issues.add_argument("-v", "--verbose", action="store_true", help="also print descriptions")
-    issues.set_defaults(func=cmd_issues)
-
-    issue = subparsers.add_parser(
-        "issue",
-        help="fetch one issue by identifier, e.g. ENG-123",
-        parents=[json_parent],
-    )
-    issue.add_argument("identifier", help="issue identifier, e.g. ENG-123")
-    issue.set_defaults(func=cmd_issue)
-
-    search = subparsers.add_parser(
-        "search",
-        help="free-text issue search",
-        parents=[json_parent],
-    )
-    search.add_argument("term", help="search term")
-    search.add_argument("--limit", type=int, default=10, help=f"max results (default 10, cap {MAX_PAGE_SIZE})")
-    search.add_argument("-v", "--verbose", action="store_true", help="also print descriptions")
-    search.set_defaults(func=cmd_search)
-
-    return parser
+        help="Emit JSON instead of human-readable output.",
+    ),
+) -> None:
+    """Free-text issue search across the workspace."""
+    limit = min(limit, MAX_PAGE_SIZE)
+    with _workflow() as linear:
+        result = linear.search_issues(term, first=limit)
+    _print_issues(list(result.nodes), as_json=as_json, verbose=verbose)
 
 
-def main() -> int:
-    args = build_parser().parse_args()
+def main() -> None:
+    """Entry point: run the Typer app, mapping SDK errors to a clean exit."""
     try:
-        return args.func(args)
+        app()
     except LinearAPIError as exc:
-        print(f"Linear API error: {exc}", file=sys.stderr)
-        return 1
+        typer.secho(f"Linear API error: {exc}", fg=typer.colors.RED, err=True)
+        raise SystemExit(1) from None
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    main()

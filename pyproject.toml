@@ -46,6 +46,7 @@ dev = [
     "questionary>=2.1.1",
     "pytest>=9.1.1",
     "gtm-linear>=0.2.1",
+    "typer>=0.27.2",
 ]
 
 [tool.uv]
