@@ -174,7 +174,9 @@ def test_missing_api_key_exits_1(tmp_path: Path, monkeypatch: pytest.MonkeyPatch
     # test below is the authoritative one for CLI handling. LinearSettings
     # reads LINEAR_* env vars and .env/.env.local relative to the cwd, so an
     # empty tmp_path with every LINEAR_* var cleared hides all key sources.
-    for name in [n for n in os.environ if n.startswith("LINEAR_")]:
+    # Matching is case-insensitive because pydantic-settings resolves env
+    # var names case-insensitively by default.
+    for name in [n for n in os.environ if n.upper().startswith("LINEAR_")]:
         monkeypatch.delenv(name, raising=False)
     monkeypatch.chdir(tmp_path)
 
@@ -200,8 +202,10 @@ def test_from_env_validation_error_exits_1() -> None:
 
 
 def test_unrelated_from_env_error_is_not_misreported() -> None:
-    # Only ValidationError maps to the "no LINEAR_API_KEY" message; anything
-    # else must surface as itself rather than being misreported.
+    # Only ValidationError maps to the "no LINEAR_API_KEY" message. ValueError
+    # is chosen deliberately: pydantic v2's ValidationError subclasses it, so a
+    # future `except ValueError` in _workflow() would swallow this and turn it
+    # into a misleading missing-key message — the regression this guards against.
     with mock.patch.object(
         linear_cli.LinearClient,
         "from_env",
@@ -211,6 +215,7 @@ def test_unrelated_from_env_error_is_not_misreported() -> None:
 
     assert result.exit_code == 1
     assert isinstance(result.exception, ValueError)
+    assert str(result.exception) == "kaboom"
     assert "no LINEAR_API_KEY" not in result.output
 
 
