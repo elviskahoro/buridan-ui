@@ -22,6 +22,8 @@ Usage (from the workspace root; gtm-linear and typer are dev dependencies, so
 
 Append ``--json`` to any command for machine-readable output. All commands are
 read-only; for writes use the SDK directly (``gtm_linear.LinearMutations``).
+Options are validated at parse time: ``--limit`` accepts 1-100 and out-of-range
+values exit with a usage error (code 2) rather than being clamped.
 """
 
 from __future__ import annotations

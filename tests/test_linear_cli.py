@@ -12,6 +12,7 @@ import unittest.mock as mock
 from pathlib import Path
 
 import pytest
+from pydantic import ValidationError
 from typer.testing import CliRunner
 
 # ---------------------------------------------------------------------------
@@ -62,12 +63,8 @@ def _team() -> types.SimpleNamespace:
     return types.SimpleNamespace(id="team-uuid", key="EKK", name="Elvis")
 
 
-def _all_output(result) -> str:
-    """stdout plus stderr, tolerating click versions that mix or split them."""
-    try:
-        return result.output + result.stderr
-    except ValueError:
-        return result.output
+# The lockfile pins click >= 8.2, where CliRunner interleaves stderr into
+# result.output, so substring assertions can use result.output alone.
 
 
 # ---------------------------------------------------------------------------
@@ -130,7 +127,7 @@ def test_unknown_team_exits_1() -> None:
         result = runner.invoke(linear_cli.app, ["issues", "--team", "NOPE"])
 
     assert result.exit_code == 1
-    assert "no Linear team" in _all_output(result)
+    assert "no Linear team" in result.output
 
 
 @pytest.mark.parametrize("bad_limit", ["0", "-5", "500"])
@@ -167,7 +164,7 @@ def test_issue_not_found_exits_1() -> None:
         result = runner.invoke(linear_cli.app, ["issue", "EKK-999"])
 
     assert result.exit_code == 1
-    assert "no issue found" in _all_output(result)
+    assert "no issue found" in result.output
 
 
 # ---------------------------------------------------------------------------
@@ -176,24 +173,48 @@ def test_issue_not_found_exits_1() -> None:
 
 
 def test_missing_api_key_exits_1(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    # Deterministic: gtm-linear 0.2.1's LinearSettings reads only CWD-relative
+    # ".env" / ".env.local" files plus LINEAR_* env vars (verified against its
+    # settings.py), so an empty tmp_path with the env var deleted hides every
+    # key source.
     monkeypatch.delenv("LINEAR_API_KEY", raising=False)
-    monkeypatch.chdir(tmp_path)  # no .env / .env.local here
+    monkeypatch.chdir(tmp_path)
 
     result = runner.invoke(linear_cli.app, ["viewer"])
 
     assert result.exit_code == 1
-    assert "no LINEAR_API_KEY" in _all_output(result)
+    assert "no LINEAR_API_KEY" in result.output
 
 
-def test_main_maps_linear_api_error_to_system_exit_1() -> None:
+def test_from_env_validation_error_exits_1() -> None:
+    # Covers the CLI's handling of a missing key even if the SDK's settings
+    # resolution ever changes to read other sources.
+    error = ValidationError.from_exception_data(
+        "LinearSettings",
+        [{"type": "missing", "loc": ("api_key",), "input": {}}],
+    )
+
+    with mock.patch.object(linear_cli.LinearClient, "from_env", side_effect=error):
+        result = runner.invoke(linear_cli.app, ["viewer"])
+
+    assert result.exit_code == 1
+    assert "no LINEAR_API_KEY" in result.output
+
+
+def test_main_maps_linear_api_error_to_clean_stderr_and_exit_1(capsys) -> None:
     with mock.patch.object(linear_cli, "app", side_effect=LinearAPIError("boom")):
         with pytest.raises(SystemExit) as excinfo:
             linear_cli.main()
 
     assert excinfo.value.code == 1
+    stderr = capsys.readouterr().err
+    assert "Linear API error" in stderr
+    assert "boom" in stderr
 
 
-def test_linear_api_error_from_command_exits_1() -> None:
+def test_linear_api_error_propagates_out_of_app() -> None:
+    # The command layer lets LinearAPIError escape; only main() maps it to a
+    # clean exit (covered by the test above).
     inner = mock.MagicMock()
     inner.get_viewer.side_effect = LinearAPIError("boom")
 
