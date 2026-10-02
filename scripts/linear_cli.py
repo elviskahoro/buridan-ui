@@ -28,7 +28,7 @@ from __future__ import annotations
 
 import enum
 import json
-from typing import Any
+from typing import Any, NoReturn
 
 import typer
 from pydantic import ValidationError
@@ -43,6 +43,11 @@ from gtm_linear import (
 app = typer.Typer(
     help="Fetch Linear issues via the gtm-linear SDK (read-only).",
     no_args_is_help=True,
+    # This is a non-interactive script: unexpected exceptions must print a
+    # plain traceback, never Typer's default Rich traceback with local
+    # variables — those frames hold the LinearClient and its API key.
+    pretty_exceptions_show_locals=False,
+    pretty_exceptions_enable=False,
 )
 
 # Linear's page-size ceiling for issue connections; larger --limit values are
@@ -61,6 +66,12 @@ class State(enum.Enum):
     all = "all"
 
 
+def _fail(message: str) -> NoReturn:
+    """Print an error to stderr and exit 1 — one style for every failure path."""
+    typer.secho(f"error: {message}", fg=typer.colors.RED, err=True)
+    raise typer.Exit(code=1)
+
+
 # --- helpers (logic kept separate from the thin Typer command functions) ---
 
 
@@ -69,12 +80,10 @@ def _workflow() -> LinearWorkflow:
     try:
         client = LinearClient.from_env()
     except ValidationError:
-        typer.secho(
-            "error: no LINEAR_API_KEY found. Set it in the environment or in a "
+        _fail(
+            "no LINEAR_API_KEY found. Set it in the environment or in a "
             ".env / .env.local file in the working directory (lin_api_... key).",
-            err=True,
         )
-        raise typer.Exit(code=1) from None
     return LinearWorkflow(client.api_key)
 
 
@@ -189,7 +198,9 @@ def issues(
     ),
     limit: int = typer.Option(
         25,
-        help=f"Max issues to fetch (default 25, capped at {MAX_PAGE_SIZE}).",
+        min=1,
+        max=MAX_PAGE_SIZE,
+        help=f"Max issues to fetch (1-{MAX_PAGE_SIZE}, default 25).",
     ),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
     as_json: bool = typer.Option(
@@ -199,12 +210,10 @@ def issues(
     ),
 ) -> None:
     """List a team's issues, newest updated first."""
-    limit = min(limit, MAX_PAGE_SIZE)
     with _workflow() as linear:
         resolved = linear.get_team_by_key(team)
         if resolved is None:
-            typer.secho(f"error: no Linear team with key {team!r}", err=True)
-            raise typer.Exit(code=1)
+            _fail(f"no Linear team with key {team!r}")
         if state is State.open:
             fetched = linear.list_open_team_issues(resolved.id, first=limit)
         else:
@@ -234,8 +243,7 @@ def issue(
         result = linear.search_issues(identifier, first=25)
     match = next((i for i in result.nodes if i.identifier == identifier), None)
     if match is None:
-        typer.secho(f"error: no issue found with identifier {identifier}", err=True)
-        raise typer.Exit(code=1)
+        _fail(f"no issue found with identifier {identifier}")
     if as_json:
         typer.echo(json.dumps(_issue_dict(match), indent=2))
         return
@@ -256,7 +264,9 @@ def search(
     term: str = typer.Argument(help="Search term."),
     limit: int = typer.Option(
         10,
-        help=f"Max results (default 10, capped at {MAX_PAGE_SIZE}).",
+        min=1,
+        max=MAX_PAGE_SIZE,
+        help=f"Max results (1-{MAX_PAGE_SIZE}, default 10).",
     ),
     verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
     as_json: bool = typer.Option(
@@ -266,7 +276,6 @@ def search(
     ),
 ) -> None:
     """Free-text issue search across the workspace."""
-    limit = min(limit, MAX_PAGE_SIZE)
     with _workflow() as linear:
         result = linear.search_issues(term, first=limit)
     _print_issues(list(result.nodes), as_json=as_json, verbose=verbose)
