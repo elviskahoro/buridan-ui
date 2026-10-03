@@ -94,8 +94,10 @@ ANATOMY = {
                 ),
                 context_menu.sub(
                     context_menu.sub_trigger(),
-                    context_menu.positioner(
-                        context_menu.popup(),
+                    context_menu.portal(
+                        context_menu.positioner(
+                            context_menu.popup(),
+                        ),
                     ),
                 ),
             ),
