@@ -54,5 +54,5 @@ def table_list():
             ),
             class_name="w-full",
         ),
-        class_name="my-6 w-full overflow-y-auto",
+        class_name="my-6 w-full overflow-x-auto",
     )
