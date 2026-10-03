@@ -41,6 +41,9 @@ def seed_engine() -> rx.Script:
     const FONT_REGISTRY  = {font_registry_js};
     const RADIUS_OPTIONS = {radius_options_js};
     const CHARS = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const COLOR_RADIX = COLOR_THEMES.length + 1;
+    const SEED_SPACE_SIZE = BASE_THEMES.length * COLOR_RADIX * COLOR_RADIX
+        * STYLE_REGISTRY.length * FONT_REGISTRY.length * RADIUS_OPTIONS.length;
 
     // Flatten a shadcn cssVars object → prefixed CSS var dict
     // e.g. {{ primary: "oklch(...)" }} → {{ "--primary": "oklch(...)" }}
@@ -70,14 +73,14 @@ def seed_engine() -> rx.Script:
         const n = fromBase62(seed.substring(0, 4));
         const checksum = fromBase62(seed.substring(4));
 
-        if (checksum === (n * 12345) % 916132832 && n < 72600) {{
+        if (checksum === (n * 12345) % 916132832 && n < SEED_SPACE_SIZE) {{
             let temp = n;
-            const rIdx = temp % 4; temp = Math.floor(temp / 4);
-            const fIdx = temp % 5; temp = Math.floor(temp / 5);
-            const sIdx = temp % 5; temp = Math.floor(temp / 5);
-            const chIdx = temp % 11; temp = Math.floor(temp / 11);
-            const cIdx = temp % 11; temp = Math.floor(temp / 11);
-            const bIdx = temp % 6;
+            const rIdx = temp % RADIUS_OPTIONS.length; temp = Math.floor(temp / RADIUS_OPTIONS.length);
+            const fIdx = temp % FONT_REGISTRY.length; temp = Math.floor(temp / FONT_REGISTRY.length);
+            const sIdx = temp % STYLE_REGISTRY.length; temp = Math.floor(temp / STYLE_REGISTRY.length);
+            const chIdx = temp % COLOR_RADIX; temp = Math.floor(temp / COLOR_RADIX);
+            const cIdx = temp % COLOR_RADIX; temp = Math.floor(temp / COLOR_RADIX);
+            const bIdx = temp % BASE_THEMES.length;
 
             return {{
                 baseId:  BASE_THEMES[bIdx].id,
@@ -97,8 +100,8 @@ def seed_engine() -> rx.Script:
             const rand = mulberry32(hashStringToInt(seedString));
             config = {{
                 baseId:  BASE_THEMES[Math.floor(rand() * BASE_THEMES.length)].id,
-                colorId: (function(r){{ let i = Math.floor(r * 11); return i === 0 ? null : COLOR_THEMES[i-1].id; }})(rand()),
-                chartId: (function(r){{ let i = Math.floor(r * 11); return i === 0 ? null : COLOR_THEMES[i-1].id; }})(rand()),
+                colorId: (function(r){{ let i = Math.floor(r * COLOR_RADIX); return i === 0 ? null : COLOR_THEMES[i-1].id; }})(rand()),
+                chartId: (function(r){{ let i = Math.floor(r * COLOR_RADIX); return i === 0 ? null : COLOR_THEMES[i-1].id; }})(rand()),
                 styleId: STYLE_REGISTRY[Math.floor(rand() * STYLE_REGISTRY.length)].id,
                 fontId:  FONT_REGISTRY[Math.floor(rand() * FONT_REGISTRY.length)].id,
                 radius:  RADIUS_OPTIONS[Math.floor(rand() * RADIUS_OPTIONS.length)][1]
