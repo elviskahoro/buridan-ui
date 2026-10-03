@@ -2,6 +2,7 @@ from typing import Dict, List
 
 import reflex as rx
 
+from app.utils.links import external_link, is_external_href
 from app.www.wrapper import generate_component_id
 from components.icons.hugeicon import hi
 from components.ui.tooltip import tooltip
@@ -97,10 +98,11 @@ def _create_external_tool_links(url: str):
         href: str,
         icon_size: str = "size-4",
     ):
+        link_component = external_link if is_external_href(href) else rx.el.a
         return tooltip.provider(
             tooltip.root(
                 tooltip.trigger(
-                    render_=rx.el.a(
+                    render_=link_component(
                         rx.el.image(
                             rx.color_mode_cond(icon_light, icon_dark),
                             class_name=icon_size,

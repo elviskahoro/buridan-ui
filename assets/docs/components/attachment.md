@@ -311,6 +311,7 @@ def attachment_image_demo():
                         href=image["src"],
                         target="_blank",
                         rel="noreferrer",
+                        reload_document=True,
                         aria_label=f"Open {image['name']}",
                     ),
                     attachment.media(

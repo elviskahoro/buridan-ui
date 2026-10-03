@@ -3,12 +3,13 @@ import reflex as rx
 from app.templates.docsidebar import sidebar
 from app.templates.footer import footer
 from app.templates.navbar import navbar
+from app.utils.links import external_link
 
 banner = rx.el.div(
     rx.el.div(
         rx.el.p(
             rx.el.span("New components library - ", class_name="font-medium"),
-            rx.el.a(
+            external_link(
                 rx.el.strong("Native UI"),
                 href="https://native.buridan.dev/",
                 target="_blank",
