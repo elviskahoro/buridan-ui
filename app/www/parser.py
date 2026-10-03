@@ -98,8 +98,7 @@ class DocParser:
                 return tooltip_wrapper()
 
             if "demo" in cmd:
-                # src = inspect.getsource(obj).strip()
-                src = Path(inspect.getsourcefile(obj)).read_text().strip()
+                src = inspect.getsource(obj).strip()
                 return demo_wrapper(obj(), src)
 
             if "code" in cmd:
