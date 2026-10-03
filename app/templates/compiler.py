@@ -454,7 +454,7 @@ def theme_export_compiler() -> rx.Component:
                                                             )
                                                         ),
                                                         rx.set_clipboard(
-                                                            css_output.value
+                                                            rxconfig
                                                         ),
                                                     ],
                                                     on_mouse_down=rx.call_function(
