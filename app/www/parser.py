@@ -44,9 +44,14 @@ class DocParser:
         self, registry: Dict[str, Callable] = None, dynamic_load_dirs: List[str] = None
     ):
         self.registry = registry or {}
-        root = pathlib.Path(__file__).parent.parent.parent
+        root = pathlib.Path(__file__).resolve().parents[2]
         for d in dynamic_load_dirs or []:
-            for py in (root / d).rglob("*.py"):
+            load_dir = pathlib.Path(d)
+            if not load_dir.is_absolute():
+                load_dir = root / load_dir
+            load_dir = load_dir.resolve()
+
+            for py in load_dir.rglob("*.py"):
                 if py.name.startswith("__"):
                     continue
                 mod = importlib.import_module(
