@@ -144,6 +144,19 @@ class TestMarkdownGeneration:
             f"Output directory missing: {MARKDOWN_OUTPUT_DIR.relative_to(ROOT_DIR)}"
         )
 
+    def test_button_manual_installation_matches_component_source(self):
+        """The generated Button install snippet stays in sync with its source."""
+        button_source = (ROOT_DIR / "components" / "ui" / "button.py").read_text(
+            encoding="utf-8"
+        ).strip()
+        button_doc = (MARKDOWN_OUTPUT_DIR / "components" / "button.md").read_text(
+            encoding="utf-8"
+        )
+
+        assert button_source in button_doc, (
+            "Generated Button documentation is out of sync with components/ui/button.py"
+        )
+
     def test_no_extra_output_files(self):
         """
         Every file in assets/docs/ should trace back to a source file in docs/.

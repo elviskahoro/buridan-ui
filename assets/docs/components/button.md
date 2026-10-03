@@ -113,7 +113,8 @@ BUTTON_VARIANTS = {
         ),
         "icon-sm": (
             "size-7 rounded-[min(var(--radius-md),12px)] "
-            "in-data-[slot=button-group]:rounded-lg"
+            "in-data-[slot=button-group]:rounded-lg "
+            "[&_svg:not([class*='size-'])]:size-3.5"
         ),
         "icon-lg": "size-9",
     },
