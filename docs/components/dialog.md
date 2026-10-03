@@ -27,7 +27,7 @@ Use the following composition to build a `Dialog` component.
 
 ## Custom Close Button
 
-Replace the default close control with your own button. Make sure to pass in `dialog.class_names.CLOSE` to the rendered  component to ensure proper positioning.
+`render_` replaces the close control, including its default classes. To create a custom top-right close icon, pass `dialog.class_names.CLOSE` to the rendered button; footer close buttons can use their own styling without those positioning classes.
 
 --DEMO(dialog_close_button)--
 

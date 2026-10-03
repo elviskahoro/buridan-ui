@@ -17,7 +17,7 @@ buridan add component tooltip
 ### Manual Installation
 
 ```python
-from typing import Literal
+from typing import ClassVar, Literal
 
 from reflex.components.component import Component, ComponentNamespace
 from reflex.event import EventHandler, passthrough_event_spec
@@ -112,6 +112,7 @@ class TooltipTrigger(TooltipBaseComponent):
     tag = "Tooltip.Trigger"
 
     render_: Var[Component]
+    _merge_default_classes_with_render: ClassVar[bool] = True
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
@@ -213,6 +214,8 @@ tooltip = Tooltip()
 
 # Usage
 
+`tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
+
 
 ```python
 from components.ui.tooltip import Tooltip
@@ -278,4 +281,3 @@ def tooltip_sides():
         class_name="flex flex-wrap gap-2",
     )
 ```
-

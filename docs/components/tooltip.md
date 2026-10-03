@@ -18,6 +18,8 @@ Copy the following code into your app directory.
 
 --USAGE(tooltip)--
 
+`tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
+
 # Anatomy 
 Use the following composition to build a `Tooltip` component.
 --ANATOMY(tooltip)--
