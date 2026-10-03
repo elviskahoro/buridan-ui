@@ -1,17 +1,19 @@
 import reflex as rx
 
+from app.utils.links import external_link
+
 
 def footer() -> rx.Component:
     return rx.el.p(
         rx.el.span(
             "Built by ",
-            rx.el.a(
+            external_link(
                 "Line Indent",
                 href="https://github.com/LineIndent",
                 class_name="font-semibold underline",
             ),
             " at ",
-            rx.el.a(
+            external_link(
                 "Reflex",
                 href="https://reflex.dev",
                 class_name="font-semibold underline",
@@ -20,7 +22,7 @@ def footer() -> rx.Component:
         ),
         rx.el.span(
             " The source code is available on ",
-            rx.el.a(
+            external_link(
                 "GitHub",
                 href="https://github.com/LineIndent/ui",
                 class_name="font-semibold underline",

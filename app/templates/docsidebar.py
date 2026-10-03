@@ -4,6 +4,7 @@ from typing import List
 import reflex as rx
 
 import app.utils.routes as routes
+from app.utils.links import external_link
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.select import select
@@ -61,11 +62,10 @@ def create_menu_item(data: dict):
     """Create a single menu item."""
 
     if data["title"].startswith("pypi"):
-        link = rx.el.a(
+        link = external_link(
             rx.el.p(data["title"], class_name="cursor-pointer"),
             href=data["url"],
             text_decoration="none",
-            reload_document=True,
         )
 
     elif data["url"] == "llms.txt":

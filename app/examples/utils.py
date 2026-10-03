@@ -3,6 +3,7 @@ import functools
 import reflex as rx
 
 from app.hooks import selected_blocks_category, selected_component_category
+from app.utils.links import external_link
 from app.www.wrapper import generate_component_id
 from components.icons.hugeicon import hi
 from components.ui.button import button
@@ -19,7 +20,7 @@ def open_in_reflex_build(
     return tooltip.provider(
         tooltip.root(
             tooltip.trigger(
-                render_=rx.el.a(
+                render_=external_link(
                     rx.el.image(
                         rx.color_mode_cond(icon_light, icon_dark),
                         class_name=icon_size,

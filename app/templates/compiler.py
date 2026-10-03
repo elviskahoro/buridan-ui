@@ -11,6 +11,7 @@ from app.hooks import (
     theme_preset_option,
 )
 from app.templates.config import rxconfig
+from app.utils.links import external_link
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.dialog import dialog
@@ -152,7 +153,7 @@ def theme_cli_prompt() -> rx.Component:
                 rx.el.div(
                     rx.cond(
                         theme_export_method.value == "online",
-                        rx.el.a(
+                        external_link(
                             "Open in Reflex Build",
                             class_name="text-xs font-light text-foreground",
                             href=f"https://build.reflex.dev/?prompt=Install and run pip install buridan-create and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
