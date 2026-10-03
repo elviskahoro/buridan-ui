@@ -23,8 +23,11 @@ def parse_frontmatter(content: str) -> tuple[dict, str]:
             ):
                 value = value[1:-1]
 
-            if key == "order" and value.isdigit():
-                value = int(value)
+            if key == "order":
+                try:
+                    value = int(value)
+                except ValueError:
+                    pass
 
             metadata[key] = value
 
