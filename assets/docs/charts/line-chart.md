@@ -554,13 +554,10 @@ def linechart_v7():
                 ),
                 rx.el.div(
                     rx.el.select(
-                        rx.el.option(
-                            "Mobile", on_click=SelectedType.set_value("mobile")
-                        ),
-                        rx.el.option(
-                            "Desktop", on_click=SelectedType.set_value("desktop")
-                        ),
-                        default_value="Mobile",
+                        rx.el.option("Mobile", value="mobile"),
+                        rx.el.option("Desktop", value="desktop"),
+                        default_value="mobile",
+                        on_change=lambda value: SelectedType.set_value(value),
                         class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3 bg-secondary border border-input",
                     ),
                     class_name="flex flex-row items-center gap-x-2",
