@@ -7,10 +7,17 @@ from reflex.vars.base import VarData
 
 PACKAGE_NAME = "@base-ui/react"
 PACKAGE_VERSION = "1.6.0"
-PACKAGE_CN = "clsx-for-tailwind@1.0.0"
-CN = Var("cn", _var_data=VarData(imports={PACKAGE_CN: ImportVar(tag="cn")})).to(
-    FunctionVar
-)
+PACKAGE_CLSX = "clsx@2.1.1"
+PACKAGE_TAILWIND_MERGE = "tailwind-merge@3.7.0"
+CLSX = Var(
+    "clsx", _var_data=VarData(imports={PACKAGE_CLSX: ImportVar(tag="clsx")})
+).to(FunctionVar)
+TW_MERGE = Var(
+    "twMerge",
+    _var_data=VarData(
+        imports={PACKAGE_TAILWIND_MERGE: ImportVar(tag="twMerge")}
+    ),
+).to(FunctionVar)
 
 
 class CoreComponent(Component):
@@ -44,4 +51,4 @@ class BaseUIComponent(CoreComponent):
 
 
 def cn(*classes: Var | str | tuple | list | None) -> Var:
-    return CN.call(*classes).to(str)
+    return TW_MERGE.call(CLSX.call(*classes)).to(str)

@@ -55,8 +55,8 @@ def _inner_div(panel: BaseUIComponent) -> Component:
 
 
 def _shielded_panel_class_name() -> str:
-    """The exact serialized form the panel element must always take: cn(PANEL, "")."""
-    return f'(cn("{ClassNames.PANEL}", ""))'
+    """The exact serialized form the panel element must always take."""
+    return f'(twMerge((clsx("{ClassNames.PANEL}", ""))))'
 
 
 # ---------------------------------------------------------------------------
@@ -75,7 +75,7 @@ def test_panel_wraps_children_in_a_single_inner_div() -> None:
 def test_panel_default_inner_wrapper_is_empty() -> None:
     """Without a user class_name, the inner wrapper carries no styling (no double-padding)."""
     panel = _panel()
-    assert str(_inner_div(panel).class_name) == '(cn("", ""))'
+    assert str(_inner_div(panel).class_name) == '(twMerge((clsx("", ""))))'
 
 
 def test_panel_class_name_is_always_shielded_from_user_class_name() -> None:
