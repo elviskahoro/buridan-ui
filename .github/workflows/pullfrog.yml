@@ -29,9 +29,14 @@ jobs:
         uses: pullfrog/pullfrog@v0
         with:
           prompt: ${{ inputs.prompt }}
+          # Fireworks GLM 5.3 — same model roborev uses in gtm-sdk
+          # (.roborev.toml: fireworks/accounts/fireworks/models/glm-5p3).
+          # Raw models.dev specifier; runs through OpenCode on BYOK.
+          model: fireworks-ai/accounts/fireworks/models/glm-5p3
         env:
           # add at least one provider API key
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FIREWORKS_API_KEY: ${{ secrets.FIREWORKS_API_KEY }}
           CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GOOGLE_GENERATIVE_AI_API_KEY:
