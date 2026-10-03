@@ -68,6 +68,8 @@ def render_list_item(text: str) -> rx.Component:
 
 
 def render_link(*args, **props) -> rx.Component:
+    # Reflex builds Markdown map callbacks without the runtime href; ReactMarkdown
+    # supplies it through the props spread, which keeps this a native Radix link.
     return rx.link(*args, class_name=LINK_CLASS, **props)
 
 
