@@ -8,9 +8,12 @@ from reflex.vars.base import VarData
 PACKAGE_NAME = "@base-ui/react"
 PACKAGE_VERSION = "1.6.0"
 PACKAGE_CN = "clsx-for-tailwind@1.0.0"
-CN = Var("cn", _var_data=VarData(imports={PACKAGE_CN: ImportVar(tag="cn")})).to(
-    FunctionVar
-)
+CN = Var(
+    "cn",
+    _var_data=VarData(
+        imports={PACKAGE_CN: ImportVar(tag="cn", package_path="")}
+    ),
+).to(FunctionVar)
 
 
 class CoreComponent(Component):
