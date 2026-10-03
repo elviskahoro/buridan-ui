@@ -15,6 +15,8 @@ from app.www.frontmatter import parse_frontmatter  # noqa: E402
         ("-1", -1),
         ("5", 5),
         ("007", 7),
+        ("+5", 5),
+        ("1_000", 1000),
         ("first", "first"),
     ],
 )
@@ -28,7 +30,7 @@ def test_parse_frontmatter_order_value(order_value, expected):
     assert body == "Body\n"
 
 
-def test_generate_doc_routes_sorts_negative_and_positive_orders(
+def test_generate_doc_routes_sorts_mixed_order_values_deterministically(
     tmp_path: Path, monkeypatch: pytest.MonkeyPatch
 ) -> None:
     from app.utils import routes
@@ -44,9 +46,45 @@ def test_generate_doc_routes_sorts_negative_and_positive_orders(
         "---\ntitle: First\ndescription: First page\norder: -1\n---\n",
         encoding="utf-8",
     )
+    (section_dir / "last.md").write_text(
+        "---\ntitle: Last\ndescription: Last page\norder: last\n---\n",
+        encoding="utf-8",
+    )
+    (section_dir / "alpha.md").write_text(
+        "---\ntitle: Alpha\ndescription: Alpha page\norder: alpha\n---\n",
+        encoding="utf-8",
+    )
+    (section_dir / "default.md").write_text(
+        "---\ntitle: Default\ndescription: Default page\n---\n",
+        encoding="utf-8",
+    )
+    (section_dir / "zero_b.md").write_text(
+        "---\ntitle: Zero B\ndescription: Zero page B\norder: 0\n---\n",
+        encoding="utf-8",
+    )
+    (section_dir / "zero_a.md").write_text(
+        "---\ntitle: Zero A\ndescription: Zero page A\norder: 0\n---\n",
+        encoding="utf-8",
+    )
     monkeypatch.setattr(routes.constants, "DOCS_BASE_DIR", docs_dir)
 
     result = routes.generate_doc_routes("section", "docs/section/")
 
-    assert [route["title"] for route in result] == ["First", "Later"]
-    assert [route["order"] for route in result] == [-1, 5]
+    assert [route["title"] for route in result] == [
+        "First",
+        "Default",
+        "Zero A",
+        "Zero B",
+        "Later",
+        "Alpha",
+        "Last",
+    ]
+    assert [route["order"] for route in result] == [
+        -1,
+        0,
+        0,
+        0,
+        5,
+        "alpha",
+        "last",
+    ]
