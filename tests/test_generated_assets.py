@@ -17,6 +17,7 @@ ROOT_DIR = pathlib.Path(__file__).parent.parent
 DOCS_DIR = ROOT_DIR / "docs"
 MARKDOWN_OUTPUT_DIR = ROOT_DIR / "assets" / "docs"
 SOCIAL_OUTPUT_DIR = ROOT_DIR / "assets" / "social"
+UI_COMPONENTS_DIR = ROOT_DIR / "components" / "ui"
 
 # Hardcoded pages from social_cards generator's PAGES_CONFIG
 PAGES_CONFIG_ROUTES = ["create", "charts", "components", "index"]
@@ -45,6 +46,12 @@ def expected_markdown_output_path(md_file: pathlib.Path) -> pathlib.Path:
     return MARKDOWN_OUTPUT_DIR / pathlib.Path(*hyphenated_parts)
 
 
+def expected_ui_component_doc_path(component_source: pathlib.Path) -> pathlib.Path:
+    """Map a UI component source file to its generated component doc."""
+    filename = component_source.stem.replace("_", "-") + ".md"
+    return MARKDOWN_OUTPUT_DIR / "components" / filename
+
+
 def expected_social_card_path(md_file: pathlib.Path) -> pathlib.Path:
     """
     Derive the expected .webp path for a docs/ source file, matching
@@ -68,6 +75,24 @@ def has_frontmatter(md_file: pathlib.Path) -> bool:
 
 _all_md = all_source_md_files()
 _md_with_frontmatter = [f for f in _all_md if has_frontmatter(f)]
+
+
+def has_generated_manual_installation(component_source: pathlib.Path) -> bool:
+    """Whether the component doc has an install snippet generated from its source."""
+    component_doc = expected_ui_component_doc_path(component_source)
+    if not component_doc.is_file():
+        return False
+    return "### Manual Installation" in component_doc.read_text(encoding="utf-8")
+
+
+_ui_components_with_install_docs = sorted(
+    (
+        source
+        for source in UI_COMPONENTS_DIR.glob("*.py")
+        if source.name != "__init__.py" and has_generated_manual_installation(source)
+    ),
+    key=lambda source: source.stem,
+)
 
 
 # ---------------------------------------------------------------------------
@@ -142,6 +167,24 @@ class TestMarkdownGeneration:
         """The assets/docs/ output directory itself must exist."""
         assert MARKDOWN_OUTPUT_DIR.exists() and MARKDOWN_OUTPUT_DIR.is_dir(), (
             f"Output directory missing: {MARKDOWN_OUTPUT_DIR.relative_to(ROOT_DIR)}"
+        )
+
+    @pytest.mark.parametrize(
+        "component_source",
+        _ui_components_with_install_docs,
+        ids=lambda source: source.stem,
+    )
+    def test_component_manual_installation_matches_component_source(
+        self, component_source
+    ):
+        """Generated component install snippets stay in sync with their sources."""
+        component_doc = expected_ui_component_doc_path(component_source)
+        source_text = component_source.read_text(encoding="utf-8").strip()
+        doc_text = component_doc.read_text(encoding="utf-8")
+
+        assert source_text in doc_text, (
+            f"Generated component documentation is out of sync with "
+            f"{component_source.relative_to(ROOT_DIR)}"
         )
 
     def test_no_extra_output_files(self):
