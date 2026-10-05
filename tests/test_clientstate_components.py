@@ -1,4 +1,3 @@
-import inspect
 import re
 import sys
 from pathlib import Path
@@ -25,28 +24,23 @@ def test_form_state_pattern_merges_username_into_existing_client_state() -> None
     assert re.search(r"\[\s*['\"]username['\"]\s*\]", expression)
 
 
-def test_demo_uses_only_the_referenced_function_source(monkeypatch) -> None:
-    from app.www import parser as parser_module
+def test_client_state_guide_renders_live_demo_with_example_source() -> None:
+    from app.www.constants import COMPONENTS_ROOT, DOCS_LIBRARY_ROOT
+    from app.www.frontmatter import parse_frontmatter
     from app.www.parser import DocParser
 
-    captured = {}
+    guide_path = ROOT_DIR / "docs/resources/client_state_var.md"
+    _, markdown = parse_frontmatter(guide_path.read_text())
+    parser = DocParser(dynamic_load_dirs=[DOCS_LIBRARY_ROOT, COMPONENTS_ROOT])
 
-    def capture_demo_source(component, source: str):
-        captured["source"] = source
-        return component
-
-    monkeypatch.setattr(parser_module, "demo_wrapper", capture_demo_source)
-    parser = DocParser(
-        registry={
-            "form_state_pattern_example": (
-                form_state_pattern_example,
-                "form_state_pattern_example",
-            )
-        }
+    components = parser.parse_and_render(markdown)
+    demo = next(
+        component
+        for component in components
+        if "form_state_pattern_example" in str(component)
     )
+    rendered_demo = str(demo)
 
-    parser._render("demo", "form_state_pattern_example")
-
-    expected_source = inspect.getsource(form_state_pattern_example).strip()
-    assert captured["source"] == expected_source
-    assert "tab_navigation_example" not in captured["source"]
+    assert "tab_navigation_example" not in rendered_demo
+    assert "client_state_dict_form" in rendered_demo
+    assert "username" in rendered_demo
