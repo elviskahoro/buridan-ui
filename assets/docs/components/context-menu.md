@@ -55,11 +55,12 @@ context_menu.root
             │           └── context_menu.radio_item_indicator
             └── context_menu.sub
                 ├── context_menu.sub_trigger
-                └── context_menu.positioner
-                    └── context_menu.popup
-                        └── context_menu.group
-                            ├── context_menu.item
-                            └── context_menu.item
+                └── context_menu.portal
+                    └── context_menu.positioner
+                        └── context_menu.popup
+                            └── context_menu.group
+                                ├── context_menu.item
+                                └── context_menu.item
 ```
 
 # Examples
@@ -132,24 +133,26 @@ def context_menu_submenu() -> rx.Component:
                     ),
                     context_menu.sub(
                         context_menu.sub_trigger("More Tools"),
-                        context_menu.positioner(
-                            context_menu.popup(
-                                context_menu.group(
-                                    context_menu.item("Save Page..."),
-                                    context_menu.item("Create Shortcut..."),
-                                    context_menu.item("Name Window..."),
+                        context_menu.portal(
+                            context_menu.positioner(
+                                context_menu.popup(
+                                    context_menu.group(
+                                        context_menu.item("Save Page..."),
+                                        context_menu.item("Create Shortcut..."),
+                                        context_menu.item("Name Window..."),
+                                    ),
+                                    context_menu.separator(),
+                                    context_menu.group(
+                                        context_menu.item("Developer Tools"),
+                                    ),
+                                    context_menu.separator(),
+                                    context_menu.group(
+                                        context_menu.item("Delete", variant="destructive"),
+                                    ),
+                                    class_name="shadow-lg",
                                 ),
-                                context_menu.separator(),
-                                context_menu.group(
-                                    context_menu.item("Developer Tools"),
-                                ),
-                                context_menu.separator(),
-                                context_menu.group(
-                                    context_menu.item("Delete", variant="destructive"),
-                                ),
-                                class_name="shadow-lg",
+                                side="right",
                             ),
-                            side="right",
                         ),
                     ),
                 ),
