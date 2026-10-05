@@ -27,7 +27,12 @@ import reflex as rx
 from reflex.components.component import Component
 
 from components.ui.accordion import AccordionPanel
-from components.ui.collapsible import ClassNames, CollapsiblePanel
+from components.ui.button import button
+from components.ui.collapsible import (
+    ClassNames,
+    CollapsiblePanel,
+    CollapsibleTrigger,
+)
 from components.ui.core import BaseUIComponent
 
 # ---------------------------------------------------------------------------
@@ -149,10 +154,8 @@ def test_panel_unstyled_omits_default_classes() -> None:
 
 def test_panel_render_skips_default_class_merge() -> None:
     """
-    render_ is a full-replacement escape hatch: set_class_name returns early, so the
-    panel element applies neither the default PANEL class nor the user's class_name
-    (panel class_name is None). The user's class_name still routes to the inner
-    wrapper, mirroring AccordionPanel's behavior under render_.
+    render_ is a full-replacement escape hatch: the panel element receives no
+    default class, while the user's class_name still routes to the inner wrapper.
     """
     panel = CollapsiblePanel.create(
         rx.el.div("content"),
@@ -161,6 +164,17 @@ def test_panel_render_skips_default_class_merge() -> None:
     )
     assert panel.class_name is None
     assert "transition-[opacity]" in str(_inner_div(panel).class_name)
+
+
+def test_trigger_render_preserves_target_classes_without_component_defaults() -> None:
+    trigger = CollapsibleTrigger.create(
+        render_=button("toggle"), class_name="custom-trigger"
+    )
+    rendered_props = " ".join(trigger.render()["props"])
+
+    assert ClassNames.TRIGGER not in rendered_props
+    assert "custom-trigger" in rendered_props
+    assert "render:" in rendered_props
 
 
 # ---------------------------------------------------------------------------
