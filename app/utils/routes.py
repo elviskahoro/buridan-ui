@@ -68,13 +68,13 @@ DOC_SECTIONS = [
     (
         "getting_started",
         "docs/getting-started/",
-        "",
+        None,
         [{"title": "llms.txt", "url": "llms.txt", "order": "5"}],
     ),
     ("utilities", "docs/utilities/", "title", []),
     ("resources", "docs/resources/", "title", []),
-    ("components", "docs/components/", "title", []),
-    ("charts", "docs/charts/", "title", []),
+    ("components", "docs/components/", None, []),
+    ("charts", "docs/charts/", None, []),
 ]
 
 
@@ -84,7 +84,9 @@ def build_all_routes():
     for section, base_path, sort_key, extras in DOC_SECTIONS:
         routes = generate_doc_routes(section, base_path)
         routes.extend(extras)
-        routes.sort(key=lambda x: x.get(sort_key, ""))
+        # A None sort key preserves the order produced by generate_doc_routes.
+        if sort_key is not None:
+            routes.sort(key=lambda x: x.get(sort_key, ""))
 
         result[section] = routes
 
