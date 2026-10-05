@@ -55,11 +55,12 @@ context_menu.root
             │           └── context_menu.radio_item_indicator
             └── context_menu.sub
                 ├── context_menu.sub_trigger
-                └── context_menu.positioner
-                    └── context_menu.popup
-                        └── context_menu.group
-                            ├── context_menu.item
-                            └── context_menu.item
+                └── context_menu.portal
+                    └── context_menu.positioner
+                        └── context_menu.popup
+                            └── context_menu.group
+                                ├── context_menu.item
+                                └── context_menu.item
 ```
 
 # Examples
