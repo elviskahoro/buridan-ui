@@ -10,12 +10,17 @@ PACKAGE_VERSION = "1.6.0"
 PACKAGE_CLSX = "clsx@2.1.1"
 PACKAGE_TAILWIND_MERGE = "tailwind-merge@3.7.0"
 CLSX = Var(
-    "clsx", _var_data=VarData(imports={PACKAGE_CLSX: ImportVar(tag="clsx")})
+    "clsx",
+    _var_data=VarData(
+        imports={PACKAGE_CLSX: ImportVar(tag="clsx", package_path="")}
+    ),
 ).to(FunctionVar)
 TW_MERGE = Var(
     "twMerge",
     _var_data=VarData(
-        imports={PACKAGE_TAILWIND_MERGE: ImportVar(tag="twMerge")}
+        imports={
+            PACKAGE_TAILWIND_MERGE: ImportVar(tag="twMerge", package_path="")
+        }
     ),
 ).to(FunctionVar)
 
