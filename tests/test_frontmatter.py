@@ -13,14 +13,20 @@ from app.www.frontmatter import parse_frontmatter  # noqa: E402
     ("order_value", "expected"),
     [
         ("-1", -1),
-        ("5", 5),
-        ("007", 7),
+        ("-5", -5),
         ("+5", 5),
-        ("1_000", 1000),
+        ("5", 5),
+        ("0", 0),
+        ("007", 7),
+        ("1_000", "1_000"),
+        ("1.5", "1.5"),
         ("first", "first"),
+        ("٥", "٥"),
+        ("５", "５"),
+        ("+", "+"),
     ],
 )
-def test_parse_frontmatter_order_value(order_value, expected):
+def test_parse_frontmatter_order_value(order_value: str, expected: int | str) -> None:
     content = f"---\ntitle: Test\norder: {order_value}\n---\nBody\n"
 
     metadata, body = parse_frontmatter(content)

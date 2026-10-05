@@ -1,3 +1,6 @@
+import re
+
+
 # --- Simple frontmatter parser. ---
 def parse_frontmatter(content: str) -> tuple[dict, str]:
     """A simple frontmatter parser."""
@@ -24,10 +27,8 @@ def parse_frontmatter(content: str) -> tuple[dict, str]:
                 value = value[1:-1]
 
             if key == "order":
-                try:
+                if re.fullmatch(r"[+-]?[0-9]+", value, re.ASCII):
                     value = int(value)
-                except ValueError:
-                    pass
 
             metadata[key] = value
 
