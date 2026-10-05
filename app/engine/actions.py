@@ -19,6 +19,8 @@ def _engine_js() -> str:
         const _CT = {json.dumps(COLOR_THEMES)};
         const _FR = {json.dumps(FONT_REGISTRY)};
         const _RO = {json.dumps(RADIUS_OPTIONS)};
+        const _CR = _CT.length + 1;
+        const _SEED_SPACE_SIZE = _BT.length * _CR * _CR * _SR.length * _FR.length * _RO.length;
         const _CH = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
         function _flat(obj) {{
@@ -40,6 +42,11 @@ def _engine_js() -> str:
             return n;
         }}
 
+        function _randomSeed() {{
+            const n = Math.floor(Math.random() * _SEED_SPACE_SIZE);
+            return _b62e(n, 4) + _b62e((n * 12345) % 916132832, 5);
+        }}
+
         function _decode(seed) {{
             if (!seed) return null;
             if (seed === 'b0') return {{
@@ -49,14 +56,14 @@ def _engine_js() -> str:
             if (seed.length !== 9) return null;
             const n = _b62d(seed.substring(0, 4));
             const cs = _b62d(seed.substring(4));
-            if (cs !== (n * 12345) % 916132832 || n >= 72600) return null;
+            if (cs !== (n * 12345) % 916132832 || n >= _SEED_SPACE_SIZE) return null;
             let t = n;
-            const rI = t % 4; t = Math.floor(t / 4);
-            const fI = t % 5; t = Math.floor(t / 5);
-            const sI = t % 5; t = Math.floor(t / 5);
-            const chI = t % 11; t = Math.floor(t / 11);
-            const cI = t % 11; t = Math.floor(t / 11);
-            const bI = t % 6;
+            const rI = t % _RO.length; t = Math.floor(t / _RO.length);
+            const fI = t % _FR.length; t = Math.floor(t / _FR.length);
+            const sI = t % _SR.length; t = Math.floor(t / _SR.length);
+            const chI = t % _CR; t = Math.floor(t / _CR);
+            const cI = t % _CR; t = Math.floor(t / _CR);
+            const bI = t % _BT.length;
             return {{
                 baseId:  _BT[bI].id,
                 colorId: cI  > 0 ? _CT[cI  - 1].id : null,
@@ -76,7 +83,7 @@ def _engine_js() -> str:
             const rI  = _RO.findIndex(r => r[1] === cfg['--radius']);
             if (bI < 0 || sI < 0 || fI < 0 || rI < 0) return null;
             if (bI === 0 && cI === 0 && chI === 0 && sI === 0 && fI === 0 && rI === 2) return 'b0';
-            const n = (((((bI * 11 + cI) * 11 + chI) * 5 + sI) * 5 + fI) * 4 + rI);
+            const n = (((((bI * _CR + cI) * _CR + chI) * _SR.length + sI) * _FR.length + fI) * _RO.length + rI);
             return _b62e(n, 4) + _b62e((n * 12345) % 916132832, 5);
         }}
 
@@ -133,8 +140,8 @@ def _engine_js() -> str:
                 const rand = _mb32(_hash(s));
                 cfg = {{
                     baseId:  _BT[Math.floor(rand() * _BT.length)].id,
-                    colorId: (function(r) {{ const i = Math.floor(r * 11); return i === 0 ? null : _CT[i-1].id; }})(rand()),
-                    chartId: (function(r) {{ const i = Math.floor(r * 11); return i === 0 ? null : _CT[i-1].id; }})(rand()),
+                    colorId: (function(r) {{ const i = Math.floor(r * _CR); return i === 0 ? null : _CT[i-1].id; }})(rand()),
+                    chartId: (function(r) {{ const i = Math.floor(r * _CR); return i === 0 ? null : _CT[i-1].id; }})(rand()),
                     styleId: _SR[Math.floor(rand() * _SR.length)].id,
                     fontId:  _FR[Math.floor(rand() * _FR.length)].id,
                     radius:  _RO[Math.floor(rand() * _RO.length)][1],
@@ -142,11 +149,6 @@ def _engine_js() -> str:
             }}
             const th = _rebuild({{ ...cfg, darkMode: dark }});
             return {{ ...th, '__seed': s, '__dark': dark }};
-        }}
-
-        function _randomSeed() {{
-            const n = Math.floor(Math.random() * 72600);
-            return _b62e(n, 4) + _b62e((n * 12345) % 916132832, 5);
         }}
 
         // ── KEY FUNCTION: apply CSS vars to preview container only ──────────
