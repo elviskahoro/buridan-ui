@@ -53,7 +53,13 @@ def generate_doc_routes(section_folder, base_path) -> list[dict]:
 
         routes.append(route_info)
 
-    routes.sort(key=lambda x: x["order"])
+    def order_sort_key(route):
+        order = route["order"]
+        if isinstance(order, int):
+            return 0, order, route["url"]
+        return 1, str(order), route["url"]
+
+    routes.sort(key=order_sort_key)
 
     return routes
 
