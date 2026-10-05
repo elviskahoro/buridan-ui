@@ -2,7 +2,6 @@ import reflex as rx
 from reflex.experimental import ClientStateVar
 
 
-# Used in --show_code(tab_navigation_example)--
 def tab_navigation_example():
     # Create the client state variable
     ActiveTab = ClientStateVar.create("tab_v1", 0)
@@ -44,7 +43,6 @@ def tab_navigation_example():
     )
 
 
-# Used in --show_code(toggle_pattern_example)--
 def toggle_pattern_example():
     is_visible = ClientStateVar.create("visibility", False)
 
@@ -57,17 +55,18 @@ def toggle_pattern_example():
     )
 
 
-# Used in --show_code(form_state_pattern_example)--
+# Used in --demo(form_state_pattern_example)--
 def form_state_pattern_example():
     form_state = ClientStateVar.create("form", {})
 
     return rx.input(
         value=form_state.value.get("username", ""),
-        on_change=lambda v: form_state.set_value({**form_state.value, "username": v}),
+        on_change=lambda v: form_state.set_value(
+            form_state.value.merge({"username": v})
+        ),
     )
 
 
-# Used in --show_code(conditional_rendering_pattern_example)--
 def conditional_rendering_pattern_example():
     show_details = ClientStateVar.create("show_details", False)
 
