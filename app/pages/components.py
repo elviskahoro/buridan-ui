@@ -9,14 +9,12 @@ from components.ui.button import button
 BASE_PATH = Path("components/ui")
 
 
-def get_component_links():
+def _get_component_link_data():
     links = []
-
     for file in BASE_PATH.glob("*.py"):
         if file.name in (
             "__init__.py",
-            "base_ui.py",
-            "component.py",
+            "core.py",
             "metric.py",
             "table.py",
         ):
@@ -28,8 +26,12 @@ def get_component_links():
         links.append((name, slug))
 
     links.append(("Chart", "chart"))
-
     links.sort(key=lambda x: x[0].lower())
+    return links
+
+
+def get_component_links():
+    links = _get_component_link_data()
 
     return [
         rx.el.a(
