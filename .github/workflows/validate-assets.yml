@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: uv sync --group dev
 
+      - name: Validate anatomy compositions
+        run: uv run python scripts/generate_anatomy.py --check
+
       - name: Generate markdown files
         run: uv run python scripts/generate_markdown.py
 
