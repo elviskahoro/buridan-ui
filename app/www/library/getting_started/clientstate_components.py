@@ -57,7 +57,7 @@ def toggle_pattern_example():
     )
 
 
-# Used in --show_code(form_state_pattern_example)--
+# Used in --demo(form_state_pattern_example)--
 def form_state_pattern_example():
     form_state = ClientStateVar.create("form", {})
 
