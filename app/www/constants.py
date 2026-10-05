@@ -16,6 +16,8 @@ class DocDataStruct:
 
 
 # --- Docs Path Constants ---
-DOCS_BASE_DIR = Path("docs")
-DOCS_LIBRARY_ROOT = "app/www/library"
+_PROJECT_ROOT = Path(__file__).resolve().parents[2]
+
+DOCS_BASE_DIR = _PROJECT_ROOT / "docs"
+DOCS_LIBRARY_ROOT = str(_PROJECT_ROOT / "app" / "www" / "library")
 COMPONENTS_ROOT = "components/ui"

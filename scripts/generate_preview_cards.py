@@ -4,6 +4,8 @@ from pathlib import Path
 import yaml
 from PIL import Image, ImageDraw, ImageFont
 
+ROOT_DIR = Path(__file__).resolve().parents[1]
+
 WIDTH = 1200
 HEIGHT = 630
 
@@ -192,7 +194,7 @@ def create_social_card(
         spacing=8,
     )
 
-    logo = Image.open("assets/logo.webp").convert("RGBA")
+    logo = Image.open(ROOT_DIR / "assets" / "logo.webp").convert("RGBA")
 
     logo_width = 200
     logo.thumbnail((logo_width, logo_width))
@@ -218,13 +220,13 @@ def create_social_card(
 
 
 def generate_social_cards():
-    docs_root = Path("docs")
+    docs_root = ROOT_DIR / "docs"
 
     for page in PAGES_CONFIG:
         # Use the 'route' as the filename base
         # (Handling the 'index' case so it creates index.webp)
         filename = page["route"].replace("/", "-") + ".webp"
-        output_path = Path("assets") / "social" / filename
+        output_path = ROOT_DIR / "assets" / "social" / filename
 
         # Pass the dictionary data directly to your card creator
         create_social_card(
@@ -240,7 +242,7 @@ def generate_social_cards():
 
         filename = md_file.stem.replace("_", "-") + ".webp"
 
-        output_path = Path("assets") / "social" / filename
+        output_path = ROOT_DIR / "assets" / "social" / filename
 
         create_social_card(
             title=title,
