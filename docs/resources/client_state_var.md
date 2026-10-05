@@ -50,6 +50,13 @@ def form_component():
     )
 ```
 
+## Object-backed Form State
+
+For forms with multiple fields, store the draft as an object. Use `.merge()` to update one field
+while preserving the rest of the client-side state.
+
+--demo(form_state_pattern_example)--
+
 # Conditional Rendering
 
 Control UI state flow without triggering backend re-renders, perfect for tabbed navigation or step-based interfaces.
