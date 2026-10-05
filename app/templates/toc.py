@@ -229,7 +229,9 @@ def table_of_content(url: str, toc_data: List[Dict]):
                         if (!sections.length) return false;
                         function setActive(id) {
                             links.forEach(l => l.removeAttribute('data-active'));
-                            const active = document.querySelector(`.toc-link[href*="#${id}"]`);
+                            const active = Array.from(links).find(
+                                link => link.getAttribute('href') === '#' + id
+                            );
                             if (active) active.setAttribute('data-active', 'true');
                         }
                         links.forEach(link => {
