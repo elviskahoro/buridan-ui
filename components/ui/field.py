@@ -148,7 +148,7 @@ class FieldSeparator(elements.Div):
         inner_elements = [separator(class_name="absolute inset-0 top-1/2")]
         if children:
             inner_elements.append(
-                elements.Span(
+                elements.Span.create(
                     *children,
                     data_slot="field-separator-content",
                     class_name="relative mx-auto block w-fit bg-background px-2 text-muted-foreground",
