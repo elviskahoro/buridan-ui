@@ -19,10 +19,6 @@ def sample_block():
     return example_utils.rx.el.div("content")
 
 
-def _sample_block_card():
-    return sample_block()
-
-
 def _find_button(component: Any) -> Any:
     if getattr(component, "tag", None) == "button":
         return component
@@ -36,7 +32,7 @@ def _find_button(component: Any) -> Any:
 
 
 def test_block_card_keeps_terminal_icon_separate_from_command_text() -> None:
-    button = _find_button(_sample_block_card())
+    button = _find_button(sample_block())
 
     assert button is not None
     assert len(button.children) == 2
@@ -57,7 +53,7 @@ def test_block_card_copy_feedback_targets_only_command_text_span(monkeypatch) ->
         return call_script(script)
 
     monkeypatch.setattr(example_utils.rx, "call_script", capture_script)
-    button = _find_button(_sample_block_card())
+    button = _find_button(sample_block())
 
     assert button is not None
     assert len(scripts) == 1
