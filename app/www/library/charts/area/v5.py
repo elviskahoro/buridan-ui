@@ -20,7 +20,7 @@ def areachart_v5():
         for i in range(91)
     ]
 
-    SelectedRange = ClientStateVar.create("area_selected", data)
+    SelectedRange = ClientStateVar.create("area_selected", "Last 3 Months")
 
     def gradient(id_: str, color: str):
         return rx.el.svg.linear_gradient(
@@ -46,11 +46,7 @@ def areachart_v5():
             active_dot={"fill": f"var(--{color})"},
         )
 
-    select_options = [
-        ("Last 3 Months", data),
-        ("Last 30 Days", data[-30:]),
-        ("Last 7 Days", data[-7:]),
-    ]
+    select_options = ["Last 3 Months", "Last 30 Days", "Last 7 Days"]
 
     return card.root(
         card.header(
@@ -62,10 +58,11 @@ def areachart_v5():
                 ),
                 rx.el.select(
                     *[
-                        rx.el.option(label, on_click=SelectedRange.set_value(value))
-                        for label, value in select_options
+                        rx.el.option(label, value=label)
+                        for label in select_options
                     ],
                     default_value="Last 3 Months",
+                    on_change=lambda value: SelectedRange.set_value(value),
                     class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3 bg-secondary border border-input",
                 ),
                 class_name="flex flex-row flex-wrap gap-y-4 items-center justify-between",
@@ -92,7 +89,15 @@ def areachart_v5():
                     custom_attrs={"fontSize": "12px"},
                     interval="preserveStartEnd",
                 ),
-                data=SelectedRange.value,
+                data=rx.cond(
+                    SelectedRange.value == "Last 30 Days",
+                    data[-30:],
+                    rx.cond(
+                        SelectedRange.value == "Last 7 Days",
+                        data[-7:],
+                        data,
+                    ),
+                ),
                 width="100%",
                 height=250,
             ),

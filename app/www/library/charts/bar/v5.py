@@ -60,9 +60,10 @@ def barchart_v5():
                     class_name="flex flex-col gap-y-1.5",
                 ),
                 rx.el.select(
-                    rx.el.option("Mobile", on_click=SelectedType.set_value("mobile")),
-                    rx.el.option("Desktop", on_click=SelectedType.set_value("desktop")),
-                    default_value="Mobile",
+                    rx.el.option("Mobile", value="mobile"),
+                    rx.el.option("Desktop", value="desktop"),
+                    default_value="mobile",
+                    on_change=lambda value: SelectedType.set_value(value),
                     bg=rx.color("gray", 2),
                     border=f"1px solid {rx.color('gray', 4)}",
                     class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
