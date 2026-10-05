@@ -107,6 +107,8 @@ from components.ui.collapsible import Collapsible
 ```
 
 
+Collapsible components treat `render_` as a full replacement: component defaults are not applied to the target. Add the desired layout classes to the rendered element itself.
+
 # Anatomy 
 Use the following composition to build a `Collapsible` component.
 

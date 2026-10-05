@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, ClassVar
 
 from reflex.components.component import Component
 from reflex.utils.imports import ImportVar
@@ -27,13 +27,13 @@ TW_MERGE = Var(
 
 class CoreComponent(Component):
     unstyled: Var[bool]
+    _merge_default_classes_with_render: ClassVar[bool] = False
 
     @classmethod
     def set_class_name(
         cls, default_class_name: str | Var[str], props: dict[str, Any]
     ) -> None:
-
-        if "render_" in props:
+        if "render_" in props and not cls._merge_default_classes_with_render:
             return
 
         props_class_name = props.get("class_name", "")
