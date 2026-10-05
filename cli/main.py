@@ -34,6 +34,14 @@ UTILITY_SENTINELS = {
 # ── helpers ───────────────────────────────────────────────────────────────────
 
 CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+COLOR_RADIX = len(COLOR_THEMES) + 1
+SEED_SPACE_SIZE = (
+    len(BASE_THEMES)
+    * COLOR_RADIX**2
+    * len(STYLE_REGISTRY)
+    * len(FONT_REGISTRY)
+    * len(RADIUS_OPTIONS)
+)
 
 
 def from_base62(s: str) -> int:
@@ -114,19 +122,19 @@ def decode_seed(seed: str) -> dict | None:
     n = from_base62(seed[:4])
     checksum = from_base62(seed[4:])
 
-    if checksum == (n * 12345) % 916132832 and n < 72600:
+    if checksum == (n * 12345) % 916132832 and n < SEED_SPACE_SIZE:
         temp = n
-        r_idx = temp % 4
-        temp //= 4
-        f_idx = temp % 5
-        temp //= 5
-        s_idx = temp % 5
-        temp //= 5
-        ch_idx = temp % 11
-        temp //= 11
-        c_idx = temp % 11
-        temp //= 11
-        b_idx = temp % 6
+        r_idx = temp % len(RADIUS_OPTIONS)
+        temp //= len(RADIUS_OPTIONS)
+        f_idx = temp % len(FONT_REGISTRY)
+        temp //= len(FONT_REGISTRY)
+        s_idx = temp % len(STYLE_REGISTRY)
+        temp //= len(STYLE_REGISTRY)
+        ch_idx = temp % COLOR_RADIX
+        temp //= COLOR_RADIX
+        c_idx = temp % COLOR_RADIX
+        temp //= COLOR_RADIX
+        b_idx = temp % len(BASE_THEMES)
 
         return {
             "baseId": BASE_THEMES[b_idx]["id"],
