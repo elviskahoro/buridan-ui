@@ -214,13 +214,13 @@ tooltip = Tooltip()
 
 # Usage
 
-`tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
-
 
 ```python
 from components.ui.tooltip import Tooltip
 ```
 
+
+`tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
 
 # Anatomy 
 Use the following composition to build a `Tooltip` component.
@@ -281,3 +281,4 @@ def tooltip_sides():
         class_name="flex flex-wrap gap-2",
     )
 ```
+

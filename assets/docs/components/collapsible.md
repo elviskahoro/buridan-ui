@@ -101,13 +101,13 @@ collapsible = Collapsible()
 
 # Usage
 
-Collapsible components treat `render_` as a full replacement: component defaults are not applied to the target. Add the desired layout classes to the rendered element itself.
-
 
 ```python
 from components.ui.collapsible import Collapsible
 ```
 
+
+Collapsible components treat `render_` as a full replacement: component defaults are not applied to the target. Add the desired layout classes to the rendered element itself.
 
 # Anatomy 
 Use the following composition to build a `Collapsible` component.
@@ -285,3 +285,4 @@ def collapsible_interactive() -> rx.Component:
         class_name="w-full max-w-xs p-2 bg-background border border-input rounded-2xl shadow-xs",
     )
 ```
+
