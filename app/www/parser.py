@@ -44,9 +44,20 @@ class DocParser:
         self, registry: Dict[str, Callable] = None, dynamic_load_dirs: List[str] = None
     ):
         self.registry = registry or {}
-        root = pathlib.Path(__file__).parent.parent.parent
+        root = pathlib.Path(__file__).resolve().parents[2]
         for d in dynamic_load_dirs or []:
-            for py in (root / d).rglob("*.py"):
+            load_dir = pathlib.Path(d)
+            if not load_dir.is_absolute():
+                load_dir = root / load_dir
+            load_dir = load_dir.resolve()
+            try:
+                load_dir.relative_to(root)
+            except ValueError as exc:
+                raise ValueError(
+                    f"Dynamic load directory {d!r} resolves outside project root {root}"
+                ) from exc
+
+            for py in load_dir.rglob("*.py"):
                 if py.name.startswith("__"):
                     continue
                 mod = importlib.import_module(
