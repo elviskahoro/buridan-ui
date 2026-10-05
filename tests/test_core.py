@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import reflex as rx
+from reflex.compiler.utils import compile_imports
 
 from components.ui import core
 
@@ -45,3 +46,11 @@ def test_cn_imports_declare_explicit_package_roots() -> None:
 
     assert imports["clsx@2.1.1"][0].package_path == ""
     assert imports["tailwind-merge@3.7.0"][0].package_path == ""
+    compiled_imports = compile_imports(imports)
+
+    assert {"lib": "clsx", "default": "", "rest": ["clsx"]} in (
+        compiled_imports
+    )
+    assert {"lib": "tailwind-merge", "default": "", "rest": ["twMerge"]} in (
+        compiled_imports
+    )
