@@ -9,6 +9,20 @@ sys.path.insert(0, str(ROOT_DIR))
 from components.ui.field import field  # noqa: E402
 
 
+def test_field_description_balances_only_horizontal_fields() -> None:
+    description = field.description("Helper text")
+    horizontal = field.root(description, orientation="horizontal")
+    vertical = field.root(field.description("Helper text"), orientation="vertical")
+    rendered_description = str(description.render())
+
+    assert "group-data-[orientation=horizontal]/field:text-balance" in (
+        rendered_description
+    )
+    assert "group-has-data-" not in rendered_description
+    assert horizontal.custom_attrs["data-orientation"] == "horizontal"
+    assert vertical.custom_attrs["data-orientation"] == "vertical"
+
+
 def test_field_separator_with_children_creates_content_span() -> None:
     separator = field.separator("Or continue with")
 
