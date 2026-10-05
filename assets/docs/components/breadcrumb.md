@@ -91,10 +91,6 @@ class Breadcrumb:
 
         props["data-slot"] = "breadcrumb-page"
 
-        props["role"] = "link"
-
-        props["aria-disabled"] = "true"
-
         props["aria-current"] = "page"
 
         base_classes = "font-normal text-foreground"
