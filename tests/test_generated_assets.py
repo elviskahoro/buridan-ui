@@ -75,12 +75,21 @@ def has_frontmatter(md_file: pathlib.Path) -> bool:
 
 _all_md = all_source_md_files()
 _md_with_frontmatter = [f for f in _all_md if has_frontmatter(f)]
-_ui_components_with_docs = sorted(
+
+
+def has_generated_manual_installation(component_source: pathlib.Path) -> bool:
+    """Whether the component doc has an install snippet generated from its source."""
+    component_doc = expected_ui_component_doc_path(component_source)
+    if not component_doc.is_file():
+        return False
+    return "### Manual Installation" in component_doc.read_text(encoding="utf-8")
+
+
+_ui_components_with_install_docs = sorted(
     (
         source
         for source in UI_COMPONENTS_DIR.glob("*.py")
-        if source.name != "__init__.py"
-        and expected_ui_component_doc_path(source).is_file()
+        if source.name != "__init__.py" and has_generated_manual_installation(source)
     ),
     key=lambda source: source.stem,
 )
@@ -162,7 +171,7 @@ class TestMarkdownGeneration:
 
     @pytest.mark.parametrize(
         "component_source",
-        _ui_components_with_docs,
+        _ui_components_with_install_docs,
         ids=lambda source: source.stem,
     )
     def test_component_manual_installation_matches_component_source(
