@@ -50,6 +50,12 @@ class DocParser:
             if not load_dir.is_absolute():
                 load_dir = root / load_dir
             load_dir = load_dir.resolve()
+            try:
+                load_dir.relative_to(root)
+            except ValueError as exc:
+                raise ValueError(
+                    f"Dynamic load directory {d!r} resolves outside project root {root}"
+                ) from exc
 
             for py in load_dir.rglob("*.py"):
                 if py.name.startswith("__"):
