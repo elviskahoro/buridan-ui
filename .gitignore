@@ -19,3 +19,7 @@ codebook.toml
 
 # Virtual environments
 .venv
+
+# Locally-installed JS deps for the TOC scrollspy runtime harness
+# (run `npm ci` in tests/toc_scrollspy_repro to restore)
+tests/toc_scrollspy_repro/node_modules/
