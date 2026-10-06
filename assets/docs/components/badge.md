@@ -87,7 +87,9 @@ from components.ui.badge import badge
 Use the following composition to build a `Badge` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+badge()
+```
 
 
 # Examples

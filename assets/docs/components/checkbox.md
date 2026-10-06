@@ -109,7 +109,11 @@ from components.ui.checkbox import Checkbox
 Use the following composition to build a `Checkbox` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+checkbox.root(
+    checkbox.indicator(),
+)
+```
 
 
 # Examples

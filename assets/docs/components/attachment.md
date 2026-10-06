@@ -280,7 +280,16 @@ from components.ui.attachment import Attachment
 Use the following composition to build an `Attachment` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+attachment.root(
+    attachment.media(),
+    attachment.content(
+        attachment.title(),
+        attachment.description(),
+    ),
+    attachment.actions(attachment.action()),
+)
+```
 
 
 # Features

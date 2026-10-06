@@ -106,7 +106,6 @@ def doughnutchart_v2():
                     class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center",
                 ),
                 rx.recharts.pie_chart(
-                    #
                     rx.recharts.pie(
                         data=data,
                         data_key="visitors",

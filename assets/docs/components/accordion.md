@@ -198,7 +198,22 @@ from components.ui.accordion import Accordion
 Use the following composition to build an `Accordion` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+accordion.root(
+    accordion.item(
+        accordion.header(
+            accordion.trigger(),
+        ),
+        accordion.panel(),
+    ),
+    accordion.item(
+        accordion.header(
+            accordion.trigger(),
+        ),
+        accordion.panel(),
+    ),
+)
+```
 
 
 # Examples

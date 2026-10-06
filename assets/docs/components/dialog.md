@@ -198,7 +198,19 @@ from components.ui.dialog import Dialog
 Use the following composition to build a `Dialog` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+dialog.root(
+    dialog.trigger(),
+    dialog.portal(
+        dialog.backdrop(),
+        dialog.popup(
+            dialog.title(),
+            dialog.description(),
+            dialog.close(),
+        ),
+    ),
+)
+```
 
 
 # Examples
