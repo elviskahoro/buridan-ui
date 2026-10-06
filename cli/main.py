@@ -497,17 +497,6 @@ def cmd_add(component_names: list[str]):
 
     if not add_components_to_project(component_names):
         sys.exit(1)
-    """Add one or more components and their dependencies to the project."""
-    css_path = Path.cwd() / "assets" / "globals.css"
-    if not css_path.exists() or ":root {" not in css_path.read_text():
-        print("⚠  Warning: No theme detected in assets/globals.css.")
-        print(
-            "   Components use CSS variables that require a theme to render correctly."
-        )
-        print("   Run 'buridan apply --preset b0' to apply a default theme.\n")
-
-    if not add_components_to_project(component_names):
-        sys.exit(1)
 
 
 def cmd_list():
