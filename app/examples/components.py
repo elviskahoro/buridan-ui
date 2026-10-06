@@ -1733,12 +1733,12 @@ def card_twenty_two() -> rx.Component:
                                 else "text-destructive",
                             ),
                         ),
+                        class_name="even:bg-secondary/30",
                     )
                     for row in ledger_data
                 ],
                 class_name="divide-y divide-input",
             ),
-            striped=True,
             class_name="border-none shadow-none",
         ),
         class_name="w-full flex flex-col gap-y-card border-none font-theme",
@@ -2076,12 +2076,12 @@ def card_twenty_six() -> rx.Component:
                             row["dose"], class_name="text-sm font-theme text-foreground"
                         ),
                         table.cell(status_badge(row["status"])),
+                        class_name="even:bg-secondary/30",
                     )
                     for row in medication_data
                 ],
                 class_name="divide-y divide-input",
             ),
-            striped=True,
             class_name="border-none shadow-none",
         ),
         class_name="w-full flex flex-col gap-y-card font-theme",
