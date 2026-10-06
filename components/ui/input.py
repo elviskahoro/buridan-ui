@@ -1,6 +1,8 @@
 from typing import cast
 
 from reflex.components.component import ComponentNamespace
+from reflex.vars.base import Var
+from reflex.vars.number import ternary_operation
 from reflex_components_core.el import Input as BaseInput
 from reflex_components_core.el.elements.forms import CheckboxInput, ValueNumberInput
 
@@ -40,6 +42,14 @@ class InputComponent(BaseInput, CoreComponent):
             "range",
         }:
             props.pop("unstyled", None)
+
+            value = props.get("value")
+            if value is not None:
+                value_var = Var.create(value)
+                props["value"] = ternary_operation(
+                    value_var.is_not_none(), value_var, Var.create("")
+                )
+
             typed_cls = CheckboxInput if input_type == "checkbox" else ValueNumberInput
             return cast(BaseInput, typed_cls.create(*children, **props))
 
