@@ -21,7 +21,12 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
+from app.examples.components import card_twenty_two
 from components.ui.table import TableRoot, table
+
+
+def test_card_twenty_two_applies_striping_class_to_body_rows() -> None:
+    assert "even:bg-secondary/30" in str(card_twenty_two().render())
 
 
 def test_high_level_table_striped_true_adds_striping() -> None:
