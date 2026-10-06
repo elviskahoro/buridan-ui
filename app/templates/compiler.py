@@ -180,7 +180,7 @@ def theme_cli_prompt() -> rx.Component:
                             rx.set_clipboard(
                                 rx.cond(
                                     theme_export_method.value == "local",
-                                    f"uv run buridan init --preset {seed.value} --include {theme_preset_option.value}",
+                                    f"uv run buridan apply --preset {seed.value}",
                                     f"https://build.reflex.dev/?prompt=Install and run pip install buridan-create and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
                                 ),
                             ),
