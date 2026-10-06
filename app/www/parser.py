@@ -93,7 +93,10 @@ class DocParser:
             # Use the class for inspection if obj is an instance (like ComponentNamespace)
             inspect_obj = obj
             if obj and not (
-                inspect.isclass(obj) or inspect.isfunction(obj) or inspect.ismodule(obj)
+                inspect.isclass(obj)
+                or inspect.isfunction(obj)
+                or inspect.ismodule(obj)
+                or inspect.ismethod(obj)
             ):
                 inspect_obj = getattr(obj, "__class__", obj)
 
