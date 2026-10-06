@@ -77,14 +77,30 @@ def url_sync_engine() -> rx.Component:
                 const dark = window.refs['_client_state_darkmode'] || false;
                 if (window.__generateFromSeed) {
                     const config = window.__generateFromSeed(seed, dark);
-                    window.refs['_client_state_setTheme'](config);
-                    window.refs['_client_state_setSeed'](seed);
+                    // Use the canonical seed so a Back-traversal to a stale
+                    // `caaaoAgaa` history entry normalises it to `b0` in state,
+                    // and replaceState the URL so the next no-op's dedup guard
+                    // short-circuits instead of pushing a fresh `b0` entry.
+                    const cs = config['__seed'] || seed;
+                    // State + URL canonicalisation MUST run before the UI sync
+                    // below: `_client_state_setTheme` is not a registered
+                    // ClientStateVar in app/hooks.py at HEAD (a pre-existing
+                    // defect), so calling it throws and would otherwise leave
+                    // the canonicalisation lines unreachable in production —
+                    // reintroducing the Back-button `caaaoAgaa` ↔ `b0` churn.
+                    window.refs['_client_state_setSeed'](cs);
+                    if (window.__updatePresetURL) window.__updatePresetURL(cs, false);
                     window.__syncSidebar(config);
+                    try { window.refs['_client_state_setTheme'](config); }
+                    catch (e) { /* setTheme unregistered at HEAD; UI sync is best-effort. */ }
                 } else if (window._generateFromSeed) { // Check both global and engine scopes
                     const config = window._generateFromSeed(seed, dark);
-                    window.refs['_client_state_setTheme'](config);
-                    window.refs['_client_state_setSeed'](seed);
+                    const cs = config['__seed'] || seed;
+                    window.refs['_client_state_setSeed'](cs);
+                    if (window.__updatePresetURL) window.__updatePresetURL(cs, false);
                     window.__syncSidebar(config);
+                    try { window.refs['_client_state_setTheme'](config); }
+                    catch (e) { /* setTheme unregistered at HEAD; UI sync is best-effort. */ }
                 }
             }
         });
