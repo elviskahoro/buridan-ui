@@ -204,7 +204,7 @@ def demo_wrapper(component: rx.Component, source: str) -> rx.Component:
     return rx.el.div(
         rx.el.div(
             component,
-            class_name="w-full min-h-[250px] flex items-center justify-center !p-2 !sm:p-6 my-10",
+            class_name="w-full min-h-[250px] flex items-center justify-center !p-2 sm:!p-6 my-10",
         ),
         rx.el.div(
             rx.el.div(
