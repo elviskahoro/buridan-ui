@@ -4,7 +4,7 @@ from typing import List
 import reflex as rx
 
 import app.utils.routes as routes
-from app.utils.links import external_link
+from app.utils.links import external_link, is_external_href
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.select import select
@@ -61,7 +61,7 @@ SIDEBAR_SECTIONS = [
 def create_menu_item(data: dict):
     """Create a single menu item."""
 
-    if data["title"].startswith("pypi"):
+    if is_external_href(data["url"]):
         link = external_link(
             rx.el.p(data["title"], class_name="cursor-pointer"),
             href=data["url"],
@@ -161,7 +161,7 @@ def _mobile_menu_link(route: dict):
     """Create a single mobile menu link, mirroring ``create_menu_item``'s dispatch."""
     link_class = "w-full flex flex-row items-center justify-between"
 
-    if route["title"].startswith("pypi"):
+    if is_external_href(route["url"]):
         return external_link(
             select.item_text(route["title"]),
             href=route["url"],
