@@ -76,6 +76,32 @@ def render_link(*args, **props) -> rx.Component:
 def render_pre(*children, **props) -> rx.Component:
     language = props.get("language")
 
+    code_class = rx.cond(
+        language == "bash",
+        "language-bash",
+        rx.cond(
+            language == "uv",
+            "language-bash",
+            rx.cond(
+                language == "css",
+                "language-css",
+                rx.cond(
+                    language == "assets/globals.css",
+                    "language-css",
+                    rx.cond(
+                        language == "toml",
+                        "language-toml",
+                        rx.cond(
+                            language == "pyproject.toml",
+                            "language-toml",
+                            "language-python",
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    )
+
     return rx.el.div(
         rx.el.div(
             rx.cond(
@@ -99,7 +125,7 @@ def render_pre(*children, **props) -> rx.Component:
                             "padding": "1rem 1rem",
                             "display": "block",
                         },
-                        class_name="language-python",
+                        class_name=code_class,
                     ),
                 ),
                 class_name="overflow-x-auto overflow-y-auto scrollbar-none flex-1 min-h-0 pr-[1rem]",
