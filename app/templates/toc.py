@@ -230,7 +230,7 @@ def table_of_content(url: str, toc_data: List[Dict]):
                         function setActive(id) {
                             links.forEach(l => l.removeAttribute('data-active'));
                             const active = Array.from(links).find(
-                                link => link.getAttribute('href') === '#' + id
+                                link => link.getAttribute('href').split('#')[1] === id
                             );
                             if (active) active.setAttribute('data-active', 'true');
                         }
