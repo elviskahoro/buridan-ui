@@ -229,9 +229,9 @@ def test_generateFromSeed_canonicalises_b0_collision_partner() -> None:
     if not node:
         pytest.skip("Node.js is required to execute the generated seed codecs")
 
-    # Capture the rendered seed_engine() script via an rx.script spy so this
-    # test does not depend on the seed.py wrapper in isolation without also
-    # exercising its real rendered output.
+    # Capture the rendered seed_engine() script via an rx.script spy so the
+    # test exercises the real rendered output rather than the seed.py wrapper
+    # in isolation.
     captured: list[str] = []
 
     def _spy(s: str) -> str:
