@@ -1,5 +1,8 @@
+from typing import cast
+
 from reflex.components.component import ComponentNamespace
 from reflex_components_core.el import Input as BaseInput
+from reflex_components_core.el.elements.forms import CheckboxInput, ValueNumberInput
 
 from .core import CoreComponent
 
@@ -29,6 +32,16 @@ class InputComponent(BaseInput, CoreComponent):
             props["type"] = "text"
 
         cls.set_class_name(ClassNames.INPUT, props)
+
+        input_type = props.get("type")
+        if isinstance(input_type, str) and input_type in {
+            "checkbox",
+            "number",
+            "range",
+        }:
+            props.pop("unstyled", None)
+            typed_cls = CheckboxInput if input_type == "checkbox" else ValueNumberInput
+            return cast(BaseInput, typed_cls.create(*children, **props))
 
         return super().create(*children, **props)
 
