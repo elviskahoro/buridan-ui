@@ -144,7 +144,7 @@ def test_prism_bundle_registers_python_bash_css_toml_grammars() -> None:
     }
 
 
-def test_prism_css_grammar_leaves_shimmer_dashes_unclolored() -> None:
+def test_prism_css_grammar_leaves_shimmer_dashes_uncolored() -> None:
     md = (DOCS_DIR / "utilities" / "shimmer.md").read_text(encoding="utf-8")
     match = re.search(r"```css\n([\s\S]*?)\n```", md)
     assert match is not None
@@ -163,7 +163,7 @@ def test_prism_css_grammar_leaves_shimmer_dashes_unclolored() -> None:
     assert payload["atrules"] >= 10
 
 
-def test_prism_bash_grammar_leaves_uv_command_dash_unclolored() -> None:
+def test_prism_bash_grammar_leaves_uv_command_dash_uncolored() -> None:
     assertion = (
         "const src = 'uv add buridan-ui';\n"
         "const out = global.Prism.highlight(src, global.Prism.languages.bash, 'bash');\n"
@@ -205,14 +205,6 @@ def test_prism_toml_grammar_tokenizes_pyproject_block() -> None:
     "language", ["bash", "uv", "css", "assets/globals.css", "toml", "pyproject.toml"]
 )
 def test_render_pre_only_emits_bundled_prism_classes(language: str) -> None:
-    _run_prism_js(
-        "const P = global.Prism;\n"
-        "['python','bash','css','toml'].forEach(g => {\n"
-        "  if (typeof P.languages[g] === 'undefined')\n"
-        "    throw new Error('grammar not bundled: ' + g);\n"
-        "});\n"
-        "console.log(JSON.stringify(['python','bash','css','toml']));\n"
-    )
     resolved = _resolve_language_class(language)
     assert resolved in {
         "language-python",

@@ -109,7 +109,7 @@ def render_pre(*children, **props) -> rx.Component:
                 rx.el.div(
                     rx.el.p(
                         language,
-                        class_name="text-muted-foreground text-sm font-normal px-[1em] py-2",
+                        class_name="text-muted-foreground text-sm font-normal px-[1rem] py-2",
                     ),
                     class_name="w-full border-b border-input/70 flex flex-row items-center justify-between",
                 ),
