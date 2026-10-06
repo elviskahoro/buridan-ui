@@ -222,3 +222,26 @@ def test_typed_dispatch_matches_upstream_contract() -> None:
         assert type(_on_change_arg(wrapper_comp)) is type(
             _on_change_arg(upstream_comp)
         ), input_type
+
+
+def test_typed_dispatch_normalizes_value_like_upstream() -> None:
+    """Controlled checkbox/number/range inputs bound to a state var must
+    render the same null-guarded `value` as upstream BaseInput.create, so
+    React does not flap between controlled and uncontrolled."""
+    from components.ui.input import input
+
+    for input_type in ("checkbox", "number", "range"):
+        wrapper_comp = input(type=input_type, value=_InputTestState.v)
+        upstream_comp = BaseInput.create(
+            type=cast(Any, input_type), value=_InputTestState.v
+        )
+
+        assert type(wrapper_comp) is type(upstream_comp), input_type
+
+        def _value_prop(comp) -> str:
+            for prop in comp.render()["props"]:
+                if prop.startswith("value:"):
+                    return prop
+            raise AssertionError(f"no value prop on {input_type}")
+
+        assert _value_prop(wrapper_comp) == _value_prop(upstream_comp), input_type
