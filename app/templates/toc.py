@@ -1,4 +1,3 @@
-import textwrap
 from urllib.parse import quote
 
 import reflex as rx
@@ -88,9 +87,9 @@ def _create_external_tool_links(url: str):
     """Create links for viewing documentation in external tools."""
     fmt_url = "https://buridan-ui.reflex.run/" + url
     prompt = " ".join(
-        textwrap.dedent(f"""I'm looking at this buridan/ui documentation: {fmt_url}.
-    Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.
-    """).split()
+        f"""I'm looking at this buridan/ui documentation: {fmt_url}.
+Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.
+""".split()
     )
 
     def external_tool_item(
