@@ -113,9 +113,22 @@ def seed_engine() -> rx.Script:
             darkMode: darkMode
         }});
 
+        // Canonicalise the seed identity: collapse the duplicate formula seed
+        // for the all-default config (`caaaoAgaa`, n=2) onto the canonical `b0`
+        // identity used by `decodeSeed`'s fast path. This keeps state/URL on the
+        // canonical seed so a no-op sidebar action does not push a spurious
+        // history entry. Must stay in lockstep with `_fromSeed` (actions.py).
+        let canonicalSeed = seedString;
+        if (seedString && seedString !== "b0"
+            && config.baseId === BASE_THEMES[0].id && config.colorId === null
+            && config.chartId === null && config.styleId === STYLE_REGISTRY[0].id
+            && config.fontId === FONT_REGISTRY[0].id && config.radius === RADIUS_OPTIONS[2][1]) {{
+            canonicalSeed = "b0";
+        }}
+
         return {{
             ...theme,
-            "__seed": seedString,
+            "__seed": canonicalSeed,
             "__dark": darkMode,
         }};
     }}
