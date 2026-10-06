@@ -1,7 +1,7 @@
 {
   "name": "buridan-toc-scrollspy-repro",
   "private": true,
-  "description": "jsdom + react-router-dom harness that reproduces the production-rendered TOC link hrefs so the scrollspy setActive logic in app/templates/toc.py can be exercised against the real router shape. Installed deps are pinned to the same versions shipped by the Reflex web app (see reflex.lock/package.json).",
+  "description": "jsdom + react-router-dom harness that reproduces the production-rendered TOC link hrefs so the scrollspy setActive logic in app/templates/toc.py can be exercised against the real router shape. react, react-dom, and react-router-dom are pinned to the same versions shipped by the Reflex web app (see reflex.lock/package.json); jsdom is pinned independently to the version below.",
   "type": "commonjs",
   "dependencies": {
     "jsdom": "30.1.2",
