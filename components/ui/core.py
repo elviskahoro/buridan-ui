@@ -1,5 +1,6 @@
 from typing import Any, ClassVar
 
+import reflex as rx
 from reflex.components.component import Component
 from reflex.utils.imports import ImportVar
 from reflex.vars import FunctionVar, Var
@@ -37,12 +38,18 @@ class CoreComponent(Component):
             return
 
         props_class_name = props.get("class_name", "")
+        unstyled = props.pop("unstyled", None)
 
-        if props.pop("unstyled", False):
+        if unstyled is True:
             props["class_name"] = props_class_name
             return
 
-        props["class_name"] = cn(default_class_name, props_class_name)
+        merged = cn(default_class_name, props_class_name)
+        if isinstance(unstyled, Var):
+            props["class_name"] = rx.cond(unstyled, props_class_name, merged)
+            return
+
+        props["class_name"] = merged
 
     def _exclude_props(self) -> list[str]:
         return [
