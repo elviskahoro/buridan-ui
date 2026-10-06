@@ -73,7 +73,9 @@ from components.ui.input import input
 Use the following composition to build an `Input` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+input()
+```
 
 
 

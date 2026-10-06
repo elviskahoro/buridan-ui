@@ -113,7 +113,12 @@ Collapsible components treat `render_` as a full replacement: component defaults
 Use the following composition to build a `Collapsible` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+collapsible.root(
+    collapsible.trigger(),
+    collapsible.panel(),
+)
+```
 
 
 # Controlled State

@@ -22,7 +22,12 @@ Copy the following code into your app directory.
 Use the following composition to build an `Input Group` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+input_group.root(
+    input_group.input(placeholder="Search..."),
+    input_group.addon(),
+)
+```
 
 
 # Align

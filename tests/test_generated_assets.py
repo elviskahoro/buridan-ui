@@ -25,6 +25,15 @@ PAGES_CONFIG_ROUTES = ["create", "charts", "components", "index"]
 # Pattern that should NOT appear in any generated markdown file
 UNRESOLVED_DELIMITER_PATTERN = re.compile(r"--([\w_]+)(?:\(.*?\))?--")
 
+# Swallowed anatomy-error markers. The renderer wraps command handling in a
+# broad ``except Exception`` that emits an inline ``> **Error in {cmd}: {e}**``
+# line; if the anatomy import ever regresses (e.g. back to the deleted
+# ``app.www.anatomy`` module) this text shows up in the generated doc instead
+# of a fenced code block.
+ANATOMY_ERROR_MARKER = re.compile(r"> \*\*Error in anatomy:")
+STALE_ANATOMY_IMPORT_ERROR = "No module named 'app.www.anatomy'"
+ANATOMY_DIRECTIVE_PATTERN = re.compile(r"--ANATOMY\(([\w_]+)\)--")
+
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -198,6 +207,74 @@ class TestMarkdownGeneration:
         assert not stale, "Stale output files with no matching source:\n" + "\n".join(
             f"  {p.relative_to(ROOT_DIR)}" for p in sorted(stale)
         )
+
+
+# ---------------------------------------------------------------------------
+# Anatomy generation tests
+# ---------------------------------------------------------------------------
+
+
+class TestAnatomyGeneration:
+    """Anatomy sections must render real fenced code blocks, not swallowed errors."""
+
+    @pytest.mark.parametrize(
+        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+    )
+    def test_no_anatomy_error_markers(self, md_file):
+        """
+        Generated markdown must not contain swallowed anatomy error lines.
+
+        The renderer's broad ``except`` converts a failed anatomy import into an
+        inline ``> **Error in anatomy: ...**`` marker. A green build must never
+        ship that text into assets/docs/.
+        """
+        output = expected_markdown_output_path(md_file)
+        if not output.exists():
+            pytest.skip("Output file missing — covered by test_output_file_exists")
+
+        content = output.read_text(encoding="utf-8")
+        assert not ANATOMY_ERROR_MARKER.search(content), (
+            f"Swallowed anatomy error marker in {output.relative_to(ROOT_DIR)}"
+        )
+        assert STALE_ANATOMY_IMPORT_ERROR not in content, (
+            f"Stale 'app.www.anatomy' import error leaked into "
+            f"{output.relative_to(ROOT_DIR)}"
+        )
+
+    @pytest.mark.parametrize(
+        "md_file", _all_md, ids=lambda f: str(f.relative_to(ROOT_DIR))
+    )
+    def test_anatomy_directives_render_matching_code_blocks(self, md_file):
+        """
+        Each ``--ANATOMY(name)--`` directive in a source doc must render as a
+        ```` ```python ```` fenced block whose body equals ``ANATOMY[name]``.
+
+        Catches both the stale-import regression (block missing) and any drift
+        between the anatomy dict and the rendered doc.
+        """
+        from app.registry.anatomy import ANATOMY
+
+        source_text = md_file.read_text(encoding="utf-8")
+        names = ANATOMY_DIRECTIVE_PATTERN.findall(source_text)
+        if not names:
+            pytest.skip("No --ANATOMY(-- directive in this source file")
+
+        output = expected_markdown_output_path(md_file)
+        if not output.exists():
+            pytest.skip("Output file missing — covered by test_output_file_exists")
+
+        generated = output.read_text(encoding="utf-8")
+        for name in names:
+            expected_src = ANATOMY.get(name.lower())
+            assert expected_src is not None, (
+                f"ANATOMY has no entry for '{name}' referenced in "
+                f"{md_file.relative_to(ROOT_DIR)}"
+            )
+            fence = f"```python\n{expected_src.strip()}\n```"
+            assert fence in generated, (
+                f"Anatomy block for '{name}' is missing or wrong in "
+                f"{output.relative_to(ROOT_DIR)} -- expected fenced block:\n{fence}"
+            )
 
 
 # ---------------------------------------------------------------------------

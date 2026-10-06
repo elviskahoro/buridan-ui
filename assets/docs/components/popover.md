@@ -253,7 +253,23 @@ from components.ui.popover import Popover
 Use the following composition to build a `Popover` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+popover.root(
+    popover.trigger(),
+    popover.portal(
+        popover.backdrop(),
+        popover.positioner(
+            popover.popup(
+                popover.header(
+                    popover.title(),
+                    popover.description(),
+                ),
+                popover.close(),
+            ),
+        ),
+    ),
+)
+```
 
 
 

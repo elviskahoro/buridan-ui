@@ -180,7 +180,15 @@ from components.ui.tabs import tabs
 Use the following composition to build a `Tabs` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+tabs.root(
+    tabs.list(
+        tabs.tab(),
+        tabs.indicator(),
+    ),
+    tabs.panel(),
+)
+```
 
 
 # Example

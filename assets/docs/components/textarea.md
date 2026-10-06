@@ -66,7 +66,9 @@ from components.ui.textarea import textarea
 Use the following composition to build a `Textarea` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+textarea()
+```
 
 
 # Examples

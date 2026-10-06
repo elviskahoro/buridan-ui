@@ -172,7 +172,9 @@ from components.ui.button import button
 Use the following composition to build a `Button` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+button()
+```
 
 
 # Examples

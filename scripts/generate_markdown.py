@@ -100,7 +100,7 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
 
             # 1. Anatomy logic
             if cmd == "anatomy":
-                from app.www.anatomy import ANATOMY
+                from app.registry.anatomy import ANATOMY
 
                 src = ANATOMY.get(str(name).lower())
                 if not src:

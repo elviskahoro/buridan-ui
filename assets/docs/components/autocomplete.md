@@ -491,7 +491,11 @@ from components.ui.autocomplete import autocomplete
 Use the following composition to build an `Autocomplete` component. 
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+autocomplete(
+    items=[...],
+)
+```
 
 
 # Examples

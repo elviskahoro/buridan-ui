@@ -54,7 +54,9 @@ from components.ui.spinner import spinner
 Use the following composition to build a `Spinner` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+spinner()
+```
 
 
 # Examples

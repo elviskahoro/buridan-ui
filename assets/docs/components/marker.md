@@ -106,7 +106,12 @@ marker = Marker()
 Use the following composition to build a `Marker` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+marker.root(
+    marker.icon(),
+    marker.content(),
+)
+```
 
 
 # Usage

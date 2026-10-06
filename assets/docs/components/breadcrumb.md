@@ -156,7 +156,19 @@ breadcrumb = Breadcrumb
 Use the following composition to build a `Breadcrumb` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+breadcrumb.root(
+    breadcrumb.list(
+        breadcrumb.item(
+            breadcrumb.link(),
+        ),
+        breadcrumb.separator(),
+        breadcrumb.item(
+            breadcrumb.page(),
+        ),
+    ),
+)
+```
 
 
 # Examples

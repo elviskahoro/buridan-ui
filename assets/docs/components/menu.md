@@ -511,7 +511,39 @@ from components.ui.menu import Menu
 Use the following composition to build a `Menu` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+menu.root(
+    menu.trigger(),
+    menu.portal(
+        menu.positioner(
+            menu.popup(
+                menu.item(),
+                menu.separator(),
+                menu.group(
+                    menu.group_label(),
+                    menu.item(),
+                ),
+                menu.checkbox_item(
+                    menu.checkbox_item_indicator(),
+                ),
+                menu.radio_group(
+                    menu.radio_item(
+                        menu.radio_item_indicator(),
+                    ),
+                ),
+                menu.submenu_root(
+                    menu.submenu_trigger(),
+                    menu.portal(
+                        menu.positioner(
+                            menu.popup(),
+                        ),
+                    ),
+                ),
+            ),
+        ),
+    ),
+)
+```
 
 
 # Example
