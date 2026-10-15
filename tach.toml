@@ -1,0 +1,29 @@
+# Tach module boundary enforcement for buridan-ui.
+#
+# Baseline port of gtm-sdk's tach setup: declares the two top-level
+# packages and their dependency edges (populated via `tach sync`).
+# gtm-sdk's stricter enforcement knobs -- layers, explicit interfaces,
+# exact/root_module rules -- encode that repo's architecture and can be
+# ratcheted on here later without touching the module list.
+
+source_roots = ["."]
+exclude = [
+  "tests/**",
+  "docs/**",
+  "tmp/**",
+  "worktrees/**",
+  ".venv/**",
+  ".web/**",
+  ".github/**",
+  ".context/**",
+]
+
+forbid_circular_dependencies = true
+
+[[modules]]
+path = "app"
+depends_on = ["components"]
+
+[[modules]]
+path = "components"
+depends_on = []

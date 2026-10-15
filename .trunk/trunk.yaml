@@ -303,14 +303,21 @@ actions:
     - trunk-check-pre-push
 
 merge:
-  # Live GitHub status names posted on every PR targeting main.
+  # These must be live GitHub status names posted on every PR targeting main.
   # Re-verify after any pipeline rename:
   #   gh pr checks <pr-number> --json name --jq '.[].name'
   #
-  # Do NOT add path-filtered or workflow_run workflows here: they don't report
-  # on every PR and would deadlock the queue. Bot checks are deliberately
-  # excluded -- the queue gates on CI, not review bots:
+  # All three are GitHub Actions check-runs (job names) posted by
+  # .github/workflows/trunk-check.yml, tests.yml, and validate-assets.yml.
+  # GitHub Actions posts the same job name for pull_request and push events, so
+  # the queue sees identical names on PRs and on its trunk-merge/** branches.
+  #
+  # Do NOT add path-filtered workflows here (they do not report on every PR and
+  # would deadlock the queue). Same for workflow_run-triggered workflows. Bot
+  # checks are deliberately excluded -- the queue gates on CI, not review bots:
   #   - pullfrog / pullfrog-approval (AI review bot)
   #   - Entire Gates (agent session tracking; not posted on every PR)
   required_statuses:
+    - "Trunk Check"
+    - "Tests"
     - "Generate & Verify Docs and Social Cards"
