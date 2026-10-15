@@ -30,7 +30,7 @@ Use the following composition to build a `Tooltip` component.
 
 ## General
 
-A simple tooltip example. Use the `dealy` prop to change how fast the tootip shows.
+A simple tooltip example. Use the `delay` prop to change how fast the tooltip shows.
 --DEMO(tooltip_general)--
 
 ## Side
