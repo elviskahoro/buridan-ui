@@ -1,0 +1,37 @@
+{
+  "id": "trail-security",
+  "display_name": "Security Review",
+  "enabled": true,
+  "scope": "trail",
+  "runtime": {
+    "kind": "prompt_runner",
+    "agent": "claude",
+    "timeout_ms": 300000,
+    "sandbox": {
+      "base_template": "claude",
+      "repo_token": "read"
+    }
+  },
+  "automation": {
+    "kind": "trail_prompt"
+  },
+  "prompt": {
+    "template": "You are a security risk evaluator. Analyze the changes on branch \"{{branch}}\" compared to \"{{base_branch}}\".\n\nRun `git diff origin/{{base_branch}}...HEAD` to see the changes, then score **security risk** from 0 to 100 (review adversarially; higher = more suspicious or insecure).\n\nThis repo is a Reflex UI component library with a CLI. Focus on:\n\n- **Injection surfaces**: user-controlled strings rendered as raw HTML (unsafe render paths, dangerously-set/markup props) instead of escaped text — component libraries propagate this to every consumer.\n- **Key/input capture**: global keybindings or event listeners not scoped to their component (a known bug class here) — can swallow or observe input on unrelated pages.\n- **Client-side logic**: new engine/client-side code, especially anything fetching URLs, executing dynamic code, or handling untrusted data.\n- **CLI/package changes**: added dependencies, changed install scripts, fetched URLs, or network calls in the cli package.\n- **Search features**: autocomplete/fuzzy-search changes must not execute or trust remote results unsafely.\n- Secrets, tokens, or credentials introduced anywhere in the diff.\n\nBands:\n- 0–20: docs, generated MD files, or static component additions with escaped text only.\n- 21–50: new event handlers or search logic with no obvious unsafe paths but needing scrutiny.\n- 51–75: raw-HTML rendering of dynamic content, global key/input listeners, or new network calls in CLI/client code.\n- 76–100: injection of unescaped content, credential/secret exposure, dynamic code execution, or suspicious install-script changes.\n\nOutput ONLY this JSON object as the very last line of your response:\n\n{\"value\": <number 0-100>, \"rationale\": \"<1-2 sentence explanation>\"}"
+  },
+  "select": {
+    "trigger_types": [
+      "api",
+      "push"
+    ]
+  },
+  "output": {
+    "adapter": "last_json_line",
+    "result_type": "trail_monitor",
+    "trail_monitor": {
+      "key": "security",
+      "label": "Security",
+      "value_type": "percent",
+      "polarity": "lower_is_better"
+    }
+  }
+}
