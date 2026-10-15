@@ -1,0 +1,68 @@
+# Lint gate for the Trunk merge queue (see .trunk/trunk.yaml: merge.required_statuses).
+#
+# Trunk only fails on NEW issues (findings introduced relative to the upstream
+# base), so the ~5k pre-existing findings on main do not block PRs; a PR passes
+# by not making lint worse. `--ci` plus stdin redirection is required: without
+# them trunk can hang on an interactive prompt in CI (observed in gtm-sdk).
+#
+# Trigger notes:
+# - pull_request on main gates ordinary PRs against their exact base commit
+#   (github.event.pull_request.base.sha, the same field trunk-io/trunk-action
+#   uses), not the moving tip of main.
+# - push on trunk-merge/** is the Trunk merge queue testing a PR stack as if it
+#   had already merged; --upstream=origin/main diffs the queue branch against
+#   main, which is exactly the queued PRs' combined changes.
+# - There is deliberately no push-to-main lint run: on a push to main, HEAD
+#   equals origin/main, so --upstream=origin/main would diff HEAD against
+#   itself and could never fail. Direct pushes are blocked by branch
+#   protection once the queue is enabled, and a full `trunk check --all`
+#   safety net only becomes viable after main's ~2k pre-existing findings
+#   are converged (--all counts them all as new).
+name: Trunk Check
+
+on:
+  push:
+    branches:
+      - trunk-merge/**
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  trunk-check:
+    name: Trunk Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out (full depth so trunk can resolve the upstream base)
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+
+      # trunk.io/releases/trunk is latest-only with no versioned URL, so pin
+      # the launcher bytes by checksum; any upstream change fails closed. The
+      # launcher bootstraps the exact CLI version pinned in .trunk/trunk.yaml.
+      - name: Install trunk (checksum-pinned launcher)
+        run: |
+          set -euo pipefail
+          trunk_launcher="$(mktemp)"
+          if ! curl -fsSL https://trunk.io/releases/trunk -o "${trunk_launcher}" ||
+            ! echo "700f8bbedfd226595999ea2202b9a7af75ba8398dd711f5f159f5bbba6cbf322  ${trunk_launcher}" | sha256sum -c -; then
+            rm -f "${trunk_launcher}"
+            echo "error: trunk launcher download or checksum failed" >&2
+            exit 1
+          fi
+          sudo install -m 755 "${trunk_launcher}" /usr/local/bin/trunk
+          rm -f "${trunk_launcher}"
+
+      - name: "Trunk check (PR: new issues vs the PR's exact base commit)"
+        if: github.event_name == 'pull_request'
+        run: trunk check --upstream="${BASE_SHA}" --ci < /dev/null
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+
+      - name: "Trunk check (push: new issues vs origin/main)"
+        if: github.event_name == 'push'
+        run: trunk check --upstream=origin/main --ci < /dev/null

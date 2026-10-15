@@ -1,18 +1,53 @@
+# Vale accept-vocabulary for buridan-ui (see .vale.ini: Vocab = BuridanUi).
+# Entries follow the gtm-sdk/GtmSdk pattern: pipe-separated case alternatives
+# (e.g. "cli|CLI") accept every listed form, so Vale.Terms does not flag one
+# case as the "wrong" form of another. Terms are deliberate domain vocabulary:
+# the project name (buridan), component names (kbd, tooltip, textarea), CSS and
+# Tailwind tokens (bg, oklch, hsl, css), Reflex prop names (class_name,
+# get_var_value, color_scale), library names (Recharts, shadcn/ui), and
+# house-voice words used in landing/docs copy (performant, uncompromised).
 APIs
-addons?
-[Bb]uridan
+Async|async
+Buridan|buridan
+CTAs
+Dev|dev
+HeatMap|Heatmap|heatmap|HeatMaps|Heatmaps|heatmaps
+LLMs
+OKLCH|oklch
+Recharts|recharts
+SVG|svg
+Scrollable|scrollable
+Submenu|submenu
+Substates
+Textarea|textarea|textareas
+Tooltip|tooltip|tooltips|Tooltips
+UI|ui
+UIs
+addon|addons
+bg
+blockquote
+boolean
+buridan/ui
+class_name
+collapsibles
+color_scale
 composable
+css|CSS
+fieldsets
 focusable
-[Hh]eatmaps?
-hsl
-Kbd
-oklch
-Recharts
-Reflex
-[Ss]crollables?
-[Ss]crollbars?
-[Ss]ubmenus?
-[Ss]ubstates?
+get_var_value
+hsl|HSL
+kbd|Kbd
+multiline
+navbar
+namespace
+performant
+pressable
+scrollbar
+scroller|scrollers
+shadcn
+shadcn/ui
 themeable
-[Tt]extareas?
-[Tt]ooltips?
+typographies
+uncompromised
+uv|UV

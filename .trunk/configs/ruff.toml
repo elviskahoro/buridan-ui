@@ -88,6 +88,13 @@ ignore = [
   "PLR0917",
   "N815",
   "RUF100",
+  # SIM300's autofix emits a fix object with a null message, which crashes
+  # trunk 1.25.0's ruff JSON parser ("type must be string, but is null") --
+  # including on trunk's upstream scan of base commits that still carry a
+  # SIM300 violation, which would deadlock any PR that fixes one. Latent in
+  # gtm-sdk (that repo is ruff-clean); fatal here while main has SIM300
+  # findings. Drop this ignore once trunk fixes the parser.
+  "SIM300",
   "UP037",
 ]
 

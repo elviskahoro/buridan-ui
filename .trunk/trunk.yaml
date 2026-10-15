@@ -318,6 +318,6 @@ merge:
   #   - pullfrog / pullfrog-approval (AI review bot)
   #   - Entire Gates (agent session tracking; not posted on every PR)
   required_statuses:
-    - "Trunk Check"
-    - "Tests"
-    - "Generate & Verify Docs and Social Cards"
+    - Trunk Check
+    - Tests
+    - Generate & Verify Docs and Social Cards
