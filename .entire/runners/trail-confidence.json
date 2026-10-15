@@ -1,0 +1,37 @@
+{
+  "id": "trail-confidence",
+  "display_name": "Confidence Eval",
+  "enabled": true,
+  "scope": "trail",
+  "runtime": {
+    "kind": "prompt_runner",
+    "agent": "claude",
+    "timeout_ms": 300000,
+    "sandbox": {
+      "base_template": "claude",
+      "repo_token": "read"
+    }
+  },
+  "automation": {
+    "kind": "trail_prompt"
+  },
+  "prompt": {
+    "template": "You are a confidence evaluator. Analyze the changes on branch \"{{branch}}\" compared to \"{{base_branch}}\".\n\nRun `git diff origin/{{base_branch}}...HEAD` to see the changes, then score **confidence** from 0 to 100 (higher = more confident the changes are correct and well-tested).\n\nFor this Reflex component library, consider:\n\n- Are there tests under tests/ covering the changed components/behavior (not just new code shipped bare)?\n- Do new/changed components match the established component file structure and prop conventions, or invent new patterns?\n- Is behavior verifiable from the diff (pure Python logic, docs, CLI code) vs. dependent on client-side rendering/interaction the diff can't prove (scroll behavior on mobile, keybinding scoping, client-side engine logic — all past bug sources here)?\n- Do prop or style changes stay backward-compatible for existing consumers?\n\nBands:\n- 0–25: behavioral changes to existing components with no tests, or changes relying on runtime behavior the diff can't verify.\n- 26–50: changes with partial test coverage or new untested components following conventions.\n- 51–75: well-structured changes with some tests, low blast radius.\n- 76–100: additive, self-contained components/utilities with tests, docs examples, and no changes to existing public APIs.\n\nOutput ONLY this JSON object as the very last line of your response:\n\n{\"value\": <number 0-100>, \"rationale\": \"<1-2 sentence explanation>\"}"
+  },
+  "select": {
+    "trigger_types": [
+      "api",
+      "push"
+    ]
+  },
+  "output": {
+    "adapter": "last_json_line",
+    "result_type": "trail_monitor",
+    "trail_monitor": {
+      "key": "confidence",
+      "label": "Confidence",
+      "value_type": "percent",
+      "polarity": "higher_is_better"
+    }
+  }
+}

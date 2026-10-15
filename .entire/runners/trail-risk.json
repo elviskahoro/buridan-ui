@@ -1,0 +1,37 @@
+{
+  "id": "trail-risk",
+  "display_name": "Risk Eval",
+  "enabled": true,
+  "scope": "trail",
+  "runtime": {
+    "kind": "prompt_runner",
+    "agent": "claude",
+    "timeout_ms": 300000,
+    "sandbox": {
+      "base_template": "claude",
+      "repo_token": "read"
+    }
+  },
+  "automation": {
+    "kind": "trail_prompt"
+  },
+  "prompt": {
+    "template": "You are a risk evaluator. Analyze the changes on branch \"{{branch}}\" compared to \"{{base_branch}}\".\n\nRun `git diff origin/{{base_branch}}...HEAD` to see the changes, then score **risk** from 0 to 100 (higher = more potential damage if something is wrong).\n\nThis repo is a Reflex component library (composable, themeable UI components + a small CLI). Weigh these dimensions:\n\n- **Public component API**: renamed/removed/retyped props or changed default styling on exported components break every downstream app. Highest weight.\n- **Reflex state handling**: direct mutation of state/component objects outside proper Reflex state flow (a recurring mutable-proxy bug class here).\n- **Event/keybinding scope**: global key listeners or handlers not scoped to their component, causing them to fire on other pages.\n- **Engine/client-side logic**: changes that offload or alter Reflex logic to client-side execution — high regression potential.\n- **Shared theme tokens**: edits to theme/design variables ripple across all components.\n- **CLI packaging**: dependency or entry-point changes in the cli package that break installs (a past regression source).\n- **Docs/codegen**: generated MD files and card workflow output are low risk; the generation scripts themselves are higher.\n\nBands:\n- 0–20: docs-only, generated-file churn, or a purely additive new component in its own file.\n- 21–50: contained changes to a single component's internals with matching tests.\n- 51–75: prop/style/behavior changes to existing components, event-handler or engine/client-side changes.\n- 76–100: breaking public API changes, state/proxy mutation bugs, shared theme or CLI packaging changes, or sweeping multi-component refactors.\n\nOutput ONLY this JSON object as the very last line of your response:\n\n{\"value\": <number 0-100>, \"rationale\": \"<1-2 sentence explanation>\"}"
+  },
+  "select": {
+    "trigger_types": [
+      "api",
+      "push"
+    ]
+  },
+  "output": {
+    "adapter": "last_json_line",
+    "result_type": "trail_monitor",
+    "trail_monitor": {
+      "key": "risk",
+      "label": "Risk",
+      "value_type": "percent",
+      "polarity": "lower_is_better"
+    }
+  }
+}
