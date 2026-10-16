@@ -155,7 +155,7 @@ def sidebar():
     )
 
 
-def _mobile_menu_link(route: dict):
+def _mobile_menu_link(route: dict[str, str]) -> rx.Component:
     """Create a single mobile menu link, mirroring ``create_menu_item``'s dispatch."""
     link_class = "w-full flex flex-row items-center justify-between"
 
