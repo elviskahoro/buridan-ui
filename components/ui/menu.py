@@ -6,7 +6,8 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Span
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 LiteralMenuOrientation = Literal["vertical", "horizontal"]
@@ -335,7 +336,6 @@ class MenuGroupLabel(MenuBaseComponent):
 
 class MenuShortcut(Span, CoreComponent):
     ##
-
 
     @classmethod
     def create(cls, *children, **props) -> Span:

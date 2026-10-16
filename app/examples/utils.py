@@ -28,7 +28,7 @@ def open_in_reflex_build(
                     href=href,
                     target="_blank",
                     rel="noopener noreferrer",
-                )
+                ),
             ),
             tooltip.portal(
                 tooltip.positioner(
@@ -46,10 +46,7 @@ def open_in_reflex_build(
 
 
 def block_card(func=None, *, label=""):
-    """
-    Decorator wrapper to wrap blocks
-    """
-
+    """Decorator wrapper to wrap blocks."""
     if func is None:
         return functools.partial(block_card, label=label)
 
@@ -91,21 +88,9 @@ def block_card(func=None, *, label=""):
             ),
             rx.el.div(
                 inner_component,
-                class_name=" ".join(
-                    [
-                        "break-inside-avoid",
-                        "w-full h-full",
-                        "p-7",
-                        "flex flex-col",
-                    ]
-                ),
+                class_name="break-inside-avoid w-full h-full p-7 flex flex-col",
             ),
-            class_name=" ".join(
-                [
-                    "w-full flex flex-col",
-                    "gap-y-2",
-                ]
-            )
+            class_name="w-full flex flex-col gap-y-2"
             + rx.cond(
                 (selected_blocks_category.value == "all")
                 | (selected_blocks_category.value == label),
@@ -118,8 +103,7 @@ def block_card(func=None, *, label=""):
 
 
 def masonry_card(func=None, *, label="General"):
-    """
-    Decorator to wrap a component function inside a standard
+    """Decorator to wrap a component function inside a standard
     masonry-compatible div container with conditional visibility.
     """
     if func is None:
@@ -131,18 +115,7 @@ def masonry_card(func=None, *, label="General"):
 
         return rx.el.div(
             inner_component,
-            class_name=" ".join(
-                [
-                    "break-inside-avoid",
-                    "w-full",
-                    "bg-card",
-                    "rounded-lg",
-                    "border",
-                    "border-input",
-                    "p-card",
-                    "flex flex-col",
-                ]
-            )
+            class_name="break-inside-avoid w-full bg-card rounded-lg border border-input p-card flex flex-col"
             + rx.cond(
                 (selected_component_category.value == "All")
                 | (selected_component_category.value == label),

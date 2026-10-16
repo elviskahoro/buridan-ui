@@ -6,7 +6,8 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Span
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 LiteralOpenChangeReason = Literal[
@@ -336,7 +337,9 @@ class ContextMenuSubmenuTrigger(ContextMenuBaseComponent):
             props["data-inset"] = props.pop("inset")
         cls.set_class_name(ClassNames.SUBMENU_TRIGGER, props)
         return super().create(
-            *children, hi("ArrowRight01Icon", class_name="ml-auto"), **props
+            *children,
+            hi("ArrowRight01Icon", class_name="ml-auto"),
+            **props,
         )
 
 

@@ -23,7 +23,8 @@ def card_one() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Standard Actions", class_name="text-lg font-semibold text-foreground"
+                "Standard Actions",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Basic component variants",
@@ -87,7 +88,8 @@ def card_two() -> rx.Component:
                 class_name="grayscale",
             ),
             rx.el.p(
-                "No Team Members", class_name="text-md font-medium text-foreground"
+                "No Team Members",
+                class_name="text-md font-medium text-foreground",
             ),
             rx.el.p(
                 "Invite your team to collaborate on this project.",
@@ -116,7 +118,8 @@ def card_three() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Central Room Command", class_name="text-lg font-medium text-foreground"
+                "Central Room Command",
+                class_name="text-lg font-medium text-foreground",
             ),
             rx.el.p(
                 "Hue Color Ambient",
@@ -214,7 +217,7 @@ def accordion_general() -> rx.Component:
             "content": rx.el.p(
                 "Navigate to Profile Settings, click 'Edit' next to your email, "
                 "enter your new address, and confirm it via the verification link "
-                "sent to your inbox."
+                "sent to your inbox.",
             ),
             "value": "general-1",
         },
@@ -222,14 +225,14 @@ def accordion_general() -> rx.Component:
             "trigger": "Can I enable two-factor authentication (2FA)?",
             "content": rx.el.p(
                 "Yes. Go to Security Settings, click 'Enable 2FA', and scan the QR "
-                "code using an authenticator app like Google Authenticator or 1Password."
+                "code using an authenticator app like Google Authenticator or 1Password.",
             ),
             "value": "general-2",
         },
         {
             "trigger": "How do I change my workspace theme preferences?",
             "content": rx.el.p(
-                "Under Preferences, you can toggle between Light, Dark, or System mode."
+                "Under Preferences, you can toggle between Light, Dark, or System mode.",
             ),
             "value": "general-3",
         },
@@ -250,7 +253,7 @@ def accordion_billing() -> rx.Component:
             "content": rx.el.div(
                 rx.el.p(
                     "Basic includes budgeting, goal tracking, and up to 3 linked accounts. "
-                    "Pro adds unlimited accounts and support"
+                    "Pro adds unlimited accounts and support",
                 ),
                 class_name="py-2 text-sm text-muted-foreground",
             ),
@@ -261,7 +264,7 @@ def accordion_billing() -> rx.Component:
             "content": rx.el.div(
                 rx.el.p(
                     "Subscriptions renew automatically every 30 days starting from your "
-                    "initial upgrade date."
+                    "initial upgrade date.",
                 ),
                 class_name="py-2 text-sm text-muted-foreground",
             ),
@@ -272,7 +275,7 @@ def accordion_billing() -> rx.Component:
             "content": rx.el.div(
                 rx.el.p(
                     "Go to your Billing Dashboard and scroll down to the 'Invoices' "
-                    "history section."
+                    "history section.",
                 ),
                 class_name="py-2 text-sm text-muted-foreground",
             ),
@@ -293,7 +296,8 @@ def card_four() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Help & Support", class_name="text-lg font-semibold text-foreground"
+                "Help & Support",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Frequently asked questions",
@@ -337,7 +341,8 @@ def card_five() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.p(
-                    "Transfer Funds", class_name="text-lg font-semibold text-foreground"
+                    "Transfer Funds",
+                    class_name="text-lg font-semibold text-foreground",
                 ),
                 rx.el.p(
                     "Move money between your connected accounts.",
@@ -383,10 +388,12 @@ def card_five() -> rx.Component:
                     ),
                     rx.el.select(
                         rx.el.option(
-                            "Main Checking (--8402) — $12,450.00", value="checking"
+                            "Main Checking (--8402) — $12,450.00",
+                            value="checking",
                         ),
                         rx.el.option(
-                            "Business Account (--3301) — $5,200.00", value="business"
+                            "Business Account (--3301) — $5,200.00",
+                            value="business",
                         ),
                         class_name=(
                             "w-full rounded-lg border border-input bg-secondary "
@@ -399,11 +406,13 @@ def card_five() -> rx.Component:
                 # To Account
                 rx.el.div(
                     rx.el.p(
-                        "To Account", class_name="text-sm font-semibold text-foreground"
+                        "To Account",
+                        class_name="text-sm font-semibold text-foreground",
                     ),
                     rx.el.select(
                         rx.el.option(
-                            "High Yield Savings (··1192) — $42,100.00", value="savings"
+                            "High Yield Savings (··1192) — $42,100.00",
+                            value="savings",
                         ),
                         rx.el.option("Roth IRA (··7745) — $18,300.00", value="ira"),
                         class_name=(
@@ -565,7 +574,8 @@ def card_eight() -> rx.Component:
             # Goal Name
             rx.el.div(
                 rx.el.p(
-                    "Goal Name", class_name="text-sm font-semibold text-foreground"
+                    "Goal Name",
+                    class_name="text-sm font-semibold text-foreground",
                 ),
                 input(
                     placeholder="e.g. New Car, Home Downpayment",
@@ -770,7 +780,8 @@ def codespaces_panel() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.p(
-                    "Codespaces", class_name="text-sm font-semibold text-foreground"
+                    "Codespaces",
+                    class_name="text-sm font-semibold text-foreground",
                 ),
                 rx.el.p(
                     "Your workspaces in the cloud",
@@ -801,7 +812,8 @@ def codespaces_panel() -> rx.Component:
                 class_name="p-3 rounded-xl bg-secondary flex items-center justify-center",
             ),
             rx.el.p(
-                "No codespaces", class_name="text-sm font-semibold text-foreground"
+                "No codespaces",
+                class_name="text-sm font-semibold text-foreground",
             ),
             rx.el.p(
                 "You don't have any codespaces with this repository checked out",
@@ -962,7 +974,9 @@ def card_eleven() -> rx.Component:
             ),
             rx.el.div(
                 tabs.panel(
-                    codespaces_panel(), value="codespaces", class_name="w-full pt-3"
+                    codespaces_panel(),
+                    value="codespaces",
+                    class_name="w-full pt-3",
                 ),
                 tabs.panel(local_panel(), value="local", class_name="w-full pt-3"),
                 class_name="w-full",
@@ -994,7 +1008,8 @@ def card_twelve() -> rx.Component:
         rx.el.div(
             rx.el.div(
                 rx.el.p(
-                    "Preferences", class_name="text-lg font-semibold text-foreground"
+                    "Preferences",
+                    class_name="text-lg font-semibold text-foreground",
                 ),
                 rx.el.div(
                     hi("Cancel01Icon", class_name="size-3.5 text-foreground"),
@@ -1097,7 +1112,8 @@ def card_thirteen() -> rx.Component:
             ),
             rx.el.div(
                 rx.el.p(
-                    item["label"], class_name="text-sm font-semibold text-foreground"
+                    item["label"],
+                    class_name="text-sm font-semibold text-foreground",
                 ),
                 rx.el.p(
                     item["description"],
@@ -1112,7 +1128,8 @@ def card_thirteen() -> rx.Component:
         # Header
         rx.el.div(
             rx.el.p(
-                "Notifications", class_name="text-lg font-semibold text-foreground"
+                "Notifications",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Choose what you want to be notified about.",
@@ -1154,7 +1171,8 @@ def card_fourteen() -> rx.Component:
     def day_bar(day: dict) -> rx.Component:
         return rx.el.div(
             rx.el.p(
-                day["label"], class_name="text-sm font-medium text-muted-foreground"
+                day["label"],
+                class_name="text-sm font-medium text-muted-foreground",
             ),
             # Bar track
             rx.el.div(
@@ -1249,13 +1267,17 @@ def card_fifteen() -> rx.Component:
         return rx.el.div(
             # Bars
             rx.el.div(
-                *[bar_column(h, c) for h, c in zip(group["bars"], group["colors"])],
+                *[
+                    bar_column(h, c)
+                    for h, c in zip(group["bars"], group["colors"], strict=False)
+                ],
                 class_name="flex flex-row items-end gap-x-0.5 h-28",
             ),
             # Label
             rx.el.div(
                 rx.el.p(
-                    group["value"], class_name="text-sm font-semibold text-foreground"
+                    group["value"],
+                    class_name="text-sm font-semibold text-foreground",
                 ),
                 rx.el.p(
                     group["label"],
@@ -1288,7 +1310,7 @@ def card_fifteen() -> rx.Component:
                 *[
                     rx.el.div(
                         rx.el.div(
-                            class_name=f"size-2 rounded-full {item['color']} shrink-0"
+                            class_name=f"size-2 rounded-full {item['color']} shrink-0",
                         ),
                         rx.el.p(
                             item["label"],
@@ -1432,7 +1454,8 @@ def card_eighteen() -> rx.Component:
         # Header
         rx.el.div(
             rx.el.p(
-                "Book Appointment", class_name="text-lg font-semibold text-foreground"
+                "Book Appointment",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Dr. Sarah Chen · Cardiology",
@@ -1513,7 +1536,8 @@ def card_nineteen() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Account Controls", class_name="text-lg font-semibold text-foreground"
+                "Account Controls",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Limits and recurring payments",
@@ -1704,13 +1728,13 @@ def card_twenty_two() -> rx.Component:
                         table.head(
                             col["header"],
                             class_name=cn(
-                                "text-right" if col.get("align") == "right" else ""
+                                "text-right" if col.get("align") == "right" else "",
                             ),
                         )
                         for col in columns
                     ],
                     class_name="border-b border-input",
-                )
+                ),
             ),
             table.body(
                 *[
@@ -1805,10 +1829,11 @@ def card_twenty_three() -> rx.Component:
                                     class_name="text-sm font-medium text-nowrap text-foreground",
                                 ),
                                 class_name="flex flex-row items-center gap-x-2",
-                            )
+                            ),
                         ),
                         table.cell(
-                            row["type"], class_name="text-xs text-muted-foreground"
+                            row["type"],
+                            class_name="text-xs text-muted-foreground",
                         ),
                         table.cell(
                             rx.el.div(
@@ -1927,13 +1952,14 @@ def card_twenty_four() -> rx.Component:
                                         else "bg-destructive"
                                         if row["vitals"] == "Critical"
                                         else "bg-yellow-500",
-                                    )
+                                    ),
                                 ),
                                 rx.el.p(
-                                    row["vitals"], class_name="text-xs text-foreground"
+                                    row["vitals"],
+                                    class_name="text-xs text-foreground",
                                 ),
                                 class_name="flex flex-row items-center gap-x-2",
-                            )
+                            ),
                         ),
                         table.cell(
                             row["last_check"],
@@ -2070,10 +2096,11 @@ def card_twenty_six() -> rx.Component:
                                     class_name="text-xs text-muted-foreground",
                                 ),
                                 class_name="flex flex-col",
-                            )
+                            ),
                         ),
                         table.cell(
-                            row["dose"], class_name="text-sm font-theme text-foreground"
+                            row["dose"],
+                            class_name="text-sm font-theme text-foreground",
                         ),
                         table.cell(status_badge(row["status"])),
                     )
@@ -2124,7 +2151,8 @@ def card_twenty_seven() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Laboratory Results", class_name="text-lg font-semibold text-foreground"
+                "Laboratory Results",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "Recent metabolic panel",
@@ -2139,7 +2167,7 @@ def card_twenty_seven() -> rx.Component:
                     table.head("Result", class_name="text-right"),
                     table.head("Flag", class_name="text-center"),
                     class_name="border-b border-input",
-                )
+                ),
             ),
             table.body(
                 *[
@@ -2155,7 +2183,7 @@ def card_twenty_seven() -> rx.Component:
                                     class_name="text-[10px] text-muted-foreground uppercase",
                                 ),
                                 class_name="flex flex-col",
-                            )
+                            ),
                         ),
                         table.cell(
                             rx.el.div(
@@ -2168,7 +2196,7 @@ def card_twenty_seven() -> rx.Component:
                                     class_name="text-xs text-muted-foreground",
                                 ),
                                 class_name="flex flex-col items-end",
-                            )
+                            ),
                         ),
                         table.cell(
                             rx.el.div(
@@ -2180,7 +2208,7 @@ def card_twenty_seven() -> rx.Component:
                                     class_name="text-[10px]",
                                 ),
                                 class_name="flex justify-center",
-                            )
+                            ),
                         ),
                     )
                     for row in lab_results
@@ -2205,7 +2233,8 @@ def card_twenty_eight() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             rx.el.p(
-                "Vitals Monitoring", class_name="text-lg font-semibold text-foreground"
+                "Vitals Monitoring",
+                class_name="text-lg font-semibold text-foreground",
             ),
             rx.el.p(
                 "24-hour observation log",
@@ -2221,13 +2250,14 @@ def card_twenty_eight() -> rx.Component:
                     table.head("HR", class_name="text-right"),
                     table.head("O2", class_name="text-right"),
                     class_name="border-b border-input",
-                )
+                ),
             ),
             table.body(
                 *[
                     table.row(
                         table.cell(
-                            row["time"], class_name="text-xs text-muted-foreground"
+                            row["time"],
+                            class_name="text-xs text-muted-foreground",
                         ),
                         table.cell(
                             row["bp"],
@@ -2280,7 +2310,7 @@ def card_twenty_nine() -> rx.Component:
                     table.head("Beds", class_name="text-center"),
                     table.head("Status", class_name="text-right"),
                     class_name="border-b border-input",
-                )
+                ),
             ),
             table.body(
                 *[
@@ -2296,7 +2326,7 @@ def card_twenty_nine() -> rx.Component:
                                     class_name="text-[10px] text-muted-foreground",
                                 ),
                                 class_name="flex flex-col",
-                            )
+                            ),
                         ),
                         table.cell(
                             row["beds"],
@@ -2314,7 +2344,7 @@ def card_twenty_nine() -> rx.Component:
                                     class_name="text-[10px]",
                                 ),
                                 class_name="flex justify-end",
-                            )
+                            ),
                         ),
                     )
                     for row in resources

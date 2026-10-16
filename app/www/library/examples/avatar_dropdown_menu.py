@@ -19,7 +19,7 @@ def avatar_dropdown_menu() -> rx.Component:
                 variant="ghost",
                 size="icon",
                 class_name="rounded-full",
-            )
+            ),
         ),
         menu.portal(
             menu.positioner(
@@ -31,6 +31,6 @@ def avatar_dropdown_menu() -> rx.Component:
                     ),
                     class_name="w-32",
                 ),
-            )
+            ),
         ),
     )

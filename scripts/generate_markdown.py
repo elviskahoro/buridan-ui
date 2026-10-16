@@ -17,9 +17,7 @@ DYNAMIC_LOAD_DIRS = ["app/www/library", "components/ui"]
 
 
 def dynamic_load_components(dirs: list[str]) -> dict:
-    """
-    Dynamically loads component functions and classes from given directories.
-    """
+    """Dynamically loads component functions and classes from given directories."""
     registry = {}
     for d in dirs:
         dir_path = ROOT_DIR / d
@@ -62,12 +60,10 @@ def dynamic_load_components(dirs: list[str]) -> dict:
 
 
 def convert_to_pure_markdown(content: str, registry: dict) -> str:
-    """
-    Replaces custom component delimiters in markdown content with formatted code blocks.
-    """
+    """Replaces custom component delimiters in markdown content with formatted code blocks."""
     delimiter_pattern = r"--([\w_]+)(?:\((.*)\))?--"
 
-    def replacer(match):
+    def replacer(match) -> str | None:
         cmd = match.group(1).lower()
         arg = match.group(2)
 
@@ -181,7 +177,7 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
     return re.sub(delimiter_pattern, replacer, content)
 
 
-def main():
+def main() -> None:
     """Main function to generate pure markdown files from the docs directory."""
     print("Starting markdown generation process...")
 
@@ -215,7 +211,7 @@ def main():
         output_path.write_text(pure_md_content)
 
         print(
-            f"Processed: {md_file.relative_to(ROOT_DIR)} -> {output_path.relative_to(ROOT_DIR)}"
+            f"Processed: {md_file.relative_to(ROOT_DIR)} -> {output_path.relative_to(ROOT_DIR)}",
         )
 
     print(f"\nMarkdown generation complete. Processed {file_count} files.")

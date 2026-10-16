@@ -10,7 +10,10 @@ from app.www.generator import generate_docs_library
 from app.www.parser import DocParser
 
 
-def test_docs_generation_is_independent_of_working_directory(monkeypatch, tmp_path):
+def test_docs_generation_is_independent_of_working_directory(
+    monkeypatch,
+    tmp_path,
+) -> None:
     monkeypatch.chdir(tmp_path)
     monkeypatch.delenv("BURIDAN_DEV_MODE", raising=False)
 
@@ -21,11 +24,14 @@ def test_docs_generation_is_independent_of_working_directory(monkeypatch, tmp_pa
     assert any(doc.url == "docs/getting-started/introduction" for doc in docs)
 
 
-def test_parser_loads_absolute_and_repo_relative_directories(monkeypatch, tmp_path):
+def test_parser_loads_absolute_and_repo_relative_directories(
+    monkeypatch,
+    tmp_path,
+) -> None:
     monkeypatch.chdir(tmp_path)
 
     parser = DocParser(
-        dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT]
+        dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],
     )
 
     assert "accordion_basic" in parser.registry
@@ -34,8 +40,9 @@ def test_parser_loads_absolute_and_repo_relative_directories(monkeypatch, tmp_pa
 
 @pytest.mark.parametrize("absolute", [True, False])
 def test_parser_rejects_load_directories_outside_project_root(
-    tmp_path, absolute
-):
+    tmp_path,
+    absolute,
+) -> None:
     project_root = Path(constants.__file__).resolve().parents[2]
     load_dir = tmp_path if absolute else os.path.relpath(tmp_path, project_root)
 
@@ -44,11 +51,14 @@ def test_parser_rejects_load_directories_outside_project_root(
 
 
 def test_preview_cards_use_repository_paths_from_another_working_directory(
-    monkeypatch, tmp_path
-):
+    monkeypatch,
+    tmp_path,
+) -> None:
     default_font = ImageFont.load_default()
     monkeypatch.setattr(
-        ImageFont, "truetype", lambda *_args, **_kwargs: default_font
+        ImageFont,
+        "truetype",
+        lambda *_args, **_kwargs: default_font,
     )
     preview_cards = importlib.import_module("scripts.generate_preview_cards")
     generated_paths = []

@@ -72,9 +72,9 @@ config = rx.Config(
                         "boxShadow": {
                             "default": "var(--shadow)",
                         },
-                    }
+                    },
                 },
-            )
+            ),
         ),
     ],
 )

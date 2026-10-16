@@ -56,7 +56,9 @@ def _chart(show_y_axis: bool, start_end_only: bool = False) -> rx.Component:
         ),
         chart_tooltip(),
         rx.recharts.cartesian_grid(
-            horizontal=True, vertical=False, class_name="opacity-50"
+            horizontal=True,
+            vertical=False,
+            class_name="opacity-50",
         ),
         rx.recharts.x_axis(
             data_key="date",
@@ -91,7 +93,8 @@ def area_chart_02():
         ),
         card.content(
             rx.el.div(
-                _chart(show_y_axis=False, start_end_only=True), class_name="sm:hidden"
+                _chart(show_y_axis=False, start_end_only=True),
+                class_name="sm:hidden",
             ),
             rx.el.div(
                 _chart(show_y_axis=True, start_end_only=False),

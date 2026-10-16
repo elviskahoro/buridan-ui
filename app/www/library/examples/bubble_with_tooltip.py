@@ -22,7 +22,7 @@ def bubble_tooltip_demo():
                                 hi("Tick02Icon", class_name="size-4"),
                                 variant="ghost",
                                 class_name="w-6 h-6",
-                            )
+                            ),
                         ),
                         tooltip.portal(
                             tooltip.positioner(
@@ -31,11 +31,11 @@ def bubble_tooltip_demo():
                                     tooltip.arrow(),
                                 ),
                                 side="bottom",
-                            )
+                            ),
                         ),
                     ),
                     delay=0,
-                )
+                ),
             ),
             align="end",
         ),

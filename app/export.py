@@ -11,7 +11,7 @@ from app.utils.metatags import generate_site_meta_tags
 from app.www.generator import generate_docs_library
 
 
-def export_site(app: rx.App):
+def export_site(app: rx.App) -> None:
     app.add_page(
         component=mainpage(),
         route="/create",

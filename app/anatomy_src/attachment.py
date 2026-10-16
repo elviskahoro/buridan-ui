@@ -7,6 +7,6 @@ COMPOSITION = attachment.root(
         attachment.description(),
     ),
     attachment.actions(
-        attachment.action()
+        attachment.action(),
     ),
 )

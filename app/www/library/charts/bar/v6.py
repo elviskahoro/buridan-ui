@@ -32,7 +32,9 @@ def barchart_v6():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key="desktop",
@@ -71,7 +73,7 @@ def barchart_v6():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )

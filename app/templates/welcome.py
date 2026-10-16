@@ -7,7 +7,6 @@ from components.ui.dialog import dialog
 
 def welcome_dialog() -> rx.Component:
     """A welcome dialog that shows on first visit."""
-
     # Script to mark welcome as seen in localStorage and close state
     close_script = """
         localStorage.setItem("has_seen_welcome", "true");

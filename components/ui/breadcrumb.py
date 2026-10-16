@@ -1,6 +1,7 @@
 import reflex as rx
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import cn
 
 

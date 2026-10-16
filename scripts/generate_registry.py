@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
-"""
-generate_registry.py
+"""generate_registry.py.
 
 Regenerates `registry/components.py` (COMPONENT_REGISTRY) by scanning the
 actual source tree and parsing real import statements -- instead of
@@ -59,7 +58,8 @@ class ComponentFile:
 
 def discover_files(repo_root: Path, roots: list[str]) -> list[Path]:
     """Find every .py file under the given roots, skipping __init__.py,
-    __pycache__, and macOS junk."""
+    __pycache__, and macOS junk.
+    """
     files: list[Path] = []
     for root in roots:
         root_path = repo_root / root
@@ -77,7 +77,8 @@ def discover_files(repo_root: Path, roots: list[str]) -> list[Path]:
 
 def _unique_name(stem: str, rel_path: str, seen: dict[str, str]) -> str:
     """Return a registry-safe unique name for this file. Warns on collision
-    and disambiguates using the parent folder name."""
+    and disambiguates using the parent folder name.
+    """
     if stem not in seen:
         seen[stem] = rel_path
         return stem
@@ -91,10 +92,12 @@ def _unique_name(stem: str, rel_path: str, seen: dict[str, str]) -> str:
 
 
 def build_component_index(
-    repo_root: Path, files: list[Path]
+    repo_root: Path,
+    files: list[Path],
 ) -> dict[str, ComponentFile]:
     """Create the name -> ComponentFile map, and a dotted-module lookup
-    table used later to resolve imports to components."""
+    table used later to resolve imports to components.
+    """
     by_name: dict[str, ComponentFile] = {}
     seen_stems: dict[str, str] = {}
 
@@ -146,7 +149,9 @@ def find_dependencies(comp: ComponentFile, module_lookup: dict[str, str]) -> set
         if isinstance(node, ast.ImportFrom):
             if node.level and node.level > 0:
                 base = resolve_relative_module(
-                    comp.package_dotted, node.level, node.module
+                    comp.package_dotted,
+                    node.level,
+                    node.module,
                 )
             else:
                 base = node.module or ""
@@ -177,7 +182,8 @@ def build_registry(repo_root: Path, roots: list[str]) -> dict[str, ComponentFile
     files = discover_files(repo_root, roots)
     if not files:
         print(
-            "No component files found -- check your --roots argument.", file=sys.stderr
+            "No component files found -- check your --roots argument.",
+            file=sys.stderr,
         )
         sys.exit(1)
 
@@ -225,7 +231,8 @@ def render_registry(by_name: dict[str, ComponentFile]) -> str:
 
 def main() -> None:
     parser = argparse.ArgumentParser(
-        description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter
+        description=__doc__,
+        formatter_class=argparse.RawDescriptionHelpFormatter,
     )
     parser.add_argument(
         "--roots",
@@ -249,7 +256,8 @@ def main() -> None:
     repo_root = Path(__file__).resolve().parent.parent
 
     print(
-        f"Scanning: {', '.join(args.roots)} (repo root: {repo_root})", file=sys.stderr
+        f"Scanning: {', '.join(args.roots)} (repo root: {repo_root})",
+        file=sys.stderr,
     )
     by_name = build_registry(repo_root, args.roots)
     rendered = render_registry(by_name)

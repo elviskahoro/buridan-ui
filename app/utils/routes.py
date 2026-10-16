@@ -1,14 +1,13 @@
 import glob
 import os
 
-import app.www.constants as constants
+from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 
 
 # --- Method: Generate doc routes/urls ---
 def generate_doc_routes(section_folder, base_path) -> list[dict]:
-    """
-    Generates routes for a documentation section by recursively reading
+    """Generates routes for a documentation section by recursively reading
     frontmatter from markdown files.
 
     Args:
@@ -30,7 +29,7 @@ def generate_doc_routes(section_folder, base_path) -> list[dict]:
 
     for file_path in md_files:
         try:
-            with open(file_path, "r", encoding="utf-8") as f:
+            with open(file_path, encoding="utf-8") as f:
                 content = f.read()
         except FileNotFoundError:
             continue

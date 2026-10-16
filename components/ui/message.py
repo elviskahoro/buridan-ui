@@ -116,7 +116,6 @@ def message_footer(*children, class_name: str = "", **props) -> rx.Component:
 class Message(ComponentNamespace):
     ##
 
-
     group = staticmethod(message_group)
     root = staticmethod(message_root)
     avatar = staticmethod(message_avatar)

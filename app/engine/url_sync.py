@@ -1,5 +1,6 @@
 import reflex as rx
 
+
 def url_sync_engine() -> rx.Component:
     return rx.script("""
         window.__getPresetFromURL = function() {
@@ -11,7 +12,7 @@ def url_sync_engine() -> rx.Component:
             if (!seed) return;
             const url = new URL(window.location);
             if (url.searchParams.get('preset') === seed) return;
-            
+
             url.searchParams.set('preset', seed);
             try {
                 if (push) {
@@ -26,7 +27,7 @@ def url_sync_engine() -> rx.Component:
 
         window.__syncSidebar = function(config) {
             if (!config || !window.refs) return;
-            
+
             const refs = window.refs;
             const _BASE_THEMES = window.__BASE_THEMES;
             const _COLOR_THEMES = window.__COLOR_THEMES;

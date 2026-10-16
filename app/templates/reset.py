@@ -32,7 +32,9 @@ def reset_theme_button() -> rx.Component:
                         rx.el.div(
                             dialog.close(
                                 render_=button(
-                                    "Cancel", variant="outline", class_name="w-full"
+                                    "Cancel",
+                                    variant="outline",
+                                    class_name="w-full",
                                 ),
                                 class_name="flex-1",
                             ),

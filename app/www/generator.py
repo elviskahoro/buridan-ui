@@ -1,17 +1,16 @@
 import os
 import re
-from typing import List
 
-import app.www.constants as constants
+from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 from app.www.parser import DocParser
 
 parser = DocParser(
-    dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT]
+    dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],
 )
 
 
-def generate_docs_library() -> List[constants.DocDataStruct]:
+def generate_docs_library() -> list[constants.DocDataStruct]:
     docs = []
     dev_mode = os.environ.get("BURIDAN_DEV_MODE") == "true"
 
@@ -25,7 +24,7 @@ def generate_docs_library() -> List[constants.DocDataStruct]:
     for md_file in all_md_files:
         relative_path = md_file.relative_to(constants.DOCS_BASE_DIR)
         slug = "/".join(
-            [part.replace("_", "-") for part in relative_path.with_suffix("").parts]
+            [part.replace("_", "-") for part in relative_path.with_suffix("").parts],
         )
         slug_to_path_map[slug] = md_file
 
@@ -55,7 +54,7 @@ def generate_docs_library() -> List[constants.DocDataStruct]:
         url_path = "docs/" + "/".join(url_path_parts).replace(".md", "")
 
         # Read the markdown content
-        with open(md_file_path, "r") as f:
+        with open(md_file_path) as f:
             md_content = f.read()
 
         md_data, md_content = parse_frontmatter(md_content)
@@ -71,7 +70,7 @@ def generate_docs_library() -> List[constants.DocDataStruct]:
                     "text": heading_text,
                     "id": heading_text,
                     "level": level,
-                }
+                },
             )
 
         # Create the doc component (no need for inner function)

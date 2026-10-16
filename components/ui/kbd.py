@@ -1,6 +1,8 @@
 from reflex.components.component import ComponentNamespace
-from reflex_components_core.el import Div
-from reflex_components_core.el import Kbd as ElKbd
+from reflex_components_core.el import (
+    Div,
+    Kbd as ElKbd,
+)
 
 from .core import CoreComponent, cn
 

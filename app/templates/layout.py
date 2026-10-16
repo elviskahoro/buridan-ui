@@ -30,8 +30,7 @@ def layout_decorator(
     ctas: list | None = None,
     with_create_page_cta: bool = False,
 ):
-    """
-    Decorator to wrap a page function with a sticky navbar,
+    """Decorator to wrap a page function with a sticky navbar,
     a landing header, and page-specific content.
     """
 

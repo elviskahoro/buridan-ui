@@ -9,8 +9,8 @@ import json
 import os
 import sys
 import types
-import unittest.mock as mock
 from pathlib import Path
+from unittest import mock
 
 import pytest
 from pydantic import ValidationError
@@ -24,6 +24,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from gtm_linear import LinearAPIError, PaginationOrderBy  # noqa: E402
+
 from scripts import linear_cli  # noqa: E402
 
 runner = CliRunner()
@@ -34,7 +35,10 @@ runner = CliRunner()
 # ---------------------------------------------------------------------------
 
 
-def _issue(identifier: str = "EKK-1", title: str = "Test issue") -> types.SimpleNamespace:
+def _issue(
+    identifier: str = "EKK-1",
+    title: str = "Test issue",
+) -> types.SimpleNamespace:
     """A stand-in IssueFields object with the fields the CLI reads."""
     return types.SimpleNamespace(
         identifier=identifier,
@@ -169,7 +173,10 @@ def test_issue_not_found_exits_1() -> None:
 # ---------------------------------------------------------------------------
 
 
-def test_missing_api_key_exits_1(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+def test_missing_api_key_exits_1(
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
+) -> None:
     # Integration smoke test of the real settings resolution; the patched
     # test below is the authoritative one for CLI handling. LinearSettings
     # reads LINEAR_* env vars and .env/.env.local relative to the cwd, so an

@@ -10,7 +10,7 @@ def accordion_disabled() -> rx.Component:
             accordion.panel(
                 "Yes, you can view your complete account history including all "
                 "transactions, plan changes, and support tickets in the Account "
-                "History section of your dashboard."
+                "History section of your dashboard.",
             ),
             value="item-1",
         ),
@@ -18,7 +18,7 @@ def accordion_disabled() -> rx.Component:
             accordion.trigger("Premium feature information"),
             accordion.panel(
                 "This section contains information about premium features. "
-                "Upgrade your plan to access this content."
+                "Upgrade your plan to access this content.",
             ),
             value="item-2",
             disabled=True,
@@ -28,7 +28,7 @@ def accordion_disabled() -> rx.Component:
             accordion.panel(
                 "You can update your email address in your account settings. "
                 "You'll receive a verification email at your new address to "
-                "confirm the change."
+                "confirm the change.",
             ),
             value="item-3",
         ),
