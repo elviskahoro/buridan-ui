@@ -7,7 +7,9 @@ from urllib.parse import unquote_plus, urlparse
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.templates.toc import _create_external_tool_links  # noqa: E402  # pyright: ignore[reportPrivateUsage]
+from app.templates.toc import (  # noqa: E402
+    _create_external_tool_links,  # pyright: ignore[reportPrivateUsage]
+)
 
 
 def _rendered(url: str = "docs/components/button") -> str:
