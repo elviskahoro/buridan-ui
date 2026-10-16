@@ -15,7 +15,7 @@ from app.www.library.charts.radar.v6 import radar_v6
 from app.www.library.charts.scatter.v1 import scatterchart_v1
 from components.ui.button import button
 
-GRID_LAYOUT = " ".join(["grid grid-cols-1 lg:grid-cols-3", "gap-10 sm:gap-7"])
+GRID_LAYOUT = "grid grid-cols-1 lg:grid-cols-3 gap-10 sm:gap-7"
 
 
 @layout_decorator(
@@ -24,7 +24,8 @@ GRID_LAYOUT = " ".join(["grid grid-cols-1 lg:grid-cols-3", "gap-10 sm:gap-7"])
     ctas=[
         rx.el.a(button("Browse Charts"), href="/docs/charts/area-chart"),
         rx.el.a(
-            button("Documentation", variant="secondary"), href="/docs/components/chart"
+            button("Documentation", variant="secondary"),
+            href="/docs/components/chart",
         ),
     ],
 )
@@ -51,10 +52,5 @@ def chart_page():
             piechart_v1(),
             class_name=GRID_LAYOUT,
         ),
-        class_name=" ".join(
-            [
-                "flex flex-col max-w-[96rem] mx-auto px-4 md:px-8",
-                "py-6 gap-10 sm:gap-7",
-            ]
-        ),
+        class_name="flex flex-col max-w-[96rem] mx-auto px-4 md:px-8 py-6 gap-10 sm:gap-7",
     )

@@ -45,7 +45,7 @@ def doughnutchart_v1():
                     ["chrome", "safari", "firefox", "edge", "other"],
                     lambda browser, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}"
+                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}",
                         ),
                         rx.el.p(
                             browser,
@@ -72,7 +72,7 @@ def doughnutchart_v1():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name="w-full p-0",
     )
@@ -106,7 +106,6 @@ def doughnutchart_v2():
                     class_name="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 flex flex-col items-center justify-center",
                 ),
                 rx.recharts.pie_chart(
-                    #
                     rx.recharts.pie(
                         data=data,
                         data_key="visitors",
@@ -136,7 +135,7 @@ def doughnutchart_v2():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         # ,
         class_name="w-full p-0",

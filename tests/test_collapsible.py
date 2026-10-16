@@ -56,7 +56,7 @@ def _inner_div(panel: BaseUIComponent) -> Component:
     """
     children = panel.children
     assert len(children) == 1, "panel should wrap content in a single div"
-    return cast(Component, children[0])
+    return cast("Component", children[0])
 
 
 def _shielded_panel_class_name() -> str:
@@ -84,8 +84,7 @@ def test_panel_default_inner_wrapper_is_empty() -> None:
 
 
 def test_panel_class_name_is_always_shielded_from_user_class_name() -> None:
-    """
-    The panel element's class_name must be exactly ``cn(PANEL, "")`` regardless of
+    """The panel element's class_name must be exactly ``cn(PANEL, "")`` regardless of
     what the caller passes — the user's class_name is never merged onto the
     transition-bearing panel element. This is the structural guarantee that
     shields ``transition-[height]`` from tailwind-merge conflicts.
@@ -100,8 +99,7 @@ def test_panel_class_name_is_always_shielded_from_user_class_name() -> None:
 
 
 def test_panel_keeps_height_transition_for_transition_star_utilities() -> None:
-    """
-    Regression for the height-animation bug: any ``transition-*`` utility passed
+    """Regression for the height-animation bug: any ``transition-*`` utility passed
     via ``class_name`` shares tailwind-merge's transition-property conflict group
     with the structural ``transition-[height]`` and would drop it if merged onto
     the panel element. The panel must keep ``transition-[height]`` and route the
@@ -129,8 +127,7 @@ def test_panel_keeps_height_transition_for_transition_star_utilities() -> None:
 
 
 def test_panel_routes_non_conflicting_user_classes_to_inner_wrapper_too() -> None:
-    """
-    The shield is unconditional: non-conflicting utilities also route to the inner
+    """The shield is unconditional: non-conflicting utilities also route to the inner
     wrapper (the panel element is *always* ``cn(PANEL, "")``), bringing Collapsible
     into architectural parity with Accordion — callers cannot style the animated
     panel box directly via ``class_name``.
@@ -153,8 +150,7 @@ def test_panel_unstyled_omits_default_classes() -> None:
 
 
 def test_panel_render_skips_default_class_merge() -> None:
-    """
-    render_ is a full-replacement escape hatch: the panel element receives no
+    """render_ is a full-replacement escape hatch: the panel element receives no
     default class, while the user's class_name still routes to the inner wrapper.
     """
     panel = CollapsiblePanel.create(
@@ -168,7 +164,8 @@ def test_panel_render_skips_default_class_merge() -> None:
 
 def test_trigger_render_preserves_target_classes_without_component_defaults() -> None:
     trigger = CollapsibleTrigger.create(
-        render_=button("toggle"), class_name="custom-trigger"
+        render_=button("toggle"),
+        class_name="custom-trigger",
     )
     rendered_props = " ".join(trigger.render()["props"])
 
@@ -183,18 +180,19 @@ def test_trigger_render_preserves_target_classes_without_component_defaults() ->
 
 
 def test_panel_shield_matches_accordion_panel_shield() -> None:
-    """
-    CollapsiblePanel and AccordionPanel must shield the panel element's
+    """CollapsiblePanel and AccordionPanel must shield the panel element's
     ``transition-[height]`` the same way: the panel element's class_name is
     ``cn(<default PANEL>, "")`` and the user class_name lands on an inner div.
     This guards against the two components diverging again — the divergence
     between them is exactly what introduced this bug.
     """
     cpanel = CollapsiblePanel.create(
-        rx.el.div("c"), class_name="transition-[opacity] duration-500"
+        rx.el.div("c"),
+        class_name="transition-[opacity] duration-500",
     )
     apanel = AccordionPanel.create(
-        rx.el.div("a"), class_name="transition-[opacity] duration-500"
+        rx.el.div("a"),
+        class_name="transition-[opacity] duration-500",
     )
 
     assert "transition-[height]" in str(cpanel.class_name)

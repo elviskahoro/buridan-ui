@@ -21,7 +21,7 @@ def menu_checkboxes():
                             menu.checkbox_item_indicator(),
                             default_checked=show_status_bar.value,
                             on_checked_change=show_status_bar.set_value(
-                                ~show_status_bar.value
+                                ~show_status_bar.value,
                             ),
                         ),
                         menu.checkbox_item(

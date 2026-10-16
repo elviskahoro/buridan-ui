@@ -50,7 +50,9 @@ def _packed_number(
 @pytest.mark.parametrize("style_index", range(len(STYLE_REGISTRY)))
 @pytest.mark.parametrize("radius_index", range(len(RADIUS_OPTIONS)))
 def test_cli_seed_decodes_every_font_style_and_radius(
-    font_index: int, style_index: int, radius_index: int
+    font_index: int,
+    style_index: int,
+    radius_index: int,
 ) -> None:
     number = _packed_number(0, 0, 0, style_index, font_index, radius_index)
 
@@ -177,7 +179,11 @@ console.log(JSON.stringify({cases, maximumSeed}));
         + js_checks
     )
     result = subprocess.run(
-        [node, "-e", js], check=True, capture_output=True, text=True, timeout=30
+        [node, "-e", js],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     payload = json.loads(result.stdout)
 

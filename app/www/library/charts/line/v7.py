@@ -67,7 +67,7 @@ def linechart_v7():
                         rx.el.option("Mobile", value="mobile"),
                         rx.el.option("Desktop", value="desktop"),
                         default_value="mobile",
-                        on_change=lambda value: SelectedType.set_value(value),
+                        on_change=SelectedType.set_value,
                         class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3 bg-secondary border border-input",
                     ),
                     class_name="flex flex-row items-center gap-x-2",
@@ -79,7 +79,9 @@ def linechart_v7():
             rx.recharts.line_chart(
                 chart_tooltip("hide"),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key=SelectedType.value,
@@ -119,7 +121,7 @@ def linechart_v7():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "line") + " w-full p-0",
     )

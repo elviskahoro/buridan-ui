@@ -142,7 +142,7 @@ def switch_description() -> rx.Component:
         field.content(
             field.label("Share across devices", html_for="switch-focus-mode"),
             field.description(
-                "Focus is shared across devices, and turns off when you leave the app."
+                "Focus is shared across devices, and turns off when you leave the app.",
             ),
         ),
         switch.root(
@@ -168,7 +168,7 @@ def switch_choice_card() -> rx.Component:
                 field.content(
                     field.title("Share across devices"),
                     field.description(
-                        "Focus is shared across devices, and turns off when you leave the app."
+                        "Focus is shared across devices, and turns off when you leave the app.",
                     ),
                 ),
                 switch.root(id="switch-share"),
@@ -181,7 +181,7 @@ def switch_choice_card() -> rx.Component:
                 field.content(
                     field.title("Enable notifications"),
                     field.description(
-                        "Receive notifications when focus mode is enabled or disabled."
+                        "Receive notifications when focus mode is enabled or disabled.",
                     ),
                 ),
                 switch.root(id="switch-notifications", default_checked=True),

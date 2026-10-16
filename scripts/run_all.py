@@ -15,7 +15,7 @@ SCRIPT_SEQUENCE = [
 ]
 
 
-def main():
+def main() -> None:
     print("Initiating Buridan UI Pipeline Runner (with flags)...\n")
 
     for command_args in SCRIPT_SEQUENCE:
@@ -28,9 +28,9 @@ def main():
 
         print(f"Running: {' '.join(command_args)} ...")
 
-        full_command = ["python", script_path] + command_args[1:]
+        full_command = ["python", script_path, *command_args[1:]]
 
-        result = subprocess.run(full_command)
+        result = subprocess.run(full_command, check=False)
 
         if result.returncode != 0:
             print(f"\n❌ Pipeline Failed at execution point: '{script_name}'")

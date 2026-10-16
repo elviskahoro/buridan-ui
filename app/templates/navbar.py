@@ -6,7 +6,6 @@ from app.templates.docsidebar import mobile_menu
 from app.templates.searchbar import searchbar
 from app.templates.utils import attach_tooltip
 from app.utils.links import external_link
-from components.icons.hugeicon import hi
 from components.ui.button import button
 
 NAV_LIST = [
@@ -112,11 +111,11 @@ def navbar(with_create_page_cta: bool = False) -> rx.Component:
                 button(
                     "Get Code",
                     on_click=rx.call_script(
-                        "document.getElementById('get-code-btn')?.click()"
+                        "document.getElementById('get-code-btn')?.click()",
                     ),
                     size="sm",
                 ),
-            ]
+            ],
         )
 
     return rx.el.header(

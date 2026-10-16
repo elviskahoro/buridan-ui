@@ -19,7 +19,7 @@ def tabs_basic():
                     card.header(
                         card.title("Overview"),
                         card.description(
-                            "View your key metrics and recent project activity. Track progress across all your active projects."
+                            "View your key metrics and recent project activity. Track progress across all your active projects.",
                         ),
                     ),
                     card.content("You have 12 active projects and 3 pending tasks."),
@@ -32,7 +32,7 @@ def tabs_basic():
                     card.header(
                         card.title("Analytics"),
                         card.description(
-                            "Track performance and user engagement metrics. Monitor trends and identify growth opportunities."
+                            "Track performance and user engagement metrics. Monitor trends and identify growth opportunities.",
                         ),
                     ),
                     card.content("Page views are up 25% compared to last month."),
@@ -45,7 +45,7 @@ def tabs_basic():
                     card.header(
                         card.title("Reports"),
                         card.description(
-                            "Generate and download your detailed reports. Export data in multiple formats for analysis."
+                            "Generate and download your detailed reports. Export data in multiple formats for analysis.",
                         ),
                     ),
                     card.content("You have 5 reports ready and available to export."),
@@ -58,7 +58,7 @@ def tabs_basic():
                     card.header(
                         card.title("Settings"),
                         card.description(
-                            "Manage your account preferences and options. Customize your experience to fit your needs."
+                            "Manage your account preferences and options. Customize your experience to fit your needs.",
                         ),
                     ),
                     card.content("Configure notifications, security, and themes."),

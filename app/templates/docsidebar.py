@@ -1,9 +1,8 @@
 from dataclasses import dataclass
-from typing import List
 
 import reflex as rx
 
-import app.utils.routes as routes
+from app.utils import routes
 from app.utils.links import external_link
 from components.icons.hugeicon import hi
 from components.ui.button import button
@@ -48,7 +47,7 @@ SIDEBAR_SECTIONS = [
             {
                 "title": "pypi 0.1.19",
                 "url": "https://pypi.org/project/buridan-create/",
-            }
+            },
         ],
     ),
     SidebarSection(title="Resources", routes=routes.RESOURCES_URLS),
@@ -60,7 +59,6 @@ SIDEBAR_SECTIONS = [
 
 def create_menu_item(data: dict):
     """Create a single menu item."""
-
     if data["title"].startswith("pypi"):
         link = external_link(
             rx.el.p(data["title"], class_name="cursor-pointer"),
@@ -95,7 +93,7 @@ def create_menu_item(data: dict):
     )
 
 
-def create_sidebar_menu_items(routes: List[dict]):
+def create_sidebar_menu_items(routes: list[dict]):
     """Create menu items from routes."""
     return rx.el.div(
         *[create_menu_item(route) for route in routes],
@@ -176,7 +174,7 @@ def mobile_menu():
         ),
         select.portal(
             select.backdrop(
-                class_name="fixed top-13 inset-x-0 bottom-0 backdrop-blur-[5px] transition-all"
+                class_name="fixed top-13 inset-x-0 bottom-0 backdrop-blur-[5px] transition-all",
             ),
             select.positioner(
                 select.popup(

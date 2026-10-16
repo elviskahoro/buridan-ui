@@ -8,12 +8,11 @@ DOCS_DIR = Path("docs")
 
 
 def build_index():
-    """
-    Builds:
+    """Builds:
     {
         "getting-started": ["introduction", "installation"],
         "components": ["button", "input"]
-    }
+    }.
     """
     sections = {}
 
@@ -125,9 +124,7 @@ def select_pages_from_sections(selected_sections, sections):
 
 
 def run_reflex(env, pages):
-    """
-    Runs Reflex and prints correct URLs ONLY after the actual port is known.
-    """
+    """Runs Reflex and prints correct URLs ONLY after the actual port is known."""
     if env == "dev":
         os.environ["BURIDAN_DEV_MODE"] = "true"
 
@@ -172,7 +169,7 @@ def run_reflex(env, pages):
     return port
 
 
-def main():
+def main() -> None:
     sections = build_index()
 
     env = select_env()
@@ -220,7 +217,7 @@ def main():
             return
 
     confirm = questionary.confirm(
-        f"Run reflex in {env} with {len(selected_pages)} pages?"
+        f"Run reflex in {env} with {len(selected_pages)} pages?",
     ).ask()
 
     if not confirm:

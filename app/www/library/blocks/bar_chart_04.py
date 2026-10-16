@@ -1,6 +1,6 @@
 import reflex as rx
 
-from components.charts.chart_tooltip import chart_tooltip, chart_tooltip_content
+from components.charts.chart_tooltip import chart_tooltip_content
 from components.ui.card import card
 
 data = [
@@ -34,7 +34,9 @@ data = [
 def _chart(show_y_axis: bool) -> rx.Component:
     return rx.recharts.bar_chart(
         rx.recharts.cartesian_grid(
-            horizontal=True, vertical=False, class_name="opacity-50"
+            horizontal=True,
+            vertical=False,
+            class_name="opacity-50",
         ),
         rx.recharts.x_axis(
             data_key="hour",

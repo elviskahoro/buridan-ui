@@ -507,7 +507,7 @@ APPLY_BASE_CHARTS_JS = f"""
 }})();
 """
 
-ADD_SWATCHES_JS = """
+ADD_SWATCHES_JS = r"""
 (function() {
     function injectSwatches() {
         const block = document.getElementById("css-export-block");
@@ -546,7 +546,7 @@ FORMAT_CSS_JS = f"""
         const block = document.getElementById("css-export-block");
         if (!block) return;
         const code = block.querySelector("code") || block;
-        code.innerHTML = code.textContent.replace(/oklch\([^)]+\)/g, (m) =>
+        code.innerHTML = code.textContent.replace(/oklch\\([^)]+\\)/g, (m) =>
             `<span style="background-color:${{m}};width:.85em;height:.85em;display:inline-block;margin-right:.4em;border-radius:3px;border:1px solid rgba(255,255,255,.15);vertical-align:middle;flex-shrink:0;"></span>` + m
         );
         code.dataset.swatchesDone = "true";

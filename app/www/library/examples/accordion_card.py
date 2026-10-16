@@ -43,7 +43,7 @@ def accordion_card() -> rx.Component:
             card.title("Subscription & Billing"),
             card.description(
                 "Common questions about your account, plans, payments and "
-                "cancellations."
+                "cancellations.",
             ),
         ),
         card.content(

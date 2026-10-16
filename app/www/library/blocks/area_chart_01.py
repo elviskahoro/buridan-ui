@@ -58,7 +58,9 @@ def _chart(show_y_axis: bool) -> rx.Component:
         ),
         chart_tooltip(),
         rx.recharts.cartesian_grid(
-            horizontal=True, vertical=False, class_name="opacity-50"
+            horizontal=True,
+            vertical=False,
+            class_name="opacity-50",
         ),
         rx.recharts.x_axis(
             data_key="date",
@@ -85,7 +87,7 @@ def area_chart_01():
         card.header(
             card.title("Actual costs vs. potential costs"),
             card.description(
-                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt."
+                "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt.",
             ),
         ),
         card.content(
@@ -94,7 +96,7 @@ def area_chart_01():
                     rx.el.li(
                         rx.el.div(
                             rx.el.span(
-                                class_name=f"w-1 h-6 shrink-0 rounded-sm bg-{color}"
+                                class_name=f"w-1 h-6 shrink-0 rounded-sm bg-{color}",
                             )
                             if color
                             else None,

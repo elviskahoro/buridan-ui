@@ -19,10 +19,14 @@ def areachart_v8():
     def create_gradient(var_name):
         return rx.el.svg.linear_gradient(
             rx.el.svg.stop(
-                stop_color=f"var({var_name})", offset="5%", stop_opacity=0.8
+                stop_color=f"var({var_name})",
+                offset="5%",
+                stop_opacity=0.8,
             ),
             rx.el.svg.stop(
-                stop_color=f"var({var_name})", offset="95%", stop_opacity=0.1
+                stop_color=f"var({var_name})",
+                offset="95%",
+                stop_opacity=0.1,
             ),
             x1=0,
             x2=0,
@@ -70,7 +74,9 @@ def areachart_v8():
                 ),
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 *(
                     rx.recharts.area(
@@ -110,7 +116,7 @@ def areachart_v8():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )

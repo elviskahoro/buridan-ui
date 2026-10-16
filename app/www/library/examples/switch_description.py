@@ -9,7 +9,7 @@ def switch_description() -> rx.Component:
         field.content(
             field.label("Share across devices", html_for="switch-focus-mode"),
             field.description(
-                "Focus is shared across devices, and turns off when you leave the app."
+                "Focus is shared across devices, and turns off when you leave the app.",
             ),
         ),
         switch.root(

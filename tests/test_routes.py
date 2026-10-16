@@ -4,7 +4,7 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import app.utils.routes as routes
+from app.utils import routes
 
 
 def test_components_and_charts_preserve_generated_order(monkeypatch) -> None:
@@ -66,7 +66,8 @@ def test_resources_and_utilities_remain_sorted_by_title(monkeypatch) -> None:
 
 
 def test_generate_doc_routes_sorts_by_frontmatter_order_and_url_ties(
-    monkeypatch, tmp_path
+    monkeypatch,
+    tmp_path,
 ) -> None:
     docs_path = tmp_path / "components"
     docs_path.mkdir()

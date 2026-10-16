@@ -36,7 +36,9 @@ class AvatarRoot(AvatarBaseComponent):
         props["data-size"] = size
 
         return super().create(
-            *children, class_name=cn(ClassNames.ROOT, custom_classes), **props
+            *children,
+            class_name=cn(ClassNames.ROOT, custom_classes),
+            **props,
         )
 
 
@@ -52,7 +54,9 @@ class AvatarImage(AvatarBaseComponent):
         props["data-slot"] = "avatar-image"
 
         return super().create(
-            *children, class_name=cn(ClassNames.IMAGE, custom_classes), **props
+            *children,
+            class_name=cn(ClassNames.IMAGE, custom_classes),
+            **props,
         )
 
 
@@ -80,7 +84,9 @@ class AvatarBadge(Span, CoreComponent):
         props["data-slot"] = "avatar-badge"
 
         return super().create(
-            *children, class_name=cn(ClassNames.BADGE, custom_classes), **props
+            *children,
+            class_name=cn(ClassNames.BADGE, custom_classes),
+            **props,
         )
 
 
@@ -91,7 +97,9 @@ class AvatarGroup(Div, CoreComponent):
         props["data-slot"] = "avatar-group"
 
         return super().create(
-            *children, class_name=cn(ClassNames.GROUP, custom_classes), **props
+            *children,
+            class_name=cn(ClassNames.GROUP, custom_classes),
+            **props,
         )
 
 

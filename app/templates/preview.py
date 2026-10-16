@@ -90,17 +90,7 @@ def preview() -> rx.Component:
                         card_twenty_seven(),
                         card_twenty_two(),
                         card_twenty_four(),
-                        class_name=" ".join(
-                            [
-                                "mx-auto",
-                                "columns-1",
-                                "sm:columns-3",
-                                "md:columns-3",
-                                "lg:columns-4",
-                                "gap-10",
-                                "space-y-10",
-                            ]
-                        ),
+                        class_name="mx-auto columns-1 sm:columns-3 md:columns-3 lg:columns-4 gap-10 space-y-10",
                     ),
                     class_name="sm:min-w-[1600px] w-full",
                 ),

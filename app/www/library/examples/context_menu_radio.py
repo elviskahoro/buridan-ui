@@ -29,14 +29,14 @@ def context_menu_radio() -> rx.Component:
                         context_menu.radio_group(
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Pedro Duarte",
                                 value="pedro",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Colm Tuite",
                                 value="colm",
@@ -51,21 +51,21 @@ def context_menu_radio() -> rx.Component:
                         context_menu.radio_group(
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Light",
                                 value="light",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Dark",
                                 value="dark",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "System",
                                 value="system",

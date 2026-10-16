@@ -146,7 +146,9 @@ def linechart_v1():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="desktop",
@@ -183,7 +185,7 @@ def linechart_v1():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -205,7 +207,9 @@ def linechart_v2():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="desktop",
@@ -242,7 +246,7 @@ def linechart_v2():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -264,7 +268,9 @@ def linechart_v3():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     rx.recharts.label_list(
@@ -307,7 +313,7 @@ def linechart_v3():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -329,7 +335,9 @@ def linechart_v4():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="desktop",
@@ -374,7 +382,7 @@ def linechart_v4():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -396,7 +404,9 @@ def linechart_v5():
             rx.recharts.line_chart(
                 chart_tooltip("hide"),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     rx.recharts.label_list(
@@ -433,7 +443,7 @@ def linechart_v5():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -455,7 +465,9 @@ def linechart_v6():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="visitors",
@@ -485,7 +497,7 @@ def linechart_v6():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -557,7 +569,7 @@ def linechart_v7():
                         rx.el.option("Mobile", value="mobile"),
                         rx.el.option("Desktop", value="desktop"),
                         default_value="mobile",
-                        on_change=lambda value: SelectedType.set_value(value),
+                        on_change=SelectedType.set_value,
                         class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3 bg-secondary border border-input",
                     ),
                     class_name="flex flex-row items-center gap-x-2",
@@ -569,7 +581,9 @@ def linechart_v7():
             rx.recharts.line_chart(
                 chart_tooltip("hide"),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key=SelectedType.value,
@@ -609,7 +623,7 @@ def linechart_v7():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "line") + " w-full p-0",
     )
@@ -639,7 +653,9 @@ def linechart_v8():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="desktop",
@@ -676,7 +692,7 @@ def linechart_v8():
                     ["Desktop", "Mobile"],
                     lambda device, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}"
+                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}",
                         ),
                         rx.el.p(device, class_name="text-sm text-foreground"),
                         class_name="flex flex-row items-center gap-x-2",
@@ -700,7 +716,7 @@ def linechart_v8():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )

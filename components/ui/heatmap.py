@@ -332,7 +332,6 @@ function BuridanHeatmapSSR(props) {
 class BuridanHeatmap(Component):
     ##
 
-
     tag = "BuridanHeatmapSSR"
     is_default = False
 

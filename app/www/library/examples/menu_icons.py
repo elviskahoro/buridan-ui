@@ -18,7 +18,9 @@ def menu_icons() -> rx.Component:
                     menu.item(hi("Setting07Icon"), "Settings"),
                     menu.separator(),
                     menu.item(
-                        hi("LogoutSquare01Icon"), "Log out", variant="destructive"
+                        hi("LogoutSquare01Icon"),
+                        "Log out",
+                        variant="destructive",
                     ),
                 ),
             ),

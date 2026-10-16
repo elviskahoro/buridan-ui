@@ -1,4 +1,3 @@
-from components.icons.hugeicon import hi
 from components.ui.select import select
 
 

@@ -1,7 +1,6 @@
-"""
-Generate assets/fuse/searchList.json combining:
+"""Generate assets/fuse/searchList.json combining:
   - buridan/ui routes (from ALL_ROUTES)
-  - Reflex docs pages (fetched from GitHub)
+  - Reflex docs pages (fetched from GitHub).
 
 Usage:
     python generate_search_index.py
@@ -75,7 +74,7 @@ def crawl_folder(folder_path: str, token: str | None, depth: int = 0) -> list[di
         elif itype == "file":
             if name in SKIP_FILES:
                 continue
-            if not (name.endswith(".md") or name.endswith(".mdx")):
+            if not (name.endswith((".md", ".mdx"))):
                 continue
             results.append(item)
 
@@ -86,9 +85,8 @@ def crawl_folder(folder_path: str, token: str | None, depth: int = 0) -> list[di
 
 
 def file_to_url(github_path: str) -> str:
-    """
-    Convert a GitHub file path like docs/getting_started/introduction.md
-    to a reflex.dev URL like https://reflex.dev/docs/getting_started/introduction/
+    """Convert a GitHub file path like docs/getting_started/introduction.md
+    to a reflex.dev URL like https://reflex.dev/docs/getting_started/introduction/.
     """
     # Strip leading docs/ and file extension
     rel = github_path
@@ -100,9 +98,8 @@ def file_to_url(github_path: str) -> str:
 
 
 def file_to_section(github_path: str) -> str:
-    """
-    docs/getting_started/introduction.md  ->  Getting Started
-    docs/components/forms/input.md        ->  Components / Forms
+    """docs/getting_started/introduction.md  ->  Getting Started
+    docs/components/forms/input.md        ->  Components / Forms.
     """
     parts = github_path.split("/")
     # parts[0] = "docs", parts[1] = section, parts[2+] = subsection/file
@@ -116,7 +113,7 @@ def file_to_section(github_path: str) -> str:
 
 
 def file_to_title(filename: str) -> str:
-    """introduction.md -> Introduction"""
+    """introduction.md -> Introduction."""
     stem = filename.rsplit(".", 1)[0]
     return stem.replace("_", " ").replace("-", " ").title()
 
@@ -133,7 +130,7 @@ def buridan_entries(routes: dict) -> list[dict]:
                     "section": section.replace("_", " ").title(),
                     "title": page["title"],
                     "url": page["url"],
-                }
+                },
             )
     return entries
 
@@ -155,7 +152,7 @@ def reflex_entries(token: str | None) -> list[dict]:
                 "section": file_to_section(path),
                 "title": file_to_title(name),
                 "url": file_to_url(path),
-            }
+            },
         )
     return entries
 
@@ -191,10 +188,14 @@ def generate_search_index(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "--github-token", default=None, help="GitHub personal access token"
+        "--github-token",
+        default=None,
+        help="GitHub personal access token",
     )
     parser.add_argument(
-        "--no-reflex", action="store_true", help="Skip Reflex docs fetch"
+        "--no-reflex",
+        action="store_true",
+        help="Skip Reflex docs fetch",
     )
     args = parser.parse_args()
 

@@ -28,7 +28,9 @@ def test_context_menu_shortcut_unstyled_omits_default_classes() -> None:
 
 def test_context_menu_shortcut_unstyled_keeps_custom_class_name() -> None:
     shortcut = ContextMenuShortcut.create(
-        "Ctrl+C", class_name="custom-shortcut", unstyled=True
+        "Ctrl+C",
+        class_name="custom-shortcut",
+        unstyled=True,
     )
 
     assert str(shortcut.class_name) == "custom-shortcut"
