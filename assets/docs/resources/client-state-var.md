@@ -59,7 +59,7 @@ def form_state_pattern_example():
     return rx.input(
         value=form_state.value.get("username", ""),
         on_change=lambda v: form_state.set_value(
-            form_state.value.merge({"username": v})
+            form_state.value.merge({"username": v}),
         ),
     )
 ```

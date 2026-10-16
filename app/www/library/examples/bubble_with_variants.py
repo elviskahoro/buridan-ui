@@ -16,7 +16,7 @@ def bubble_with_variants():
         ),
         bubble.root(
             bubble.content(
-                "This one is muted. It uses a lower emphasis color for the chat bubble."
+                "This one is muted. It uses a lower emphasis color for the chat bubble.",
             ),
             bubble.reactions(
                 rx.el.span("👍"),
@@ -27,7 +27,7 @@ def bubble_with_variants():
         ),
         bubble.root(
             bubble.content(
-                "This one is tinted. The tint is a softer color derived from the primary color."
+                "This one is tinted. The tint is a softer color derived from the primary color.",
             ),
             variant="tinted",
             align="end",
@@ -55,8 +55,8 @@ def bubble_with_variants():
                     This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render `code` in it.
 
                     Ghost bubbles are full width and can take the full width of the container.
-                    """
-                )
+                    """,
+                ),
             ),
             variant="ghost",
         ),

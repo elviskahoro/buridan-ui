@@ -81,7 +81,8 @@ def test_block_card_copy_feedback_targets_only_command_text_span(monkeypatch) ->
         script,
     )
     assert re.search(
-        rf"\b{text_variable}\s*\.\s*innerText\s*=\s*(['\"])Copied!\1", script
+        rf"\b{text_variable}\s*\.\s*innerText\s*=\s*(['\"])Copied!\1",
+        script,
     )
     assert re.search(
         rf"\b{text_variable}\s*\.\s*innerText\s*=\s*{original_variable}\b",

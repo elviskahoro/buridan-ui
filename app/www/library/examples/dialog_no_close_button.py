@@ -13,7 +13,7 @@ def dialog_no_close_button() -> rx.Component:
                 dialog.header(
                     dialog.title("No Close Button"),
                     dialog.description(
-                        "This dialog doesn't have a close button in the top-right corner."
+                        "This dialog doesn't have a close button in the top-right corner.",
                     ),
                 ),
             ),

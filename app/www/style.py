@@ -42,21 +42,20 @@ def render_heading(level: int, text: str) -> rx.Component:
             id=normalized_id,
         )
 
-    else:
-        return rx.el.h2(
-            rx.el.a(
-                rx.el.span(
-                    text,
-                    class_name="hover:underline hover:underline-offset-6",
-                ),
-                href=f"#{normalized_id}",
-                class_name=(
-                    "after:content-['#'] after:ml-2 after:opacity-0 hover:after:opacity-100 after:text-muted-foreground"
-                ),
+    return rx.el.h2(
+        rx.el.a(
+            rx.el.span(
+                text,
+                class_name="hover:underline hover:underline-offset-6",
             ),
-            class_name=HEADING_1_CLASS if level == 1 else HEADING_2_CLASS,
-            id=normalized_id,
-        )
+            href=f"#{normalized_id}",
+            class_name=(
+                "after:content-['#'] after:ml-2 after:opacity-0 hover:after:opacity-100 after:text-muted-foreground"
+            ),
+        ),
+        class_name=HEADING_1_CLASS if level == 1 else HEADING_2_CLASS,
+        id=normalized_id,
+    )
 
 
 def render_paragraph(text: str) -> rx.Component:
@@ -114,7 +113,7 @@ def render_blockquote(*children, **props) -> rx.Component:
     return rx.el.div(
         *children,
         class_name="w-full rounded-[1rem] bg-secondary dark:bg-card flex items-center justify-center p-4 mb-4 "
-        + "[&>p]:mb-0 [&>p]:leading-6",
+        "[&>p]:mb-0 [&>p]:leading-6",
     )
 
 
@@ -140,10 +139,14 @@ markdown_component_map = {
         class_name="w-full !text-sm rounded-[1rem] border border-input mb-4",
     ),
     "thead": lambda *children, **props: rx.el.thead(
-        *children, **props, class_name="border-input border-b"
+        *children,
+        **props,
+        class_name="border-input border-b",
     ),
     "tbody": lambda *children, **props: rx.el.tbody(
-        *children, **props, class_name="divide-input divide-y"
+        *children,
+        **props,
+        class_name="divide-input divide-y",
     ),
     "tr": lambda *children, **props: rx.el.tr(
         *children,

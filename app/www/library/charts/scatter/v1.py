@@ -37,12 +37,14 @@ def scatterchart_v1():
                 card.title("Scatter Chart"),
                 card.description("Showing multi-series distribution"),
                 class_name="flex flex-col gap-y-1.5",
-            )
+            ),
         ),
         card.content(
             rx.recharts.scatter_chart(
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.scatter(
                     name="Data 1",
@@ -76,7 +78,7 @@ def scatterchart_v1():
                     ["Data 1", "Data 2"],
                     lambda data, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"h-3 w-3 rounded-sm bg-chart-{index + 1}"
+                            class_name=f"h-3 w-3 rounded-sm bg-chart-{index + 1}",
                         ),
                         rx.el.div(data, class_name="text-xs text-foreground"),
                         class_name="flex flex-row items-center gap-x-2",
@@ -100,7 +102,7 @@ def scatterchart_v1():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name="w-full p-0",
     )

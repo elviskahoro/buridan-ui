@@ -22,7 +22,7 @@ def bubble_popover_demo():
                             variant="ghost",
                             aria_label="Show error details",
                             class_name="w-6 h-6 aria-expanded:text-destructive",
-                        )
+                        ),
                     ),
                     popover.portal(
                         popover.backdrop(),
@@ -41,7 +41,7 @@ def bubble_popover_demo():
                             ),
                         ),
                     ),
-                )
+                ),
             ),
             variant="destructive",
         ),

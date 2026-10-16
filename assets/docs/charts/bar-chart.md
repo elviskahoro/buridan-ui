@@ -147,7 +147,9 @@ def barchart_v1():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key="desktop",
@@ -189,7 +191,7 @@ def barchart_v1():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -245,7 +247,7 @@ def barchart_v2():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -267,7 +269,9 @@ def barchart_v3():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key="desktop",
@@ -312,7 +316,7 @@ def barchart_v3():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -334,7 +338,9 @@ def barchart_v4():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     rx.recharts.label_list(
@@ -376,7 +382,7 @@ def barchart_v4():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -444,7 +450,7 @@ def barchart_v5():
                     rx.el.option("Mobile", value="mobile"),
                     rx.el.option("Desktop", value="desktop"),
                     default_value="mobile",
-                    on_change=lambda value: SelectedType.set_value(value),
+                    on_change=SelectedType.set_value,
                     bg=rx.color("gray", 2),
                     border=f"1px solid {rx.color('gray', 4)}",
                     class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
@@ -458,7 +464,9 @@ def barchart_v5():
             rx.recharts.bar_chart(
                 chart_tooltip("hide"),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key=SelectedType.value,
@@ -494,7 +502,7 @@ def barchart_v5():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -516,7 +524,9 @@ def barchart_v6():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key="desktop",
@@ -555,7 +565,7 @@ def barchart_v6():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -611,7 +621,7 @@ def barchart_v7():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -636,7 +646,9 @@ def barchart_v9():
             rx.recharts.bar_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key="desktop",
@@ -673,7 +685,7 @@ def barchart_v9():
                     ["Desktop", "Mobile", "Tablet"],
                     lambda device, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"h-3 w-3 rounded-sm bg-chart-{index + 1}"
+                            class_name=f"h-3 w-3 rounded-sm bg-chart-{index + 1}",
                         ),
                         rx.el.p(device, class_name="text-xs text-foreground"),
                         class_name="flex flex-row items-center gap-x-2",
@@ -697,7 +709,7 @@ def barchart_v9():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2, 3], "square") + " w-full p-0",
     )

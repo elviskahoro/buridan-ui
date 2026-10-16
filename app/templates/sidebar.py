@@ -38,16 +38,19 @@ def sidebar_mobile() -> rx.Component:
         rx.el.div(
             rx.el.div(style_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"),
             rx.el.div(
-                base_color_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"
+                base_color_panel(desktop=False),
+                class_name="p-3 w-[12rem] shrink-0",
             ),
             rx.el.div(theme_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"),
             rx.el.div(
-                chart_color_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"
+                chart_color_panel(desktop=False),
+                class_name="p-3 w-[12rem] shrink-0",
             ),
             rx.el.div(font_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"),
             rx.el.div(radius_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"),
             rx.el.div(
-                component_panel(desktop=False), class_name="p-3 w-[12rem] shrink-0"
+                component_panel(desktop=False),
+                class_name="p-3 w-[12rem] shrink-0",
             ),
             class_name="flex flex-row overflow-x-auto scrollbar-none w-full min-w-0",
         ),

@@ -88,7 +88,7 @@ def separator_horizontal() -> rx.Component:
         ),
         separator(class_name="bg-zinc-200 dark:bg-zinc-800"),
         rx.el.div(
-            "A set of beautifully designed components that you can customize, extend, and build on."
+            "A set of beautifully designed components that you can customize, extend, and build on.",
         ),
         class_name="flex max-w-sm flex-col gap-4 text-sm",
     )
@@ -124,7 +124,8 @@ def separator_menu() -> rx.Component:
         rx.el.div(
             rx.el.span("Settings", class_name="font-medium"),
             rx.el.span(
-                "Manage preferences", class_name="text-xs text-muted-foreground"
+                "Manage preferences",
+                class_name="text-xs text-muted-foreground",
             ),
             class_name="flex flex-col gap-1",
         ),
@@ -132,7 +133,8 @@ def separator_menu() -> rx.Component:
         rx.el.div(
             rx.el.span("Account", class_name="font-medium"),
             rx.el.span(
-                "Profile & security", class_name="text-xs text-muted-foreground"
+                "Profile & security",
+                class_name="text-xs text-muted-foreground",
             ),
             class_name="flex flex-col gap-1",
         ),

@@ -63,12 +63,5 @@ def blocks_page():
         block_card(func=area_chart_02, label="area")(),
         block_card(func=kpi_card_01, label="kpi")(),
         block_card(func=kpi_card_02, label="kpi")(),
-        class_name=" ".join(
-            [
-                "w-full max-w-7xl mx-auto px-0",
-                "divide-y divide-input/90",
-                "py-6 space-y-10",
-                "[&>*:first-child]:border-b-0",
-            ]
-        ),
+        class_name="w-full max-w-7xl mx-auto px-0 divide-y divide-input/90 py-6 space-y-10 [&>*:first-child]:border-b-0",
     )

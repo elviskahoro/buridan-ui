@@ -18,5 +18,5 @@ def breadcrumb_custom_separator() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )

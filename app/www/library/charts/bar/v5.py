@@ -63,7 +63,7 @@ def barchart_v5():
                     rx.el.option("Mobile", value="mobile"),
                     rx.el.option("Desktop", value="desktop"),
                     default_value="mobile",
-                    on_change=lambda value: SelectedType.set_value(value),
+                    on_change=SelectedType.set_value,
                     bg=rx.color("gray", 2),
                     border=f"1px solid {rx.color('gray', 4)}",
                     class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3",
@@ -77,7 +77,9 @@ def barchart_v5():
             rx.recharts.bar_chart(
                 chart_tooltip("hide"),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.bar(
                     data_key=SelectedType.value,
@@ -113,7 +115,7 @@ def barchart_v5():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )

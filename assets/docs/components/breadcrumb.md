@@ -19,7 +19,8 @@ buridan add component breadcrumb
 ```python
 import reflex as rx
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import cn
 
 
@@ -180,7 +181,7 @@ def breadcrumb_basic() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )
 ```
 
@@ -204,7 +205,7 @@ def breadcrumb_custom_separator() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )
 ```
 
@@ -233,7 +234,7 @@ def breadcrumb_dropdown_demo() -> rx.Component:
                                 class_name="size-4",
                             ),
                             class_name="flex flex-row items-center gap-x-2",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -244,7 +245,7 @@ def breadcrumb_dropdown_demo() -> rx.Component:
                                     menu.item("GitHub"),
                                 ),
                                 align="start",
-                            )
+                            ),
                         ),
                     ),
                 ),
@@ -253,7 +254,7 @@ def breadcrumb_dropdown_demo() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )
 ```
 
@@ -282,7 +283,7 @@ def breadcrumb_ellipsis() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )
 ```
 

@@ -21,5 +21,5 @@ def breadcrumb_ellipsis() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )

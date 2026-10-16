@@ -60,7 +60,7 @@ def radius_icon() -> rx.Component:
                 d="M4 20v-5C4 8.925 8.925 4 15 4h5"
             />
         </svg>
-        """
+        """,
     )
 
 
@@ -83,7 +83,7 @@ def style_icon() -> rx.Component:
                 stroke-width="2"
             />
         </svg>
-        """
+        """,
     )
 
 
@@ -108,7 +108,7 @@ def component_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("All"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="All",
                             class_name=(
@@ -119,7 +119,7 @@ def component_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("Tech"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="Tech",
                             class_name=(
@@ -130,7 +130,7 @@ def component_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("General"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="General",
                             class_name=(
@@ -141,20 +141,20 @@ def component_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("Healthcare"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="Healthcare",
                             class_name=(
                                 "w-full flex flex-row items-center justify-between rounded-lg"
                             ),
                             on_click=selected_component_category.set_value(
-                                "Healthcare"
+                                "Healthcare",
                             ),
                         ),
                         select.item(
                             select.item_text("Finance"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="Finance",
                             class_name=(
@@ -165,7 +165,7 @@ def component_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("Charts"),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value="Charts",
                             class_name=(
@@ -205,7 +205,7 @@ def menu_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text("Open Preset"),
                             on_click=rx.call_script(
-                                "document.getElementById('preset-trigger-btn')?.click()"
+                                "document.getElementById('preset-trigger-btn')?.click()",
                             ),
                         ),
                         select.item(
@@ -221,7 +221,7 @@ def menu_panel(desktop: bool = True) -> rx.Component:
                         class_name="p-1",
                     ),
                     class_name="rounded-xl border-0 dark bg-card/90 backdrop-blur-xl "
-                    + "w-[250px]"
+                    "w-[250px]"
                     if desktop
                     else "",
                 ),
@@ -258,7 +258,7 @@ def style_panel(desktop: bool = True) -> rx.Component:
                             select.item(
                                 select.item_text(s["label"]),
                                 select.item_indicator(
-                                    hi("Tick02Icon", class_name="size-4")
+                                    hi("Tick02Icon", class_name="size-4"),
                                 ),
                                 value=s["label"],
                                 class_name=(
@@ -315,7 +315,7 @@ def font_panel(desktop: bool = True) -> rx.Component:
                                 select.item(
                                     select.item_text(f["label"]),
                                     select.item_indicator(
-                                        hi("Tick02Icon", class_name="size-4")
+                                        hi("Tick02Icon", class_name="size-4"),
                                     ),
                                     value=f["label"],
                                     class_name="w-full flex flex-row items-center justify-between rounded-lg px-2 py-1.5 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground",
@@ -371,7 +371,7 @@ def base_color_panel(desktop: bool = True) -> rx.Component:
                             select.item(
                                 select.item_text(t["label"]),
                                 select.item_indicator(
-                                    hi("Tick02Icon", class_name="size-4")
+                                    hi("Tick02Icon", class_name="size-4"),
                                 ),
                                 value=t["label"],
                                 class_name=(
@@ -429,8 +429,10 @@ def theme_panel(desktop: bool = True) -> rx.Component:
                 rx.el.div(
                     style={
                         "backgroundColor": rx.cond(
-                            theme_color.value, theme_color.value, base_theme_color.value
-                        )
+                            theme_color.value,
+                            theme_color.value,
+                            base_theme_color.value,
+                        ),
                     },
                     class_name="size-4 rounded-full",
                 ),
@@ -445,7 +447,7 @@ def theme_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text(selected_base_color_cs.value),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value=selected_base_color_cs.value,
                             class_name=(
@@ -461,7 +463,7 @@ def theme_panel(desktop: bool = True) -> rx.Component:
                             select.item(
                                 select.item_text(t["label"]),
                                 select.item_indicator(
-                                    hi("Tick02Icon", class_name="size-4")
+                                    hi("Tick02Icon", class_name="size-4"),
                                 ),
                                 value=t["label"],
                                 class_name=(
@@ -518,8 +520,10 @@ def chart_color_panel(desktop: bool = True) -> rx.Component:
                 rx.el.div(
                     style={
                         "backgroundColor": rx.cond(
-                            chart_color.value, chart_color.value, base_theme_color.value
-                        )
+                            chart_color.value,
+                            chart_color.value,
+                            base_theme_color.value,
+                        ),
                     },
                     class_name="size-4 rounded-full",
                 ),
@@ -534,7 +538,7 @@ def chart_color_panel(desktop: bool = True) -> rx.Component:
                         select.item(
                             select.item_text(selected_base_color_cs.value),
                             select.item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             value=selected_base_color_cs.value,
                             class_name=(
@@ -550,7 +554,7 @@ def chart_color_panel(desktop: bool = True) -> rx.Component:
                             select.item(
                                 select.item_text(t["label"]),
                                 select.item_indicator(
-                                    hi("Tick02Icon", class_name="size-4")
+                                    hi("Tick02Icon", class_name="size-4"),
                                 ),
                                 value=t["label"],
                                 class_name=(
@@ -604,7 +608,7 @@ def radius_panel(desktop: bool = True) -> rx.Component:
                             select.item(
                                 select.item_text(label),
                                 select.item_indicator(
-                                    hi("Tick02Icon", class_name="size-4")
+                                    hi("Tick02Icon", class_name="size-4"),
                                 ),
                                 value=label,
                                 class_name=(
@@ -654,7 +658,7 @@ def preset_copy_button() -> rx.Component:
             rx.set_clipboard(f"{seed.value}"),
         ],
         on_mouse_down=rx.call_function(copy_preset_value.set_value(False)).debounce(
-            1500
+            1500,
         ),
     )
 
@@ -694,7 +698,9 @@ def open_preset_menu() -> rx.Component:
                         rx.el.div(
                             dialog.close(
                                 render_=button(
-                                    "Cancel", variant="outline", class_name="w-full"
+                                    "Cancel",
+                                    variant="outline",
+                                    class_name="w-full",
                                 ),
                                 class_name="flex-1",
                             ),

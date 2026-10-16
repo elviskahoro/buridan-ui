@@ -6,7 +6,10 @@ from components.ui.accordion import (
     AccordionTrigger,
     ClassNames as AccordionClassNames,
 )
-from components.ui.dialog import ClassNames as DialogClassNames, DialogClose
+from components.ui.dialog import (
+    ClassNames as DialogClassNames,
+    DialogClose,
+)
 
 
 def test_accordion_trigger_keeps_styled_render_target_unchanged() -> None:
@@ -32,7 +35,9 @@ def test_dialog_close_keeps_styled_render_target_unchanged() -> None:
 
 def test_dialog_close_preserves_caller_classes_with_render_target() -> None:
     close = DialogClose.create(
-        render_=rx.el.button("cancel"), class_name="flex-1", unstyled=True
+        render_=rx.el.button("cancel"),
+        class_name="flex-1",
+        unstyled=True,
     )
     rendered_tree = str(close.render())
 

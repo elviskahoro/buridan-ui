@@ -31,8 +31,9 @@ def test_cn_imports_render_from_package_roots() -> None:
         assert import_vars[0].package_path == ""
 
     rendered_imports = compile_imports(
-        {package: list(import_vars) for package, import_vars in import_map.items()}
+        {package: list(import_vars) for package, import_vars in import_map.items()},
     )
-    assert {
-        imported["lib"]: imported["rest"] for imported in rendered_imports
-    } == {"clsx": ["clsx"], "tailwind-merge": ["twMerge"]}
+    assert {imported["lib"]: imported["rest"] for imported in rendered_imports} == {
+        "clsx": ["clsx"],
+        "tailwind-merge": ["twMerge"],
+    }

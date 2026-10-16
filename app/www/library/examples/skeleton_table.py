@@ -5,7 +5,6 @@ from components.ui.skeleton import skeleton_component
 
 def skeleton_table():
     """Skeleton table matching shadcn SkeletonTable layout."""
-
     return rx.el.div(
         *[
             rx.el.div(

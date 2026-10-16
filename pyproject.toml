@@ -8,27 +8,25 @@ dependencies = []
 readme = "cli/README.md"
 license = "MIT"
 
-authors = [
-    { name = "LineIndent", email = "line.indent@gmail.com" }
-]
+authors = [{ name = "LineIndent", email = "line.indent@gmail.com" }]
 
 keywords = [
-    "cli",
-    "ui",
-    "design-system",
-    "reflex",
-    "components",
-    "tailwind",
-    "base-ui"
+  "cli",
+  "ui",
+  "design-system",
+  "reflex",
+  "components",
+  "tailwind",
+  "base-ui",
 ]
 
 classifiers = [
-    "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.11",
-    "License :: OSI Approved :: MIT License",
-    "Operating System :: OS Independent",
-    "Topic :: Software Development :: Libraries",
-    "Topic :: Software Development :: Code Generators"
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3.11",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Topic :: Software Development :: Libraries",
+  "Topic :: Software Development :: Code Generators",
 ]
 
 [project.urls]
@@ -38,15 +36,15 @@ Issues = "https://github.com/LineIndent/ui/issues"
 
 [dependency-groups]
 dev = [
-    "reflex==0.9.6",
-    "reflex-hosting-cli>=0.1.67",
-    "reflex-components-internal",
-    "pillow>=12.2.0",
-    "PyYAML>=6.0.3",
-    "questionary>=2.1.1",
-    "pytest>=9.1.1",
-    "gtm-linear>=0.2.1",
-    "typer>=0.27.2",
+  "reflex==0.9.6",
+  "reflex-hosting-cli>=0.1.67",
+  "reflex-components-internal",
+  "pillow>=12.2.0",
+  "PyYAML>=6.0.3",
+  "questionary>=2.1.1",
+  "pytest>=9.1.1",
+  "gtm-linear>=0.2.1",
+  "typer>=0.27.2",
 ]
 
 [tool.uv]

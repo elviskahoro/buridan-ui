@@ -23,20 +23,20 @@ def context_menu_checkboxes() -> rx.Component:
                     context_menu.group(
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Bookmarks Bar",
                             default_checked=True,
                         ),
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Full URLs",
                         ),
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Developer Tools",
                             default_checked=True,

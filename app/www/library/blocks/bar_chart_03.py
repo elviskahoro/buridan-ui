@@ -48,7 +48,9 @@ def _chart(show_y_axis: bool) -> rx.Component:
     return rx.recharts.bar_chart(
         chart_tooltip(),
         rx.recharts.cartesian_grid(
-            horizontal=True, vertical=False, class_name="opacity-50"
+            horizontal=True,
+            vertical=False,
+            class_name="opacity-50",
         ),
         rx.recharts.x_axis(
             data_key="date",

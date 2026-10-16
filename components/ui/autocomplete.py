@@ -442,14 +442,17 @@ class BuridanAutocomplete(Component):
         props["list_class"] = cn(ClassNames.LIST, props.pop("list_class", ""))
         props["item_class"] = cn(ClassNames.ITEM, props.pop("item_class", ""))
         props["item_highlighted_class"] = cn(
-            ClassNames.ITEM_HIGHLIGHTED, props.pop("item_highlighted_class", "")
+            ClassNames.ITEM_HIGHLIGHTED,
+            props.pop("item_highlighted_class", ""),
         )
         props["empty_class"] = cn(ClassNames.EMPTY, props.pop("empty_class", ""))
         props["group_label_class"] = cn(
-            ClassNames.GROUP_LABEL, props.pop("group_label_class", "")
+            ClassNames.GROUP_LABEL,
+            props.pop("group_label_class", ""),
         )
         props["separator_class"] = cn(
-            ClassNames.SEPARATOR, props.pop("separator_class", "")
+            ClassNames.SEPARATOR,
+            props.pop("separator_class", ""),
         )
         return super().create(*children, **props)
 
