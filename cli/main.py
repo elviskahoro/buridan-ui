@@ -430,7 +430,11 @@ def cmd_apply(preset: str) -> None:
             # find where :root starts and .dark block ends
             lines = current.splitlines()
             start_line = next(
-                (i for i, l in enumerate(lines) if l.strip().startswith(":root {")),
+                (
+                    i
+                    for i, line in enumerate(lines)
+                    if line.strip().startswith(":root {")
+                ),
                 None,
             )
             if start_line is not None:
@@ -447,8 +451,8 @@ def cmd_apply(preset: str) -> None:
                         # keep going to also consume .dark {}
                         # find next block
                         rest = lines[end_line + 1 :]
-                        for j, l in enumerate(rest):
-                            if l.strip().startswith(".dark {"):
+                        for j, rest_line in enumerate(rest):
+                            if rest_line.strip().startswith(".dark {"):
                                 bd = 0
                                 for k, dl in enumerate(
                                     lines[end_line + 1 + j :],

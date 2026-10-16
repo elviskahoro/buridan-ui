@@ -28,8 +28,8 @@ def build_index():
 
         sections.setdefault(section, []).append(page)
 
-    for k in sections:
-        sections[k].sort()
+    for pages in sections.values():
+        pages.sort()
 
     return sections
 

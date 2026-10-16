@@ -35,6 +35,6 @@ For users of Cursor or Windsurf, we provide a `.cursorrules` file in the project
 
 Our documentation is "AI-Ready" via the `llms.txt` file located in the root of the repository. You can provide this URL to any LLM to give it context on how to use Buridan UI correctly.
 
-```
+```text
 https://buridan-ui.reflex.run/llms.txt
 ```
