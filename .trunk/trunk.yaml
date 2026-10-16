@@ -297,10 +297,20 @@ merge:
   # the queue sees identical names on PRs and on its trunk-merge/** branches.
   #
   # Do NOT add path-filtered workflows here (they do not report on every PR and
-  # would deadlock the queue). Same for workflow_run-triggered workflows. Bot
-  # checks are deliberately excluded -- the queue gates on CI, not review bots:
-  #   - pullfrog / pullfrog-approval (AI review bot)
-  #   - Entire Gates (agent session tracking; not posted on every PR)
+  # would deadlock the queue). Same for workflow_run-triggered workflows.
+  #
+  # pullfrog-approval (AI review verdict) is a required check on the GitHub
+  # side -- ruleset "main - PR requirements" plus classic branch protection on
+  # main, pinned to the Pullfrog app. GitHub blocks direct merges without it,
+  # and the queue admits a PR only once GitHub considers it mergeable, so
+  # queue admission requires it too. It deliberately does NOT belong in this
+  # list: the queue waits on required_statuses while testing, on draft PRs /
+  # trunk-merge/** branches opened by the trunk-io bot, and pullfrog skips
+  # bot-opened PRs -- the check never posts there, so requiring it here would
+  # stall every queue entry until the test timeout.
+  #
+  # Entire Gates stays excluded entirely (agent session tracking; not posted on
+  # every PR).
   required_statuses:
     - Trunk Check
     - Tests
