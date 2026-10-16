@@ -43,6 +43,14 @@ every PR. Re-verify after any pipeline rename:
 path-filtered or `workflow_run`-triggered workflows there: they do not report
 on every PR and would deadlock the queue.
 
+`pullfrog-approval` (Pullfrog's AI review verdict) is required on the GitHub
+side (ruleset `main - PR requirements` plus classic branch protection on
+`main`, pinned to the Pullfrog app) and in `merge.required_statuses` — the
+queue waits for a fresh verdict on the exact state it tests, which depends on
+the queue testing in draft-PR mode and pullfrog reviewing the trunk-io draft
+PRs. Failure modes, recovery, and what to check when a queue entry stalls
+are documented in the `merge:` comment in `.trunk/trunk.yaml`.
+
 <!-- entire-agent:begin -->
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
 @.entire/agent-guide.md
