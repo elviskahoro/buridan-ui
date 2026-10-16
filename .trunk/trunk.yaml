@@ -291,23 +291,27 @@ merge:
   # Re-verify after any pipeline rename:
   #   gh pr checks <pr-number> --json name --jq '.[].name'
   #
-  # All three are GitHub Actions check-runs (job names) posted by
+  # The first three are GitHub Actions check-runs (job names) posted by
   # .github/workflows/trunk-check.yml, tests.yml, and validate-assets.yml.
   # GitHub Actions posts the same job name for pull_request and push events, so
   # the queue sees identical names on PRs and on its trunk-merge/** branches.
   #
+  # pullfrog-approval is Pullfrog's AI review verdict, posted by the Pullfrog
+  # GitHub App on the exact commit it reviews. It is required in two places:
+  # on the GitHub side (ruleset "main - PR requirements" plus classic branch
+  # protection on main, pinned to the Pullfrog app -- gates direct merges and
+  # queue admission) and here, so the queue also waits for a fresh verdict on
+  # the exact state it tests. That works only because the queue tests in
+  # draft-PR mode: trunk-io opens a draft PR from the trunk-merge/** branch,
+  # and pullfrog auto-reviews draft PRs (review.drafts on; the trunk-io app is
+  # not in pullfrog's bot-exclusion list), posting the check on the tested
+  # head. If a queue entry ever stalls on a missing pullfrog-approval, check
+  # those assumptions first: draft-PR mode still on, pullfrog still reviewing
+  # queue draft PRs, and the pullfrog run itself not failed or cancelled (a
+  # failed run posts no check).
+  #
   # Do NOT add path-filtered workflows here (they do not report on every PR and
   # would deadlock the queue). Same for workflow_run-triggered workflows.
-  #
-  # pullfrog-approval (AI review verdict) is a required check on the GitHub
-  # side -- ruleset "main - PR requirements" plus classic branch protection on
-  # main, pinned to the Pullfrog app. GitHub blocks direct merges without it,
-  # and the queue admits a PR only once GitHub considers it mergeable, so
-  # queue admission requires it too. It deliberately does NOT belong in this
-  # list: the queue waits on required_statuses while testing, on draft PRs /
-  # trunk-merge/** branches opened by the trunk-io bot, and pullfrog skips
-  # bot-opened PRs -- the check never posts there, so requiring it here would
-  # stall every queue entry until the test timeout.
   #
   # Entire Gates stays excluded entirely (agent session tracking; not posted on
   # every PR).
@@ -315,3 +319,4 @@ merge:
     - Trunk Check
     - Tests
     - Generate & Verify Docs and Social Cards
+    - pullfrog-approval
