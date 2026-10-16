@@ -168,7 +168,7 @@ class HighLevelTable(TableRoot):
         return super().create(
             TableHeader.create(header_row),
             TableBody.create(
-                body_content if not isinstance(body_content, Var) else body_content,
+                body_content,
             ),
             **props,
         )

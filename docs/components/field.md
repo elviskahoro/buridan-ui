@@ -134,7 +134,7 @@ Legend element for a `field.set_`. Switch to the `"label"` variant to align with
 
 | Prop | Type | Default |
 | --- | --- | --- |
-| `variant` | `"legend" | "label"` | `"legend"` |
+| `variant` | `"legend" \| "label"` | `"legend"` |
 | `class_name` | `str` |  |
 
 ```python
@@ -165,7 +165,7 @@ The core wrapper for a single field. Provides orientation control, invalid state
 
 | Prop | Type | Default |
 | --- | --- | --- |
-| `orientation` | `"vertical" | "horizontal" | "responsive"` | `"vertical"` |
+| `orientation` | `"vertical" \| "horizontal" \| "responsive"` | `"vertical"` |
 | `class_name` | `str` |  |
 | `data_invalid` | `str` |  |
 
