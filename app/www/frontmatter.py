@@ -26,9 +26,8 @@ def parse_frontmatter(content: str) -> tuple[dict, str]:
             ):
                 value = value[1:-1]
 
-            if key == "order":
-                if re.fullmatch(r"[+-]?[0-9]+", value, re.ASCII):
-                    value = int(value)
+            if key == "order" and re.fullmatch(r"[+-]?[0-9]+", value, re.ASCII):
+                value = int(value)
 
             metadata[key] = value
 

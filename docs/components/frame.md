@@ -88,6 +88,7 @@ Set the `variant` prop to `ghost` to remove the frame outer border.
 | `class_name` | `str` | `None` | Additional Tailwind classes merged onto the description element. |
 
 ## frame.footer
+
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
 | `class_name` | `str` | `None` | Additional Tailwind classes merged onto the footer element. |
