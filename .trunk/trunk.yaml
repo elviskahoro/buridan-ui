@@ -290,6 +290,8 @@ merge:
   # These must be live GitHub status names posted on every PR targeting main.
   # Re-verify after any pipeline rename:
   #   gh pr checks <pr-number> --json name --jq '.[].name'
+  # gh pr checks lists check-runs from any app, so it covers pullfrog-approval
+  # too -- on a regular PR and on the queue's draft PR alike.
   #
   # The first three are GitHub Actions check-runs (job names) posted by
   # .github/workflows/trunk-check.yml, tests.yml, and validate-assets.yml.
@@ -308,7 +310,12 @@ merge:
   # head. If a queue entry ever stalls on a missing pullfrog-approval, check
   # those assumptions first: draft-PR mode still on, pullfrog still reviewing
   # queue draft PRs, and the pullfrog run itself not failed or cancelled (a
-  # failed run posts no check).
+  # failed run posts no check). A negative verdict (unresolved feedback or a
+  # request for changes on the tested state) fails the check and ejects the PR
+  # from the queue -- address the feedback and resubmit; re-trigger a verdict
+  # with an @pullfrog comment or a push. There is no override short of editing
+  # this list or the GitHub rules, and each queue test now pays one extra LLM
+  # review (~5-10 min) of the tested state.
   #
   # Do NOT add path-filtered workflows here (they do not report on every PR and
   # would deadlock the queue). Same for workflow_run-triggered workflows.

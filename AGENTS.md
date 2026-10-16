@@ -52,7 +52,10 @@ testing in draft-PR mode with pullfrog reviewing the trunk-io draft PRs
 (`review.drafts` on; trunk-io is not in pullfrog's bot-exclusion list). If a
 queue entry stalls on a missing `pullfrog-approval`, check those two things
 and whether the pullfrog run failed or was cancelled before changing the
-list.
+list. A negative verdict on the tested state fails the check and ejects the
+PR from the queue — address the feedback and resubmit (re-trigger with an
+`@pullfrog` comment or a push). No human override exists short of editing
+the config, and each queue test pays one extra LLM review (~5-10 min).
 
 <!-- entire-agent:begin -->
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
