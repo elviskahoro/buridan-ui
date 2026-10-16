@@ -93,3 +93,28 @@ def test_mobile_llms_txt_entry_matches_desktop_create_menu_item_navigation_props
     for needle in ("reloadDocument:true", 'to:"/llms.txt"'):
         assert needle in mobile_rendered
         assert needle in desktop_rendered
+
+
+GITHUB_ROUTE = {
+    "title": "GitHub",
+    "url": "https://github.com/elviskahoro/buridan-ui",
+}
+
+
+def test_non_pypi_titled_external_link_dispatches_on_url() -> None:
+    """External dispatch must key on the URL, not the title.
+
+    A non-pypi-titled external route (e.g. a GitHub link) must still route
+    via document reload. Reverting the dispatch to ``title.startswith("pypi")``
+    would drop this route into the generic client-side branch and render
+    ``to:"/https://..."`` — the exact in-app-404 bug this PR fixes — so this
+    case makes the suite discriminate the URL-keyed dispatch for both
+    ``_mobile_menu_link`` and ``create_menu_item``.
+    """
+    for rendered in (
+        str(_mobile_menu_link(GITHUB_ROUTE)),
+        str(create_menu_item(GITHUB_ROUTE)),
+    ):
+        assert "reloadDocument:true" in rendered
+        assert 'to:"https://github.com/elviskahoro/buridan-ui"' in rendered
+        assert 'to:"/https' not in rendered
