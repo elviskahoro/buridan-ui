@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression coverage for the mobile sidebar dropdown's per-route link dispatch.
 
 The mobile ``mobile_menu`` (rendered for ``< md`` viewports) previously routed
@@ -17,9 +18,9 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.templates.docsidebar import (
+from app.templates.docsidebar import (  # noqa: E402
     SIDEBAR_SECTIONS,
-    _mobile_menu_link,
+    _mobile_menu_link,  # pyright: ignore[reportPrivateUsage]
     create_menu_item,
     mobile_menu,
 )
