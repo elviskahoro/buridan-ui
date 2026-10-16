@@ -1,4 +1,4 @@
-import json
+import json  # noqa: INP001
 import re
 import sys
 from pathlib import Path
@@ -7,7 +7,7 @@ from urllib.parse import unquote_plus, urlparse
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.templates.toc import _create_external_tool_links
+from app.templates.toc import _create_external_tool_links  # noqa: E402  # pyright: ignore[reportPrivateUsage]
 
 
 def _rendered(url: str = "docs/components/button") -> str:
@@ -21,7 +21,8 @@ def _extract_href(rendered: str, host: str) -> str:
     Next.js ``to``), while internal links keep ``href``; accept either.
     """
     match = re.search(
-        rf"(?:(?:to|href):\\?\"|\")?(https://{re.escape(host)}[^\"\\]*)", rendered
+        rf"(?:(?:to|href):\\?\"|\")?(https://{re.escape(host)}[^\"\\]*)",
+        rendered,
     )
     assert match, f"{host} href not found in rendered output"
     return match.group(1)
@@ -29,11 +30,15 @@ def _extract_href(rendered: str, host: str) -> str:
 
 def test_external_tool_href_has_no_raw_newlines_or_indent_leak() -> None:
     """The emitted ChatGPT href must not embed a raw newline or the
-    four-space indentation run that the source f-string used to leak."""
+    four-space indentation run that the source f-string used to leak.
+    """
     rendered = _rendered()
     chatgpt = rendered[rendered.find("chatgpt") : rendered.find("chatgpt") + 400]
-    assert "\\n" not in chatgpt and "    Help" not in chatgpt, (
-        "external-tool prompt leaked source newlines/indentation into the URL"
+    assert "\\n" not in chatgpt, (
+        "external-tool prompt leaked source newlines into the URL"
+    )
+    assert "    Help" not in chatgpt, (
+        "external-tool prompt leaked source indentation into the URL"
     )
 
 

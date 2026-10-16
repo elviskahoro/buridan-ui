@@ -89,7 +89,7 @@ def _create_external_tool_links(url: str):
     prompt = " ".join(
         f"""I'm looking at this buridan/ui documentation: {fmt_url}.
 Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.
-""".split()
+""".split(),
     )
 
     def external_tool_item(
