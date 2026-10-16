@@ -3,3 +3,6 @@
 
 # Fix trunk check findings in docs and Python sources (#128)
 690a971ff7be9d1b414a84c4798d8b234d929ab8
+
+# Apply trunk check formatting and fixes (#127)
+9635b1070e782dca8de9467942841d421ab49b31
