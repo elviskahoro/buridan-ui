@@ -201,7 +201,6 @@ lint:
     # Scratch, agent-worktree trees, and data files: no lint coverage wanted.
     - linters: [ALL]
       paths:
-        - data/**
         - tmp/**
         - worktrees/**
         - "**/*.openapi.json"
@@ -211,10 +210,6 @@ lint:
     - linters: [ruff]
       paths:
         - "*.ipynb"
-
-    - linters: [checkov]
-      paths:
-        - api/specs/caldotcom-*.json
 
     # Documentation MDX mixes JSX components with fenced code blocks, which
     # markdownlint misreads as inconsistent code-block styles (MD046).
