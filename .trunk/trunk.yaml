@@ -198,15 +198,23 @@ lint:
     - yapf
 
   ignore:
-    # Scratch and agent-worktree trees: no lint coverage wanted.
+    # Scratch, agent-worktree trees, and data files: no lint coverage wanted.
     - linters: [ALL]
       paths:
+        - data/**
         - tmp/**
         - worktrees/**
+        - "**/*.openapi.json"
+        - "**/*.openapi.yaml"
+        - "**/*.openapi.yml"
 
     - linters: [ruff]
       paths:
         - "*.ipynb"
+
+    - linters: [checkov]
+      paths:
+        - api/specs/caldotcom-*.json
 
     # Documentation MDX mixes JSX components with fenced code blocks, which
     # markdownlint misreads as inconsistent code-block styles (MD046).
@@ -236,11 +244,18 @@ lint:
         - "**/*.gz"
         - "**/*.bz2"
         - "**/*.7z"
+        - "**/*.csv"
         - "**/*.xml"
+        - "**/*.parquet"
+        - "**/*.proto"
 
     - linters: [trivy]
       paths:
         - .trunk/**
+
+    - linters: [trufflehog]
+      paths:
+        - "**/*.parquet"
 
   exported_configs:
     - plugin_id: oss-linter-trunk
