@@ -184,7 +184,7 @@ def areachart_v1():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "border") + " w-full p-0",
     )
@@ -206,7 +206,9 @@ def areachart_v2():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="desktop",
@@ -243,7 +245,7 @@ def areachart_v2():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -265,7 +267,9 @@ def areachart_v3():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="desktop",
@@ -302,7 +306,7 @@ def areachart_v3():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -324,7 +328,9 @@ def areachart_v4():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="desktop",
@@ -369,7 +375,7 @@ def areachart_v4():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -399,7 +405,9 @@ def areachart_v5():
         return rx.el.svg.linear_gradient(
             rx.el.svg.stop(stop_color=f"var(--{color})", offset="5%", stop_opacity=0.8),
             rx.el.svg.stop(
-                stop_color=f"var(--{color})", offset="95%", stop_opacity=0.1
+                stop_color=f"var(--{color})",
+                offset="95%",
+                stop_opacity=0.1,
             ),
             x1=0,
             x2=0,
@@ -442,7 +450,7 @@ def areachart_v5():
                         for label, value in select_options
                     ],
                     default_value=default_range,
-                    on_change=lambda value: SelectedRange.set_value(value),
+                    on_change=SelectedRange.set_value,
                     class_name="relative flex items-center whitespace-nowrap justify-center gap-2 py-2 rounded-lg shadow-sm px-3 bg-secondary border border-input",
                 ),
                 class_name="flex flex-row flex-wrap gap-y-4 items-center justify-between",
@@ -456,7 +464,9 @@ def areachart_v5():
                 ),
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 area("mobile", "chart-2"),
                 area("desktop", "chart-1"),
@@ -485,7 +495,7 @@ def areachart_v5():
                     ["Desktop", "Mobile"],
                     lambda device, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"h-2 w-2 shrink-0 rounded-[2px] bg-chart-{index + 1}"
+                            class_name=f"h-2 w-2 shrink-0 rounded-[2px] bg-chart-{index + 1}",
                         ),
                         rx.el.p(device, class_name="text-sm text-foreground"),
                         class_name="flex flex-row items-center gap-x-2",
@@ -515,7 +525,9 @@ def areachart_v6():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="mobile",
@@ -561,7 +573,7 @@ def areachart_v6():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -583,7 +595,9 @@ def areachart_v7():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="mobile",
@@ -636,7 +650,7 @@ def areachart_v7():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -653,10 +667,14 @@ def areachart_v8():
     def create_gradient(var_name):
         return rx.el.svg.linear_gradient(
             rx.el.svg.stop(
-                stop_color=f"var({var_name})", offset="5%", stop_opacity=0.8
+                stop_color=f"var({var_name})",
+                offset="5%",
+                stop_opacity=0.8,
             ),
             rx.el.svg.stop(
-                stop_color=f"var({var_name})", offset="95%", stop_opacity=0.1
+                stop_color=f"var({var_name})",
+                offset="95%",
+                stop_opacity=0.1,
             ),
             x1=0,
             x2=0,
@@ -704,7 +722,9 @@ def areachart_v8():
                 ),
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 *(
                     rx.recharts.area(
@@ -744,7 +764,7 @@ def areachart_v8():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )
@@ -761,7 +781,9 @@ def areachart_v9():
         return rx.el.svg.linear_gradient(
             rx.el.svg.stop(stop_color=f"var(--{color})", offset="5%", stop_opacity=0.8),
             rx.el.svg.stop(
-                stop_color=f"var(--{color})", offset="95%", stop_opacity=0.1
+                stop_color=f"var(--{color})",
+                offset="95%",
+                stop_opacity=0.1,
             ),
             x1=0,
             x2=0,
@@ -782,7 +804,9 @@ def areachart_v9():
                 ),
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="desktop",
@@ -820,7 +844,7 @@ def areachart_v9():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1], "square") + " w-full p-0",
     )
@@ -870,7 +894,9 @@ def areachart_v10():
             rx.recharts.area_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.area(
                     data_key="mobile",
@@ -923,7 +949,7 @@ def areachart_v10():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )

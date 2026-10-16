@@ -386,7 +386,7 @@ def toggle_group_custom() -> rx.Component:
                 ),
                 " to set the font weight.",
             ),
-        )
+        ),
     )
 ```
 

@@ -21,9 +21,9 @@ from reflex.components.component import Component, ComponentNamespace
 from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
-from reflex_components_core.core.foreach import foreach as foreach
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import PACKAGE_NAME, BaseUIComponent
 
 LiteralSelectSize = Literal["xs", "sm", "md", "lg", "xl"]
@@ -427,7 +427,7 @@ def select_align_with_items():
             switch.root(
                 switch.thumb(),
                 on_checked_change=align_with_item_trigger.set_value(
-                    ~align_with_item_trigger.value
+                    ~align_with_item_trigger.value,
                 ),
             ),
             class_name="flex flex-row items-start justify-between w-full",
@@ -447,7 +447,7 @@ def select_align_with_items():
                                 select.item(
                                     select.item_text(fruit.capitalize()),
                                     select.item_indicator(
-                                        hi("Tick02Icon", class_name="size-4")
+                                        hi("Tick02Icon", class_name="size-4"),
                                     ),
                                     value=fruit,
                                     class_name="w-full !max-w-sm flex flex-row items-center justify-between",

@@ -25,7 +25,8 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Span
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 LiteralMenuOrientation = Literal["vertical", "horizontal"]
@@ -355,7 +356,6 @@ class MenuGroupLabel(MenuBaseComponent):
 class MenuShortcut(Span, CoreComponent):
     ##
 
-
     @classmethod
     def create(cls, *children, **props) -> Span:
         props["data-slot"] = "menu-shortcut"
@@ -675,7 +675,9 @@ def menu_icons() -> rx.Component:
                     menu.item(hi("Setting07Icon"), "Settings"),
                     menu.separator(),
                     menu.item(
-                        hi("LogoutSquare01Icon"), "Log out", variant="destructive"
+                        hi("LogoutSquare01Icon"),
+                        "Log out",
+                        variant="destructive",
                     ),
                 ),
             ),
@@ -703,7 +705,7 @@ def menu_checkboxes():
                             menu.checkbox_item_indicator(),
                             default_checked=show_status_bar.value,
                             on_checked_change=show_status_bar.set_value(
-                                ~show_status_bar.value
+                                ~show_status_bar.value,
                             ),
                         ),
                         menu.checkbox_item(

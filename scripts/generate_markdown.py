@@ -63,7 +63,7 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
     """Replaces custom component delimiters in markdown content with formatted code blocks."""
     delimiter_pattern = r"--([\w_]+)(?:\((.*)\))?--"
 
-    def replacer(match) -> str | None:
+    def replacer(match: re.Match[str]) -> str:
         cmd = match.group(1).lower()
         arg = match.group(2)
 

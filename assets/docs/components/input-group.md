@@ -96,7 +96,7 @@ def input_group_block_start() -> rx.Component:
                         align="block-start",
                     ),
                     class_name="h-auto",
-                )
+                ),
             ),
             field.description("Header positioned above the input."),
             orientation="vertical",
@@ -121,7 +121,7 @@ def input_group_block_start() -> rx.Component:
                         ),
                         align="block-start",
                     ),
-                )
+                ),
             ),
             field.description("Header positioned above the textarea."),
             orientation="vertical",
@@ -152,7 +152,7 @@ def input_group_block_end() -> rx.Component:
                         align="block-end",
                     ),
                     class_name="h-auto",
-                )
+                ),
             ),
             field.description("Footer positioned below the input."),
             orientation="vertical",
@@ -175,7 +175,7 @@ def input_group_block_end() -> rx.Component:
                         ),
                         align="block-end",
                     ),
-                )
+                ),
             ),
             field.description("Footer positioned below the textarea."),
             orientation="vertical",
@@ -307,7 +307,7 @@ def input_group_button() -> rx.Component:
                         rx.set_clipboard("https://ui.buridan.dev/"),
                     ],
                     on_mouse_down=rx.call_function(
-                        _input_copy.set_value(False)
+                        _input_copy.set_value(False),
                     ).debounce(1500),
                 ),
                 align="inline-end",
@@ -421,7 +421,7 @@ def input_group_dropdown() -> rx.Component:
                             variant="ghost",
                             aria_label="More",
                             size="icon-xs",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -430,10 +430,10 @@ def input_group_dropdown() -> rx.Component:
                                     menu.item("Settings"),
                                     menu.item("Copy path"),
                                     menu.item("Open location"),
-                                )
+                                ),
                             ),
                             align="end",
-                        )
+                        ),
                     ),
                 ),
                 align="inline-end",
@@ -449,7 +449,7 @@ def input_group_dropdown() -> rx.Component:
                             hi("ChevronDownIcon", class_name="size-3 ml-1 inline"),
                             variant="ghost",
                             class_name="!pr-1.5 text-xs",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -458,10 +458,10 @@ def input_group_dropdown() -> rx.Component:
                                     menu.item("Documentation"),
                                     menu.item("Blog Posts"),
                                     menu.item("Changelog"),
-                                )
+                                ),
                             ),
                             align="end",
-                        )
+                        ),
                     ),
                 ),
                 align="inline-end",
