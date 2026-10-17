@@ -6,6 +6,7 @@ from pathlib import Path
 import reflex as rx
 from reflex.compiler.utils import compile_imports
 
+from components.icons.hugeicon import hi
 from components.ui import core
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -51,3 +52,15 @@ def test_cn_imports_declare_explicit_package_roots() -> None:
     assert {"lib": "tailwind-merge", "default": "", "rest": ["twMerge"]} in (
         compiled_imports
     )
+
+
+def test_hugeicon_imports_only_manifest_packages() -> None:
+    """Guard against banned JS packages re-entering via a base class."""
+    imports = hi("home")._get_all_imports()
+
+    assert set(imports) == {
+        "@hugeicons/core-free-icons@4.2.1",
+        "@hugeicons/react@1.1.6",
+        "clsx@2.1.1",
+        "tailwind-merge@3.7.0",
+    }
