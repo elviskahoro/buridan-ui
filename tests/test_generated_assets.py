@@ -2,7 +2,7 @@
 Tests to verify that all source markdown files in docs/ have been correctly
 processed into their expected outputs:
   - assets/docs/   → markdown files (underscores → hyphens)
-  - assets/social/ → .webp social cards
+  - assets/social/ → .webp social cards.
 """
 
 import pathlib
