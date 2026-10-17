@@ -225,7 +225,19 @@ from components.ui.tooltip import Tooltip
 # Anatomy 
 Use the following composition to build a `Tooltip` component.
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+tooltip.root(
+    tooltip.trigger(),
+    tooltip.portal(
+        tooltip.positioner(
+            tooltip.popup(
+                tooltip.arrow(),
+                "Tooltip content",
+            ),
+        ),
+    ),
+)
+```
 
 
 

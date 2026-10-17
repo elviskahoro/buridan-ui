@@ -130,7 +130,9 @@ from components.ui.toggle import toggle
 Use the following composition to build a `Toggle` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+toggle()
+```
 
 
 
