@@ -34,7 +34,7 @@ draft_input = ClientStateVar.create("draft_input", "")
 
 def form_component():
     return rx.vstack(
-        rx.input(
+        rx.el.input(
             value=draft_input.value,
             on_change=draft_input.set_value
         ),
@@ -56,7 +56,7 @@ while preserving the rest of the client-side state.
 def form_state_pattern_example():
     form_state = ClientStateVar.create("form", {})
 
-    return rx.input(
+    return rx.el.input(
         value=form_state.value.get("username", ""),
         on_change=lambda v: form_state.set_value(
             form_state.value.merge({"username": v}),
