@@ -38,7 +38,7 @@ draft_input = ClientStateVar.create("draft_input", "")
 
 def form_component():
     return rx.vstack(
-        rx.input(
+        rx.el.input(
             value=draft_input.value,
             on_change=draft_input.set_value
         ),
