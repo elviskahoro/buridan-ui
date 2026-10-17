@@ -56,7 +56,7 @@ def test_cn_imports_declare_explicit_package_roots() -> None:
 
 def test_hugeicon_imports_only_manifest_packages() -> None:
     """Guard against banned JS packages re-entering via a base class."""
-    imports = hi("home")._get_all_imports()
+    imports = hi("home")._get_all_imports()  # noqa: SLF001
 
     assert set(imports) == {
         "@hugeicons/core-free-icons@4.2.1",
