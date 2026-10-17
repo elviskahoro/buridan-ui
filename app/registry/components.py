@@ -62,7 +62,7 @@ COMPONENT_REGISTRY = {
     # --- components/icons ---
     "hugeicon": {
         "files": ["components/icons/hugeicon.py"],
-        "dependencies": [],
+        "dependencies": ["core"],
     },
     # --- components/ui ---
     "accordion": {
