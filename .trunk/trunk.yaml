@@ -19,7 +19,7 @@ plugins:
       uri: https://github.com/elviskahoro/oss-linter-trunk-add-trailing-comma
 
     - id: pyrefly-plugin
-      ref: v0.2.0
+      ref: v0.2.1
       uri: https://github.com/elviskahoro/oss-linter-trunk-pyrefly
 
     - id: tach-plugin
