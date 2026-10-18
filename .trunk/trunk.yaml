@@ -57,6 +57,17 @@ lint:
         - name: lint
           enabled: true
 
+    # Pyrefly's min-text format emits column ranges as line:col-endline:endcol
+    # when an issue spans multiple lines (e.g. a multi-line lambda). The
+    # upstream plugin's parse_regex only handles single-line ranges
+    # (col-endcol), which causes trunk to fail with a "file name too long"
+    # filesystem error on the unparseable output. Override the regex to accept
+    # the multi-line range format.
+    - name: pyrefly
+      commands:
+        - name: lint
+          parse_regex: "(?P<severity>\\w+) (?P<path>[^:]+):(?P<line>\\d+):(?P<col>\\d+)(?:-\\d+(?::\\d+)?)?: (?P<message>.*?) \\[(?P<code>[^\\]]+)\\]"
+
     # Vale is scoped exclusively to docs/** (see .vale.ini). There's no
     # first-class "restrict this linter to a directory" field on `enabled`
     # entries, so introduce a custom file type matched by full relative
