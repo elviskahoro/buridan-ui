@@ -221,11 +221,7 @@ class TestAnatomyGeneration:
         ids=lambda f: str(f.relative_to(DOCS_DIR)),  # pyright: ignore[reportUnknownLambdaType]
     )
     def test_no_anatomy_error_markers(self, md_file: pathlib.Path) -> None:
-        """Generated markdown must contain no swallowed anatomy error markers.
-
-        Markers like '> **Error in anatomy:' indicate the generator failed
-        to load the ANATOMY dict from the correct module.
-        """
+        """Generated markdown must contain no swallowed anatomy errors."""
         output = expected_markdown_output_path(md_file)
         if not output.exists():
             pytest.skip("Output file missing — covered by test_output_file_exists")
@@ -242,35 +238,23 @@ class TestAnatomyGeneration:
         ids=lambda source: source.stem,  # pyright: ignore[reportUnknownLambdaType]
     )
     def test_component_anatomy_rendered(self, component_source: pathlib.Path) -> None:
-        """Anatomy directives must render a proper anatomy block.
-
-        Component docs with an --ANATOMY(name)-- directive must have the
-        anatomy block properly rendered, not as an error or an unresolved
-        delimiter.
-        """
-        component_doc = expected_ui_component_doc_path(component_source)
-        if not component_doc.is_file():
-            pytest.skip("Component doc does not exist")
-
-        content = component_doc.read_text(encoding="utf-8")
+        """Component docs with anatomy directives must render blocks correctly."""
+        source_doc = (
+            DOCS_DIR / "components" / (component_source.stem.replace("_", "-") + ".md")
+        )
+        if not source_doc.is_file():
+            pytest.skip("Component source doc does not exist")
 
         # Check if this component has an anatomy directive
-        if "--ANATOMY(" not in content:
+        if "--ANATOMY(" not in source_doc.read_text(encoding="utf-8"):
             pytest.skip("No anatomy directive in component doc")
 
-        # Extract component name and verify the anatomy block exists
-        component_name = component_source.stem.replace("_", "-")
-        expected_anatomy_section = f"# Anatomy"
-
-        # The anatomy section should exist and contain a code block
-        assert expected_anatomy_section in content, (
-            f"Anatomy section missing for {component_name} in "
-            f"{component_doc.relative_to(ROOT_DIR)}"
-        )
+        component_doc = expected_ui_component_doc_path(component_source)
+        content = component_doc.read_text(encoding="utf-8")
 
         # Verify there's a Python code block with component structure
         assert "```python" in content.split("# Anatomy")[1].split("# ")[0], (
-            f"Anatomy code block not properly rendered for {component_name} in "
+            f"Anatomy code block not properly rendered for {component_source.stem} in "
             f"{component_doc.relative_to(ROOT_DIR)}"
         )
 
