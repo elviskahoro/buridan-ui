@@ -57,6 +57,19 @@ lint:
         - name: lint
           enabled: true
 
+    # pyright resolves third-party imports through the interpreter it runs
+    # under, but trunk executes linters from a sandboxed tmp dir with `env -i`
+    # (its PATH python has none of the project deps), so the catalog's bare
+    # `pyright --outputjson ${target}` floods `reportMissingImports` on every
+    # `import reflex`. Wire the workspace venv explicitly, mirroring the
+    # pyrefly plugin's --python-interpreter-path pattern; a config-internal
+    # venvPath cannot do this (it resolves against the sandbox, not the
+    # workspace).
+    - name: pyright
+      commands:
+        - name: lint
+          run: pyright --pythonpath ${workspace}/.venv/bin/python --outputjson ${target}
+
     # Vale is scoped exclusively to docs/** (see .vale.ini). There's no
     # first-class "restrict this linter to a directory" field on `enabled`
     # entries, so introduce a custom file type matched by full relative
