@@ -1,4 +1,5 @@
-"""Regression coverage for `--USAGE(...)--` and `--CODE_FILE(...)--` rendering in
+# noqa: INP001
+"""Regression coverage for ``--USAGE(...)--`` and ``--CODE_FILE(...)--`` rendering in
 ``DocParser``.
 
 Background: components exported as ``name = Class.create`` (bound classmethods)
@@ -15,31 +16,30 @@ and the shipped docs (so any future bound-classmethod component is covered
 without per-component test churn).
 """
 
-import glob
 import importlib
 import inspect
 import re
 import sys
 from collections.abc import Callable
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import pytest
+import pytest  # noqa: E402
 
-from app.www import constants
-from app.www.parser import DocParser
+from app.www import constants  # noqa: E402
+from app.www.parser import DocParser  # noqa: E402
 
 USAGE_IMPORT_RE = re.compile(r"from components\.ui\.(\w+) import (\w+)")
 USAGE_DIRECTIVE_RE = re.compile(r"--USAGE\(([^)]+)\)--")
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="module")  # pyright: ignore[reportUntypedFunctionDecorator]
 def parser() -> DocParser:
     return DocParser(
-        dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT]
+        dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],
     )
 
 
@@ -49,18 +49,18 @@ def parser() -> DocParser:
 BOGUS_FALLBACK = "components.ui.component"
 
 
-def _registry_entry(parser: DocParser, name: str) -> tuple[Callable, str]:
+def _registry_entry(parser: DocParser, name: str) -> tuple[Callable[..., Any], str]:
     """Return the ``(obj, preferred_name)`` tuple the parser stores for ``name``.
 
     ``DocParser.registry`` is loosely annotated as ``dict[str, Callable]`` even
     though it stores ``(obj, preferred_name)`` tuples; this helper isolates the
     single ``cast`` needed to bridge that annotation.
     """
-    return cast(tuple[Callable, str], parser.registry[name])
+    return cast("tuple[Callable[..., Any], str]", parser.registry[name])
 
 
 def _usage_import_path(parser: DocParser, name: str) -> str:
-    rendered = str(parser._render("usage", name))
+    rendered = str(parser._render("usage", name))  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
     match = USAGE_IMPORT_RE.search(rendered)
     assert match is not None, (
         f"no `from components.ui.<module> import <name>` line rendered for "
@@ -107,12 +107,13 @@ def test_every_shipped_usage_directive_renders_importable_module(
 ) -> None:
     """End-to-end: every ``--USAGE(arg)--`` directive shipped in
     ``docs/components/*.md`` must produce a valid, importable import line and must
-    not emit the ``components.ui.component`` fallback."""
-    docs = sorted(glob.glob(str(ROOT_DIR / "docs" / "components" / "*.md")))
+    not emit the ``components.ui.component`` fallback.
+    """
+    docs = sorted((ROOT_DIR / "docs" / "components").glob("*.md"))
     assert docs, "expected docs/components/*.md files to exist"
     seen: set[str] = set()
     for doc in docs:
-        for m in USAGE_DIRECTIVE_RE.finditer(Path(doc).read_text()):
+        for m in USAGE_DIRECTIVE_RE.finditer(doc.read_text()):
             arg = m.group(1).strip()
             seen.add(arg)
             import_path = _usage_import_path(parser, arg)
@@ -135,8 +136,9 @@ def test_bound_classmethod_code_file_renders_source_not_parse_error(
     currently exercises it, but the same ``inspect_obj`` substitution that broke
     ``--USAGE(...)--`` also made ``inspect.getmodule`` + ``inspect.getsource``
     raise here, surfacing a red parse-error element. Pin one representative so a
-    future ``--CODE_FILE(button)--`` directive does not silently regress."""
-    rendered = str(parser._render("code_file", "button"))
+    future ``--CODE_FILE(button)--`` directive does not silently regress.
+    """
+    rendered = str(parser._render("code_file", "button"))  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
     assert "Error in code_file" not in rendered
     assert "text-red-500" not in rendered
 
@@ -147,7 +149,8 @@ def test_unknown_component_still_reports_visible_not_found_error(
     """The fix must not re-silence the visible ``'<name>' not found`` error path
     for genuinely unregistered names — that loud-failure behavior is what
     originally surfaced (before commit e102215) for the bound-classmethod
-    components, and it must remain for unknown names."""
-    rendered = str(parser._render("usage", "this_component_does_not_exist"))
+    components, and it must remain for unknown names.
+    """
+    rendered = str(parser._render("usage", "this_component_does_not_exist"))  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
     assert "not found" in rendered
     assert "text-red-500" in rendered
