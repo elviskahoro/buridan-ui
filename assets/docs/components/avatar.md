@@ -161,7 +161,12 @@ from components.ui.avatar import Avatar
 Use the following composition to build an `Avatar` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+avatar.root(
+    avatar.image(),
+    avatar.fallback(),
+)
+```
 
 
 # Examples

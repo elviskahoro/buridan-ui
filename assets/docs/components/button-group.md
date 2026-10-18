@@ -22,7 +22,12 @@ Copy the following code into your app directory.
 Use the following composition to build a `Button Group` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+button_group.root(
+    button(),
+    button_group.separator(),
+)
+```
 
 
 

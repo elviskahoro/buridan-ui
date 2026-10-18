@@ -201,7 +201,12 @@ from components.ui.bubble import Bubble
 Use the following composition to build a `Bubble` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+bubble.root(
+    bubble.content(),
+    bubble.reactions(),
+)
+```
 
 
 # Features
