@@ -187,7 +187,17 @@ from components.ui.scroll_area import scroll_area
 Use the following composition to build a `Scroll Area` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+scroll_area.root(
+    scroll_area.viewport(
+        scroll_area.content(),
+    ),
+    scroll_area.scrollbar(
+        scroll_area.thumb(),
+    ),
+    scroll_area.corner(),
+)
+```
 
 
 

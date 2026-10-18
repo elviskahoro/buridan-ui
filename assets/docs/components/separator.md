@@ -65,7 +65,9 @@ from components.ui.separator import separator
 Use the following composition to build a `Separator` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+separator()
+```
 
 
 # Examples
