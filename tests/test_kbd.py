@@ -1,10 +1,11 @@
+# noqa: INP001
 import sys
 from pathlib import Path
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from components.ui.kbd import ClassNames, KbdGroupContainer, KbdRoot
+from components.ui.kbd import ClassNames, KbdGroupContainer, KbdRoot  # noqa: E402
 
 
 def test_kbd_root_uses_default_classes() -> None:
