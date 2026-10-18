@@ -239,9 +239,7 @@ class TestAnatomyGeneration:
     )
     def test_component_anatomy_rendered(self, component_source: pathlib.Path) -> None:
         """Component docs with anatomy directives must render blocks correctly."""
-        source_doc = (
-            DOCS_DIR / "components" / (component_source.stem.replace("_", "-") + ".md")
-        )
+        source_doc = DOCS_DIR / "components" / (component_source.stem + ".md")
         if not source_doc.is_file():
             pytest.skip("Component source doc does not exist")
 
