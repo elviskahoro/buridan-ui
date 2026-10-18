@@ -66,6 +66,11 @@ lint:
     - name: vale
       files: [docs-markdown]
 
+    - name: pyright
+      commands:
+        - name: check
+          extra_args: [--pythonpath, ., --configfile, configs/pyrightconfig.json]
+
   files:
     - name: docs-markdown
       regexes:
