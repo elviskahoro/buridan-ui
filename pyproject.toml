@@ -36,7 +36,7 @@ Issues = "https://github.com/LineIndent/ui/issues"
 
 [dependency-groups]
 dev = [
-  "reflex==0.9.6",
+  "reflex==0.10.0",
   "reflex-hosting-cli>=0.1.67",
   "pillow>=12.2.0",
   "PyYAML>=6.0.3",
