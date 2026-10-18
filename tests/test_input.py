@@ -5,6 +5,7 @@ from typing import Any, cast
 
 import pytest
 import reflex as rx
+from reflex.event import EventChain, EventSpec
 from reflex.vars.base import Var
 from reflex_components_core.el.elements.forms import CheckboxInput, ValueNumberInput
 
@@ -41,8 +42,11 @@ def _capture_input_props(monkeypatch) -> dict:
     return captured
 
 
-def _on_change_arg(comp) -> Var:  # noqa: ANN001
-    spec = comp.event_triggers["on_change"].events[0]
+def _on_change_arg(comp: rx.Component) -> Var[Any]:  # noqa: ANN401
+    chain = comp.event_triggers["on_change"]
+    assert isinstance(chain, EventChain)
+    spec = chain.events[0]
+    assert isinstance(spec, EventSpec)
     return spec.args[0][1]
 
 
@@ -112,7 +116,7 @@ def test_checkbox_input_dispatches_with_boolean_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "BooleanCastedVar"
-    assert arg._var_type is bool  # noqa: SLF001
+    assert arg._var_type is bool  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
 
 
 def test_number_input_dispatches_with_number_payload() -> None:
@@ -122,7 +126,7 @@ def test_number_input_dispatches_with_number_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "NumberCastedVar"
-    assert arg._var_type is float  # noqa: SLF001
+    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
 
 
 def test_range_input_dispatches_with_number_payload() -> None:
@@ -132,7 +136,7 @@ def test_range_input_dispatches_with_number_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "NumberCastedVar"
-    assert arg._var_type is float  # noqa: SLF001
+    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
 
 
 def test_non_typed_inputs_stay_input_component_with_string_payload() -> None:
@@ -144,7 +148,7 @@ def test_non_typed_inputs_stay_input_component_with_string_payload() -> None:
         assert isinstance(comp, InputComponent), input_type
         arg = _on_change_arg(comp)
         assert type(arg).__name__ == "StringCastedVar", input_type
-        assert arg._var_type is str, input_type  # noqa: SLF001
+        assert arg._var_type is str, input_type  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
 
     default_comp = InputComponent.create(on_change=_InputTestState.set_v)
     assert isinstance(default_comp, InputComponent)
@@ -257,7 +261,7 @@ def test_typed_dispatch_normalizes_value_like_upstream() -> None:
 
         assert type(wrapper_comp) is type(upstream_comp), input_type
 
-        def _value_prop(comp, *, input_type: str) -> str:  # noqa: ANN001
+        def _value_prop(comp: rx.Component, *, input_type: str) -> str:
             for prop in comp.render()["props"]:
                 if prop.startswith("value:"):
                     return prop
