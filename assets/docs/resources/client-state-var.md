@@ -55,11 +55,13 @@ while preserving the rest of the client-side state.
 ```python
 def form_state_pattern_example():
     form_state = ClientStateVar.create("form", {})
+    form = cast("Any", form_state.value)
 
     return rx.el.input(
-        value=form_state.value.get("username", ""),
-        on_change=lambda v: form_state.set_value(
-            form_state.value.merge({"username": v}),
+        value=form.get("username", ""),
+        on_change=cast(
+            "Any",
+            lambda v: form_state.set_value(form.merge({"username": v})),
         ),
     )
 ```
