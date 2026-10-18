@@ -1,3 +1,5 @@
+# noqa: INP001
+
 """Regression tests for the ``table`` component's ``striped`` handling.
 
 ``striped`` is a declared keyword parameter of only the high-level ``table(...)``
@@ -21,12 +23,12 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.examples.components import card_twenty_two
-from components.ui.table import TableRoot, table
+from app.examples.components import card_twenty_two  # noqa: E402
+from components.ui.table import TableRoot, table  # noqa: E402
 
 
 def test_card_twenty_two_applies_striping_class_to_body_rows() -> None:
-    assert "even:bg-secondary/30" in str(card_twenty_two().render())
+    assert "even:bg-secondary/30" in str(card_twenty_two().render())  # pyrefly: ignore[not-callable, missing-attribute]
 
 
 def test_high_level_table_striped_true_adds_striping() -> None:
@@ -37,7 +39,7 @@ def test_high_level_table_striped_true_adds_striping() -> None:
 
 def test_high_level_table_default_has_no_striping() -> None:
     assert "even:bg-secondary/30" not in str(
-        table(data=[{"a": str(i)} for i in range(4)]).render()
+        table(data=[{"a": str(i)} for i in range(4)]).render(),
     )
 
 
