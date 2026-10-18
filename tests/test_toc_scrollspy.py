@@ -27,6 +27,7 @@ import pytest
 ROOT_DIR = Path(__file__).parent.parent
 TOC_TEMPLATE = ROOT_DIR / "app" / "templates" / "toc.py"
 REPRO_DIR = Path(__file__).parent / "toc_scrollspy_repro"
+RENDERED_LINK_COUNT = 2
 
 
 def _set_active_body() -> str:
@@ -37,7 +38,8 @@ def _set_active_body() -> str:
     """
     source = TOC_TEMPLATE.read_text(encoding="utf-8")
     match = re.search(r"function setActive\(id\)\s*\{(.*?)\n\s*\}\n", source, re.DOTALL)
-    assert match, "setActive(id) not found in toc.py"
+    msg = "setActive(id) not found in toc.py"
+    assert match, msg
     return match.group(1)
 
 
@@ -60,7 +62,8 @@ def _set_active_full_source() -> str:
             depth -= 1
             if depth == 0:
                 return source[start : idx + 1]
-    raise AssertionError("unterminated setActive function in toc.py")
+    msg = "unterminated setActive function in toc.py"
+    raise AssertionError(msg)
 
 
 def test_scrollspy_compares_rendered_href_fragment_against_id() -> None:
@@ -76,7 +79,8 @@ def test_scrollspy_compares_rendered_href_fragment_against_id() -> None:
 
     fragment = r"getAttribute\(\s*['\"]href['\"]\s*\)\s*\.split\(\s*['\"]#['\"]\s*\)\s*\[\s*1\s*\]"
     assert re.search(fragment + r"\s*===\s*id\b", body) or re.search(
-        r"\bid\b\s*===\s*" + fragment, body
+        r"\bid\b\s*===\s*" + fragment,
+        body,
     ), (
         "setActive must compare getAttribute('href').split('#')[1] against id "
         "(React Router renders a path-prefixed href; === '#' + id never matches)."
@@ -84,7 +88,8 @@ def test_scrollspy_compares_rendered_href_fragment_against_id() -> None:
 
     # The buggy exact comparison against a bare fragment must NOT remain.
     assert not re.search(
-        r"getAttribute\(\s*['\"]href['\"]\s*\)\s*===\s*['\"]#['\"]\s*\+\s*id\b", body
+        r"getAttribute\(\s*['\"]href['\"]\s*\)\s*===\s*['\"]#['\"]\s*\+\s*id\b",
+        body,
     ), "setActive must not compare the full rendered href against '#' + id."
 
 
@@ -115,11 +120,12 @@ def test_scrollspy_runtime_highlight_under_react_router() -> None:
         pytest.skip("Node.js is required to run the scrollspy runtime harness")
     if not (REPRO_DIR / "node_modules").is_dir():
         pytest.skip(
-            f"run `npm ci` in {REPRO_DIR} to install the jsdom/react-router harness"
+            f"run `npm ci` in {REPRO_DIR} to install the jsdom/react-router harness",
         )
 
+    assert node is not None
     js = _RUNTIME_HARNESS.replace("__SETACTIVE_SRC__", _set_active_full_source())
-    result = subprocess.run(
+    result = subprocess.run(  # noqa: S603
         [node, "-e", js],
         cwd=str(REPRO_DIR),
         capture_output=True,
@@ -137,7 +143,7 @@ def test_scrollspy_runtime_highlight_under_react_router() -> None:
     # React Router renders path-prefixed hrefs; this is the premise the fix
     # depends on and the thing a bare-fragment comparison would miss.
     rendered = payload["rendered"]
-    assert len(rendered) == 2
+    assert len(rendered) == RENDERED_LINK_COUNT
     by_text = {link["text"]: link["href"] for link in rendered}
     assert by_text["devpytoc"] == "/docs/getting-started/dev#dev.py"
     assert by_text["devtoc"] == "/docs/getting-started/dev#dev"
