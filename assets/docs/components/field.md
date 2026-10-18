@@ -267,7 +267,16 @@ field.set
 Use the following composition to build a `Field` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+field.root(
+    field.content(
+        field.label(),
+        field.title(),
+        field.description(),
+    ),
+    field.error(),
+)
+```
 
 
 

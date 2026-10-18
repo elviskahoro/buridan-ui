@@ -213,7 +213,16 @@ from components.ui.slider import Slider
 Use the following composition to build a `Slider` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+slider.root(
+    slider.control(
+        slider.track(
+            slider.indicator(),
+            slider.thumb(),
+        ),
+    ),
+)
+```
 
 
 
