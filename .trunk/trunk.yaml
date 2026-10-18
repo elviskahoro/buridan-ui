@@ -290,7 +290,6 @@ lint:
         - configs/.stylelintrc.yaml
         - configs/.yamlfmt
         - configs/.yamllint.yaml
-        - configs/pyrightconfig.json
         - configs/ruff.toml
         - configs/rustfmt.toml
         - configs/svgo.config.js

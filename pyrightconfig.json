@@ -1,7 +1,5 @@
 {
   "pythonVersion": "3.11",
-  "venvPath": ".",
-  "venv": ".venv",
   "analyzeUnannotatedFunctions": true,
   "deprecateTypingAliases": true,
   "disableBytesTypePromotions": true,
