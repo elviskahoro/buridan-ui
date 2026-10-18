@@ -220,7 +220,7 @@ class TestAnatomyGeneration:
         _all_md,
         ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
-    def test_no_anatomy_error_markers(self, md_file: pathlib.Path) -> None:
+    def test_no_anatomy_error_markers(self, md_file) -> None:
         """Generated markdown must contain no swallowed anatomy errors."""
         output = expected_markdown_output_path(md_file)
         if not output.exists():
@@ -237,7 +237,7 @@ class TestAnatomyGeneration:
         _ui_components_with_install_docs,
         ids=lambda source: source.stem,
     )
-    def test_component_anatomy_rendered(self, component_source: pathlib.Path) -> None:
+    def test_component_anatomy_rendered(self, component_source) -> None:
         """Component docs with anatomy directives must render blocks correctly."""
         component_doc = expected_ui_component_doc_path(component_source)
         if not component_doc.is_file():
