@@ -274,6 +274,16 @@ lint:
       paths:
         - "**/*.parquet"
 
+    # The TOC scrollspy runtime harness (tests/toc_scrollspy_repro) pins
+    # react/react-dom/react-router-dom to the same versions reflex.lock
+    # ships the app with, so its lockfile mirrors reflex.lock's already-
+    # known-vulnerable deps. Those advisories are tracked as existing
+    # issues on reflex.lock; re-scanning the harness copy surfaces them as
+    # new issues on this PR without exercising anything the app ships.
+    - linters: [osv-scanner]
+      paths:
+        - tests/toc_scrollspy_repro/**
+
   exported_configs:
     - plugin_id: oss-linter-trunk
       configs:
