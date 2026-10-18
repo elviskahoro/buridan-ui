@@ -1,4 +1,3 @@
-# pyrefly: ignore-errors
 import reflex as rx
 from reflex.experimental import ClientStateVar
 
