@@ -54,19 +54,16 @@ COMPONENT_REGISTRY = {
         "files": ["app/www/library/blocks/line_chart_04.py"],
         "dependencies": ["card", "chart_tooltip"],
     },
-
     # --- components/charts ---
     "chart_tooltip": {
         "files": ["components/charts/chart_tooltip.py"],
         "dependencies": [],
     },
-
     # --- components/icons ---
     "hugeicon": {
         "files": ["components/icons/hugeicon.py"],
-        "dependencies": [],
+        "dependencies": ["core"],
     },
-
     # --- components/ui ---
     "accordion": {
         "files": ["components/ui/accordion.py"],

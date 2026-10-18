@@ -1,0 +1,372 @@
+# This file controls the behavior of Trunk: https://docs.trunk.io/cli # To learn more about the format of this file, see https://docs.trunk.io/reference/trunk-yaml
+version: 0.1
+cli:
+  version: 1.25.0
+
+# Trunk provides extensibility via plugins. (https://docs.trunk.io/plugins)
+plugins:
+  sources:
+    - id: trunk
+      ref: v1.11.0
+      uri: https://github.com/trunk-io/plugins
+
+    - id: oss-linter-trunk
+      ref: v0.2026.04.14.00.00
+      uri: https://github.com/elviskahoro/oss-linter-trunk-config
+
+    - id: add-trailing-comma-plugin
+      ref: v0.1.0
+      uri: https://github.com/elviskahoro/oss-linter-trunk-add-trailing-comma
+
+    - id: pyrefly-plugin
+      ref: v0.2.0
+      uri: https://github.com/elviskahoro/oss-linter-trunk-pyrefly
+
+    - id: tach-plugin
+      ref: v0.1.0
+      uri: https://github.com/elviskahoro/oss-linter-trunk-tach
+
+# actionlint switched from upstream rhysd/actionlint to the actively maintained
+# fork kjanat/actionlint (forked from upstream v1.7.12, independent releases from
+# v1.8.0, CLI-compatible). Trunk's plugin catalog still pins the rhysd download
+# URL, so override it here until the catalog carries the fork. Asset naming and
+# the -format JSON output the plugin's `lint` command relies on are unchanged.
+downloads:
+  - name: actionlint
+    downloads:
+      - os:
+          linux: linux
+          macos: darwin
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/kjanat/actionlint/releases/download/v${version}/actionlint_${version}_${os}_${cpu}.tar.gz
+      - os: windows
+        cpu:
+          x86_64: amd64
+          arm_64: arm64
+        url: https://github.com/kjanat/actionlint/releases/download/v${version}/actionlint_${version}_windows_${cpu}.zip
+
+# This is the section where you manage your linters. (https://docs.trunk.io/check/configuration)
+lint:
+  definitions:
+    - name: ruff
+      commands:
+        - name: format
+          enabled: true
+        - name: lint
+          enabled: true
+
+    # pyright resolves third-party imports through the interpreter it runs
+    # under, but trunk executes linters from a sandboxed tmp dir with `env -i`
+    # (its PATH python has none of the project deps), so the catalog's bare
+    # `pyright --outputjson ${target}` floods `reportMissingImports` on every
+    # `import reflex`. Wire the workspace venv explicitly, mirroring the
+    # pyrefly plugin's --python-interpreter-path pattern; a config-internal
+    # venvPath cannot do this (it resolves against the sandbox, not the
+    # workspace). Keep the project path explicit so Trunk and editor/CLI
+    # discovery share the same root shim.
+    - name: pyright
+      commands:
+        - name: lint
+          run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/pyrightconfig.json --outputjson ${target}
+      direct_configs:
+        - pyrightconfig.json
+        - configs/pyrightconfig.json
+      affects_cache:
+        - pyrightconfig.json
+        - configs/pyrightconfig.json
+        - pyproject.toml
+        - setup.cfg
+
+    # Vale is scoped exclusively to docs/** (see .vale.ini). There's no
+    # first-class "restrict this linter to a directory" field on `enabled`
+    # entries, so introduce a custom file type matched by full relative
+    # path -- `regexes` match against the path from the repo root, unlike
+    # `extensions`, which would also pick up markdown outside docs/ (e.g.
+    # webhooks/README.md, CHANGELOG.md).
+    - name: vale
+      files: [docs-markdown]
+
+  files:
+    - name: docs-markdown
+      regexes:
+        - ^docs/.+\.(md|mdx)$
+
+  enabled:
+    - actionlint@1.17.0
+    - add-trailing-comma@4.0.0
+    - bandit@1.9.4
+    - buildifier@8.2.1
+    - checkov@3.3.19
+    - markdown-link-check@3.15.0
+    - markdownlint-cli2@0.23.3
+    - osv-scanner@2.6.0
+    - oxipng@10.1.1
+    - pinact@4.0.0
+    - pyrefly@1.3.1
+    - pyright@1.1.414
+    - ruff@0.16.8
+    - semgrep@1.177.0
+    - shellcheck@0.11.0
+    - shfmt@3.13.1
+    - squawk@2.65.0
+    - svgo@4.1.0
+    - tach@0.35.1
+    - taplo@0.10.0
+    - trivy@0.70.0
+    - trufflehog@3.95.3
+    - ty@0.0.35
+    - vale@3.14.1
+    - yamlfmt@0.21.0
+    - yamllint@1.38.0
+
+  disabled:
+    - ansible-lint
+    - autopep8
+    - biome
+    - black
+    - brakeman
+    - buf-breaking
+    - buf-format
+    - buf-lint
+    - cfnlint
+    - circleci
+    - clang-format
+    - clang-tidy
+    - clippy
+    - cmake-format
+    - codespell
+    - cspell
+    - cue-fmt
+    - dart
+    - deno
+    - detekt
+    - detekt-explicit
+    - detekt-gradle
+    - djlint
+    - dotenv-linter
+    - dotnet-format
+    - dustilock
+    - eslint
+    - flake8
+    - git-diff-check
+    - gitleaks
+    - gofmt
+    - gofumpt
+    - goimports
+    - gokart
+    - golangci-lint
+    - golangci-lint2
+    - golines
+    - google-java-format
+    - graphql-schema-linter
+    - hadolint
+    - haml-lint
+    - include-what-you-use
+    - isort
+    - ktlint
+    - kube-linter
+    - ls-lint
+    - markdown-table-prettify
+    - markdownlint
+    - mypy
+    - nancy
+    - nbstripout
+    - nixpkgs-fmt
+    - opa
+    - perlcritic
+    - perltidy
+    - php-cs-fixer
+    - phpstan
+    - pmd
+    - pragma-once
+    - pre-commit-hooks
+    - prettier
+    - prisma
+    - psscriptanalyzer
+    - pylint
+    - regal
+    - remark-lint
+    - renovate
+    - rome
+    - rubocop
+    - ruff-nbqa
+    - rufo
+    - rumdl
+    - rustfmt
+    - scalafmt
+    - snyk
+    - sort-package-json
+    - sourcery
+    - sql-formatter
+    - sqlfluff
+    - sqlfmt
+    - standardrb
+    - stringslint
+    - stylelint
+    - stylua
+    - swiftformat
+    - swiftlint
+    - terraform
+    - terragrunt
+    - terrascan
+    - tflint
+    - tfsec
+    - tofu
+    - trufflehog-git
+    - trunk-toolbox
+    - txtpbfmt
+    - yapf
+
+  ignore:
+    # Scratch, agent-worktree trees, and data files: no lint coverage wanted.
+    - linters: [ALL]
+      paths:
+        - tmp/**
+        - worktrees/**
+        - "**/*.openapi.json"
+        - "**/*.openapi.yaml"
+        - "**/*.openapi.yml"
+
+    - linters: [ruff]
+      paths:
+        - "*.ipynb"
+
+    # Documentation MDX mixes JSX components with fenced code blocks, which
+    # markdownlint misreads as inconsistent code-block styles (MD046).
+    - linters: [markdownlint, markdownlint-cli2]
+      paths:
+        - docs/**/*.mdx
+
+    # checkov and semgrep are deliberately scoped to config files only
+    # (workflows, service YAML, TOML): Python and shell security is covered by
+    # bandit plus ruff's S rules -- gtm-sdk scopes these scanners the same
+    # way -- and binary or generated assets (images, sitemap.xml) only
+    # produce noise.
+    - linters: [checkov, semgrep]
+      paths:
+        - "**/*.py"
+        - "**/*.sh"
+        - "**/*.md"
+        - "**/*.png"
+        - "**/*.jpg"
+        - "**/*.jpeg"
+        - "**/*.gif"
+        - "**/*.ico"
+        - "**/*.svg"
+        - "**/*.webp"
+        - "**/*.zip"
+        - "**/*.tar"
+        - "**/*.gz"
+        - "**/*.bz2"
+        - "**/*.7z"
+        - "**/*.csv"
+        - "**/*.xml"
+        - "**/*.parquet"
+        - "**/*.proto"
+
+    - linters: [trivy]
+      paths:
+        - .trunk/**
+
+    - linters: [trufflehog]
+      paths:
+        - "**/*.parquet"
+
+    # The TOC scrollspy runtime harness (tests/toc_scrollspy_repro) pins
+    # react/react-dom/react-router-dom to the same versions reflex.lock
+    # ships the app with, so its lockfile mirrors reflex.lock's already-
+    # known-vulnerable deps. Those advisories are tracked as existing
+    # issues on reflex.lock; re-scanning the harness copy surfaces them as
+    # new issues on this PR without exercising anything the app ships.
+    - linters: [osv-scanner]
+      paths:
+        - tests/toc_scrollspy_repro/**
+
+  exported_configs:
+    - plugin_id: oss-linter-trunk
+      configs:
+        - configs/.bandit
+        - configs/.clang-format
+        - configs/.clang-tidy
+        - configs/.clangd
+        - configs/.editorconfig
+        - configs/.flake8
+        - configs/.gitattributes
+        - configs/.gitignore
+        - configs/.hadolint.yaml
+        - configs/.isort.cfg
+        - configs/.markdownlint.yaml
+        - configs/.mypy.ini
+        - configs/.pr-labels.yaml
+        - configs/.prettierrc.yaml
+        - configs/.pylintrc
+        - configs/.remarkrc.yaml
+        - configs/.shellcheckrc
+        - configs/.sqlfluff
+        - configs/.stylelintrc.js
+        - configs/.stylelintrc.yaml
+        - configs/.yamlfmt
+        - configs/.yamllint.yaml
+        - configs/ruff.toml
+        - configs/rustfmt.toml
+        - configs/svgo.config.js
+
+actions:
+  enabled:
+    - trunk-cache-prune
+    - trunk-upgrade-available
+
+  disabled:
+    # git-hook-triggered actions disabled so trunk releases core.hooksPath to
+    # Entire (checkpoints). trunk-check-pre-push is redundant with roborev + the
+    # merge queue's required "Lint and type check with Trunk"; git-lfs is unused.
+    - trunk-fmt-pre-commit
+    - git-lfs
+    - trunk-announce
+    - trunk-check-pre-push
+
+merge:
+  # These must be live GitHub status names posted on every PR targeting main.
+  # Re-verify after any pipeline rename:
+  #   gh pr checks <pr-number> --json name --jq '.[].name'
+  # gh pr checks lists check-runs from any app, so it covers pullfrog-approval
+  # too -- on a regular PR and on the queue's draft PR alike.
+  #
+  # The first three are GitHub Actions check-runs (job names) posted by
+  # .github/workflows/trunk-check.yml, tests.yml, and validate-assets.yml.
+  # GitHub Actions posts the same job name for pull_request and push events, so
+  # the queue sees identical names on PRs and on its trunk-merge/** branches.
+  #
+  # pullfrog-approval is Pullfrog's AI review verdict, posted by the Pullfrog
+  # GitHub App on the exact commit it reviews. It is required in two places:
+  # on the GitHub side (ruleset "main - PR requirements" plus classic branch
+  # protection on main, pinned to the Pullfrog app -- gates direct merges and
+  # queue admission) and here, so the queue also waits for a fresh verdict on
+  # the exact state it tests. That works only because the queue tests in
+  # draft-PR mode: trunk-io opens a draft PR from the trunk-merge/** branch,
+  # and pullfrog auto-reviews draft PRs (review.drafts on; the trunk-io app
+  # is not in pullfrog's bot-exclusion list), posting the check on the tested
+  # head. Re-confirm these assumptions on the first real queue run; if an
+  # entry stalls on a missing pullfrog-approval, check draft-PR mode, that
+  # pullfrog is reviewing queue draft PRs, and whether the pullfrog run
+  # failed or was cancelled (a failed run posts no check). Per Pullfrog's
+  # docs the check fails while any Pullfrog feedback is unresolved, and a
+  # failed required status fails the queue test and ejects the PR. Recovery
+  # for a negative verdict: address the feedback, push to the original PR,
+  # resubmit -- the new submission opens a new draft PR, which gets a fresh
+  # verdict. There is no override short of editing this list or the GitHub
+  # rules, and each queue test pays one extra LLM review of the tested state
+  # (typically a few minutes, PR-size dependent).
+  #
+  # Do NOT add path-filtered workflows here (they do not report on every PR and
+  # would deadlock the queue). Same for workflow_run-triggered workflows.
+  #
+  # Entire Gates stays excluded entirely (agent session tracking; not posted on
+  # every PR).
+  required_statuses:
+    - Trunk Check
+    - Tests
+    - Generate & Verify Docs and Social Cards
+    - pullfrog-approval

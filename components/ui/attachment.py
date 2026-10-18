@@ -3,7 +3,8 @@ from typing import Literal
 import reflex as rx
 from reflex.components.component import ComponentNamespace
 
-from ..ui.button import button
+from components.ui.button import button
+
 from .core import cn
 
 AttachmentOrientation = Literal["horizontal", "vertical"]
@@ -206,7 +207,10 @@ def attachment_action(*children, class_name: str = "", **props) -> rx.Component:
 
 
 def attachment_trigger(
-    *children, link: bool = False, class_name: str = "", **props
+    *children,
+    link: bool = False,
+    class_name: str = "",
+    **props,
 ) -> rx.Component:
 
     component_fn = rx.el.a if link else rx.el.button

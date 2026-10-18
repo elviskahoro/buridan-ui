@@ -23,7 +23,8 @@ def test_tooltip_trigger_keeps_default_classes_with_native_render_targets() -> N
 
 def test_tooltip_trigger_merges_custom_class_with_render_target() -> None:
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"), class_name="custom-trigger"
+        render_=rx.el.div("target"),
+        class_name="custom-trigger",
     )
     rendered_props = " ".join(trigger.render()["props"])
 
@@ -33,7 +34,9 @@ def test_tooltip_trigger_merges_custom_class_with_render_target() -> None:
 
 def test_tooltip_trigger_unstyled_omits_default_with_render_target() -> None:
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"), class_name="custom-trigger", unstyled=True
+        render_=rx.el.div("target"),
+        class_name="custom-trigger",
+        unstyled=True,
     )
     rendered_props = " ".join(trigger.render()["props"])
 

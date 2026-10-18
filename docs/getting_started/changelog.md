@@ -51,4 +51,4 @@ In conjunction with the CLI, as the site documentation began to grow, local deve
 
 To solve this another CLI was created called `dev.py`. This interactive CLI lets users choose which and how many pages to load onto the local server, cutting the hot-reload times by a significant amount. 
 
-To learn more about how to use `dev,py`, visit its documentation [here](/getting-started/dev).
+To learn more about how to use `dev.py`, read the [dev.py documentation](/getting-started/dev).

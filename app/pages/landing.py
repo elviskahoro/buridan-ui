@@ -27,7 +27,7 @@ from components.ui.button import button
         rx.el.a(
             button("Build Your Own", hi("ArrowRight02Icon", class_name="size-4")),
             href="/create",
-        )
+        ),
     ],
 )
 def landing_page():
@@ -46,28 +46,7 @@ def landing_page():
         card_ten(),
         card_thirteen(),
         card_three(),
-        class_name=" ".join(
-            [
-                # -> main layout style
-                "max-w-[96rem]",
-                "mx-auto",
-                "columns-[320px]",
-                "px-7",
-                "gap-6",
-                "space-y-6",
-                # -> access inner card children to modify CSS tokens
-                "[&>*]:p-5",
-                "[&>*]:shadow-md",
-                "[&>*]:rounded-[2rem]",
-                "[&>div>div]:gap-y-4",
-                "[&_button]:!rounded-[2rem]",
-                "[&_input]:!rounded-[2rem] [&_div]:!rounded-[2rem]",
-                # -> create masking fade-away at the bottom of the component
-                "sm:mask-[linear-gradient(to_bottom,black_65%,transparent_100%)]",
-                "sm:mask-size-[100%_100%]",
-                "sm:mask-repeat-no-repeat",
-            ]
-        ),
+        class_name="max-w-[96rem] mx-auto columns-[320px] px-7 gap-6 space-y-6 [&>*]:p-5 [&>*]:shadow-md [&>*]:rounded-[2rem] [&>div>div]:gap-y-4 [&_button]:!rounded-[2rem] [&_input]:!rounded-[2rem] [&_div]:!rounded-[2rem] sm:mask-[linear-gradient(to_bottom,black_65%,transparent_100%)] sm:mask-size-[100%_100%] sm:mask-repeat-no-repeat",
     )
 
     landing_mobile = rx.el.div(

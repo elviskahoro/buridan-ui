@@ -185,7 +185,7 @@ rx.recharts.bar(data_key="mobile", fill="#2563eb")
 rx.recharts.bar(data_key="mobile", fill="oklch(0.5 0.2 240)")
 ```
 
-You can also include colors in your data structure and utlize `rx.foreach` for more concise codebase.
+You can also include colors in your data structure and utilize `rx.foreach` for more concise codebase.
 
 ```example_chart.py
 data = [
@@ -219,9 +219,9 @@ Use the following props to customize the tooltip.
 | `is_animation_active` | `bool` | `False` | Whether to animate the tooltip on appearance. |
 | `separator` | `str` | `""` | String placed between the item name and value. |
 | `cursor` | `bool` | `False` | Whether to show the cursor line/highlight on hover. |
-| `item_style` | `dict` | `{}` | Style overrides merged onto each tooltip item row. |
-| `label_style` | `dict` | `{}` | Style overrides merged onto the label element. |
-| `content_style` | `dict` | `{}` | Style overrides merged onto the tooltip container. |
+| `item_style` | `dict \| None` | `None` | Style overrides merged onto each tooltip item row. |
+| `label_style` | `dict \| None` | `None` | Style overrides merged onto the label element. |
+| `content_style` | `dict \| None` | `None` | Style overrides merged onto the tooltip container. |
 
 **chart_tooltip_content()**
 

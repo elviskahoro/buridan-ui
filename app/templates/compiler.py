@@ -186,7 +186,7 @@ def theme_cli_prompt() -> rx.Component:
                             ),
                         ],
                         on_mouse_down=rx.call_function(
-                            is_export_command_copied.set_value(False)
+                            is_export_command_copied.set_value(False),
                         ).debounce(1500),
                     ),
                     class_name="flex flex-row items-center gap-x-4",
@@ -269,7 +269,7 @@ def theme_export_compiler() -> rx.Component:
                     tabs.root(
                         tabs.list(
                             tabs.indicator(
-                                class_name="rounded-lg flex items-center justify-center"
+                                class_name="rounded-lg flex items-center justify-center",
                             ),
                             tabs.tab(
                                 rx.el.p("New Project"),
@@ -380,17 +380,17 @@ def theme_export_compiler() -> rx.Component:
                                                     on_click=[
                                                         rx.call_function(
                                                             is_css_output_copied.set_value(
-                                                                True
-                                                            )
+                                                                True,
+                                                            ),
                                                         ),
                                                         rx.set_clipboard(
-                                                            css_output.value
+                                                            css_output.value,
                                                         ),
                                                     ],
                                                     on_mouse_down=rx.call_function(
                                                         is_css_output_copied.set_value(
-                                                            False
-                                                        )
+                                                            False,
+                                                        ),
                                                     ).debounce(1500),
                                                 ),
                                                 class_name="w-full border-b border-input flex flex-row items-center justify-between",
@@ -451,17 +451,17 @@ def theme_export_compiler() -> rx.Component:
                                                     on_click=[
                                                         rx.call_function(
                                                             is_rxconfig_copied.set_value(
-                                                                True
-                                                            )
+                                                                True,
+                                                            ),
                                                         ),
                                                         rx.set_clipboard(
-                                                            rxconfig
+                                                            rxconfig,
                                                         ),
                                                     ],
                                                     on_mouse_down=rx.call_function(
                                                         is_rxconfig_copied.set_value(
-                                                            False
-                                                        )
+                                                            False,
+                                                        ),
                                                     ).debounce(1500),
                                                 ),
                                                 class_name="w-full border-b border-input flex flex-row items-center justify-between",

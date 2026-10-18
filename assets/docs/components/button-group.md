@@ -228,7 +228,7 @@ def button_group_select() -> rx.Component:
                                         class_name="flex flex-row items-center justify-between",
                                     )
                                     for item in currencies
-                                ]
+                                ],
                             ),
                         ),
                         align="start",
@@ -247,7 +247,7 @@ def button_group_select() -> rx.Component:
                 aria_label="Send",
                 size="icon",
                 variant="outline",
-            )
+            ),
         ),
     )
 ```

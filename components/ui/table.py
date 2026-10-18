@@ -105,8 +105,7 @@ class HighLevelTable(TableRoot):
 
         if columns is None and isinstance(data, list) and len(data) > 0:
             columns = [
-                {"header": k.replace("_", " ").title(), "accessor": k}
-                for k in data[0].keys()
+                {"header": k.replace("_", " ").title(), "accessor": k} for k in data[0]
             ]
         elif columns is None:
             columns = []
@@ -122,7 +121,7 @@ class HighLevelTable(TableRoot):
                     ),
                 )
                 for col in columns
-            ]
+            ],
         )
 
         if isinstance(data, Var):
@@ -169,7 +168,7 @@ class HighLevelTable(TableRoot):
         return super().create(
             TableHeader.create(header_row),
             TableBody.create(
-                body_content if not isinstance(body_content, Var) else body_content
+                body_content,
             ),
             **props,
         )

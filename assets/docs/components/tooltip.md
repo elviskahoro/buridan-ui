@@ -246,7 +246,7 @@ tooltip.root(
 
 ## General
 
-A simple tooltip example. Use the `dealy` prop to change how fast the tootip shows.
+A simple tooltip example. Use the `delay` prop to change how fast the tooltip shows.
 
 ```python
 def tooltip_general():

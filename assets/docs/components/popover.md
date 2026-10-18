@@ -320,8 +320,10 @@ def popover_aligns():
             popover.root(
                 popover.trigger(
                     render_=button(
-                        side.replace("-", " ").title(), variant="outline", size="sm"
-                    )
+                        side.replace("-", " ").title(),
+                        variant="outline",
+                        size="sm",
+                    ),
                 ),
                 popover.portal(
                     popover.backdrop(),
@@ -330,7 +332,7 @@ def popover_aligns():
                             popover.header(
                                 popover.title(f"Align: {side.capitalize()}"),
                                 popover.description(
-                                    "Set the dimensions for the layer."
+                                    "Set the dimensions for the layer.",
                                 ),
                             ),
                         ),

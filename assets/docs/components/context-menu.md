@@ -179,7 +179,10 @@ def context_menu_submenu() -> rx.Component:
                                     ),
                                     context_menu.separator(),
                                     context_menu.group(
-                                        context_menu.item("Delete", variant="destructive"),
+                                        context_menu.item(
+                                            "Delete",
+                                            variant="destructive",
+                                        ),
                                     ),
                                     class_name="shadow-lg",
                                 ),
@@ -353,20 +356,20 @@ def context_menu_checkboxes() -> rx.Component:
                     context_menu.group(
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Bookmarks Bar",
                             default_checked=True,
                         ),
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Full URLs",
                         ),
                         context_menu.checkbox_item(
                             context_menu.checkbox_item_indicator(
-                                hi("Tick02Icon", class_name="size-4")
+                                hi("Tick02Icon", class_name="size-4"),
                             ),
                             "Show Developer Tools",
                             default_checked=True,
@@ -406,14 +409,14 @@ def context_menu_radio() -> rx.Component:
                         context_menu.radio_group(
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Pedro Duarte",
                                 value="pedro",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Colm Tuite",
                                 value="colm",
@@ -428,21 +431,21 @@ def context_menu_radio() -> rx.Component:
                         context_menu.radio_group(
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Light",
                                 value="light",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "Dark",
                                 value="dark",
                             ),
                             context_menu.radio_item(
                                 context_menu.radio_item_indicator(
-                                    hi("CheckIcon", class_name="size-4")
+                                    hi("CheckIcon", class_name="size-4"),
                                 ),
                                 "System",
                                 value="system",

@@ -6,6 +6,7 @@ from pathlib import Path
 import reflex as rx
 from reflex.compiler.utils import compile_imports
 
+from components.icons.hugeicon import hi
 from components.ui import core
 
 ROOT_DIR = Path(__file__).parent.parent
@@ -17,8 +18,7 @@ def test_cn_composes_clsx_and_tailwind_merge_for_all_inputs() -> None:
     result = str(core.cn("p-2", ["p-4", None], ("text-sm",), dynamic_class))
 
     assert result == (
-        '(twMerge((clsx("p-2", ["p-4", null], '
-        '["text-sm"], dynamicClass))))'
+        '(twMerge((clsx("p-2", ["p-4", null], ["text-sm"], dynamicClass))))'
     )
 
 
@@ -31,7 +31,7 @@ def test_cn_registers_named_imports_from_mit_packages() -> None:
 
 def test_frontend_dependencies_use_replacement_packages() -> None:
     package_json = json.loads(
-        (ROOT_DIR / "reflex.lock" / "package.json").read_text(encoding="utf-8")
+        (ROOT_DIR / "reflex.lock" / "package.json").read_text(encoding="utf-8"),
     )
     dependencies = package_json["dependencies"]
 
@@ -48,9 +48,19 @@ def test_cn_imports_declare_explicit_package_roots() -> None:
     assert imports["tailwind-merge@3.7.0"][0].package_path == ""
     compiled_imports = compile_imports(imports)
 
-    assert {"lib": "clsx", "default": "", "rest": ["clsx"]} in (
-        compiled_imports
-    )
+    assert {"lib": "clsx", "default": "", "rest": ["clsx"]} in (compiled_imports)
     assert {"lib": "tailwind-merge", "default": "", "rest": ["twMerge"]} in (
         compiled_imports
     )
+
+
+def test_hugeicon_imports_only_manifest_packages() -> None:
+    """Guard against banned JS packages re-entering via a base class."""
+    imports = hi("home")._get_all_imports()  # noqa: SLF001
+
+    assert set(imports) == {
+        "@hugeicons/core-free-icons@4.2.1",
+        "@hugeicons/react@1.1.6",
+        "clsx@2.1.1",
+        "tailwind-merge@3.7.0",
+    }

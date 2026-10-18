@@ -239,7 +239,7 @@ def bubble_with_variants():
         ),
         bubble.root(
             bubble.content(
-                "This one is muted. It uses a lower emphasis color for the chat bubble."
+                "This one is muted. It uses a lower emphasis color for the chat bubble.",
             ),
             bubble.reactions(
                 rx.el.span("👍"),
@@ -250,7 +250,7 @@ def bubble_with_variants():
         ),
         bubble.root(
             bubble.content(
-                "This one is tinted. The tint is a softer color derived from the primary color."
+                "This one is tinted. The tint is a softer color derived from the primary color.",
             ),
             variant="tinted",
             align="end",
@@ -278,8 +278,8 @@ def bubble_with_variants():
                     This is perfect for assistant messages that should not have a frame and can take the full width of the container. You can also render `code` in it.
 
                     Ghost bubbles are full width and can take the full width of the container.
-                    """
-                )
+                    """,
+                ),
             ),
             variant="ghost",
         ),
@@ -311,14 +311,14 @@ def bubble_alignment_demo():
     return rx.el.div(
         bubble.root(
             bubble.content(
-                "This bubble is aligned to the start. This is the default alignment."
+                "This bubble is aligned to the start. This is the default alignment.",
             ),
             variant="muted",
             align="start",
         ),
         bubble.root(
             bubble.content(
-                "This bubble is aligned to the end. Use this for user messages."
+                "This bubble is aligned to the end. Use this for user messages.",
             ),
             align="end",
         ),
@@ -376,7 +376,7 @@ def bubble_group_demo():
         bubble.root(
             bubble.content(
                 "Want me to diff yesterday's you against today's you? "
-                "It's a bit embarrassing."
+                "It's a bit embarrassing.",
             ),
             variant="muted",
         ),
@@ -404,7 +404,7 @@ def bubble_link_button_demo():
                         "I forgot my password",
                         on_click=rx.toast("You clicked forgot password"),
                         class_name="w-full text-left",
-                    )
+                    ),
                 ),
                 variant="tinted",
                 align="end",
@@ -415,7 +415,7 @@ def bubble_link_button_demo():
                         "I need help with my subscription",
                         on_click=rx.toast("You clicked help with subscription"),
                         class_name="w-full text-left",
-                    )
+                    ),
                 ),
                 variant="tinted",
                 align="end",
@@ -425,10 +425,10 @@ def bubble_link_button_demo():
                     rx.el.button(
                         "Something else. Talk to a human.",
                         on_click=rx.toast(
-                            "You clicked something else. Talk to a human."
+                            "You clicked something else. Talk to a human.",
                         ),
                         class_name="w-full text-left",
-                    )
+                    ),
                 ),
                 variant="tinted",
                 align="end",
@@ -461,7 +461,7 @@ def bubble_reactions_demo():
         ),
         bubble.root(
             bubble.content(
-                "Bold. Fine I'll add some tests. I'll let you know when they're done."
+                "Bold. Fine I'll add some tests. I'll let you know when they're done.",
             ),
             bubble.reactions(
                 rx.el.span("👀"),
@@ -474,7 +474,7 @@ def bubble_reactions_demo():
         ),
         bubble.root(
             bubble.content(
-                "Tests passed on the first try. All 142 of them. Looking good!"
+                "Tests passed on the first try. All 142 of them. Looking good!",
             ),
             bubble.reactions(
                 rx.el.span("🎉"),
@@ -568,7 +568,7 @@ def bubble_tooltip_demo():
                                 hi("Tick02Icon", class_name="size-4"),
                                 variant="ghost",
                                 class_name="w-6 h-6",
-                            )
+                            ),
                         ),
                         tooltip.portal(
                             tooltip.positioner(
@@ -577,11 +577,11 @@ def bubble_tooltip_demo():
                                     tooltip.arrow(),
                                 ),
                                 side="bottom",
-                            )
+                            ),
                         ),
                     ),
                     delay=0,
-                )
+                ),
             ),
             align="end",
         ),
@@ -612,7 +612,7 @@ def bubble_popover_demo():
                             variant="ghost",
                             aria_label="Show error details",
                             class_name="w-6 h-6 aria-expanded:text-destructive",
-                        )
+                        ),
                     ),
                     popover.portal(
                         popover.backdrop(),
@@ -631,7 +631,7 @@ def bubble_popover_demo():
                             ),
                         ),
                     ),
-                )
+                ),
             ),
             variant="destructive",
         ),

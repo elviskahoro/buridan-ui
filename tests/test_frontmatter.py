@@ -37,7 +37,8 @@ def test_parse_frontmatter_order_value(order_value: str, expected: int | str) ->
 
 
 def test_generate_doc_routes_sorts_mixed_order_values_deterministically(
-    tmp_path: Path, monkeypatch: pytest.MonkeyPatch
+    tmp_path: Path,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     from app.utils import routes
 

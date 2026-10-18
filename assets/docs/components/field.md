@@ -171,7 +171,7 @@ class FieldSeparator(elements.Div):
                     *children,
                     data_slot="field-separator-content",
                     class_name="relative mx-auto block w-fit bg-background px-2 text-muted-foreground",
-                )
+                ),
             )
         return super().create(*inner_elements, **props)
 
@@ -333,16 +333,16 @@ def field_demo() -> rx.Component:
                                                     *[
                                                         select.item(
                                                             select.item_text(
-                                                                item["label"]
+                                                                item["label"],
                                                             ),
                                                             select.item_indicator(),
                                                             value=item["value"],
                                                         )
                                                         for item in months
-                                                    ]
-                                                )
-                                            )
-                                        )
+                                                    ],
+                                                ),
+                                            ),
+                                        ),
                                     ),
                                     items=months,
                                     default_value="MM",
@@ -363,16 +363,16 @@ def field_demo() -> rx.Component:
                                                     *[
                                                         select.item(
                                                             select.item_text(
-                                                                item["label"]
+                                                                item["label"],
                                                             ),
                                                             select.item_indicator(),
                                                             value=item["value"],
                                                         )
                                                         for item in years
-                                                    ]
-                                                )
-                                            )
-                                        )
+                                                    ],
+                                                ),
+                                            ),
+                                        ),
                                     ),
                                     items=years,
                                     default_value="YYYY",
@@ -394,7 +394,7 @@ def field_demo() -> rx.Component:
                 field.set(
                     field.legend("Billing Address"),
                     field.description(
-                        "The billing address associated with your payment method"
+                        "The billing address associated with your payment method",
                     ),
                     field.group(
                         field.root(
@@ -409,7 +409,7 @@ def field_demo() -> rx.Component:
                                 class_name="font-normal",
                             ),
                             orientation="horizontal",
-                        )
+                        ),
                     ),
                 ),
                 field.set(
@@ -421,15 +421,15 @@ def field_demo() -> rx.Component:
                                 placeholder="Add any additional comments",
                                 class_name="resize-none",
                             ),
-                        )
-                    )
+                        ),
+                    ),
                 ),
                 field.root(
                     button("Submit", type="submit"),
                     button("Cancel", variant="outline", type="button"),
                     orientation="horizontal",
                 ),
-            )
+            ),
         ),
         class_name="w-full max-w-md my-10",
     )
@@ -484,7 +484,7 @@ Legend element for a `field.set_`. Switch to the `"label"` variant to align with
 
 | Prop | Type | Default |
 | --- | --- | --- |
-| `variant` | `"legend" | "label"` | `"legend"` |
+| `variant` | `"legend" \| "label"` | `"legend"` |
 | `class_name` | `str` |  |
 
 ```python
@@ -515,7 +515,7 @@ The core wrapper for a single field. Provides orientation control, invalid state
 
 | Prop | Type | Default |
 | --- | --- | --- |
-| `orientation` | `"vertical" | "horizontal" | "responsive"` | `"vertical"` |
+| `orientation` | `"vertical" \| "horizontal" \| "responsive"` | `"vertical"` |
 | `class_name` | `str` |  |
 | `data_invalid` | `str` |  |
 

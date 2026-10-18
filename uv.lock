@@ -67,7 +67,6 @@ dev = [
     { name = "pyyaml" },
     { name = "questionary" },
     { name = "reflex" },
-    { name = "reflex-components-internal" },
     { name = "reflex-hosting-cli" },
     { name = "typer" },
 ]
@@ -82,7 +81,6 @@ dev = [
     { name = "pyyaml", specifier = ">=6.0.3" },
     { name = "questionary", specifier = ">=2.1.1" },
     { name = "reflex", specifier = "==0.9.6" },
-    { name = "reflex-components-internal" },
     { name = "reflex-hosting-cli", specifier = ">=0.1.67" },
     { name = "typer", specifier = ">=0.27.2" },
 ]
@@ -818,18 +816,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/71/ec/785dec6e349525596ffe2a0cdc2c866c4dd7586aaffe5a90b4ef72829267/reflex_components_gridjs-0.9.1.tar.gz", hash = "sha256:78f9aa0a63b06dc919b4e7b3cb23764558199aeefd3aa59fa556c6430ead9a64", size = 3226, upload-time = "2026-04-27T20:56:39.165Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c1/08/fac0660cc51a705552e91270c3df39e3a4292ce570e10f64cf39a1bed960/reflex_components_gridjs-0.9.1-py3-none-any.whl", hash = "sha256:02582137af88ce7c3983a3fc494b746cfb9fee5bc69a96ae03027c8a102a4b13", size = 4303, upload-time = "2026-04-27T20:56:40.302Z" },
-]
-
-[[package]]
-name = "reflex-components-internal"
-version = "0.0.14"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "reflex" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/23/bd/689151441ac4f42087f1da17e450986fa5b9f5270d4c2708132517a39e9c/reflex_components_internal-0.0.14.tar.gz", hash = "sha256:d52bab297876b0d74f908576dc3accf7409468d26f6fb77141a0dc0f0e7abdad", size = 101775, upload-time = "2026-06-03T23:13:12.074Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/08/e6/8dd49c1f6bc94d5afebf3c6676b363cabcdc9682aaa6a09e22b1473d104c/reflex_components_internal-0.0.14-py3-none-any.whl", hash = "sha256:2f3a8f4dcfc90737332fd717b1923f31adc3fbb73a25766873d90586286bf3a7", size = 184467, upload-time = "2026-06-03T23:13:10.676Z" },
 ]
 
 [[package]]

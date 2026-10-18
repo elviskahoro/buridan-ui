@@ -26,7 +26,7 @@ ANATOMY = {
         attachment.description(),
     ),
     attachment.actions(
-        attachment.action()
+        attachment.action(),
     ),
 )""",
     "autocomplete": """autocomplete(

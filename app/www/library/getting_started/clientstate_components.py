@@ -39,7 +39,7 @@ def tab_navigation_example():
                 "padding": "0.25rem",
                 "border": f"1.25px dashed {rx.color('gray', 4)}",
             },
-        )
+        ),
     )
 
 
@@ -59,10 +59,10 @@ def toggle_pattern_example():
 def form_state_pattern_example():
     form_state = ClientStateVar.create("form", {})
 
-    return rx.input(
+    return rx.el.input(
         value=form_state.value.get("username", ""),
         on_change=lambda v: form_state.set_value(
-            form_state.value.merge({"username": v})
+            form_state.value.merge({"username": v}),
         ),
     )
 
@@ -72,7 +72,8 @@ def conditional_rendering_pattern_example():
 
     return rx.box(
         rx.button(
-            "Toggle Details", on_click=show_details.set_value(~show_details.value)
+            "Toggle Details",
+            on_click=show_details.set_value(~show_details.value),
         ),
         rx.cond(
             show_details.value,

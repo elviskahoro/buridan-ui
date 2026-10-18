@@ -32,7 +32,9 @@ def linechart_v8():
             rx.recharts.line_chart(
                 chart_tooltip(),
                 rx.recharts.cartesian_grid(
-                    horizontal=True, vertical=False, class_name="opacity-30"
+                    horizontal=True,
+                    vertical=False,
+                    class_name="opacity-30",
                 ),
                 rx.recharts.line(
                     data_key="desktop",
@@ -69,7 +71,7 @@ def linechart_v8():
                     ["Desktop", "Mobile"],
                     lambda device, index: rx.el.div(
                         rx.el.div(
-                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}"
+                            class_name=f"w-3 h-3 rounded-sm bg-chart-{index + 1}",
                         ),
                         rx.el.p(device, class_name="text-sm text-foreground"),
                         class_name="flex flex-row items-center gap-x-2",
@@ -93,7 +95,7 @@ def linechart_v8():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
     )

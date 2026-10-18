@@ -12,15 +12,15 @@ PACKAGE_TAILWIND_MERGE = "tailwind-merge@3.7.0"
 CLSX = Var(
     "clsx",
     _var_data=VarData(
-        imports={PACKAGE_CLSX: ImportVar(tag="clsx", package_path="")}
+        imports={PACKAGE_CLSX: ImportVar(tag="clsx", package_path="")},
     ),
 ).to(FunctionVar)
 TW_MERGE = Var(
     "twMerge",
     _var_data=VarData(
         imports={
-            PACKAGE_TAILWIND_MERGE: ImportVar(tag="twMerge", package_path="")
-        }
+            PACKAGE_TAILWIND_MERGE: ImportVar(tag="twMerge", package_path=""),
+        },
     ),
 ).to(FunctionVar)
 
@@ -31,7 +31,9 @@ class CoreComponent(Component):
 
     @classmethod
     def set_class_name(
-        cls, default_class_name: str | Var[str], props: dict[str, Any]
+        cls,
+        default_class_name: str | Var[str],
+        props: dict[str, Any],
     ) -> None:
         if "render_" in props and not cls._merge_default_classes_with_render:
             return

@@ -25,7 +25,8 @@ from reflex.event import EventHandler, passthrough_event_spec
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 
-from ..icons.hugeicon import hi
+from components.icons.hugeicon import hi
+
 from .core import PACKAGE_NAME, BaseUIComponent, cn
 
 LiteralOrientation = Literal["horizontal", "vertical"]
@@ -253,7 +254,7 @@ def accordion_basic():
                     rx.el.p("- Saturn's rings have fascinated scientists for years."),
                     rx.el.p("- The Mars Rover is studying the planet's surface."),
                     rx.el.p(
-                        "- NASA's Artemis program aims to return humans to the Moon."
+                        "- NASA's Artemis program aims to return humans to the Moon.",
                     ),
                     rx.el.p("- Solar missions help us understand space weather."),
                 ),
@@ -303,7 +304,7 @@ def accordion_disabled() -> rx.Component:
             accordion.panel(
                 "Yes, you can view your complete account history including all "
                 "transactions, plan changes, and support tickets in the Account "
-                "History section of your dashboard."
+                "History section of your dashboard.",
             ),
             value="item-1",
         ),
@@ -311,7 +312,7 @@ def accordion_disabled() -> rx.Component:
             accordion.trigger("Premium feature information"),
             accordion.panel(
                 "This section contains information about premium features. "
-                "Upgrade your plan to access this content."
+                "Upgrade your plan to access this content.",
             ),
             value="item-2",
             disabled=True,
@@ -321,7 +322,7 @@ def accordion_disabled() -> rx.Component:
             accordion.panel(
                 "You can update your email address in your account settings. "
                 "You'll receive a verification email at your new address to "
-                "confirm the change."
+                "confirm the change.",
             ),
             value="item-3",
         ),
@@ -365,7 +366,7 @@ def accordion_card() -> rx.Component:
             card.title("Subscription & Billing"),
             card.description(
                 "Common questions about your account, plans, payments and "
-                "cancellations."
+                "cancellations.",
             ),
         ),
         card.content(

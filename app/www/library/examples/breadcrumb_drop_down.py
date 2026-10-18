@@ -2,7 +2,6 @@ import reflex as rx
 
 from components.icons.hugeicon import hi
 from components.ui.breadcrumb import breadcrumb
-from components.ui.button import button
 from components.ui.menu import menu
 
 
@@ -24,7 +23,7 @@ def breadcrumb_dropdown_demo() -> rx.Component:
                                 class_name="size-4",
                             ),
                             class_name="flex flex-row items-center gap-x-2",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -35,7 +34,7 @@ def breadcrumb_dropdown_demo() -> rx.Component:
                                     menu.item("GitHub"),
                                 ),
                                 align="start",
-                            )
+                            ),
                         ),
                     ),
                 ),
@@ -44,5 +43,5 @@ def breadcrumb_dropdown_demo() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )

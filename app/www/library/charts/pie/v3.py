@@ -58,7 +58,7 @@ def piechart_v3():
                     class_name="grid gap-2",
                 ),
                 class_name="flex w-full items-start gap-2 text-sm",
-            )
+            ),
         ),
         class_name="w-full p-0",
     )

@@ -2,7 +2,7 @@
 Tests to verify that all source markdown files in docs/ have been correctly
 processed into their expected outputs:
   - assets/docs/   → markdown files (underscores → hyphens)
-  - assets/social/ → .webp social cards
+  - assets/social/ → .webp social cards.
 """
 
 import pathlib
@@ -111,7 +111,9 @@ _ui_components_with_install_docs = sorted(
 
 class TestMarkdownGeneration:
     @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_output_file_exists(self, md_file):
         """Every source .md file must have a corresponding generated output file."""
@@ -122,7 +124,9 @@ class TestMarkdownGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_output_file_is_not_empty(self, md_file):
         """Generated markdown files must not be empty."""
@@ -134,7 +138,9 @@ class TestMarkdownGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_no_unresolved_delimiters(self, md_file):
         """
@@ -153,7 +159,9 @@ class TestMarkdownGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_frontmatter_stripped(self, md_file):
         """
@@ -184,7 +192,8 @@ class TestMarkdownGeneration:
         ids=lambda source: source.stem,
     )
     def test_component_manual_installation_matches_component_source(
-        self, component_source
+        self,
+        component_source,
     ):
         """Generated component install snippets stay in sync with their sources."""
         component_doc = expected_ui_component_doc_path(component_source)
@@ -217,12 +226,13 @@ class TestMarkdownGeneration:
 class TestAnatomyGeneration:
     """Anatomy sections must render real fenced code blocks, not swallowed errors."""
 
-    @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(DOCS_DIR))
+    @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),  # pyright: ignore[reportUnknownLambdaType]
     )
-    def test_no_anatomy_error_markers(self, md_file):
-        """
-        Generated markdown must not contain swallowed anatomy error lines.
+    def test_no_anatomy_error_markers(self, md_file: pathlib.Path) -> None:
+        """Generated markdown must not contain swallowed anatomy error lines.
 
         The renderer's broad ``except`` converts a failed anatomy import into an
         inline ``> **Error in anatomy: ...**`` marker. A green build must never
@@ -241,12 +251,16 @@ class TestAnatomyGeneration:
             f"{output.relative_to(ROOT_DIR)}"
         )
 
-    @pytest.mark.parametrize(
-        "md_file", _all_md, ids=lambda f: str(f.relative_to(ROOT_DIR))
+    @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
+        "md_file",
+        _all_md,
+        ids=lambda f: str(f.relative_to(ROOT_DIR)),  # pyright: ignore[reportUnknownLambdaType]
     )
-    def test_anatomy_directives_render_matching_code_blocks(self, md_file):
-        """
-        Each ``--ANATOMY(name)--`` directive in a source doc must render as a
+    def test_anatomy_directives_render_matching_code_blocks(
+        self,
+        md_file: pathlib.Path,
+    ) -> None:
+        """Each ``--ANATOMY(name)--`` directive in a source doc must render as a
         ```` ```python ```` fenced block whose body equals ``ANATOMY[name]``.
 
         Catches both the stale-import regression (block missing) and any drift
@@ -275,6 +289,30 @@ class TestAnatomyGeneration:
                 f"Anatomy block for '{name}' is missing or wrong in "
                 f"{output.relative_to(ROOT_DIR)} -- expected fenced block:\n{fence}"
             )
+
+    @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
+        "component_source",
+        _ui_components_with_install_docs,
+        ids=lambda source: source.stem,  # pyright: ignore[reportUnknownLambdaType]
+    )
+    def test_component_anatomy_rendered(self, component_source: pathlib.Path) -> None:
+        """Component docs with anatomy directives must render blocks correctly."""
+        source_doc = DOCS_DIR / "components" / (component_source.stem + ".md")
+        if not source_doc.is_file():
+            pytest.skip("Component source doc does not exist")
+
+        # Check if this component has an anatomy directive
+        if "--ANATOMY(" not in source_doc.read_text(encoding="utf-8"):
+            pytest.skip("No anatomy directive in component doc")
+
+        component_doc = expected_ui_component_doc_path(component_source)
+        content = component_doc.read_text(encoding="utf-8")
+
+        # Verify there's a Python code block with component structure
+        assert "```python" in content.split("# Anatomy")[1].split("# ")[0], (
+            f"Anatomy code block not properly rendered for {component_source.stem} in "
+            f"{component_doc.relative_to(ROOT_DIR)}"
+        )
 
 
 # ---------------------------------------------------------------------------
@@ -311,7 +349,9 @@ class TestSocialCardGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _md_with_frontmatter, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _md_with_frontmatter,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_doc_social_card_exists(self, md_file):
         """Every docs/ markdown file with frontmatter must have a .webp social card."""
@@ -322,7 +362,9 @@ class TestSocialCardGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _md_with_frontmatter, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _md_with_frontmatter,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_doc_social_card_is_not_empty(self, md_file):
         """Social cards for docs pages must not be zero-byte files."""
@@ -334,7 +376,9 @@ class TestSocialCardGeneration:
         )
 
     @pytest.mark.parametrize(
-        "md_file", _md_with_frontmatter, ids=lambda f: str(f.relative_to(DOCS_DIR))
+        "md_file",
+        _md_with_frontmatter,
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),
     )
     def test_doc_social_card_is_webp(self, md_file):
         """

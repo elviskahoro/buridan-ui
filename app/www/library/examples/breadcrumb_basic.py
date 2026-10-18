@@ -17,5 +17,5 @@ def breadcrumb_basic() -> rx.Component:
             breadcrumb.item(
                 breadcrumb.page("Breadcrumb"),
             ),
-        )
+        ),
     )

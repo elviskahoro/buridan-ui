@@ -45,7 +45,10 @@ def context_menu_submenu() -> rx.Component:
                                     ),
                                     context_menu.separator(),
                                     context_menu.group(
-                                        context_menu.item("Delete", variant="destructive"),
+                                        context_menu.item(
+                                            "Delete",
+                                            variant="destructive",
+                                        ),
                                     ),
                                     class_name="shadow-lg",
                                 ),

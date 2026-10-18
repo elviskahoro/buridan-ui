@@ -1,10 +1,9 @@
 from dataclasses import dataclass
-from typing import List
 
 import reflex as rx
 
-import app.utils.routes as routes
-from app.utils.links import external_link
+from app.utils import routes
+from app.utils.links import external_link, is_external_href
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.select import select
@@ -48,7 +47,7 @@ SIDEBAR_SECTIONS = [
             {
                 "title": "pypi 0.1.19",
                 "url": "https://pypi.org/project/buridan-create/",
-            }
+            },
         ],
     ),
     SidebarSection(title="Resources", routes=routes.RESOURCES_URLS),
@@ -60,8 +59,7 @@ SIDEBAR_SECTIONS = [
 
 def create_menu_item(data: dict):
     """Create a single menu item."""
-
-    if data["title"].startswith("pypi"):
+    if is_external_href(data["url"]):
         link = external_link(
             rx.el.p(data["title"], class_name="cursor-pointer"),
             href=data["url"],
@@ -95,7 +93,7 @@ def create_menu_item(data: dict):
     )
 
 
-def create_sidebar_menu_items(routes: List[dict]):
+def create_sidebar_menu_items(routes: list[dict]):
     """Create menu items from routes."""
     return rx.el.div(
         *[create_menu_item(route) for route in routes],
@@ -157,6 +155,35 @@ def sidebar():
     )
 
 
+def _mobile_menu_link(route: dict[str, str]) -> rx.Component:
+    """Create a single mobile menu link, mirroring ``create_menu_item``'s dispatch."""
+    link_class = "w-full flex flex-row items-center justify-between"
+
+    if is_external_href(route["url"]):
+        return external_link(
+            select.item_text(route["title"]),
+            href=route["url"],
+            text_decoration="none",
+            class_name=link_class,
+        )
+
+    if route["url"] == "llms.txt":
+        return rx.el.a(
+            select.item_text(route["title"]),
+            href=f"/{route['url']}",
+            reload_document=True,
+            text_decoration="none",
+            class_name=link_class,
+        )
+
+    return rx.el.a(
+        select.item_text(route["title"]),
+        to=f"/{route['url']}",
+        text_decoration="none",
+        class_name=link_class,
+    )
+
+
 def mobile_menu():
     from app.templates.navbar import NAV_LIST
 
@@ -176,7 +203,7 @@ def mobile_menu():
         ),
         select.portal(
             select.backdrop(
-                class_name="fixed top-13 inset-x-0 bottom-0 backdrop-blur-[5px] transition-all"
+                class_name="fixed top-13 inset-x-0 bottom-0 backdrop-blur-[5px] transition-all",
             ),
             select.positioner(
                 select.popup(
@@ -201,12 +228,7 @@ def mobile_menu():
                                 select.group_label(section.title),
                                 *[
                                     select.item(
-                                        rx.el.a(
-                                            select.item_text(route["title"]),
-                                            to=f"/{route['url']}",
-                                            text_decoration="none",
-                                            class_name="w-full flex flex-row items-center justify-between",
-                                        ),
+                                        _mobile_menu_link(route),
                                         value=route["title"],
                                     )
                                     for route in section.routes

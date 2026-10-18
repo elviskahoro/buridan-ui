@@ -17,7 +17,7 @@ def input_group_dropdown() -> rx.Component:
                             variant="ghost",
                             aria_label="More",
                             size="icon-xs",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -26,10 +26,10 @@ def input_group_dropdown() -> rx.Component:
                                     menu.item("Settings"),
                                     menu.item("Copy path"),
                                     menu.item("Open location"),
-                                )
+                                ),
                             ),
                             align="end",
-                        )
+                        ),
                     ),
                 ),
                 align="inline-end",
@@ -45,7 +45,7 @@ def input_group_dropdown() -> rx.Component:
                             hi("ChevronDownIcon", class_name="size-3 ml-1 inline"),
                             variant="ghost",
                             class_name="!pr-1.5 text-xs",
-                        )
+                        ),
                     ),
                     menu.portal(
                         menu.positioner(
@@ -54,10 +54,10 @@ def input_group_dropdown() -> rx.Component:
                                     menu.item("Documentation"),
                                     menu.item("Blog Posts"),
                                     menu.item("Changelog"),
-                                )
+                                ),
                             ),
                             align="end",
-                        )
+                        ),
                     ),
                 ),
                 align="inline-end",

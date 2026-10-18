@@ -33,14 +33,13 @@ import json
 from typing import Any, NoReturn
 
 import typer
-from pydantic import ValidationError
-
 from gtm_linear import (
     LinearAPIError,
     LinearClient,
     LinearWorkflow,
     PaginationOrderBy,
 )
+from pydantic import ValidationError
 
 app = typer.Typer(
     help="Fetch Linear issues via the gtm-linear SDK (read-only).",
@@ -163,7 +162,10 @@ def viewer(
         user = linear.get_viewer()
     if as_json:
         typer.echo(
-            json.dumps({"id": user.id, "name": user.name, "email": user.email}, indent=2),
+            json.dumps(
+                {"id": user.id, "name": user.name, "email": user.email},
+                indent=2,
+            ),
         )
     else:
         typer.echo(f"{user.name} <{user.email}>  (id: {user.id})")
@@ -204,7 +206,12 @@ def issues(
         max=MAX_PAGE_SIZE,
         help=f"Max issues to fetch (1-{MAX_PAGE_SIZE}, default 25).",
     ),
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Also print descriptions.",
+    ),
     as_json: bool = typer.Option(
         False,
         "--json",
@@ -270,7 +277,12 @@ def search(
         max=MAX_PAGE_SIZE,
         help=f"Max results (1-{MAX_PAGE_SIZE}, default 10).",
     ),
-    verbose: bool = typer.Option(False, "--verbose", "-v", help="Also print descriptions."),
+    verbose: bool = typer.Option(
+        False,
+        "--verbose",
+        "-v",
+        help="Also print descriptions.",
+    ),
     as_json: bool = typer.Option(
         False,
         "--json",

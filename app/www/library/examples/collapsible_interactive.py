@@ -48,7 +48,8 @@ def collapsible_interactive() -> rx.Component:
                     rx.el.a(
                         hi("Settings01Icon", class_name="size-4 text-muted-foreground"),
                         rx.el.span(
-                            "Security & API Keys", class_name="text-xs font-medium"
+                            "Security & API Keys",
+                            class_name="text-xs font-medium",
                         ),
                         href="#",
                         class_name="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-muted/70 text-foreground/80 transition-colors",
@@ -56,13 +57,14 @@ def collapsible_interactive() -> rx.Component:
                     rx.el.a(
                         hi("Logout01Icon", class_name="size-4 text-destructive/70"),
                         rx.el.span(
-                            "Log Out", class_name="text-xs font-medium text-destructive"
+                            "Log Out",
+                            class_name="text-xs font-medium text-destructive",
                         ),
                         href="#",
                         class_name="flex items-center gap-2.5 px-3 py-2 rounded-lg hover:bg-destructive/10 text-destructive transition-colors",
                     ),
                     class_name="pt-2 px-1 flex flex-col gap-1 border-t border-border/40 mt-1",
-                )
+                ),
             ),
         ),
         class_name="w-full max-w-xs p-2 bg-background border border-input rounded-2xl shadow-xs",

@@ -18,7 +18,8 @@ def styled_tab_trigger(label: str, value: str) -> rx.Component:
         "&[data-state=active]": {
             "border": "none",
             "borderBottom": rx.color_mode_cond(
-                "1.25px solid black", "1.25px solid white"
+                "1.25px solid black",
+                "1.25px solid white",
             ),
             "background": "transparent",
         },
@@ -63,7 +64,7 @@ def create_copy_button(content: str) -> rx.Component:
                 setTimeout(() => {{
                     icon.innerHTML = `{copy_icon_svg}`;
                 }}, 1500);
-            """
+            """,
         ),
     )
 
@@ -137,7 +138,7 @@ def file_codeblock_full(file_path: str, source: str) -> rx.Component:
                             panel.style.webkitMaskImage = 'none';
                             btn.innerText = 'Collapse';
                         }}
-                        """
+                        """,
                     ),
                 ),
                 create_copy_button(content=source),
@@ -249,10 +250,10 @@ def usage_wrapper(import_path: str) -> rx.Component:
 
 
 def cli_and_manual_installation_wrapper(
-    cli_command: str, files: list[tuple[str, str]]
+    cli_command: str,
+    files: list[tuple[str, str]],
 ) -> rx.Component:
     """Tabbed wrapper for CLI and Manual installation instructions."""
-
     tab_list_style = {
         "border": "none",
         "boxShadow": "none",
@@ -348,9 +349,9 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                 "background": color,
                 "flexShrink": "0",
                 "display": "block",
-            }
+            },
         )
-    elif swatch == "line":
+    if swatch == "line":
         return rx.el.span(
             rx.el.span(
                 style={
@@ -359,7 +360,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                     "borderRadius": "50%",
                     "background": color,
                     "display": "block",
-                }
+                },
             ),
             rx.el.span(
                 style={
@@ -368,7 +369,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                     "borderRadius": "50%",
                     "background": color,
                     "display": "block",
-                }
+                },
             ),
             rx.el.span(
                 style={
@@ -377,7 +378,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                     "borderRadius": "50%",
                     "background": color,
                     "display": "block",
-                }
+                },
             ),
             style={"display": "flex", "flexDirection": "column", "gap": "2px"},
         )
@@ -414,7 +415,8 @@ def tooltip_row(
             },
         ),
         rx.el.span(
-            value, style={"fontSize": "13px", "color": "var(--color-text-primary)"}
+            value,
+            style={"fontSize": "13px", "color": "var(--color-text-primary)"},
         ),
     ]
 
@@ -444,7 +446,7 @@ def tooltip_wrapper_demo(
 
     if label:
         children.append(
-            tooltip_label(label, items[0]["color"] if items else "#3B82F6", swatch)
+            tooltip_label(label, items[0]["color"] if items else "#3B82F6", swatch),
         )
 
     for item in items:
@@ -454,7 +456,7 @@ def tooltip_wrapper_demo(
                 value=item["value"],
                 color=item["color"],
                 swatch=swatch,
-            )
+            ),
         )
 
     return rx.el.div(

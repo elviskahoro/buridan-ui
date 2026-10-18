@@ -1,16 +1,16 @@
-#--
+# --
 
-from reflex.components.component import Component
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var, VarData
-from reflex_components_internal.components.component import CoreComponent
+
+from components.ui.core import CoreComponent
 
 REACT_LIBRARY = "@hugeicons/react@1.1.6"
 CORE_ICONS_LIBRARY = "@hugeicons/core-free-icons@4.2.1"
 
 
 class HugeIcon(CoreComponent):
-    #--
+    # --
 
     library = REACT_LIBRARY
     tag = "HugeiconsIcon"
@@ -47,8 +47,8 @@ class HugeIcon(CoreComponent):
     disable_secondary_opacity: Var[bool]
 
     @classmethod
-    def create(cls, *children, **props) -> Component:
-        #--
+    def create(cls, *children, **props) -> "HugeIcon":
+        # --
 
         ##
 
@@ -67,7 +67,7 @@ class HugeIcon(CoreComponent):
                 props[prop] = Var(
                     value,
                     _var_data=VarData(
-                        imports={CORE_ICONS_LIBRARY: [ImportVar(tag=value)]}
+                        imports={CORE_ICONS_LIBRARY: [ImportVar(tag=value)]},
                     ),
                 )
 

@@ -3,8 +3,8 @@ import importlib
 import inspect
 import pathlib
 import re
+from collections.abc import Callable
 from pathlib import Path
-from typing import Callable, Dict, List
 
 import reflex as rx
 
@@ -19,11 +19,11 @@ from app.www.wrapper import (
 )
 
 
-def get_all_dependencies(name: str, registry: Dict) -> List[str]:
+def get_all_dependencies(name: str, registry: dict) -> list[str]:
     """Recursively get all dependencies for a component in correct order."""
     deps = []
 
-    def resolve(comp_name: str):
+    def resolve(comp_name: str) -> None:
         comp = registry.get(comp_name.lower())
         if not comp:
             return
@@ -41,8 +41,10 @@ class DocParser:
     """Minimal markdown parser for Reflex documentation."""
 
     def __init__(
-        self, registry: Dict[str, Callable] = None, dynamic_load_dirs: List[str] = None
-    ):
+        self,
+        registry: dict[str, Callable] | None = None,
+        dynamic_load_dirs: list[str] | None = None,
+    ) -> None:
         self.registry = registry or {}
         root = pathlib.Path(__file__).resolve().parents[2]
         for d in dynamic_load_dirs or []:
@@ -54,14 +56,14 @@ class DocParser:
                 load_dir.relative_to(root)
             except ValueError as exc:
                 raise ValueError(
-                    f"Dynamic load directory {d!r} resolves outside project root {root}"
+                    f"Dynamic load directory {d!r} resolves outside project root {root}",
                 ) from exc
 
             for py in load_dir.rglob("*.py"):
                 if py.name.startswith("__"):
                     continue
                 mod = importlib.import_module(
-                    ".".join(py.relative_to(root).with_suffix("").parts)
+                    ".".join(py.relative_to(root).with_suffix("").parts),
                 )
                 for n, o in inspect.getmembers(mod):
                     if (
@@ -100,9 +102,7 @@ class DocParser:
             # Check if it's a chart-related component
             try:
                 file_path = inspect.getfile(inspect_obj) if inspect_obj else ""
-                is_chart = "charts" in file_path
             except (TypeError, ValueError):
-                is_chart = False
                 file_path = ""
 
             if "tooltip" in cmd:
@@ -126,7 +126,7 @@ class DocParser:
                 all_deps = get_all_dependencies(comp_name, COMPONENT_REGISTRY)
                 if not all_deps:
                     return render_parse_error(
-                        f"Component '{name}' not found in registry"
+                        f"Component '{name}' not found in registry",
                     )
 
                 files_data = []
@@ -146,7 +146,7 @@ class DocParser:
                 import_name = preferred_name
                 module_stem = pathlib.Path(file_path).stem if file_path else "component"
                 return usage_wrapper(
-                    f"from components.ui.{module_stem} import {import_name}"
+                    f"from components.ui.{module_stem} import {import_name}",
                 )
 
             if cmd == "anatomy":
@@ -173,7 +173,7 @@ class DocParser:
         except Exception as e:
             return render_parse_error(f"Error in {cmd}: {e}")
 
-    def parse_and_render(self, content: str) -> List[rx.Component]:
+    def parse_and_render(self, content: str) -> list[rx.Component]:
         res = []
         for s in re.split(r"(--[\w_]+(?:\([^)]+\))?--)", content):
             if m := re.match(r"--([\w_]+)(?:\(([^)]+)\))?--", s):

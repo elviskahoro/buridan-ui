@@ -25,7 +25,12 @@ from reflex_components_core.el import Span
 from .core import CoreComponent, cn
 
 LiteralBadgeVariant = Literal[
-    "default", "secondary", "destructive", "outline", "ghost", "link"
+    "default",
+    "secondary",
+    "destructive",
+    "outline",
+    "ghost",
+    "link",
 ]
 
 DEFAULT_BASE_CLASSES = (
