@@ -30,7 +30,7 @@ from .core import PACKAGE_NAME, BaseUIComponent, cn
 LiteralSide = Literal["top", "right", "bottom", "left", "inline-end", "inline-start"]
 LiteralAlign = Literal["start", "center", "end"]
 LiteralPositionMethod = Literal["absolute", "fixed"]
-LiteralTrackCursorAxis = Literal["none", "bottom", "x", "y"]
+LiteralTrackCursorAxis = Literal["none", "x", "y", "both"]
 
 
 class ClassNames:
