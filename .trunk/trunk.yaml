@@ -280,9 +280,21 @@ lint:
     # known-vulnerable deps. Those advisories are tracked as existing
     # issues on reflex.lock; re-scanning the harness copy surfaces them as
     # new issues on this PR without exercising anything the app ships.
+    #
+    # reflex.lock is also excluded: it's a Reflex-managed frontend lockfile
+    # with CVEs that cannot be directly patched (they require a newer Reflex
+    # version). These are tracked in issue #135 as accepted risks.
     - linters: [osv-scanner]
       paths:
         - tests/toc_scrollspy_repro/**
+        - reflex.lock/**
+
+    # Vendored third-party assets: exclude from security scanning to avoid
+    # noise from unmaintained/static copies of libraries (PrismJS is vendored
+    # in assets/prism and will not receive updates)
+    - linters: [semgrep]
+      paths:
+        - assets/prism/**
 
   exported_configs:
     - plugin_id: oss-linter-trunk

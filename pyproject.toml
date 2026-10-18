@@ -48,6 +48,7 @@ dev = [
 
 [tool.uv]
 prerelease = "allow"
+exclude-newer = "7 days"
 
 [project.scripts]
 buridan = "cli.main:main"
