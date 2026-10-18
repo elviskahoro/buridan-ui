@@ -47,11 +47,13 @@ class InputComponent(BaseInput, CoreComponent):
             if value is not None:
                 value_var = Var.create(value)
                 props["value"] = ternary_operation(
-                    value_var.is_not_none(), value_var, Var.create("")
+                    value_var.is_not_none(),
+                    value_var,
+                    Var.create(""),
                 )
 
             typed_cls = CheckboxInput if input_type == "checkbox" else ValueNumberInput
-            return cast(BaseInput, typed_cls.create(*children, **props))
+            return cast("BaseInput", typed_cls.create(*children, **props))
 
         return super().create(*children, **props)
 
