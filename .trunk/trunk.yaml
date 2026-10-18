@@ -262,6 +262,12 @@ lint:
       paths:
         - tests/toc_scrollspy_repro/**
 
+    # pyrefly cannot resolve pytest in test files when running in isolation
+    # (test dependencies are not in the static analysis environment).
+    - linters: [pyrefly]
+      paths:
+        - tests/**
+
   exported_configs:
     - plugin_id: oss-linter-trunk
       configs:
