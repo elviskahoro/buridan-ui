@@ -1,4 +1,4 @@
-"""Regression tests for the Prism language class wired by ``render_pre``."""
+"""Regression tests for the Prism language class wired by ``render_pre``."""  # noqa: INP001
 
 import json
 import re
@@ -11,6 +11,10 @@ import pytest
 import reflex as rx
 
 from app.www.style import markdown_component_map, render_pre
+
+MIN_CSS_PROPERTIES = 30
+MIN_CSS_ATRULES = 10
+MIN_PYTHON_KEYWORDS = 2
 
 ROOT_DIR = Path(__file__).parent.parent
 PRISM_JS = ROOT_DIR / "assets" / "prism" / "prism.js"
@@ -40,11 +44,12 @@ def _resolve_language_class(language: str) -> str:
         match = re.search(r'"(language-[^"]+)"', rendered[fallback:])
         if match:
             return match.group(1)
-    raise AssertionError(f"no language class resolved for {language!r}")
+    msg = f"no language class resolved for {language!r}"
+    raise AssertionError(msg)
 
 
-@pytest.mark.parametrize(
-    "language, expected",
+@pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
+    ("language", "expected"),
     [
         ("python", "language-python"),
         ("bash", "language-bash"),
@@ -56,12 +61,13 @@ def _resolve_language_class(language: str) -> str:
     ],
 )
 def test_render_pre_wires_prism_class_to_fence_language(
-    language: str, expected: str
+    language: str,
+    expected: str,
 ) -> None:
     assert _resolve_language_class(language) == expected
 
 
-@pytest.mark.parametrize("language", PYTHON_CONTENT_LABELS)
+@pytest.mark.parametrize("language", PYTHON_CONTENT_LABELS)  # pyright: ignore[reportUntypedFunctionDecorator]
 def test_render_pre_filename_and_section_labels_keep_python(language: str) -> None:
     assert _resolve_language_class(language) == "language-python"
 
@@ -93,7 +99,7 @@ def test_markdown_pre_renderer_uses_runtime_language_for_prism_class() -> None:
         "```css\nbody { color: red; }\n```",
         component_map=markdown_component_map,
     )
-    markdown_component = cast(Any, markdown.children[0])
+    markdown_component = cast("Any", markdown.children[0])
     pre_renderer = str(markdown_component.format_component_map()["pre"])
 
     assert "language-(?<lang>.*)" in pre_renderer
@@ -113,13 +119,18 @@ def _run_prism_js(assertion_js: str) -> str:
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js is required to verify the bundled Prism grammars")
+    assert node is not None
     prism_source = PRISM_JS.read_text(encoding="utf-8")
     js = (
         "var global = globalThis;\n"
         "var window = undefined;\n" + prism_source + "\n" + assertion_js
     )
-    result = subprocess.run(
-        [node, "-e", js], check=True, capture_output=True, text=True, timeout=30
+    result = subprocess.run(  # noqa: S603
+        [node, "-e", js],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     return result.stdout
 
@@ -159,8 +170,8 @@ def test_prism_css_grammar_leaves_shimmer_dashes_uncolored() -> None:
     )
     payload = json.loads(_run_prism_js(assertion))
     assert payload["operators"] == 0
-    assert payload["properties"] >= 30
-    assert payload["atrules"] >= 10
+    assert payload["properties"] >= MIN_CSS_PROPERTIES
+    assert payload["atrules"] >= MIN_CSS_ATRULES
 
 
 def test_prism_bash_grammar_leaves_uv_command_dash_uncolored() -> None:
@@ -184,7 +195,7 @@ def test_prism_bundle_preserves_python_grammar() -> None:
         "console.log(JSON.stringify({keywords, numbers}));\n"
     )
     payload = json.loads(_run_prism_js(assertion))
-    assert payload["keywords"] >= 2
+    assert payload["keywords"] >= MIN_PYTHON_KEYWORDS
     assert payload["numbers"] == 1
 
 
@@ -201,8 +212,9 @@ def test_prism_toml_grammar_tokenizes_pyproject_block() -> None:
     assert payload["keys"] >= 1
 
 
-@pytest.mark.parametrize(
-    "language", ["bash", "uv", "css", "assets/globals.css", "toml", "pyproject.toml"]
+@pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
+    "language",
+    ["bash", "uv", "css", "assets/globals.css", "toml", "pyproject.toml"],
 )
 def test_render_pre_only_emits_bundled_prism_classes(language: str) -> None:
     resolved = _resolve_language_class(language)
