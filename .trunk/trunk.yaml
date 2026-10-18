@@ -71,8 +71,10 @@ lint:
         - name: lint
           run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/configs/pyrightconfig.json --outputjson ${target}
       direct_configs:
+        - pyrightconfig.json
         - configs/pyrightconfig.json
       affects_cache:
+        - pyrightconfig.json
         - configs/pyrightconfig.json
         - pyproject.toml
         - setup.cfg
