@@ -1,10 +1,11 @@
 """Regression coverage for the packed theme preset seed format."""
 
 import json
-import os
 import shutil
 import subprocess
 import tempfile
+from pathlib import Path
+from typing import Any, cast
 
 import pytest
 import reflex as rx
@@ -199,7 +200,7 @@ console.log(JSON.stringify({cases, maximumSeed}));
     assert decode_seed(payload["maximumSeed"]) is not None
 
 
-def test_fromSeed_canonicalises_b0_collision_partner() -> None:
+def test_from_seed_canonicalises_b0_collision_partner() -> None:
     # Fails at HEAD: `_fromSeed('caaaoAgaa').__seed` is 'caaaoAgaa'. Passes after
     # the fix: both wrappers assign the canonical 'b0' for the all-default config.
     # This pins the intake canonicalisation that prevents a no-op sidebar action
@@ -207,6 +208,7 @@ def test_fromSeed_canonicalises_b0_collision_partner() -> None:
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js is required to execute the generated seed codecs")
+    assert node is not None  # narrow str | None after pytest.skip for the type checker
 
     js = (
         "const window = globalThis;\n"
@@ -215,8 +217,12 @@ def test_fromSeed_canonicalises_b0_collision_partner() -> None:
         + "const b = _fromSeed('b0', false);\n"
         + "console.log(JSON.stringify({seed_a: a.__seed, seed_b: b.__seed}));\n"
     )
-    result = subprocess.run(
-        [node, "-e", js], check=True, capture_output=True, text=True, timeout=30
+    result = subprocess.run(  # noqa: S603 - node path and js payload are both test-owned
+        [node, "-e", js],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     out = json.loads(result.stdout)
 
@@ -227,13 +233,14 @@ def test_fromSeed_canonicalises_b0_collision_partner() -> None:
     )
 
 
-def test_generateFromSeed_canonicalises_b0_collision_partner() -> None:
+def test_generate_from_seed_canonicalises_b0_collision_partner() -> None:
     # Companion to the wrapper test above, pinning the parallel `generateFromSeed`
     # in `app/engine/seed.py` (the generator invoked by the `popstate` handler).
     # Fails at HEAD (seed_a='caaaoAgaa'); passes after the lockstep fix (both 'b0').
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js is required to execute the generated seed codecs")
+    assert node is not None  # narrow str | None after pytest.skip for the type checker
 
     # Capture the rendered seed_engine() script via an rx.script spy so the
     # test exercises the real rendered output rather than the seed.py wrapper
@@ -245,7 +252,7 @@ def test_generateFromSeed_canonicalises_b0_collision_partner() -> None:
         return s
 
     orig_script = rx.script
-    rx.script = _spy
+    rx.script = cast("Any", _spy)
     try:
         seed_engine()
     finally:
@@ -259,8 +266,12 @@ def test_generateFromSeed_canonicalises_b0_collision_partner() -> None:
         + "const b = window.__generateFromSeed('b0', false);\n"
         + "console.log(JSON.stringify({seed_a: a.__seed, seed_b: b.__seed}));\n"
     )
-    result = subprocess.run(
-        [node, "-e", js], check=True, capture_output=True, text=True, timeout=30
+    result = subprocess.run(  # noqa: S603 - node path and js payload are both test-owned
+        [node, "-e", js],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     out = json.loads(result.stdout)
 
@@ -284,13 +295,13 @@ def test_init_load_then_noop_then_popstate_canonicalises_across_deployed_fstring
     # This variant stubs `_setTheme:()=>{}` (matching the bug report's Evidence §7 harness)
     # so the popstate handler runs to completion even though `_client_state_setTheme` is
     # not a registered ClientStateVar in production. The companion test
-    # `test_..._production_no_setTheme` mirrors the real-app scenario where
+    # `test_..._production_no_set_theme` mirrors the real-app scenario where
     # `_setTheme` is undefined and the popstate handler must reach the
     # canonicalisation lines via the reorder + try/catch guard in the fix.
     _assert_init_load_noop_popstate_contract(stub_set_theme=True)
 
 
-def test_init_load_then_noop_then_popstate_canonicalises_in_production_no_setTheme() -> (
+def test_init_load_then_noop_then_popstate_canonicalises_in_production_no_set_theme() -> (
     None
 ):
     # Production-mirror variant of the integration regression above. The live Reflex
@@ -316,6 +327,7 @@ def _assert_init_load_noop_popstate_contract(*, stub_set_theme: bool) -> None:
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js is required to execute the generated seed codecs")
+    assert node is not None  # narrow str | None after pytest.skip for the type checker
 
     # Capture the rendered url_sync + seed scripts the components actually ship.
     captured: dict[str, list[str]] = {}
@@ -325,13 +337,16 @@ def _assert_init_load_noop_popstate_contract(*, stub_set_theme: bool) -> None:
         captured.setdefault("s", []).append(s)
         return s
 
-    rx.script = spy
+    rx.script = cast("Any", spy)
     try:
         seed_engine()
         url_sync_engine()
     finally:
         rx.script = orig_script
-    assert len(captured["s"]) == 2, "expected one rx.script call per engine"
+    expected_script_count = 2
+    assert len(captured["s"]) == expected_script_count, (
+        "expected one rx.script call per engine"
+    )
     seed_js, url_sync_js = captured["s"]
 
     set_theme_stub = " '_client_state_setTheme':()=>{}," if stub_set_theme else ""
@@ -411,11 +426,15 @@ def _assert_init_load_noop_popstate_contract(*, stub_set_theme: bool) -> None:
         tf.write(js)
     script_path = tf.name
     try:
-        result = subprocess.run(
-            [node, script_path], check=True, capture_output=True, text=True, timeout=30
+        result = subprocess.run(  # noqa: S603 - node path and script are both test-owned
+            [node, script_path],
+            check=True,
+            capture_output=True,
+            text=True,
+            timeout=30,
         )
     finally:
-        os.unlink(script_path)
+        Path(script_path).unlink()
     out = json.loads(result.stdout)
 
     assert out["url_after_init"] == "?preset=b0", (
@@ -457,6 +476,7 @@ def test_b0_is_the_only_encode_after_decode_asymmetry() -> None:
     node = shutil.which("node")
     if not node:
         pytest.skip("Node.js is required to execute the generated seed codecs")
+    assert node is not None  # narrow str | None after pytest.skip for the type checker
 
     js = (
         "const window = globalThis;\n"
@@ -476,8 +496,12 @@ def test_b0_is_the_only_encode_after_decode_asymmetry() -> None:
         + "}\n"
         + "console.log(JSON.stringify(out));\n"
     )
-    result = subprocess.run(
-        [node, "-e", js], check=True, capture_output=True, text=True, timeout=30
+    result = subprocess.run(  # noqa: S603 - node path and js payload are both test-owned
+        [node, "-e", js],
+        check=True,
+        capture_output=True,
+        text=True,
+        timeout=30,
     )
     violations = json.loads(result.stdout)
 
