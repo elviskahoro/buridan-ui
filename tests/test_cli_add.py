@@ -31,7 +31,7 @@ EXPECTED_FILES = ["components/ui/button.py", "components/ui/core.py"]
 def test_cmd_add_copies_each_dependency_file_exactly_once(
     monkeypatch: pytest.MonkeyPatch,
     tmp_path: Path,
-    capsys: pytest.CaptureFixture,
+    capsys: pytest.CaptureFixture[str],
 ) -> None:
     # No theme in assets/globals.css -> the no-theme warning fires. This is the
     # bug report's reproduction against a real project skeleton under tmp_path.
