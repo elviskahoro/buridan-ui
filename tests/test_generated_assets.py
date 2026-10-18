@@ -215,16 +215,16 @@ class TestMarkdownGeneration:
 
 
 class TestAnatomyGeneration:
-    @pytest.mark.parametrize(
+    @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
         "md_file",
         _all_md,
-        ids=lambda f: str(f.relative_to(DOCS_DIR)),
+        ids=lambda f: str(f.relative_to(DOCS_DIR)),  # pyright: ignore[reportUnknownLambdaType]
     )
-    def test_no_anatomy_error_markers(self, md_file):
-        """
-        Generated markdown must contain no swallowed anatomy errors like
-        '> **Error in anatomy:' which indicate the generator failed to load
-        the ANATOMY dict from the correct module.
+    def test_no_anatomy_error_markers(self, md_file: pathlib.Path) -> None:
+        """Generated markdown must contain no swallowed anatomy error markers.
+
+        Markers like '> **Error in anatomy:' indicate the generator failed
+        to load the ANATOMY dict from the correct module.
         """
         output = expected_markdown_output_path(md_file)
         if not output.exists():
@@ -236,15 +236,17 @@ class TestAnatomyGeneration:
             f"This indicates the anatomy generator failed to import ANATOMY correctly."
         )
 
-    @pytest.mark.parametrize(
+    @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
         "component_source",
         _ui_components_with_install_docs,
-        ids=lambda source: source.stem,
+        ids=lambda source: source.stem,  # pyright: ignore[reportUnknownLambdaType]
     )
-    def test_component_anatomy_rendered(self, component_source):
-        """
+    def test_component_anatomy_rendered(self, component_source: pathlib.Path) -> None:
+        """Anatomy directives must render a proper anatomy block.
+
         Component docs with an --ANATOMY(name)-- directive must have the
-        anatomy block properly rendered (not as an error or unresolved delimiter).
+        anatomy block properly rendered, not as an error or an unresolved
+        delimiter.
         """
         component_doc = expected_ui_component_doc_path(component_source)
         if not component_doc.is_file():
