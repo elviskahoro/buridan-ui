@@ -402,7 +402,28 @@ from components.ui.select import Select
 # Anatomy 
 Use the following composition to build a `Select` component.
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+select.root(
+    select.trigger(
+        select.value(),
+        select.icon(),
+    ),
+    select.portal(
+        select.positioner(
+            select.popup(
+                select.group(
+                    select.group_label(),
+                    select.item(
+                        select.item_text(),
+                        select.item_indicator(),
+                    ),
+                ),
+                select.separator(),
+            ),
+        ),
+    ),
+)
+```
 
 
 # Examples

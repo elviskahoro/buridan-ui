@@ -22,7 +22,12 @@ Copy the following code into your app directory.
 Use the following composition to build a `Kbd` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+kbd.group(
+    kbd.root(),
+    kbd.root(),
+)
+```
 
 
 # Examples
