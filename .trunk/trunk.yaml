@@ -79,6 +79,19 @@ lint:
         - pyproject.toml
         - setup.cfg
 
+    # Pyrefly's min-text format emits column ranges as line:col-endline:endcol
+    # when an issue spans multiple lines, and the upstream plugin's parse_regex
+    # has an unanchored [^:]+ path class that swallows newlines in long
+    # messages — together these cause trunk to stat a ~370-char bogus path and
+    # abort with ENAMETOOLONG. Override the regex to (1) exclude newlines from
+    # the path class so multi-line output can't be mis-parsed into a path, and
+    # (2) accept the endline:endcol range form so multi-line findings parse
+    # correctly instead of being silently dropped.
+    - name: pyrefly
+      commands:
+        - name: lint
+          parse_regex: "(?P<severity>\\w+) (?P<path>[^:\\n]+):(?P<line>\\d+):(?P<col>\\d+)(?:-\\d+(?::\\d+)?)?: (?P<message>.*?) \\[(?P<code>[^\\]]+)\\]"
+
     # Vale is scoped exclusively to docs/** (see .vale.ini). There's no
     # first-class "restrict this linter to a directory" field on `enabled`
     # entries, so introduce a custom file type matched by full relative
