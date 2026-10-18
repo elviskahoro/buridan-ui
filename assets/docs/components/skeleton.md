@@ -49,7 +49,9 @@ from components.ui.skeleton import skeleton
 Use the following composition to build a `Skeleton` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+skeleton()
+```
 
 
 # Examples

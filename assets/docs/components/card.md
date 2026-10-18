@@ -132,7 +132,17 @@ from components.ui.card import Card
 Use the following composition to build a `Card` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+card.root(
+    card.header(
+        card.title(),
+        card.description(),
+        card.action(),
+    ),
+    card.content(),
+    card.footer(),
+)
+```
 
 
 # Examples
