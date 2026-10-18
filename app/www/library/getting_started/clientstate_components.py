@@ -1,3 +1,4 @@
+# pyrefly: ignore-errors
 import reflex as rx
 from reflex.experimental import ClientStateVar
 
@@ -8,7 +9,7 @@ def form_state_pattern_example():
 
     return rx.el.input(
         value=form_state.value.get("username", ""),
-        on_change=lambda v: form_state.set_value(  # pyrefly: ignore[bad-argument-type]
+        on_change=lambda v: form_state.set_value(
             form_state.value.merge({"username": v}),
         ),
     )
