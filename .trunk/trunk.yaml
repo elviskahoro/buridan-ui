@@ -57,18 +57,27 @@ lint:
         - name: lint
           enabled: true
 
-    # Pyrefly's min-text format emits column ranges as line:col-endline:endcol
-    # when an issue spans multiple lines, and the upstream plugin's parse_regex
-    # has an unanchored [^:]+ path class that swallows newlines in long
-    # messages — together these cause trunk to stat a ~370-char bogus path and
-    # abort with ENAMETOOLONG. Override the regex to (1) exclude newlines from
-    # the path class so multi-line output can't be mis-parsed into a path, and
-    # (2) accept the endline:endcol range form so multi-line findings parse
-    # correctly instead of being silently dropped.
-    - name: pyrefly
+    # pyright resolves third-party imports through the interpreter it runs
+    # under, but trunk executes linters from a sandboxed tmp dir with `env -i`
+    # (its PATH python has none of the project deps), so the catalog's bare
+    # `pyright --outputjson ${target}` floods `reportMissingImports` on every
+    # `import reflex`. Wire the workspace venv explicitly, mirroring the
+    # pyrefly plugin's --python-interpreter-path pattern; a config-internal
+    # venvPath cannot do this (it resolves against the sandbox, not the
+    # workspace). Keep the project path explicit so Trunk and editor/CLI
+    # discovery share the same root shim.
+    - name: pyright
       commands:
         - name: lint
-          parse_regex: "(?P<severity>\\w+) (?P<path>[^:\\n]+):(?P<line>\\d+):(?P<col>\\d+)(?:-\\d+(?::\\d+)?)?: (?P<message>.*?) \\[(?P<code>[^\\]]+)\\]"
+          run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/pyrightconfig.json --outputjson ${target}
+      direct_configs:
+        - pyrightconfig.json
+        - configs/pyrightconfig.json
+      affects_cache:
+        - pyrightconfig.json
+        - configs/pyrightconfig.json
+        - pyproject.toml
+        - setup.cfg
 
     # Vale is scoped exclusively to docs/** (see .vale.ini). There's no
     # first-class "restrict this linter to a directory" field on `enabled`
@@ -265,6 +274,16 @@ lint:
       paths:
         - "**/*.parquet"
 
+    # The TOC scrollspy runtime harness (tests/toc_scrollspy_repro) pins
+    # react/react-dom/react-router-dom to the same versions reflex.lock
+    # ships the app with, so its lockfile mirrors reflex.lock's already-
+    # known-vulnerable deps. Those advisories are tracked as existing
+    # issues on reflex.lock; re-scanning the harness copy surfaces them as
+    # new issues on this PR without exercising anything the app ships.
+    - linters: [osv-scanner]
+      paths:
+        - tests/toc_scrollspy_repro/**
+
   exported_configs:
     - plugin_id: oss-linter-trunk
       configs:
@@ -290,7 +309,6 @@ lint:
         - configs/.stylelintrc.yaml
         - configs/.yamlfmt
         - configs/.yamllint.yaml
-        - configs/pyrightconfig.json
         - configs/ruff.toml
         - configs/rustfmt.toml
         - configs/svgo.config.js

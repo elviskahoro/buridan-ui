@@ -126,7 +126,11 @@ from components.ui.switch import Switch
 Use the following composition to build a `Switch` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+switch.root(
+    switch.thumb(),
+)
+```
 
 
 # Examples

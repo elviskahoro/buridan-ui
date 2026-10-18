@@ -166,7 +166,17 @@ from components.ui.frame import frame
 Use the following composition to build a `Frame` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+frame.root(
+    frame.panel(
+        frame.header(
+            frame.title(),
+            frame.description(),
+        ),
+        frame.footer(),
+    ),
+)
+```
 
 
 # Examples
