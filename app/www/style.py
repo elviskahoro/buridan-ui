@@ -93,7 +93,11 @@ def render_pre(*children, **props) -> rx.Component:
                         rx.cond(
                             language == "pyproject.toml",
                             "language-toml",
-                            "language-python",
+                            rx.cond(
+                                language == "text",
+                                "language-text",
+                                "language-python",
+                            ),
                         ),
                     ),
                 ),

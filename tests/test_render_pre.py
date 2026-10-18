@@ -58,6 +58,7 @@ def _resolve_language_class(language: str) -> str:
         ("assets/globals.css", "language-css"),
         ("toml", "language-toml"),
         ("pyproject.toml", "language-toml"),
+        ("text", "language-text"),
     ],
 )
 def test_render_pre_wires_prism_class_to_fence_language(
@@ -83,6 +84,8 @@ def test_render_pre_production_var_emits_runtime_language_conditional() -> None:
     assert '"language-css"' in rendered
     assert '=== "toml"' in rendered
     assert '"language-toml"' in rendered
+    assert '=== "text"' in rendered
+    assert '"language-text"' in rendered
     assert '"language-python"' in rendered
     assert 'className:"language-python"' not in rendered
 
@@ -108,9 +111,11 @@ def test_markdown_pre_renderer_uses_runtime_language_for_prism_class() -> None:
     assert '=== "bash"' in pre_renderer
     assert '=== "css"' in pre_renderer
     assert '=== "toml"' in pre_renderer
+    assert '=== "text"' in pre_renderer
     assert '"language-bash"' in pre_renderer
     assert '"language-css"' in pre_renderer
     assert '"language-toml"' in pre_renderer
+    assert '"language-text"' in pre_renderer
     assert '"language-python"' in pre_renderer
     assert 'className:"language-python"' not in pre_renderer
 
@@ -214,7 +219,7 @@ def test_prism_toml_grammar_tokenizes_pyproject_block() -> None:
 
 @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
     "language",
-    ["bash", "uv", "css", "assets/globals.css", "toml", "pyproject.toml"],
+    ["bash", "uv", "css", "assets/globals.css", "toml", "pyproject.toml", "text"],
 )
 def test_render_pre_only_emits_bundled_prism_classes(language: str) -> None:
     resolved = _resolve_language_class(language)
@@ -223,4 +228,5 @@ def test_render_pre_only_emits_bundled_prism_classes(language: str) -> None:
         "language-bash",
         "language-css",
         "language-toml",
+        "language-text",
     }
