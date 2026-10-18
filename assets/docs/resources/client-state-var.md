@@ -53,13 +53,13 @@ while preserving the rest of the client-side state.
 
 
 ```python
-def form_state_pattern_example():
+def form_state_pattern_example() -> rx.Component:
     form_state = ClientStateVar.create("form", {})
 
     return rx.el.input(
-        value=form_state.value.get("username", ""),
-        on_change=lambda v: form_state.set_value(
-            form_state.value.merge({"username": v}),
+        value=form_state.value.get("username", ""),  # type: ignore[missing-attribute, reportAttributeAccessIssue]
+        on_change=lambda v: form_state.set_value(  # type: ignore[bad-argument-type]
+            form_state.value.merge({"username": v}),  # type: ignore[missing-attribute, reportAttributeAccessIssue]
         ),
     )
 ```
