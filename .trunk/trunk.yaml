@@ -64,12 +64,12 @@ lint:
     # `import reflex`. Wire the workspace venv explicitly, mirroring the
     # pyrefly plugin's --python-interpreter-path pattern; a config-internal
     # venvPath cannot do this (it resolves against the sandbox, not the
-    # workspace). Keep the config path explicit because the config lives under
-    # configs/ rather than at the repo root.
+    # workspace). Keep the project path explicit so Trunk and editor/CLI
+    # discovery share the same root shim.
     - name: pyright
       commands:
         - name: lint
-          run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/configs/pyrightconfig.json --outputjson ${target}
+          run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/pyrightconfig.json --outputjson ${target}
       direct_configs:
         - pyrightconfig.json
         - configs/pyrightconfig.json
