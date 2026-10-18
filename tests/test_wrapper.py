@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression guards for the demo preview container in ``demo_wrapper``.
 
 The preview ``class_name`` must use 8px padding on small screens and override
@@ -11,8 +12,6 @@ guard against the malformed ``!<variant>:`` pattern recurring anywhere in the
 wrapper module.
 """
 
-from __future__ import annotations
-
 import re
 import sys
 from pathlib import Path
@@ -21,10 +20,10 @@ from typing import cast
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import reflex as rx
-from reflex.components.component import Component
+import reflex as rx  # noqa: E402
+from reflex.components.component import Component  # noqa: E402
 
-from app.www import wrapper
+from app.www import wrapper  # noqa: E402
 
 WRAPPER_PATH = Path(wrapper.__file__)
 EXPECTED_PREVIEW_CLASS_NAME = (
@@ -42,8 +41,8 @@ _MALFORMED_IMPORTANT_VARIANT = re.compile(r"(?:[\s\"']![a-z][a-z0-9-]*:)")
 def _preview_div(demo: Component) -> Component:
     """Return the live-preview inner div (first child of demo_wrapper)."""
     children = demo.children
-    assert len(children) == 2, "demo_wrapper should render preview + code panel"
-    preview = cast(Component, children[0])
+    assert len(children) == 2, "demo_wrapper should render preview + code panel"  # noqa: PLR2004
+    preview = cast("Component", children[0])
     assert type(preview).__name__ == "Div"
     assert getattr(preview, "tag", None) == "div"
     return preview
