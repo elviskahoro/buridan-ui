@@ -171,7 +171,17 @@ Render the visible message surface inside it with
 Use the following composition to build a `Message` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+message.group(
+    message.root(
+        message.avatar(),
+        message.content(
+            message.header(),
+            message.footer(),
+        ),
+    ),
+)
+```
 
 
 # Examples

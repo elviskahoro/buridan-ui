@@ -406,7 +406,9 @@ from components.ui.heatmap import heatmap
 Use the following composition to build a `Heatmap` component.
 
 
-> **Error in anatomy: No module named 'app.www.anatomy'**
+```python
+heatmap()
+```
 
 
 # Examples

@@ -1,3 +1,5 @@
+from urllib.parse import quote
+
 import reflex as rx
 
 from app.utils.links import external_link, is_external_href
@@ -84,9 +86,11 @@ def _create_markdown_toc_links(url: str, toc_data: list[dict]) -> rx.Component:
 def _create_external_tool_links(url: str):
     """Create links for viewing documentation in external tools."""
     fmt_url = "https://buridan-ui.reflex.run/" + url
-    prompt = f"""I'm looking at this buridan/ui documentation: {fmt_url}.
-    Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.
-    """
+    prompt = " ".join(
+        f"""I'm looking at this buridan/ui documentation: {fmt_url}.
+Help me understand how to use it. Be ready to explain concepts, give examples, or help debug based on it.
+""".split(),
+    )
 
     def external_tool_item(
         icon_light,
@@ -135,19 +139,19 @@ def _create_external_tool_links(url: str):
             icon_light="/svg/openai/ai_light.svg",
             icon_dark="/svg/openai/ai_dark.svg",
             tooltip_content="Open in ChatGPT",
-            href=f"https://chatgpt.com/?q={prompt}",
+            href=f"https://chatgpt.com/?q={quote(prompt, safe='')}",
         ),
         external_tool_item(
             icon_light="/svg/claude/claude_light.svg",
             icon_dark="/svg/claude/claude_dark.svg",
             tooltip_content="Open in Claude",
-            href=f"https://claude.ai/new?q={prompt}",
+            href=f"https://claude.ai/new?q={quote(prompt, safe='')}",
         ),
         external_tool_item(
             icon_light="/svg/reflex/reflex_light.svg",
             icon_dark="/svg/reflex/reflex_dark.svg",
             tooltip_content="Open in Reflex",
-            href=f"https://build.reflex.dev/?prompt={prompt}",
+            href=f"https://build.reflex.dev/?prompt={quote(prompt, safe='')}",
         ),
         rx.el.p("︲", class_name="text-muted-foreground/50 font-thin hidden lg:flex"),
         create_copy_button(url),
@@ -223,7 +227,7 @@ def table_of_content(url: str, toc_data: list[dict]):
                         function setActive(id) {
                             links.forEach(l => l.removeAttribute('data-active'));
                             const active = Array.from(links).find(
-                                link => link.getAttribute('href') === '#' + id
+                                link => link.getAttribute('href').split('#')[1] === id
                             );
                             if (active) active.setAttribute('data-active', 'true');
                         }
