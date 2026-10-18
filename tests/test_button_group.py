@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression tests for ``button_group`` orientation handling.
 
 ``ButtonGroupRoot`` selects a horizontal vs. vertical Tailwind variant from its
@@ -20,13 +21,17 @@ from typing import Literal
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import reflex as rx
-from reflex.vars.base import Var
+import reflex as rx  # noqa: E402
+from reflex.vars.base import Var  # noqa: E402
 
-from components.ui.button_group import ButtonGroupRoot, ClassNames, button_group
+from components.ui.button_group import (  # noqa: E402
+    ButtonGroupRoot,
+    ClassNames,
+    button_group,
+)
 
 
-class _State(rx.State):
+class _State(rx.State):  # pyright: ignore[reportUntypedBaseClass]
     layout: Literal["horizontal", "vertical"] = "vertical"
 
 
