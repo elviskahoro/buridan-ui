@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression tests for the export-dialog Copy button rendered by ``theme_cli_prompt``.
 
 The "Get Code" export dialog in ``app/templates/compiler.py:theme_cli_prompt``
@@ -17,11 +18,12 @@ caused the display/clipboard divergence.
 import re
 import sys
 from pathlib import Path
+from typing import Any
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.templates.compiler import theme_cli_prompt
+from app.templates.compiler import theme_cli_prompt  # noqa: E402
 
 # Literal prefixes — the unique discriminator between the buggy and fixed
 # local-mode clipboard payload.  ``uv run buridan init --preset `` only ever
@@ -40,7 +42,7 @@ PRESET_OPTION_REF = "_client_state_dict_theme_preset_option"
 # ---------------------------------------------------------------------------
 
 
-def _find_by_tag(component, tag):
+def _find_by_tag(component: Any, tag: Any) -> Any:  # noqa: ANN401
     found = []
     if getattr(component, "tag", None) == tag:
         found.append(component)
@@ -49,7 +51,7 @@ def _find_by_tag(component, tag):
     return found
 
 
-def _clipboard_event_expr(button) -> str:
+def _clipboard_event_expr(button: Any) -> str:  # noqa: ANN401
     """Compiled JS for the ``rx.set_clipboard`` on_click event of ``button``."""
     events = button.event_triggers["on_click"].events
     for event in events:
@@ -58,10 +60,10 @@ def _clipboard_event_expr(button) -> str:
             expr = getattr(inner, "_js_expr", None)
             if expr and "clipboard" in expr and "writeText" in expr:
                 return expr
-    raise AssertionError("Copy button has no navigator.clipboard.writeText event")
+    raise AssertionError("Copy button has no navigator.clipboard.writeText event")  # noqa: EM101, TRY003
 
 
-def _ternary_branches(expr: str):
+def _ternary_branches(expr: str) -> tuple[str, str]:
     """Return ``(if_true, if_false)`` substrings of the top-level ``?:`` ternary.
 
     The compiled Reflex ternary takes the form ``((cond) ? (local) : (online))``.
