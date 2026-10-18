@@ -12,4 +12,3 @@ def form_state_pattern_example():
             form_state.value.merge({"username": v}),
         ),
     )
-
