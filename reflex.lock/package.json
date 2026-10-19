@@ -48,6 +48,11 @@
     "vite": "8.3.2"
   },
   "overrides": {
-    "cookie": "1.1.1"
+    "cookie": "1.1.1",
+    "katex": "0.18.2",
+    "postcss-selector-parser": "7.1.6",
+    "socket.io-parser": "4.2.7",
+    "source-map-js": "1.2.2",
+    "ws": "8.21.0"
   }
 }
