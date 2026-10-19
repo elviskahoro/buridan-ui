@@ -8,6 +8,37 @@ We love contributions! Whether you're fixing a bug, adding a new component, or i
 2. Install dependencies using `uv` (recommended) or `pip install -r requirements.txt`.
 3. Run the development server: `reflex run`.
 
+## Frontend dependency security fixes
+
+Reflex 0.10 restores `reflex.lock/package.json` and `reflex.lock/bun.lock`
+when generating `.web`. Keep both files committed together. Put transitive
+security pins in the persisted manifest's `overrides`, then let Bun generate
+the matching lockfile:
+
+```sh
+cd reflex.lock
+bun install --lockfile-only
+bun audit
+```
+
+Use Bun 1.4 or newer, which supports this lockfile format. To verify a fresh
+frontend generation and production build, run from the repository root:
+
+```sh
+REFLEX_WEB_WORKDIR=.web-security-check uv run reflex export --frontend-only --no-zip
+cd .web-security-check
+bun install --frozen-lockfile
+bun audit
+```
+
+Remove `.web-security-check` after verification. Preserve the security overrides
+when updating dependencies: the current pins patch KaTeX, postcss-selector-parser,
+socket.io-parser, source-map-js, and ws. KaTeX, postcss-selector-parser, and ws
+exceed their parents' declared version ranges; check Markdown math rendering,
+Tailwind typography output, and WebSocket connections when changing those
+overrides. Reassess the pins when their parent packages support patched versions
+directly.
+
 ## Adding Components
 
 - New components should be added to `app/base_ui/components/base/`.
