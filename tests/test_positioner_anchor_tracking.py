@@ -8,14 +8,21 @@ Python wrappers must expose the renamed prop so Reflex camelCases it to
 silently dropping it and leaking ``trackAnchor`` onto the rendered DOM.
 """
 
+import re
+import sys
+from pathlib import Path
+
 import pytest
 from reflex.components.component import Component
 
-from components.ui.context_menu import ContextMenuPositioner
-from components.ui.menu import MenuPositioner
-from components.ui.popover import PopoverPositioner
-from components.ui.select import SelectPositioner
-from components.ui.tooltip import TooltipPositioner
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT_DIR))
+
+from components.ui.context_menu import ContextMenuPositioner  # noqa: E402
+from components.ui.menu import MenuPositioner  # noqa: E402
+from components.ui.popover import PopoverPositioner  # noqa: E402
+from components.ui.select import SelectPositioner  # noqa: E402
+from components.ui.tooltip import TooltipPositioner  # noqa: E402
 
 # (class, id). Sorted by id for stable pytest -v output.
 POSITIONERS: list[tuple[type[Component], str]] = [
@@ -131,11 +138,10 @@ def test_all_five_positioner_wrappers_are_covered() -> None:
     ``components/ui`` that passes through anchor-positioning, extend
     ``POSITIONERS`` and the new wrapper's own ``test_<component>.py``.
     """
-    assert {cls for cls, _ in POSITIONERS} == {
-        ContextMenuPositioner,
-        MenuPositioner,
-        PopoverPositioner,
-        SelectPositioner,
-        TooltipPositioner,
-    }
+    ui_dir = ROOT_DIR / "components" / "ui"
+    source_text = "\n".join(
+        path.read_text(encoding="utf-8") for path in ui_dir.glob("*.py")
+    )
+    declared = set(re.findall(r"^class (\w+Positioner)\(", source_text, re.MULTILINE))
+    assert declared == set(POSITIONER_IDS)
     assert len(POSITIONERS) == EXPECTED_POSITIONER_COUNT
