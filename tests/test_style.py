@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression guards for the markdown code-block renderer in ``render_pre``.
 
 ``render_pre`` (the ``"pre"`` entry of ``markdown_component_map``) renders every
@@ -33,15 +34,15 @@ from typing import Any
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import reflex as rx
+import reflex as rx  # noqa: E402
 
-from app.www import wrapper
-from app.www.style import markdown_component_map, render_pre
+from app.www import wrapper  # noqa: E402
+from app.www.style import markdown_component_map, render_pre  # noqa: E402
 
 PRISM_CALL = "Prism.highlightAll()"
 
 
-def _find_codes(component: Any, found: list[Any] | None = None) -> list[Any]:
+def _find_codes(component: Any, found: list[Any] | None = None) -> list[Any]:  # noqa: ANN401
     """Recursively collect every ``<code>`` element in the component tree."""
     if found is None:
         found = []
@@ -52,14 +53,14 @@ def _find_codes(component: Any, found: list[Any] | None = None) -> list[Any]:
     return found
 
 
-def _first_code(component: Any) -> Any:
+def _first_code(component: Any) -> Any:  # noqa: ANN401
     """Return the first ``<code>`` element in the tree, asserting it exists."""
     codes = _find_codes(component)
     assert codes, "expected at least one <code> element in the rendered tree"
     return codes[0]
 
 
-def _on_mount_script(component: Any) -> str:
+def _on_mount_script(component: Any) -> str:  # noqa: ANN401
     """Return the literal JS string of the ``on_mount`` call, asserting one exists.
 
     The wrapper pattern attaches ``on_mount=rx.call_script("Prism.highlightAll()")``,
@@ -118,7 +119,7 @@ def test_render_pre_on_mount_trigger_survives_markdown_compilation() -> None:
     # Reflex-internal compiler hook with no public alias, so access it directly
     # -- this mirrors the bug report's method of searching the built bundle.
     compiled = str(
-        markdown.children[0]._get_custom_code()  # pyright: ignore[reportAttributeAccessIssue]
+        markdown.children[0]._get_custom_code(),  # noqa: SLF001  pyright: ignore[reportAttributeAccessIssue]  pyrefly: ignore[missing-attribute]
     )
 
     assert "useEffect" in compiled, (
