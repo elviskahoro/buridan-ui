@@ -9,6 +9,7 @@ from components.ui.tooltip import (
     ClassNames,
     LiteralTrackCursorAxis,
     TooltipPopup,
+    TooltipProvider,
     TooltipRoot,
     TooltipTrigger,
 )
@@ -145,3 +146,50 @@ def test_tooltip_popup_render_with_var_unstyled_does_not_crash() -> None:
 
     assert "render:" in rendered_props
     assert ClassNames.POPUP not in rendered_props
+
+
+def test_tooltip_root_no_longer_declares_delay_props() -> None:
+    """``TooltipRoot`` must not advertise ``delay``/``close_delay`` as supported props:
+    in ``@base-ui/react@1.6.0`` ``Tooltip.Root`` does not consume them (they live on
+    ``Tooltip.Provider`` and ``Tooltip.Trigger``), so declaring them here is a silent
+    dead API. Regression for the declarations copied onto Root in 355ee6b.
+    """
+    declared = set(TooltipRoot.get_fields().keys())
+
+    assert "delay" not in declared
+    assert "close_delay" not in declared
+
+
+def test_tooltip_trigger_declares_and_forwards_delay_props() -> None:
+    """``Tooltip.Trigger`` in ``@base-ui/react@1.6.0`` accepts ``delay``/``closeDelay``
+    per-trigger (with defaults ``delay ?? OPEN_DELAY`` and ``closeDelay ?? 0``), so
+    exposing them on ``TooltipTrigger`` gives users a working per-trigger timing path
+    to replace the dead Root-level declarations.
+    """
+    declared = set(TooltipTrigger.get_fields().keys())
+
+    assert "delay" in declared
+    assert "close_delay" in declared
+
+    trigger = TooltipTrigger.create(delay=500, close_delay=100)
+    rendered_props = " ".join(trigger.render()["props"])
+
+    assert "delay:500" in rendered_props
+    assert "closeDelay:100" in rendered_props
+
+
+def test_tooltip_provider_still_forwards_delay_props() -> None:
+    """No regression: ``TooltipProvider`` continues to declare and forward
+    ``delay``/``close_delay`` to ``<Tooltip.Provider>``, which is the group-wide
+    timing control in Base UI.
+    """
+    declared = set(TooltipProvider.get_fields().keys())
+
+    assert "delay" in declared
+    assert "close_delay" in declared
+
+    provider = TooltipProvider.create(delay=500, close_delay=100)
+    rendered_props = " ".join(provider.render()["props"])
+
+    assert "delay:500" in rendered_props
+    assert "closeDelay:100" in rendered_props
