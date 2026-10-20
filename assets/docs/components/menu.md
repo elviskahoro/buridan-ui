@@ -193,7 +193,7 @@ class MenuPortal(MenuBaseComponent):
 class MenuPositioner(MenuBaseComponent):
     tag = "Menu.Positioner"
 
-    collision_avoidance: Var[str | dict[str, str]]
+    collision_avoidance: Var[str | dict[str, str] | bool]
 
     align: Var[LiteralAlign]
 

@@ -143,6 +143,30 @@ def test_collision_avoidance_string_form_still_accepted(positioner_cls: type) ->
 
 
 @pytest.mark.parametrize(
+    "positioner_cls",
+    [MenuPositioner],
+    ids=lambda cls: cls.__name__,
+)
+def test_collision_avoidance_bool_form_still_accepted_on_menu(
+    positioner_cls: type,
+) -> None:
+    """``MenuPositioner`` previously typed ``collision_avoidance`` as
+    ``Var[bool | LiteralCollisionAvoidance]``, so ``collision_avoidance=True``
+    compiled. The widened ``Var[str | dict[str, str]]`` form would have rejected
+    that caller with a ``TypeError``; restoring ``bool`` to the union keeps the
+    pre-fix ``True`` form accepted (it remains a dead prop at runtime, like any
+    bare non-object value, but it must not raise at component-creation time).
+    """
+    component = positioner_cls.create(collision_avoidance=True)
+    rendered_props = " ".join(component.render()["props"])
+
+    # The bool is forwarded as a literal (lowercased by the serializer) rather
+    # than raising a TypeError, matching the pre-fix behavior where
+    # ``Var[bool | ...]`` accepted it.
+    assert "collisionAvoidance:true" in rendered_props
+
+
+@pytest.mark.parametrize(
     "module_name",
     ["components.ui.context_menu", "components.ui.menu"],
     ids=lambda name: name.split(".")[-1],
