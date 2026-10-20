@@ -1,3 +1,4 @@
+# ruff: noqa: INP001, S603, SLF001
 """Regression coverage for the popstate handler in ``app/engine/url_sync.py``.
 
 Background: commit cf1a044 ("engine: offload reflex logic to client side")
@@ -32,7 +33,7 @@ def _url_sync_js() -> str:
     ``seed_engine()``: the ``rx.script`` wraps a single ``Bare`` child whose
     ``contents`` Var holds the script source.
     """
-    return url_sync_engine().children[0].children[0].contents._var_value
+    return url_sync_engine().children[0].children[0].contents._var_value  # type: ignore[attr-defined, missing-attribute]
 
 
 def _popstate_block(js: str) -> str:
@@ -167,7 +168,7 @@ def test_url_sync_apply_theme_to_dom_matches_actions_apply_to_root_logic() -> No
     prevents the two implementations from silently diverging again (which is
     what happened to the popstate handler in cf1a044).
     """
-    from app.engine.actions import _engine_js
+    from app.engine.actions import _engine_js  # type: ignore[private-attr]
 
     actions_block_match = re.search(
         r"function _applyToRoot\(config\)\s*\{(.*?)\}",
