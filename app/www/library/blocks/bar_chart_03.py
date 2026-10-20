@@ -68,17 +68,21 @@ def _chart(show_y_axis: bool) -> rx.Component:
             custom_attrs={"fontSize": "11px"},
             hide=not show_y_axis,
         ),
-        rx.recharts.bar(
-            data_key="Running",
-            fill="var(--chart-2)",
-            is_animation_active=False,
-            class_name=rx.cond(ShowRunning.value, "opacity-100", "opacity-50").to(str),
+        rx.cond(
+            ShowRunning.value,
+            rx.recharts.bar(
+                data_key="Running",
+                fill="var(--chart-2)",
+                is_animation_active=False,
+            ),
         ),
-        rx.recharts.bar(
-            data_key="Cycling",
-            fill="var(--chart-3)",
-            is_animation_active=False,
-            class_name=rx.cond(ShowCycling.value, "opacity-100", "opacity-50").to(str),
+        rx.cond(
+            ShowCycling.value,
+            rx.recharts.bar(
+                data_key="Cycling",
+                fill="var(--chart-3)",
+                is_animation_active=False,
+            ),
         ),
         data=data,
         width="100%",
