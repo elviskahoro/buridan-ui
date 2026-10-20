@@ -159,7 +159,7 @@ class TooltipPositioner(TooltipBaseComponent):
 
     position_method: Var[LiteralPositionMethod]
 
-    track_anchor: Var[bool]
+    disable_anchor_tracking: Var[bool]
 
     collision_avoidance: Var[str | dict[str, str]]
 

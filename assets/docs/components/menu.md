@@ -212,7 +212,7 @@ class MenuPositioner(MenuBaseComponent):
 
     sticky: Var[bool]
 
-    track_anchor: Var[bool]
+    disable_anchor_tracking: Var[bool]
 
     position_method: Var[LiteralPositionMethod]
 

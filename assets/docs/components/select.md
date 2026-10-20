@@ -169,7 +169,7 @@ class SelectPositioner(SelectBaseComponent):
 
     align_item_with_trigger: Var[bool] = Var.create(False)
 
-    track_anchor: Var[bool]
+    disable_anchor_tracking: Var[bool]
 
     side_offset: Var[int]
 
