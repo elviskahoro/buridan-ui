@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression coverage for the BuridanHeatmap day-range generation.
 
 The heatmap component in ``components/ui/heatmap.py`` embeds an inline JS
@@ -203,7 +204,7 @@ def test_get_all_days_renders_full_multi_year_range() -> None:
     assert node is not None
 
     js = _RUNTIME_HARNESS.replace("__GET_ALL_DAYS_SRC__", _get_all_days_source())
-    result = subprocess.run(
+    result = subprocess.run(  # noqa: S603
         [node, "-e", js],
         capture_output=True,
         text=True,
