@@ -75,7 +75,12 @@ class _ChartTooltip:
 
 
 class _ChartTooltipContent:
-    def __call__(self, chart_colors: list[int], swatch: Swatch = "square") -> str:
+    def __call__(
+        self,
+        chart_colors: list[int],
+        swatch: Swatch = "square",
+        series_names: list[str] | None = None,
+    ) -> str:
         base = """
             [&_.recharts-tooltip-item-name]:!text-muted-foreground
             [&_.recharts-tooltip-item-separator]:!w-full
@@ -96,8 +101,23 @@ class _ChartTooltipContent:
             """
             return base
 
+        if series_names is None:
+            name_sorted_colors = chart_colors
+        else:
+            if len(series_names) != len(chart_colors):
+                raise ValueError(
+                    "series_names must match chart_colors in length: "
+                    f"{len(series_names)} names vs {len(chart_colors)} colors"
+                )
+            name_sorted_colors = [
+                color
+                for _, color in sorted(
+                    zip(series_names, chart_colors), key=lambda pair: pair[0]
+                )
+            ]
+
         lines = []
-        for i, color_idx in enumerate(chart_colors, 1):
+        for i, color_idx in enumerate(name_sorted_colors, 1):
             if swatch == "line":
                 lines.append(f"""
                     [&_.recharts-tooltip-item:nth-child({i})]:before:!content-['']
@@ -377,7 +397,10 @@ def areachart_v4():
                 class_name="flex w-full items-start gap-2 text-sm",
             ),
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["desktop", "mobile"]
+        )
+        + " w-full p-0",
     )
 ```
 
@@ -505,7 +528,10 @@ def areachart_v5():
             ),
             class_name="flex flex-col items-center",
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["desktop", "mobile"]
+        )
+        + " w-full p-0",
     )
 ```
 
@@ -575,7 +601,10 @@ def areachart_v6():
                 class_name="flex w-full items-start gap-2 text-sm",
             ),
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["mobile", "desktop"]
+        )
+        + " w-full p-0",
     )
 ```
 
@@ -652,7 +681,10 @@ def areachart_v7():
                 class_name="flex w-full items-start gap-2 text-sm",
             ),
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["mobile", "desktop"]
+        )
+        + " w-full p-0",
     )
 ```
 
@@ -766,7 +798,10 @@ def areachart_v8():
                 class_name="flex w-full items-start gap-2 text-sm",
             ),
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["desktop", "mobile"]
+        )
+        + " w-full p-0",
     )
 ```
 
@@ -951,7 +986,10 @@ def areachart_v10():
                 class_name="flex w-full items-start gap-2 text-sm",
             ),
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2], "square", series_names=["mobile", "desktop"]
+        )
+        + " w-full p-0",
     )
 ```
 
