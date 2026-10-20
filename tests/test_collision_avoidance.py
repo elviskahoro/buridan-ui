@@ -18,9 +18,11 @@ Before the fix:
   also rejected the object form.
 - ``TooltipPositioner`` already used ``Var[str | dict[str, str]]``.
 
-The fix widens all four broken positioners to ``Var[str | dict[str, str]]`` and
-removes the dead ``LiteralCollisionAvoidance`` alias from ``context_menu`` and
-``menu``. These tests pin that contract across all five positioner wrappers
+The fix widens all four broken positioners to ``Var[str | dict[str, str]]``
+(and restores ``bool`` to ``MenuPositioner``'s union, since it previously
+accepted ``Var[bool | LiteralCollisionAvoidance]``) and removes the dead
+``LiteralCollisionAvoidance`` alias from ``context_menu`` and ``menu``. These
+tests pin that contract across all five positioner wrappers
 (``TooltipPositioner`` is included as the canonical reference).
 """
 
@@ -185,5 +187,6 @@ def test_literal_collision_avoidance_alias_removed(module_name: str) -> None:
 
     assert not hasattr(module, "LiteralCollisionAvoidance"), (
         f"{module_name} should no longer define the dead LiteralCollisionAvoidance "
-        "alias; collision_avoidance is now typed as Var[str | dict[str, str]] ."
+        "alias; collision_avoidance is now typed as "
+        "Var[str | dict[str, str]] (with bool also accepted on MenuPositioner) ."
     )
