@@ -7,15 +7,11 @@ Edit the corresponding file in app/anatomy_src/ instead, then re-run the script.
 ANATOMY = {
     "accordion": """accordion.root(
     accordion.item(
-        accordion.header(
-            accordion.trigger(),
-        ),
+        accordion.trigger(),
         accordion.panel(),
     ),
     accordion.item(
-        accordion.header(
-            accordion.trigger(),
-        ),
+        accordion.trigger(),
         accordion.panel(),
     ),
 )""",
