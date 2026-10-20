@@ -4,7 +4,7 @@ from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var
 from reflex_components_core.el import Div, Span
 
-from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent, cn
+from .core import PACKAGE_NAME, BaseUIComponent, CoreComponent
 
 
 class ClassNames:
@@ -30,16 +30,12 @@ class AvatarRoot(AvatarBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        custom_classes = props.pop("class_name", "")
         size = props.pop("size", "default")
         props["data-slot"] = "avatar"
         props["data-size"] = size
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.ROOT, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.ROOT, props)
+        return super().create(*children, **props)
 
 
 class AvatarImage(AvatarBaseComponent):
@@ -50,14 +46,10 @@ class AvatarImage(AvatarBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        custom_classes = props.pop("class_name", "")
         props["data-slot"] = "avatar-image"
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.IMAGE, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.IMAGE, props)
+        return super().create(*children, **props)
 
 
 class AvatarFallback(AvatarBaseComponent):
@@ -67,53 +59,37 @@ class AvatarFallback(AvatarBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
-        custom_classes = props.pop("class_name", "")
         props["data-slot"] = "avatar-fallback"
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.FALLBACK, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.FALLBACK, props)
+        return super().create(*children, **props)
 
 
 class AvatarBadge(Span, CoreComponent):
     @classmethod
     def create(cls, *children, **props) -> Span:
-        custom_classes = props.pop("class_name", "")
         props["data-slot"] = "avatar-badge"
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.BADGE, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.BADGE, props)
+        return super().create(*children, **props)
 
 
 class AvatarGroup(Div, CoreComponent):
     @classmethod
     def create(cls, *children, **props) -> Div:
-        custom_classes = props.pop("class_name", "")
         props["data-slot"] = "avatar-group"
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.GROUP, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.GROUP, props)
+        return super().create(*children, **props)
 
 
 class AvatarGroupCount(Div, CoreComponent):
     @classmethod
     def create(cls, *children, **props) -> Div:
-        custom_classes = props.pop("class_name", "")
         props["data-slot"] = "avatar-group-count"
 
-        return super().create(
-            *children,
-            class_name=cn(ClassNames.GROUP_COUNT, custom_classes),
-            **props,
-        )
+        cls.set_class_name(ClassNames.GROUP_COUNT, props)
+        return super().create(*children, **props)
 
 
 class Avatar(ComponentNamespace):
