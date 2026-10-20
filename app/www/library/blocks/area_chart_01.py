@@ -118,7 +118,9 @@ def area_chart_01():
         ),
         size="sm",
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["Actual costs", "Potential costs"],
+            [1, 2],
+            "square",
+            series_names=["Actual costs", "Potential costs"],
         )
         + " w-full p-4 !ring-0",
     )

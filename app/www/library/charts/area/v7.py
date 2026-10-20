@@ -82,7 +82,9 @@ def areachart_v7():
             ),
         ),
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["mobile", "desktop"],
+            [1, 2],
+            "square",
+            series_names=["mobile", "desktop"],
         )
         + " w-full p-0",
     )
