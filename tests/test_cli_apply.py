@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression coverage for ``buridan apply`` (``cmd_apply``) theme rewriting.
 
 The replace path — re-applying a preset over a file that already contains a
