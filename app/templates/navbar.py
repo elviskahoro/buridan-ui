@@ -127,7 +127,7 @@ def navbar(with_create_page_cta: bool = False) -> rx.Component:
                 ],
                 class_name="hidden md:flex flex-row items-center text-foreground",
             ),
-            rx.el.div(mobile_menu(), class_name="flex md:hidden"),
+            rx.el.div(mobile_menu(), class_name="flex lg:hidden"),
             rx.el.div(*actions, class_name="flex flex-row gap-x-2 items-center"),
             class_name="w-full max-w-[96rem] mx-auto flex flex-row items-center justify-between px-2 md:px-7",
         ),
