@@ -14,7 +14,7 @@ These tests pin the invariants that are easy to silently regress:
   on re-apply,
 - ``cmd_apply`` leaves the shimmer/scrollbar utility ``@theme inline`` blocks
   added by ``cmd_init`` untouched.
-"""
+"""  # noqa: INP001
 
 from __future__ import annotations
 
@@ -50,7 +50,7 @@ def project_dir(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> Path:
     return tmp_path
 
 
-@pytest.mark.parametrize("var,value", sorted(EXPECTED_RADIUS_VARS.items()))
+@pytest.mark.parametrize(("var", "value"), sorted(EXPECTED_RADIUS_VARS.items()))
 def test_generate_theme_css_emits_each_derived_radius(var: str, value: str) -> None:
     css = generate_theme_css("b0")
     assert f"{var}: {value};" in css, f"missing derived radius var {var}"
@@ -58,18 +58,20 @@ def test_generate_theme_css_emits_each_derived_radius(var: str, value: str) -> N
 
 def test_generate_theme_css_emits_root_and_dark_blocks_unchanged() -> None:
     """The fix must not disturb the existing :root / .dark block shape, and
-    the base --radius must still be emitted in both."""
+    the base --radius must still be emitted in both.
+    """
     css = generate_theme_css("b0")
     assert css.startswith(":root {")
     assert "\n.dark {" in css
-    assert css.count("--radius: 0.625rem;") == 2  # one in :root, one in .dark
+    assert css.count("--radius: 0.625rem;") == 2  # noqa: PLR2004
     assert css.count("@theme inline {") == 1
 
 
 def test_generate_theme_css_radius_scale_matches_repo_globals_css() -> None:
     """The CLI-emitted radius block must stay byte-equivalent (modulo
     whitespace) to the hand-authored one in assets/globals.css so generated
-    projects match the in-repo demo."""
+    projects match the in-repo demo.
+    """
     repo_css = REPO_GLOBALS_CSS.read_text(encoding="utf-8")
     m = re.search(r"@theme inline \{[^@]*?--radius-4xl[^\n]*\n\}", repo_css)
     assert m is not None, "repo assets/globals.css no longer has a radius scale block"
@@ -102,21 +104,22 @@ def test_cmd_apply_is_idempotent_for_radius_scale(project_dir: Path) -> None:
 def test_cmd_apply_preserves_utility_theme_inline_blocks(project_dir: Path) -> None:
     """shimmer/scrollbar utilities define their own @theme inline keyframe
     blocks; cmd_apply must not corrupt or duplicate them, and re-applying a
-    preset must not accumulate extra radius blocks alongside them."""
+    preset must not accumulate extra radius blocks alongside them.
+    """
     cmd_init()
     after_init = (project_dir / "assets" / "globals.css").read_text(encoding="utf-8")
-    assert after_init.count("@theme inline {") >= 2  # shimmer + scrollbar keyframes
+    assert after_init.count("@theme inline {") >= 2  # noqa: PLR2004
 
     cmd_apply("b0")
     after_apply = (project_dir / "assets" / "globals.css").read_text(encoding="utf-8")
-    assert after_apply.count("@theme inline {") == 3  # 2 utility + 1 radius scale
+    assert after_apply.count("@theme inline {") == 3  # noqa: PLR2004
     assert after_apply.count("--radius-sm") == 1
     assert "tw-shimmer" in after_apply
     assert "scroll-fade-reveal-t" in after_apply
 
     cmd_apply("b0")
     after_reapply = (project_dir / "assets" / "globals.css").read_text(encoding="utf-8")
-    assert after_reapply.count("@theme inline {") == 3
+    assert after_reapply.count("@theme inline {") == 3  # noqa: PLR2004
     assert after_reapply.count("--radius-sm") == 1
     assert "tw-shimmer" in after_reapply
     assert "scroll-fade-reveal-t" in after_reapply
