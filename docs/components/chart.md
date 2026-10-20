@@ -124,7 +124,7 @@ rx.recharts.bar_chart(
 )
 ```
 
->**Note:** Recharts sorts tooltip rows alphabetically by series name (`itemSorter: 'name'`) before rendering, so the tooltip's DOM order is name order — not declaration order. Pass `series_names` (one per entry in `chart_colors`, i.e. the `data_key` whose stroke/fill is `var(--chart-{n})`) so each swatch is mapped to the row recharts actually renders it on. When omitted, swatches are assigned in `chart_colors` order, which is only correct when your series names are already alphabetically ordered.
+>**Note:** Recharts sorts tooltip rows alphabetically by series name (`itemSorter: 'name'`) before rendering, so the tooltip's DOM order is name order — not declaration order. Pass `series_names` (one per entry in `chart_colors`, i.e. the name recharts renders on that row — the series' `name` prop if set, else its `data_key` — whose stroke/fill is `var(--chart-{n})`) so each swatch is mapped to the row recharts actually renders it on. When omitted, swatches are assigned in `chart_colors` order, which is only correct when your series names are already alphabetically ordered. This position-based mapping assumes every series renders on every row: with sparse data, recharts' default `filter_null` drops null-valued series from the tooltip, the remaining rows shift up, and the `nth-child` swatches can't follow them — so pass complete data or disable `filter_null` in that case.
 
 --DEMO(chart_example_with_custom_tooltip)--
 
@@ -231,6 +231,6 @@ Use the following props to customize the tooltip.
 | :--- | :--- | :--- | :--- |
 | `chart_colors` | `list[int]` | — | The `--chart-{n}` index of each series, in declaration order. Must match the number of `rx.recharts.bar` / `line` / `area` components. |
 | `swatch` | `"square" \| "line" \| "border"` | `"square"` | Indicator style per item. `square` = small filled box, `line` = wide pill, `border` = left accent line per series using `--chart-{i}`. |
-| `series_names` | `list[str] \| None` | `None` | The `data_key` of each series, in the same order as `chart_colors` (i.e. `series_names[i]` is the series whose stroke/fill is `var(--chart-{chart_colors[i]})`). Used to map each swatch to the recharts-rendered tooltip row, since Recharts sorts tooltip items by name. When `None`, swatches are assigned in `chart_colors` order (legacy — only correct when names are alphabetically ordered the same way). |
+| `series_names` | `list[str] \| None` | `None` | The name recharts renders on each series' tooltip row (the series' `name` prop if set, else its `data_key`), in the same order as `chart_colors` (i.e. `series_names[i]` is the series whose stroke/fill is `var(--chart-{chart_colors[i]})`). Used to map each swatch to the recharts-rendered tooltip row, since Recharts sorts tooltip items by name. When `None`, swatches are assigned in `chart_colors` order (legacy — only correct when names are alphabetically ordered the same way). |
 
 >**chart_tooltip_content()** returns a string of Tailwind classes and must be passed to the **chart component's** class_name, not to **chart_tooltip()**.
