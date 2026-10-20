@@ -99,6 +99,7 @@ def render_pre(*children, **props) -> rx.Component:
                             "display": "block",
                         },
                         class_name="language-python",
+                        on_mount=rx.call_script("Prism.highlightAll()"),
                     ),
                 ),
                 class_name="overflow-x-auto overflow-y-auto scrollbar-none flex-1 min-h-0 pr-[1rem]",
