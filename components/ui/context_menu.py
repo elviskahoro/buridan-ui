@@ -14,7 +14,6 @@ LiteralMenuOrientation = Literal["vertical", "horizontal"]
 LiteralSide = Literal["top", "right", "bottom", "left"]
 LiteralAlign = Literal["start", "center", "end"]
 LiteralPositionMethod = Literal["absolute", "fixed"]
-LiteralCollisionAvoidance = Literal["flip", "shift", "auto"]
 
 
 class ClassNames:
@@ -97,7 +96,7 @@ class ContextMenuPortal(ContextMenuBaseComponent):
 class ContextMenuPositioner(ContextMenuBaseComponent):
     tag = "ContextMenu.Positioner"
 
-    collision_avoidance: Var[LiteralCollisionAvoidance]
+    collision_avoidance: Var[str | dict[str, str]]
     align: Var[LiteralAlign]
     align_offset: Var[int]
     side: Var[LiteralSide]

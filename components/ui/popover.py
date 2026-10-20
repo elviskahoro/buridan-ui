@@ -119,7 +119,7 @@ class PopoverPositioner(PopoverBaseComponent):
 
     track_anchor: Var[bool]
 
-    collision_avoidance: Var[str]
+    collision_avoidance: Var[str | dict[str, str]]
 
     render_: Var[Component]
 
