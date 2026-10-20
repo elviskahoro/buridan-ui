@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression test for the pie-chart "Hovering Labels" demo (piechart_v2).
 
 The docs page (`docs/charts/pie_chart.md`) advertises a "Hovering Labels" section that
@@ -24,7 +25,8 @@ def _find_by_tag(component: rx.Component, tag: str) -> rx.Component:
             for child in getattr(current, "children", ())
             if hasattr(child, "children")
         )
-    raise AssertionError(f"Component tree does not contain a {tag!r} node")
+    msg = f"Component tree does not contain a {tag!r} node"
+    raise AssertionError(msg)
 
 
 def test_piechart_v2_renders_a_hover_tooltip() -> None:
