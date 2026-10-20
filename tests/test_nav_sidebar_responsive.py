@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression guards for docs-navigation visibility across viewport widths.
 
 On documentation pages the docs sidebar (``sidebar()``) is the primary browse
@@ -9,7 +10,7 @@ there is no third affordance for browsing the docs structure.
 Commit ``6500d1e`` ("add mobile navigation") introduced ``mobile_menu()`` with
 a ``flex md:hidden`` wrapper while the sidebar stayed at ``hidden lg:flex``.
 Tailwind's ``md`` (768px) and ``lg`` (1024px) breakpoints are distinct, so the
-768–1023px tablet band showed *neither* affordance. These tests pin the
+768-1023px tablet band showed *neither* affordance. These tests pin the
 invariant that the two affordances never leave a viewport width with no docs
 navigation, and that their responsive cutoffs stay in sync.
 """
@@ -22,10 +23,10 @@ from typing import cast
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from reflex.components.component import Component
+from reflex.components.component import Component  # noqa: E402,TC002
 
-from app.templates.docsidebar import sidebar
-from app.templates.navbar import navbar
+from app.templates.docsidebar import sidebar  # noqa: E402
+from app.templates.navbar import navbar  # noqa: E402
 
 # Tailwind default ``min-width`` media-query breakpoints (px).
 _TAILWIND_BP_MIN = {"sm": 640, "md": 768, "lg": 1024, "xl": 1280}
@@ -39,7 +40,7 @@ def _mobile_menu_wrapper_class() -> str:
     """
     header = navbar()
     container = cast("Component", header.children[0])
-    assert len(container.children) == 3, (
+    assert len(container.children) == 3, (  # noqa: PLR2004
         "navbar layout drifted: expected 3 children in the inner container"
     )
     mobile_wrapper = cast("Component", container.children[1])
@@ -103,7 +104,7 @@ def test_docs_navigation_visible_at_every_viewport_width() -> None:
 
     Simulates Tailwind's responsive display semantics across the full viewport
     range (320px mobile up to 1920px desktop), with a dense sweep through the
-    768–1023px tablet band that the bug left without navigation, and the exact
+    768-1023px tablet band that the bug left without navigation, and the exact
     ``lg`` boundary (1023px and 1024px). At *every* sampled width at least one
     of the mobile-menu wrapper or the docs sidebar must be displayed.
     """
@@ -118,7 +119,7 @@ def test_docs_navigation_visible_at_every_viewport_width() -> None:
             1024,  # lg and up
             1440,  # desktop
             *range(1024, 1920, 64),
-        }
+        },
     )
 
     dead_zone_widths = [
