@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression tests for the ``bar_chart_03`` "Average BPM" series toggle.
 
 Introduced wholesale in commit 41be0dd ("new: blocks (#91)"), ``bar_chart_03``
@@ -26,7 +27,7 @@ from typing import Any
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.www.library.blocks.bar_chart_03 import bar_chart_03
+from app.www.library.blocks.bar_chart_03 import bar_chart_03  # noqa: E402
 
 # The block computes these from its static ``data`` table (running avg 143,
 # cycling avg 125, overall avg 134); they appear ONLY in the header cascade, so
@@ -36,24 +37,24 @@ _HEADER_RUNNING_AVG = "143"
 _HEADER_CYCLING_AVG = "125"
 
 
-def _iter_components(root: Any) -> Iterator[Any]:
+def _iter_components(root: Any) -> Iterator[Any]:  # noqa: ANN401
     """Yield ``root`` and every descendant component, depth-first."""
     yield root
     for child in getattr(root, "children", ()):
         yield from _iter_components(child)
 
 
-def _find_by_type_name(root: Any, type_name: str) -> list[Any]:
+def _find_by_type_name(root: Any, type_name: str) -> list[Any]:  # noqa: ANN401
     return [c for c in _iter_components(root) if type(c).__name__ == type_name]
 
 
-def _bar_charts(root: Any) -> list[Any]:
+def _bar_charts(root: Any) -> list[Any]:  # noqa: ANN401
     charts = _find_by_type_name(root, "BarChart")
     assert charts, "bar_chart_03 must render at least one Recharts BarChart"
     return charts
 
 
-def _cond_wrapped_bars(chart: Any) -> list[Any]:
+def _cond_wrapped_bars(chart: Any) -> list[Any]:  # noqa: ANN401
     """Return the ``Cond`` nodes in ``chart`` whose true branch holds a ``Bar``.
 
     These are the series gated on a ``ClientStateVar``. The false branch must be
@@ -63,31 +64,31 @@ def _cond_wrapped_bars(chart: Any) -> list[Any]:
     wrapped = []
     for cond in _find_by_type_name(chart, "Cond"):
         branches = list(getattr(cond, "children", ()))
-        if len(branches) == 2 and _find_by_type_name(branches[0], "Bar"):
+        if len(branches) == 2 and _find_by_type_name(branches[0], "Bar"):  # noqa: PLR2004
             wrapped.append(cond)
     return wrapped
 
 
-def _bar_in(branch: Any) -> Any:
+def _bar_in(branch: Any) -> Any:  # noqa: ANN401
     bars = _find_by_type_name(branch, "Bar")
     assert len(bars) == 1, f"expected one Bar in cond branch, found {len(bars)}"
     return bars[0]
 
 
-def _bar_props(bar: Any) -> str:
+def _bar_props(bar: Any) -> str:  # noqa: ANN401
     return " ".join(bar.render()["props"])
 
 
-def _cond_state(cond: Any) -> str:
+def _cond_state(cond: Any) -> str:  # noqa: ANN401
     state = cond.render()["cond_state"]
     assert isinstance(state, str)
     return state
 
 
-def _is_empty_fragment(component: Any) -> bool:
+def _is_empty_fragment(component: Any) -> bool:  # noqa: ANN401
     return bool(
         type(component).__name__ == "Fragment"
-        and not list(getattr(component, "children", ()))
+        and not list(getattr(component, "children", ())),
     )
 
 
@@ -101,7 +102,7 @@ def test_each_chart_wraps_both_series_in_rx_cond() -> None:
     """
     for chart in _bar_charts(bar_chart_03()):
         conds = _cond_wrapped_bars(chart)
-        assert len(conds) == 2, (
+        assert len(conds) == 2, (  # noqa: PLR2004
             f"expected one cond-gated bar per series, found {len(conds)}"
         )
 
