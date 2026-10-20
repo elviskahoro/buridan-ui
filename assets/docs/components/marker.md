@@ -10,7 +10,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component marker
+buridan add marker
 ```
 
 ### Manual Installation
