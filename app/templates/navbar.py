@@ -67,7 +67,7 @@ def light_and_dark_toggle() -> rx.Component:
     return attach_tooltip(
         func=button(
             icon_wrapper(svg, "size-4"),
-            on_click=[rx.toggle_color_mode, rx.call_script(TOGGLE_DARK_JS)],
+            on_click=rx.call_script(TOGGLE_DARK_JS),
             variant="ghost",
             size="sm",
         ),
