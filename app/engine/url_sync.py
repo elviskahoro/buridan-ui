@@ -72,21 +72,37 @@ def url_sync_engine() -> rx.Component:
             }
         };
 
+        // Apply theme CSS vars directly to the DOM — mirrors the
+        // `_applyToRoot` helper inlined into app/engine/actions.py. Targets
+        // #theme-preview-container (so the rest of the site is unaffected)
+        // and falls back to :root when the container is absent.
+        window.__applyThemeToDOM = function(config) {
+            if (!config) return;
+            const preview = document.getElementById('theme-preview-container');
+            const target = preview || document.documentElement;
+            for (const [k, v] of Object.entries(config))
+                if (k.startsWith('--')) target.style.setProperty(k, v);
+        };
+
         window.addEventListener('popstate', (event) => {
             const seed = (event.state && event.state.preset) || window.__getPresetFromURL();
-            if (seed && window.refs) {
-                const dark = window.refs['_client_state_darkmode'] || false;
-                if (window.__generateFromSeed) {
-                    const config = window.__generateFromSeed(seed, dark);
-                    window.refs['_client_state_setTheme'](config);
-                    window.refs['_client_state_setSeed'](seed);
-                    window.__syncSidebar(config);
-                } else if (window._generateFromSeed) { // Check both global and engine scopes
-                    const config = window._generateFromSeed(seed, dark);
-                    window.refs['_client_state_setTheme'](config);
-                    window.refs['_client_state_setSeed'](seed);
-                    window.__syncSidebar(config);
-                }
-            }
+            if (!seed || !window.refs || !window.__generateFromSeed) return;
+
+            const dark = window.refs['_client_state_darkmode'] || false;
+            const config = window.__generateFromSeed(seed, dark);
+
+            // Apply theme directly to the DOM — no WebSocket/setTheme ref
+            // needed (the `theme` ClientStateVar was removed in cf1a044 and
+            // no component registers `_client_state_setTheme` anymore).
+            window.__applyThemeToDOM(config);
+
+            // Keep the seed input and the `seed` client state in sync with
+            // the restored history entry so follow-up sidebar actions derive
+            // their new seed from the correct (restored) one.
+            const el = document.getElementById('seed-input-el');
+            if (el) el.value = seed;
+            if (window.refs['_client_state_setSeed']) window.refs['_client_state_setSeed'](seed);
+
+            if (window.__syncSidebar) window.__syncSidebar(config);
         });
     """)
