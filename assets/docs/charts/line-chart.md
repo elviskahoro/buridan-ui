@@ -105,14 +105,18 @@ class _ChartTooltipContent:
             name_sorted_colors = chart_colors
         else:
             if len(series_names) != len(chart_colors):
-                raise ValueError(
+                msg = (
                     "series_names must match chart_colors in length: "
                     f"{len(series_names)} names vs {len(chart_colors)} colors"
+                )
+                raise ValueError(
+                    msg,
                 )
             name_sorted_colors = [
                 color
                 for _, color in sorted(
-                    zip(series_names, chart_colors), key=lambda pair: pair[0]
+                    zip(series_names, chart_colors, strict=False),
+                    key=lambda pair: pair[0],
                 )
             ]
 
@@ -405,7 +409,9 @@ def linechart_v4():
             ),
         ),
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["desktop", "mobile"]
+            [1, 2],
+            "square",
+            series_names=["desktop", "mobile"],
         )
         + " w-full p-0",
     )
@@ -742,7 +748,9 @@ def linechart_v8():
             ),
         ),
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["desktop", "mobile"]
+            [1, 2],
+            "square",
+            series_names=["desktop", "mobile"],
         )
         + " w-full p-0",
     )

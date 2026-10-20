@@ -45,6 +45,8 @@ def chart_example_with_custom_tooltip():
         width="100%",
         height=250,
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["desktop", "mobile"],
+            [1, 2],
+            "square",
+            series_names=["desktop", "mobile"],
         ),
     )

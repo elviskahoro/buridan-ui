@@ -71,7 +71,9 @@ def barchart_v1():
             ),
         ),
         class_name=chart_tooltip_content(
-            [1, 2], "square", series_names=["desktop", "mobile"],
+            [1, 2],
+            "square",
+            series_names=["desktop", "mobile"],
         )
         + " w-full p-0",
     )

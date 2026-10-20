@@ -242,7 +242,8 @@ def test_base_classes_are_present_on_every_non_border_swatch() -> None:
 
 def test_length_mismatch_between_chart_colors_and_series_names_raises() -> None:
     with pytest.raises(
-        ValueError, match="series_names must match chart_colors",
+        ValueError,
+        match="series_names must match chart_colors",
     ) as excinfo:
         chart_tooltip_content([1, 2], "square", series_names=["only one"])
     message = str(excinfo.value)

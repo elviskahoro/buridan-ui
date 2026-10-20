@@ -119,7 +119,9 @@ def bar_chart_03():
         ),
         size="sm",
         class_name=chart_tooltip_content(
-            [2, 3], "square", series_names=["Running", "Cycling"],
+            [2, 3],
+            "square",
+            series_names=["Running", "Cycling"],
         )
         + " w-full p-4 !ring-0",
     )
