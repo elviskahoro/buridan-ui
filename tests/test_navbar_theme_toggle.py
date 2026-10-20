@@ -18,11 +18,17 @@ a single source of truth — drop ``rx.toggle_color_mode`` and rely only on
 toggle and the navbar/sidebar divergence cannot be re-introduced.
 """  # noqa: INP001
 
-from reflex_base.components.component import Component
-from reflex_base.event import EventChain, EventSpec
+import sys
+from pathlib import Path
 
-from app.templates.navbar import light_and_dark_toggle
-from app.templates.options import menu_panel
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT_DIR))
+
+from reflex_base.components.component import Component  # noqa: E402
+from reflex_base.event import EventChain, EventSpec  # noqa: E402
+
+from app.templates.navbar import light_and_dark_toggle  # noqa: E402
+from app.templates.options import menu_panel  # noqa: E402
 
 
 def _find_button(component: Component) -> Component | None:

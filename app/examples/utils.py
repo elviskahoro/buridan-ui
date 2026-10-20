@@ -22,8 +22,12 @@ def open_in_reflex_build(
             tooltip.trigger(
                 render_=external_link(
                     rx.el.image(
-                        rx.color_mode_cond(icon_light, icon_dark),
-                        class_name=icon_size,
+                        src=icon_light,
+                        class_name=f"{icon_size} dark:hidden",
+                    ),
+                    rx.el.image(
+                        src=icon_dark,
+                        class_name=f"{icon_size} hidden dark:block",
                     ),
                     href=href,
                     target="_blank",

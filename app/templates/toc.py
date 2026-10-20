@@ -105,8 +105,12 @@ Help me understand how to use it. Be ready to explain concepts, give examples, o
                 tooltip.trigger(
                     render_=link_component(
                         rx.el.image(
-                            rx.color_mode_cond(icon_light, icon_dark),
-                            class_name=icon_size,
+                            src=icon_light,
+                            class_name=f"{icon_size} dark:hidden",
+                        ),
+                        rx.el.image(
+                            src=icon_dark,
+                            class_name=f"{icon_size} hidden dark:block",
                         ),
                         href=href,
                         target="_blank",
