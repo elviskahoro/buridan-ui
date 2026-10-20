@@ -165,7 +165,7 @@ def line_chart_02():
         ),
         size="sm",
         class_name=chart_tooltip_content(
-            [1, 2, 3], "line", series_names=["Munich", "Zurich", "Vienna"]
+            [1, 2, 3], "line", series_names=["Munich", "Zurich", "Vienna"],
         )
         + " w-full p-4 !ring-0",
     )

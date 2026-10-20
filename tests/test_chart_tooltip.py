@@ -1,3 +1,4 @@
+# noqa: INP001
 """Regression tests for the chart tooltip swatch-to-series mapping.
 
 ``chart_tooltip_content`` styles each recharts tooltip row with a color swatch
@@ -39,30 +40,30 @@ from reflex.components.component import Component
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.www.library.blocks.area_chart_01 import area_chart_01
-from app.www.library.blocks.area_chart_02 import area_chart_02
-from app.www.library.blocks.bar_chart_01 import bar_chart_01
-from app.www.library.blocks.bar_chart_02 import bar_chart_02
-from app.www.library.blocks.bar_chart_03 import bar_chart_03
-from app.www.library.blocks.line_chart_02 import line_chart_02
-from app.www.library.blocks.line_chart_03 import line_chart_03
-from app.www.library.blocks.line_chart_04 import line_chart_04
-from app.www.library.charts.area.v4 import areachart_v4
-from app.www.library.charts.area.v6 import areachart_v6
-from app.www.library.charts.area.v7 import areachart_v7
-from app.www.library.charts.area.v10 import areachart_v10
-from app.www.library.charts.bar.v9 import barchart_v9
-from app.www.library.charts.chart_tooltip import (
+from app.www.library.blocks.area_chart_01 import area_chart_01  # noqa: E402
+from app.www.library.blocks.area_chart_02 import area_chart_02  # noqa: E402
+from app.www.library.blocks.bar_chart_01 import bar_chart_01  # noqa: E402
+from app.www.library.blocks.bar_chart_02 import bar_chart_02  # noqa: E402
+from app.www.library.blocks.bar_chart_03 import bar_chart_03  # noqa: E402
+from app.www.library.blocks.line_chart_02 import line_chart_02  # noqa: E402
+from app.www.library.blocks.line_chart_03 import line_chart_03  # noqa: E402
+from app.www.library.blocks.line_chart_04 import line_chart_04  # noqa: E402
+from app.www.library.charts.area.v4 import areachart_v4  # noqa: E402
+from app.www.library.charts.area.v6 import areachart_v6  # noqa: E402
+from app.www.library.charts.area.v7 import areachart_v7  # noqa: E402
+from app.www.library.charts.area.v10 import areachart_v10  # noqa: E402
+from app.www.library.charts.bar.v9 import barchart_v9  # noqa: E402
+from app.www.library.charts.chart_tooltip import (  # noqa: E402
     chart_tooltip_content as _app_helper,
 )
-from components.charts.chart_tooltip import Swatch, chart_tooltip_content
+from components.charts.chart_tooltip import Swatch, chart_tooltip_content  # noqa: E402
 
 # ---------------------------------------------------------------------------
 # Helpers
 # ---------------------------------------------------------------------------
 
 _SWATCH_RE = re.compile(
-    r"recharts-tooltip-item:nth-child\((\d+)\)\]:before:!bg-\[var\(--chart-(\d+)\)\]"
+    r"recharts-tooltip-item:nth-child\((\d+)\)\]:before:!bg-\[var\(--chart-(\d+)\)\]",
 )
 
 
@@ -111,7 +112,9 @@ def test_legacy_and_named_match_when_names_already_alphabetical() -> None:
         ([1, 2], ["Organic", "Sponsored"]),
     ):
         assert chart_tooltip_content(colors, "square") == chart_tooltip_content(
-            colors, "square", series_names=names
+            colors,
+            "square",
+            series_names=names,
         )
 
 
@@ -127,7 +130,9 @@ def test_series_names_sorts_two_series_into_ascending_name_order() -> None:
     on the second — the exact inverse of the pre-fix positional mapping.
     """
     out = chart_tooltip_content(
-        [1, 2], "line", series_names=["SolarPanels", "Inverters"]
+        [1, 2],
+        "line",
+        series_names=["SolarPanels", "Inverters"],
     )
     assert _swatch_map(out) == {1: 2, 2: 1}
 
@@ -138,7 +143,9 @@ def test_series_names_sorts_three_series_into_ascending_name_order() -> None:
     position 2 and Zurich the --chart-2 swatch at position 3.
     """
     out = chart_tooltip_content(
-        [1, 2, 3], "line", series_names=["Munich", "Zurich", "Vienna"]
+        [1, 2, 3],
+        "line",
+        series_names=["Munich", "Zurich", "Vienna"],
     )
     assert _swatch_map(out) == {1: 1, 2: 3, 3: 2}
 
@@ -152,7 +159,9 @@ def test_series_names_pairs_color_with_the_series_that_owns_it() -> None:
     carry --chart-2; 'This Year' second with --chart-1.
     """
     out = chart_tooltip_content(
-        [1, 2], "square", series_names=["This Year", "Last Year"]
+        [1, 2],
+        "square",
+        series_names=["This Year", "Last Year"],
     )
     assert _swatch_map(out) == {1: 2, 2: 1}
 
@@ -176,10 +185,12 @@ def test_single_series_is_a_noop_sort() -> None:
     passing ``series_names`` must not change the single swatch position/color.
     """
     assert _swatch_map(chart_tooltip_content([7], "square", series_names=["x"])) == {
-        1: 7
+        1: 7,
     }
     assert chart_tooltip_content([7], "square") == chart_tooltip_content(
-        [7], "square", series_names=["x"]
+        [7],
+        "square",
+        series_names=["x"],
     )
 
 
@@ -230,7 +241,9 @@ def test_base_classes_are_present_on_every_non_border_swatch() -> None:
 
 
 def test_length_mismatch_between_chart_colors_and_series_names_raises() -> None:
-    with pytest.raises(ValueError) as excinfo:
+    with pytest.raises(
+        ValueError, match="series_names must match chart_colors",
+    ) as excinfo:
         chart_tooltip_content([1, 2], "square", series_names=["only one"])
     message = str(excinfo.value)
     assert "series_names" in message
@@ -264,10 +277,14 @@ def test_series_names_empty_lists_match() -> None:
     ],
 )
 def test_twin_copies_produce_identical_output(
-    colors: list[int], swatch: Swatch, names: list[str] | None
+    colors: list[int],
+    swatch: Swatch,
+    names: list[str] | None,
 ) -> None:
     assert chart_tooltip_content(colors, swatch, series_names=names) == _app_helper(
-        colors, swatch, series_names=names
+        colors,
+        swatch,
+        series_names=names,
     )
 
 
@@ -297,7 +314,8 @@ _NO_REGRESSION = [
 
 @pytest.mark.parametrize(("factory", "expected"), _AFFECTED + _NO_REGRESSION)
 def test_shipped_chart_tooltip_swatches_match_rendered_series(
-    factory: Callable[[], Component], expected: dict[int, int]
+    factory: Callable[[], Component],
+    expected: dict[int, int],
 ) -> None:
     """Each shipped chart's card ``class_name`` must map every ``nth-child``
     swatch to the ``--chart-N`` of the series Recharts renders in that row.
