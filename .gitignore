@@ -25,5 +25,5 @@ codebook.toml
 tests/toc_scrollspy_repro/node_modules/
 
 # Locally-installed JS deps for the autocomplete runtime harness
-# (run `npm install` in tests/autocomplete_repro to restore)
+# (run `npm ci` in tests/autocomplete_repro to restore)
 tests/autocomplete_repro/node_modules/
