@@ -17,8 +17,11 @@ def styled_tab_trigger(label: str, value: str) -> rx.Component:
         "background": "transparent",
         "&[data-state=active]": {
             "border": "none",
-            "borderBottom": "1.25px solid var(--foreground)",
+            "borderBottom": "1.25px solid black",
             "background": "transparent",
+        },
+        ".dark &[data-state=active]": {
+            "borderBottom": "1.25px solid white",
         },
         "&[data-state=inactive]": {
             "border": "none",
