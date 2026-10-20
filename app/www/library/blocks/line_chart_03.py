@@ -195,5 +195,10 @@ def line_chart_03():
             ),
         ),
         size="sm",
-        class_name=(chart_tooltip_content([1, 2], "square") + " w-full p-4 !ring-0"),
+        class_name=(
+            chart_tooltip_content(
+                [1, 2], "square", series_names=["Portfolio", "Market Index"]
+            )
+            + " w-full p-4 !ring-0"
+        ),
     )
