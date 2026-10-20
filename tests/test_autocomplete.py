@@ -186,7 +186,7 @@ def _runtime_toolchain() -> tuple[str | None, str]:
     if not (REPRO_DIR / "node_modules").is_dir():
         return (
             node,
-            f"run `npm install` in {REPRO_DIR} to install the esbuild+jsdom+react harness",
+            f"run `npm ci` in {REPRO_DIR} to install the esbuild+jsdom+react harness",
         )
     return node, ""
 
@@ -196,7 +196,7 @@ def test_autocomplete_ignores_keys_during_close_animation() -> None:
     Escape→Arrow→Enter sequences that expose the bug.
 
     Preconditions: Node.js and the JS deps installed in
-    ``tests/autocomplete_repro/node_modules`` (run ``npm install`` in that
+    ``tests/autocomplete_repro/node_modules`` (run ``npm ci`` in that
     directory). The test is skipped, not failed, when the toolchain is absent.
 
     Behavioral guarantees verified:
