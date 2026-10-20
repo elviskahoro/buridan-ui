@@ -53,10 +53,21 @@ if (typeof window !== "undefined") { (function () {
     const curr = parseDate(start);
     const endD = parseDate(end);
     if (isNaN(curr.getTime()) || isNaN(endD.getTime())) return days;
-    let safety = 0;
-    while (curr <= endD && safety++ < 1500) {
-      days.push(formatDate(curr));
-      curr.setDate(curr.getDate() + 1);
+    // Iterate the full range in bounded chunks so the per-iteration safety
+    // guard can never become a silent cap on the rendered date range: the
+    // outer loop keeps consuming 1500-day slices until `curr` passes `endD`,
+    // so multi-year ranges render completely while infinite-loop protection
+    // is preserved.
+    while (curr <= endD) {
+      const before = curr.getTime();
+      let safety = 0;
+      while (curr <= endD && safety++ < 1500) {
+        days.push(formatDate(curr));
+        curr.setDate(curr.getDate() + 1);
+      }
+      // Defensive: if a chunk made no progress (e.g. pathological date
+      // arithmetic), bail out instead of looping forever.
+      if (curr.getTime() === before) break;
     }
     return days;
   }
