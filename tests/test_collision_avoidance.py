@@ -1,3 +1,4 @@
+# ruff: noqa: INP001
 """Regression tests for the ``collision_avoidance`` prop on Base UI positioner wrappers.
 
 ``@base-ui/react@1.6.0`` defines ``collisionAvoidance`` as a ``CollisionAvoidance``
@@ -29,13 +30,13 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import pytest
+import pytest  # noqa: E402
 
-from components.ui.context_menu import ContextMenuPositioner
-from components.ui.menu import MenuPositioner
-from components.ui.popover import PopoverPositioner
-from components.ui.select import SelectPositioner
-from components.ui.tooltip import TooltipPositioner
+from components.ui.context_menu import ContextMenuPositioner  # noqa: E402
+from components.ui.menu import MenuPositioner  # noqa: E402
+from components.ui.popover import PopoverPositioner  # noqa: E402
+from components.ui.select import SelectPositioner  # noqa: E402
+from components.ui.tooltip import TooltipPositioner  # noqa: E402
 
 POSITIONER_CLASSES = [
     ContextMenuPositioner,
