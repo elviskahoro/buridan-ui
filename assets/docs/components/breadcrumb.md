@@ -11,7 +11,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component breadcrumb
+buridan add breadcrumb
 ```
 
 ### Manual Installation
