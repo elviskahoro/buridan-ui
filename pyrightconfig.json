@@ -1,5 +1,5 @@
 {
   "extends": "./configs/pyrightconfig.json",
-  "venvPath": "/home/vercel-sandbox/buridan-ui",
+  "venvPath": ".",
   "venv": ".venv"
 }

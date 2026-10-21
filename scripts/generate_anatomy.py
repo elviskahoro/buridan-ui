@@ -100,10 +100,12 @@ def validate_by_importing(path: Path, repo_root: Path) -> None:
     """
     module_name = f"_anatomy_validate_{path.stem}"
     spec = importlib.util.spec_from_file_location(module_name, path)
+    if spec is None or spec.loader is None:
+        msg = f"Could not create a module spec for {path}"
+        raise ImportError(msg)
     module = importlib.util.module_from_spec(spec)
     sys.path.insert(0, str(repo_root))
     try:
-        assert spec.loader is not None
         spec.loader.exec_module(module)
     finally:
         sys.path.pop(0)

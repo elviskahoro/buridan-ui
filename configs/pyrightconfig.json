@@ -1,6 +1,6 @@
 {
   "pythonVersion": "3.11",
-  "venvPath": "/home/vercel-sandbox/buridan-ui",
+  "venvPath": ".",
   "venv": ".venv",
   "analyzeUnannotatedFunctions": true,
   "deprecateTypingAliases": true,
