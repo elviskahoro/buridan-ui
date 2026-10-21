@@ -173,9 +173,7 @@ def _process_delimiter(match: re.Match[str], registry: dict) -> str:
         if not registry_entry and cmd != "anatomy":
             return f"\n> **Error: '{name}' not found in registry**\n"
 
-        obj, preferred_name = (
-            registry_entry if registry_entry else (None, str(name))
-        )
+        obj, preferred_name = registry_entry if registry_entry else (None, str(name))
 
         # Use the class for inspection if obj is an instance (like ComponentNamespace)
         inspect_obj = obj
@@ -272,7 +270,9 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
         if len(parts) > 2:
             content = parts[2]
 
-    replacer = lambda m: _process_delimiter(m, registry)
+    def replacer(m):
+        return _process_delimiter(m, registry)
+
     content = re.sub(delimiter_pattern, replacer, content)
     # Align markdown tables to meet MD060 requirements
     return align_markdown_tables(content)
