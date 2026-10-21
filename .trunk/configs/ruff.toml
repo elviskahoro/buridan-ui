@@ -98,6 +98,11 @@ ignore = [
   "UP037",
 ]
 
+[lint.flake8-annotations]
+# Pass-through *args/**kwargs (Reflex children/props, decorator wrappers) are
+# genuinely Any; ANN401 still flags Any on ordinary parameters.
+allow-star-arg-any = true
+
 [lint.isort]
 case-sensitive = true
 combine-as-imports = true

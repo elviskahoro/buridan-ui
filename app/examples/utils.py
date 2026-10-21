@@ -13,8 +13,8 @@ from components.ui.tooltip import tooltip
 
 
 def open_in_reflex_build(
-    icon_light: Any,
-    icon_dark: Any,
+    icon_light: str,
+    icon_dark: str,
     tooltip_content: str,
     href: str,
     icon_size: str = "size-5",

@@ -3,7 +3,7 @@ from typing import Any
 import reflex as rx
 
 
-def is_external_href(href: Any) -> bool:
+def is_external_href(href: object) -> bool:
     """Return whether a known href is an HTTP(S) URL."""
     return isinstance(href, str) and href.lower().startswith(("http://", "https://"))
 
