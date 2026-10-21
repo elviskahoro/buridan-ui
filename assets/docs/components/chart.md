@@ -9,7 +9,7 @@ A collection of chart components that you can copy and paste into your apps. Cha
 
 For an overview of whats available, checkout the [Charts](/charts) page. 
 
-# Component
+## Component
 
 Reflex wraps [Recharts](https://recharts.github.io/) under the hood. This means you build your own charts using Recharts components and only bring in your theme tokens and custom components like `chart_tooltip` when and where you need it.
 
@@ -28,138 +28,15 @@ rx.recharts.area_chart(
 
 We do not wrap Recharts. This means you're not locked into an abstraction. When a new Recharts version is released, you can follow the official upgrade path to upgrade your charts.
 
-# Installation
+## Installation
 
 buridan/ui provides a custom `chart_tooltip` that can be used to match the overall theme tokens generated. 
 
-### CLI
 
-```bash
-buridan add component chart_tooltip
-```
-
-### Manual Installation
-
-```python
-from typing import Literal
-
-import reflex as rx
-
-Display = Literal["show", "hide"]
-Swatch = Literal["square", "line", "border"]
+> **Error: 'chart_tooltip' not found in registry**
 
 
-def _deep_merge(base: dict, override: dict) -> dict:
-    result = base.copy()
-    for key, value in override.items():
-        if isinstance(result.get(key), dict) and isinstance(value, dict):
-            result[key] = _deep_merge(result[key], value)
-        else:
-            result[key] = value
-    return result
-
-
-class _ChartTooltip:
-    def __call__(
-        self,
-        label: Display = "show",
-        is_animation_active: bool = False,
-        separator: str = "",
-        cursor: bool = False,
-        item_style: dict | None = None,
-        label_style: dict | None = None,
-        content_style: dict | None = None,
-    ) -> rx.Component:
-        defaults = {
-            "is_animation_active": is_animation_active,
-            "separator": separator,
-            "cursor": cursor,
-            "item_style": _deep_merge(
-                {
-                    "color": "currentColor",
-                    "display": "flex",
-                    "paddingBottom": "0px",
-                    "justifyContent": "space-between",
-                    "textTransform": "capitalize",
-                },
-                item_style or {},
-            ),
-            "label_style": _deep_merge(
-                {
-                    "display": "none" if label == "hide" else "flex",
-                    "fontWeight": "500",
-                },
-                label_style or {},
-            ),
-            "content_style": _deep_merge(
-                {
-                    "background": "var(--background)",
-                    "borderColor": "var(--input)",
-                    "borderRadius": "0.85rem",
-                    "padding": "0.25rem 0.65rem",
-                    "position": "relative",
-                },
-                content_style or {},
-            ),
-        }
-
-        return rx.recharts.graphing_tooltip(**defaults)
-
-
-class _ChartTooltipContent:
-    def __call__(self, chart_colors: list[int], swatch: Swatch = "square") -> str:
-        base = """
-            [&_.recharts-tooltip-item-name]:!text-muted-foreground
-            [&_.recharts-tooltip-item-separator]:!w-full
-            [&_.recharts-tooltip-item]:!min-w-[8rem]
-            [&_.recharts-tooltip-item]:!flex
-            [&_.recharts-tooltip-item]:!items-center
-            [&_.recharts-tooltip-item]:!gap-2
-        """
-
-        if swatch == "border":
-            # Single vertical left border on the tooltip label using first color
-            first_color = chart_colors[0]
-            base += f"""
-                [&_.recharts-tooltip-label]:!border-l-2
-                [&_.recharts-tooltip-label]:!border-[var(--chart-{first_color})]
-                [&_.recharts-tooltip-label]:!pl-2
-                [&_.recharts-tooltip-label]:!py-0
-            """
-            return base
-
-        lines = []
-        for i, color_idx in enumerate(chart_colors, 1):
-            if swatch == "line":
-                lines.append(f"""
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!content-['']
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!w-3
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!h-0.5
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!rounded-full
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!flex-shrink-0
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!bg-[var(--chart-{color_idx})]
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!block
-                """)
-            else:  # square
-                lines.append(f"""
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!content-['']
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!w-3
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!h-3
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!rounded-sm
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!flex-shrink-0
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!bg-[var(--chart-{color_idx})]
-                    [&_.recharts-tooltip-item:nth-child({i})]:before:!block
-                """)
-
-        return base + "\n".join(lines)
-
-
-chart_tooltip = _ChartTooltip()
-chart_tooltip_content = _ChartTooltipContent()
-```
-
-
-# Your First Chart
+## Your First Chart
 
 Let's build your first chart. We'll build a bar chart, add a grid, axis, tooltip and legend.
 
@@ -185,27 +62,7 @@ data = [
 You can now build your chart using Recharts components.
 
 
-```python
-def chart_example():
-
-    return rx.recharts.bar_chart(
-        rx.recharts.bar(
-            data_key="desktop",
-            fill="var(--chart-1)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.bar(
-            data_key="mobile",
-            fill="var(--chart-2)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        data=data,
-        width="100%",
-        height=250,
-    )
-```
+> **Error: 'chart_example' not found in registry**
 
 
 ## Add a Grid
@@ -219,32 +76,7 @@ rx.recharts.cartesian_grid(
 ```
 
 
-```python
-def chart_example_with_grid():
-
-    return rx.recharts.bar_chart(
-        rx.recharts.cartesian_grid(
-            horizontal=True,
-            vertical=False,
-            class_name="opacity-30",
-        ),
-        rx.recharts.bar(
-            data_key="desktop",
-            fill="var(--chart-1)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.bar(
-            data_key="mobile",
-            fill="var(--chart-2)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        data=data,
-        width="100%",
-        height=250,
-    )
-```
+> **Error: 'chart_example_with_grid' not found in registry**
 
 
 ## Add an Axis
@@ -263,40 +95,7 @@ rx.recharts.x_axis(
 ```
 
 
-```python
-def chart_example_with_x_axis():
-
-    return rx.recharts.bar_chart(
-        rx.recharts.cartesian_grid(
-            horizontal=True,
-            vertical=False,
-            class_name="opacity-30",
-        ),
-        rx.recharts.bar(
-            data_key="desktop",
-            fill="var(--chart-1)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.bar(
-            data_key="mobile",
-            fill="var(--chart-2)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.x_axis(
-            data_key="month",
-            axis_line=False,
-            tick_size=10,
-            tick_line=False,
-            custom_attrs={"fontSize": "12px"},
-            interval="preserveStartEnd",
-        ),
-        data=data,
-        width="100%",
-        height=250,
-    )
-```
+> **Error: 'chart_example_with_x_axis' not found in registry**
 
 
 ## Add Tooltip
@@ -330,42 +129,7 @@ rx.recharts.bar_chart(
 ```
 
 
-```python
-def chart_example_with_custom_tooltip():
-
-    return rx.recharts.bar_chart(
-        rx.recharts.cartesian_grid(
-            horizontal=True,
-            vertical=False,
-            class_name="opacity-30",
-        ),
-        rx.recharts.bar(
-            data_key="desktop",
-            fill="var(--chart-1)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.bar(
-            data_key="mobile",
-            fill="var(--chart-2)",
-            radius=4,
-            is_animation_active=False,
-        ),
-        rx.recharts.x_axis(
-            data_key="month",
-            axis_line=False,
-            tick_size=10,
-            tick_line=False,
-            custom_attrs={"fontSize": "12px"},
-            interval="preserveStartEnd",
-        ),
-        chart_tooltip(),
-        data=data,
-        width="100%",
-        height=250,
-        class_name=chart_tooltip_content([1, 2], "square"),
-    )
-```
+> **Error: 'chart_example_with_custom_tooltip' not found in registry**
 
 
 Hover to see the tooltips. Easy, right? Two components, and we've got a beautiful tooltip.
@@ -394,61 +158,12 @@ rx.el.div(
 ```
 
 
-```python
-def chart_example_with_custom_legends():
-
-    return rx.el.div(
-        rx.recharts.bar_chart(
-            rx.recharts.cartesian_grid(
-                horizontal=True,
-                vertical=False,
-                class_name="opacity-30",
-            ),
-            rx.recharts.bar(
-                data_key="desktop",
-                fill="var(--chart-1)",
-                radius=4,
-                is_animation_active=False,
-            ),
-            rx.recharts.bar(
-                data_key="mobile",
-                fill="var(--chart-2)",
-                radius=4,
-                is_animation_active=False,
-            ),
-            rx.recharts.x_axis(
-                data_key="month",
-                axis_line=False,
-                tick_size=10,
-                tick_line=False,
-                custom_attrs={"fontSize": "12px"},
-                interval="preserveStartEnd",
-            ),
-            chart_tooltip(),
-            data=data,
-            width="100%",
-            height=250,
-            class_name=chart_tooltip_content([1, 2], "square"),
-        ),
-        rx.el.div(
-            rx.foreach(
-                ["Desktop", "Mobile"],
-                lambda device, index: rx.el.div(
-                    rx.el.div(class_name=f"h-3 w-3 rounded-sm bg-chart-{index + 1}"),
-                    rx.el.p(device, class_name="text-xs text-foreground"),
-                    class_name="flex flex-row items-center gap-x-2",
-                ),
-            ),
-            class_name="flex items-center gap-4 justify-center",
-        ),
-        class_name="w-full",
-    )
-```
+> **Error: 'chart_example_with_custom_legends' not found in registry**
 
 
 Done. You've built your first chart!
 
-# Theming
+## Theming
 
 Charts have built-in support for theming. You can use css variables (recommended) or color values in any color format, such as hex, hsl or oklch.
 
@@ -487,7 +202,7 @@ data = [
 ]
 ```
 
-# Tooltip
+## Tooltip
 
 A chart tooltip contains a label and swatch type. You can use a combination of these to customize your tooltip.
 
@@ -506,23 +221,25 @@ You can turn on/off any of these using the `display` prop and customize the indi
 
 Use the following props to customize the tooltip.
 
-**chart_tooltip()**
+### chart_tooltip()
 
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `label` | `"show" \| "hide"` | `"show"` | Whether to render the tooltip label above the items. |
-| `is_animation_active` | `bool` | `False` | Whether to animate the tooltip on appearance. |
-| `separator` | `str` | `""` | String placed between the item name and value. |
-| `cursor` | `bool` | `False` | Whether to show the cursor line/highlight on hover. |
-| `item_style` | `dict \| None` | `None` | Style overrides merged onto each tooltip item row. |
-| `label_style` | `dict \| None` | `None` | Style overrides merged onto the label element. |
-| `content_style` | `dict \| None` | `None` | Style overrides merged onto the tooltip container. |
+| Prop                  | Type      | Default | Description                                         |
+| --------------------- | --------- | ------- | --------------------------------------------------- | ---------------------------------------------------- |
+| :---                  | :---      | :---    | :---                                                |
+| `label`               | `"show" \ | "hide"` | `"show"`                                            | Whether to render the tooltip label above the items. |
+| `is_animation_active` | `bool`    | `False` | Whether to animate the tooltip on appearance.       |
+| `separator`           | `str`     | `""`    | String placed between the item name and value.      |
+| `cursor`              | `bool`    | `False` | Whether to show the cursor line/highlight on hover. |
+| `item_style`          | `dict \   | None`   | `None`                                              | Style overrides merged onto each tooltip item row.   |
+| `label_style`         | `dict \   | None`   | `None`                                              | Style overrides merged onto the label element.       |
+| `content_style`       | `dict \   | None`   | `None`                                              | Style overrides merged onto the tooltip container.   |
 
-**chart_tooltip_content()**
+### chart_tooltip_content()
 
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `chart_colors` | `list[int]` | — | Number of data series in the chart. Must match the number of `rx.recharts.bar` / `line` / `area` components. |
-| `swatch` | `"square" \| "line" \| "border"` | `"square"` | Indicator style per item. `square` = small filled box, `line` = wide pill, `border` = left accent line per series using `--chart-{i}`. |
+| Prop           | Type        | Default  | Description                                                                                                  |
+| -------------- | ----------- | -------- | ------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| :---           | :---        | :---     | :---                                                                                                         |
+| `chart_colors` | `list[int]` | —        | Number of data series in the chart. Must match the number of `rx.recharts.bar` / `line` / `area` components. |
+| `swatch`       | `"square" \ | "line" \ | "border"`                                                                                                    | `"square"` | Indicator style per item. `square` = small filled box, `line` = wide pill, `border` = left accent line per series using `--chart-{i}`. |
 
 >**chart_tooltip_content()** returns a string of Tailwind classes and must be passed to the **chart component's** class_name, not to **chart_tooltip()**.

@@ -8,22 +8,22 @@ order: 19
 
 Use to show a placeholder while content is loading.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(skeleton)--
 
-# Usage
+## Usage
 
 --USAGE(skeleton)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Skeleton` component.
 
 --ANATOMY(skeleton)--
 
-# Examples
+## Examples
 
 ## General
 

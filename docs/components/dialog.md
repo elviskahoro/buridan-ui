@@ -8,22 +8,22 @@ order: 8
 
 A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(dialog)--
 
-# Usage
+## Usage
 
 --USAGE(dialog)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Dialog` component.
 
 --ANATOMY(dialog)--
 
-# Examples
+## Examples
 
 ## Custom Close Button
 

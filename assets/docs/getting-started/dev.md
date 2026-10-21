@@ -7,7 +7,7 @@ The `dev.py` script is an interactive CLI tool used to control which documentati
 It replaces manual environment variable setup and makes it easier to selectively run parts of the documentation site while developing.
 
 
-# Requirements
+## Requirements
 
 This script uses [questionary](https://github.com/tmbo/questionary) for interactive prompts.
 
@@ -23,7 +23,7 @@ You can also add it manually to your `pyproject.toml`:
 dependencies = ["questionary"]
 ```
 
-# Overview
+## Overview
 
 Instead of running the full documentation build every time, `dev.py` lets you:
 
@@ -34,7 +34,7 @@ Instead of running the full documentation build every time, `dev.py` lets you:
 
 It then automatically configures the correct environment variables and starts the Reflex server.
 
-# Usage
+## Usage
 
 Run the script from your project root to start the interactive flow:
 
@@ -42,7 +42,7 @@ Run the script from your project root to start the interactive flow:
 uv run dev.py
 ```
 
-# Flow
+## Flow
 
 The CLI follows this flow:
 
@@ -53,7 +53,7 @@ The CLI follows this flow:
 5. Launch Reflex
 
 
-# Environment
+## Environment
 
 Before selecting what to run, you must choose the environment.
 
@@ -75,7 +75,7 @@ Use this mode when:
 
 Production mode runs the full documentation site without any filtering.
 
-# Modes
+## Modes
 
 ## Pages
 

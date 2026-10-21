@@ -7,19 +7,19 @@ order: 18
 # Select
 Displays a list of options for the user to pick from—triggered by a button.
 
-# Installation
+## Installation
 Copy the following code into your app directory.
 
 --INSTALL(select)--
 
-# Usage
+## Usage
 --USAGE(select)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Select` component.
 --ANATOMY(select)--
 
-# Examples
+## Examples
 
 ## Align Item
 Use `align_item_with_trigger` on `select.positioner()` to control whether the selected item aligns with the trigger. When true (default), the popup positions so the selected item appears over the trigger. When false, the popup aligns to the trigger edge.

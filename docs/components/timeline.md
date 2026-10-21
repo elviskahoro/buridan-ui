@@ -8,21 +8,21 @@ order: 23
 
 A visual representation of events in chronological order.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(timeline)--
 
-# Usage
+## Usage
 
 --USAGE(timeline)--
 
-# Anatomy
+## Anatomy
 
 --ANATOMY(timeline)--
 
-# Examples
+## Examples
 
 ## Basic Timeline
 
@@ -34,7 +34,7 @@ Set the `data-[]` CSS prop to `-left-32` to align dates to the left.
 
 --DEMO(timeline_left_aligned_dates)--
 
-# API Reference 
+## API Reference 
 
 ## timeline.root
 

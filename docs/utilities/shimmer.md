@@ -11,7 +11,7 @@ Utilities for adding a shimmer effect to text elements.
 >The **shimmer** utility is purely composed of CSS and is based on [shadcn/shimmer](https://ui.shadcn.com/docs/utils/shimmer). No extensions to **rxconfig.py** are needed as it uses **Tailwind v4** syntax. 
 
 
-# Installation 
+## Installation 
 
 If your project was set up with `buridan init`, you already have shimmer. It ships with the `buridan` package, which the CLI imports in your global CSS file.
 
@@ -138,7 +138,7 @@ You can also copy paste the `shimmer` source directly into your `globals.css` fi
 ```
 
 
-# Usage
+## Usage
 
 | Class                         | Styles                                                                                               |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -164,37 +164,37 @@ The effect is pure CSS. The text is painted with `background-clip: text`, and th
 
 >**Note**: If the **shimmer** utility isn't working properly, try adding **w-fit** to the text styling, as it ensures the animation doesn't exceed the inherit width of the text.
 
-# Color
+## Color
 
 Use `shimmer-color-<color>` to set the highlight color explicitly. It accepts theme colors with an optional opacity modifier, or any arbitrary color value.
 
 --DEMO(shimmer_color)--
 
-# Duration
+## Duration
 
 Use `shimmer-duration-<number>` to set the duration of one sweep in milliseconds. The default is `2000`, i.e. `2s`.
 
 --DEMO(shimmer_duration)--
 
-# Spread
+## Spread
 
 Use `shimmer-spread-<number>` to set the width of the highlight band using the spacing scale. The default is `calc(3ch + 40px)`: a fixed base plus a `3ch` term that scales with the font size.
 
 --DEMO(shimmer_spread)--
 
-# Angle
+## Angle
 
 Use `shimmer-angle-<number>` to set the tilt of the highlight band in degrees. The default is `20`.
 
 --DEMO(shimmer_angle)--
 
-# Reverse
+## Reverse
 
 Use `shimmer-reverse` to sweep the highlight in the opposite direction.
 
 --DEMO(shimmer_reverse)--
 
-# Play Once
+## Play Once
 
 Use `shimmer-once` to play a single sweep instead of looping, useful as a reveal when streaming completes. Pair it with `shimmer-duration-<number>` to control how long the sweep takes.
 
@@ -204,7 +204,7 @@ Use `shimmer-once` to play a single sweep instead of looping, useful as a reveal
 rx.el.p("Response Generated", class_name="shimmer shimmer-duration-1100 shimmer-once")
 ```
 
-# Disabling the Shimmer
+## Disabling the Shimmer
 
 Use `shimmer-none` to turn the effect off and render the text normally. It works in any class order, so the typical use is responsive or stateful.
 

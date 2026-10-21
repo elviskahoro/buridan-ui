@@ -8,22 +8,22 @@ order: 0
 
 A set of collapsible panels with headings.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(accordion)--
 
-# Usage
+## Usage
 
 --USAGE(accordion)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Accordion` component.
 
 --ANATOMY(accordion)--
 
-# Examples
+## Examples
 
 ## Basic
 

@@ -14,13 +14,13 @@ The `Message` component lays out a single message in a conversation. It handles 
 
 For AI apps, you can render reasoning steps, tool calls and assistant messages using the `Message` component.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(message)--
 
-# Usage
+## Usage
 
 --USAGE(message)--
 
@@ -28,12 +28,12 @@ Copy the following code into your app directory.
 Render the visible message surface inside it with
 [`Bubble`](/docs/components/bubble).
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Message` component.
 
 --ANATOMY(message)--
 
-# Examples
+## Examples
 
 ## Avatar
 
@@ -70,7 +70,7 @@ Use the [`Attachment`](/docs/components/attachment) with the messages to display
 
 --DEMO(message_with_attachment)--
 
-# Accessibility
+## Accessibility
 
 `Message` is a presentational layout wrapper. Accessibility comes from the content you place inside it.
 
@@ -106,7 +106,7 @@ message.root(
 )
 ```
 
-# API Reference
+## API Reference
 
 ## message.root
 

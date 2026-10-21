@@ -8,22 +8,22 @@ order: 0
 
 Add addons, buttons, and helper content to inputs.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(input_group)--
 
-# Usage
+## Usage
 
 --USAGE(input_group)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Input Group` component.
 
 --ANATOMY(input_group)--
 
-# Align
+## Align
 
 Use the `align` prop on `input_group.addon` to position the addon relative to the input.
 
@@ -54,7 +54,7 @@ Use `align="block-end"` to position the addon below the input.
 
 --DEMO(input_group_block_end)--
 
-# Examples
+## Examples
 
 ## Icons
 --DEMO(input_group_icons)--
@@ -71,7 +71,7 @@ Use `align="block-end"` to position the addon below the input.
 ## Dropdown
 --DEMO(input_group_dropdown)--
 
-# API Reference
+## API Reference
 
 ## input_group.root
 

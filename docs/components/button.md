@@ -8,22 +8,22 @@ order: 3
 
 Displays a button or a component that looks like a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(button)--
 
-# Usage
+## Usage
 
 --USAGE(button)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Button` component.
 
 --ANATOMY(button)--
 
-# Examples
+## Examples
 
 ## Sizes
 
@@ -86,9 +86,9 @@ Do **not** use `button(rx.el.a(...))` for links. The Base UI `Button` component 
 --DEMO(button_render)--
 
 
-# API Reference
+## API Reference
 
-## Button
+### button()
 
 The `Button` component is a wrapper around the `button` element that adds a variety of styles and functionality.
 

@@ -8,23 +8,23 @@ order: 15
 
 Displays rich content in a portal, triggered by a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(popover)--
 
-# Usage
+## Usage
 
 --USAGE(popover)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Popover` component.
 
 --ANATOMY(popover)--
 
 
-# Example
+## Example
 A basic popover that appears when the user clicks the trigger button.
 
 

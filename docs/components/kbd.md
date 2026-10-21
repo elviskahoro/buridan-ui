@@ -8,22 +8,22 @@ order: 0
 
 Used to display textual user input from keyboard.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(kbd)--
 
-# Usage
+## Usage
 
 --USAGE(kbd)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Kbd` component.
 
 --ANATOMY(kbd)--
 
-# Examples
+## Examples
 
 ## Group
 
@@ -49,7 +49,7 @@ You can use the `kbd.root` component inside a `input_group.addon` component to d
 
 --DEMO(kbd_input_group)--
 
-# API Reference
+## API Reference
 
 ## kbd.root
 

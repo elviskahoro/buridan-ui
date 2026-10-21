@@ -8,23 +8,23 @@ order: 0
 
 Displays a file or image attachment with media, metadata, upload state, and actions.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(attachment)--
 
-# Usage
+## Usage
 
 --USAGE(attachment)--
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build an `Attachment` component.
 
 --ANATOMY(attachment)--
 
-# Features
+## Features
 
 - Icon and image media through `attachment.media`
 - Upload states: `idle`, `uploading`, `processing`, `error`, and `done` with built-in styling and a shimmer while in progress
@@ -33,7 +33,7 @@ Use the following composition to build an `Attachment` component.
 - Scrollable, snapping `attachment.group` with an edge fade
 - Customizable styling through the `class_name` prop on every part
 
-# Examples
+## Examples
 
 ## Image
 
@@ -67,7 +67,7 @@ Add an `attachment.trigger` to make the whole card open a link or dialog. It fil
 --DEMO(attachment_trigger_dialog_demo)--
 
 
-# Accessibility
+## Accessibility
 
 `attachment.action` renders a `Button`, and `attachment.trigger` renders either a real `rx.el.button()` or a `rx.el.a()` if the `link` prop is set to `True`. Follow the guidance below so both are operable and announced.
 
@@ -119,7 +119,7 @@ An `attachment.group` scrolls horizontally. When its attachments are interactive
 
 The `error` state uses a destructive color. Keep the failure reason in `attachment.description` so the state is not conveyed by color alone.
 
-# API Reference
+## API Reference
 
 ## attachment.root
 

@@ -8,21 +8,21 @@ order: 0
 The Marker component displays inline conversation markers such as status updates, system notes, bordered rows, and labeled separators. 
 
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 --INSTALL(marker)--
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Marker` component.
 
 --ANATOMY(marker)--
 
-# Usage
+## Usage
 
 --USAGE(marker)--
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -138,7 +138,7 @@ rx.link(
 )
 ```
 
-# API Reference
+## API Reference
 
 ## marker.root
 

@@ -8,22 +8,22 @@ order: 23
 
 Displays a form textarea or a component that looks like a textarea.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(textarea)--
 
-# Usage
+## Usage
 
 --USAGE(textarea)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Textarea` component.
 
 --ANATOMY(textarea)--
 
-# Examples
+## Examples
 
 ## Basic
 A standard multiline text area for general text input.
