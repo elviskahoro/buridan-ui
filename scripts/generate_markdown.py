@@ -97,161 +97,174 @@ def align_markdown_tables(content: str) -> str:
     return "\n".join(result)
 
 
+def _parse_table_rows(lines: list[str]) -> list[list[str]]:
+    """Parse table lines into rows of cells."""
+    rows = []
+    for line in lines:
+        cells = [cell.strip() for cell in line.split("|")[1:-1]]
+        rows.append(cells)
+    return rows
+
+
+def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
+    """Calculate the width needed for each column."""
+    col_widths = []
+    max_cols = max(len(row) for row in rows)
+    for col_idx in range(max_cols):
+        max_width = max(
+            (len(row[col_idx]) for row in rows if col_idx < len(row)),
+            default=0,
+        )
+        col_widths.append(max_width)
+    return col_widths
+
+
+def _format_table_row(cells: list[str], col_widths: list[int]) -> str:
+    """Format a table row with aligned columns."""
+    aligned_cells = [
+        cell.ljust(col_widths[col_idx])
+        for col_idx, cell in enumerate(cells)
+        if col_idx < len(col_widths)
+    ]
+    return "| " + " | ".join(aligned_cells) + " |"
+
+
+def _format_table_separator(col_widths: list[int]) -> str:
+    """Format a table separator line."""
+    sep_cells = ["-" * width for width in col_widths]
+    return "| " + " | ".join(sep_cells) + " |"
+
+
 def align_table(lines: list[str]) -> list[str]:
     """Align a markdown table's pipes for consistent column widths."""
     if not lines or len(lines) < MIN_TABLE_LINES:
         return lines
 
-    # Parse table to find column widths
-    rows = []
-    for line in lines:
-        cells = [cell.strip() for cell in line.split("|")[1:-1]]
-        rows.append(cells)
-
+    rows = _parse_table_rows(lines)
     if not rows:
         return lines
 
-    # Calculate column widths
-    col_widths = []
-    max_cols = max(len(row) for row in rows)
-
-    for col_idx in range(max_cols):
-        max_width = 0
-        for row in rows:
-            if col_idx < len(row):
-                max_width = max(max_width, len(row[col_idx]))
-        col_widths.append(max_width)
-
-    # Rebuild aligned table
+    col_widths = _calculate_col_widths(rows)
     aligned_lines = []
+
     for row_idx, row in enumerate(rows):
-        aligned_cells = []
-        for col_idx, cell in enumerate(row):
-            if col_idx < len(col_widths):
-                aligned_cells.append(cell.ljust(col_widths[col_idx]))
-
-        aligned_line = "| " + " | ".join(aligned_cells) + " |"
-        aligned_lines.append(aligned_line)
-
-        # Add separator after header
+        aligned_lines.append(_format_table_row(row, col_widths))
         if row_idx == 0 and len(lines) > 1:
-            sep_cells = []
-            for col_idx in range(len(col_widths)):
-                sep_cells.append("-" * col_widths[col_idx])
-            sep_line = "| " + " | ".join(sep_cells) + " |"
-            aligned_lines.append(sep_line)
+            aligned_lines.append(_format_table_separator(col_widths))
 
     return aligned_lines
+
+
+def _process_delimiter(match: re.Match[str], registry: dict) -> str:
+    """Process a single component delimiter match."""
+    cmd = match.group(1).lower()
+    arg = match.group(2)
+
+    try:
+        # Parse argument (handle strings or lists)
+        val = (
+            ast.literal_eval(arg)
+            if arg and any(arg.startswith(c) for c in "[{'\"")
+            else arg
+        )
+        name = val[0] if isinstance(val, list) else val
+        registry_entry = registry.get(str(name).lower())
+
+        if not registry_entry and cmd != "anatomy":
+            return f"\n> **Error: '{name}' not found in registry**\n"
+
+        obj, preferred_name = (
+            registry_entry if registry_entry else (None, str(name))
+        )
+
+        # Use the class for inspection if obj is an instance (like ComponentNamespace)
+        inspect_obj = obj
+        if obj and not (
+            inspect.isclass(obj)
+            or inspect.isfunction(obj)
+            or inspect.ismodule(obj)
+            or inspect.ismethod(obj)
+        ):
+            inspect_obj = getattr(obj, "__class__", obj)
+
+        # 1. Anatomy logic
+        if cmd == "anatomy":
+            from app.registry.anatomy import ANATOMY
+
+            src = ANATOMY.get(str(name).lower())
+            if not src:
+                return f"\n> **Error: No anatomy found for '{name}'**\n"
+            return f"\n```python\n{src.strip()}\n```\n"
+
+        # 2. Demo logic (source code of the specific function)
+        if "demo" in cmd:
+            try:
+                src = inspect.getsource(obj).strip()
+                return f"\n```python\n{src}\n```\n"
+            except Exception as e:
+                return f"\n> **Error getting source for {name}: {e}**\n"
+
+        # 3. Code / Code File logic
+        if "code" in cmd:
+            try:
+                language = "python"
+                if isinstance(val, list) and len(val) > 1:
+                    language = val[1] or "python"
+
+                if "_file" in cmd:
+                    # Full module source
+                    module = inspect.getmodule(inspect_obj)
+                    src = inspect.getsource(module).strip()
+                else:
+                    # Specific object source
+                    src = (
+                        inspect.getsource(obj)
+                        if not inspect.ismethod(obj)
+                        else inspect.getsource(inspect_obj)
+                    )
+                    src = src.strip()
+
+                return f"\n```{language}\n{src}\n```\n"
+            except Exception as e:
+                return f"\n> **Error getting code for {name}: {e}**\n"
+
+        # 4. Install logic
+        if cmd == "install":
+            try:
+                # val is ["Name", "cli_command"] or "Name"
+                cli_cmd = (
+                    val[1]
+                    if isinstance(val, list) and len(val) > 1
+                    else f"buridan add component {str(name).lower()}"
+                )
+                module = inspect.getmodule(inspect_obj)
+                module_src = inspect.getsource(module).strip()
+
+                return (
+                    f"### CLI\n\n```bash\n{cli_cmd}\n```\n\n"
+                    f"### Manual Installation\n\n```python\n{module_src}\n```\n"
+                )
+            except Exception as e:
+                return f"\n> **Error processing install for {name}: {e}**\n"
+
+        # 5. Usage logic
+        if cmd == "usage":
+            try:
+                file_path = inspect.getfile(inspect_obj)
+                module_stem = pathlib.Path(file_path).stem
+                return f"\n```python\nfrom components.ui.{module_stem} import {preferred_name}\n```\n"
+            except Exception as e:
+                return f"\n> **Error processing usage for {name}: {e}**\n"
+
+        return f"\n> **Warning: Unknown command '{cmd}'**\n"
+
+    except Exception as e:
+        return f"\n> **Error in {cmd}: {e}**\n"
 
 
 def convert_to_pure_markdown(content: str, registry: dict) -> str:
     """Replaces custom component delimiters in markdown content with formatted code blocks."""
     delimiter_pattern = r"--([\w_]+)(?:\((.*)\))?--"
-
-    def replacer(match: re.Match[str]) -> str:
-        cmd = match.group(1).lower()
-        arg = match.group(2)
-
-        try:
-            # Parse argument (handle strings or lists)
-            val = (
-                ast.literal_eval(arg)
-                if arg and any(arg.startswith(c) for c in "[{'\"")
-                else arg
-            )
-            name = val[0] if isinstance(val, list) else val
-            registry_entry = registry.get(str(name).lower())
-
-            if not registry_entry and cmd != "anatomy":
-                return f"\n> **Error: '{name}' not found in registry**\n"
-
-            obj, preferred_name = (
-                registry_entry if registry_entry else (None, str(name))
-            )
-
-            # Use the class for inspection if obj is an instance (like ComponentNamespace)
-            inspect_obj = obj
-            if obj and not (
-                inspect.isclass(obj)
-                or inspect.isfunction(obj)
-                or inspect.ismodule(obj)
-                or inspect.ismethod(obj)
-            ):
-                inspect_obj = getattr(obj, "__class__", obj)
-
-            # 1. Anatomy logic
-            if cmd == "anatomy":
-                from app.registry.anatomy import ANATOMY
-
-                src = ANATOMY.get(str(name).lower())
-                if not src:
-                    return f"\n> **Error: No anatomy found for '{name}'**\n"
-                return f"\n```python\n{src.strip()}\n```\n"
-
-            # 2. Demo logic (source code of the specific function)
-            if "demo" in cmd:
-                try:
-                    src = inspect.getsource(obj).strip()
-                    return f"\n```python\n{src}\n```\n"
-                except Exception as e:
-                    return f"\n> **Error getting source for {name}: {e}**\n"
-
-            # 3. Code / Code File logic
-            if "code" in cmd:
-                try:
-                    language = "python"
-                    if isinstance(val, list) and len(val) > 1:
-                        language = val[1] or "python"
-
-                    if "_file" in cmd:
-                        # Full module source
-                        module = inspect.getmodule(inspect_obj)
-                        src = inspect.getsource(module).strip()
-                    else:
-                        # Specific object source
-                        src = (
-                            inspect.getsource(obj)
-                            if not inspect.ismethod(obj)
-                            else inspect.getsource(inspect_obj)
-                        )
-                        src = src.strip()
-
-                    return f"\n```{language}\n{src}\n```\n"
-                except Exception as e:
-                    return f"\n> **Error getting code for {name}: {e}**\n"
-
-            # 4. Install logic
-            if cmd == "install":
-                try:
-                    # val is ["Name", "cli_command"] or "Name"
-                    cli_cmd = (
-                        val[1]
-                        if isinstance(val, list) and len(val) > 1
-                        else f"buridan add component {str(name).lower()}"
-                    )
-                    module = inspect.getmodule(inspect_obj)
-                    module_src = inspect.getsource(module).strip()
-
-                    return (
-                        f"### CLI\n\n```bash\n{cli_cmd}\n```\n\n"
-                        f"### Manual Installation\n\n```python\n{module_src}\n```\n"
-                    )
-                except Exception as e:
-                    return f"\n> **Error processing install for {name}: {e}**\n"
-
-            # 5. Usage logic
-            if cmd == "usage":
-                try:
-                    file_path = inspect.getfile(inspect_obj)
-                    module_stem = pathlib.Path(file_path).stem
-                    return f"\n```python\nfrom components.ui.{module_stem} import {preferred_name}\n```\n"
-                except Exception as e:
-                    return f"\n> **Error processing usage for {name}: {e}**\n"
-
-            return f"\n> **Warning: Unknown command '{cmd}'**\n"
-
-        except Exception as e:
-            return f"\n> **Error in {cmd}: {e}**\n"
 
     # Remove frontmatter if present (consistent with generator.py)
     if content.startswith("---"):
@@ -259,11 +272,10 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
         if len(parts) > 2:
             content = parts[2]
 
+    replacer = lambda m: _process_delimiter(m, registry)
     content = re.sub(delimiter_pattern, replacer, content)
     # Align markdown tables to meet MD060 requirements
-    content = align_markdown_tables(content)
-
-    return content
+    return align_markdown_tables(content)
 
 
 def main() -> None:
