@@ -111,3 +111,6 @@ convention = "google"
 [lint.per-file-ignores]
 # assert is pytest's normal check mechanism, not a production safety bypass.
 "tests/**" = ["S101"]
+# Reflex event handlers are called positionally; value=<bool> breaks handlers
+# whose parameter isn't named `value`, and component source ships verbatim.
+"components/**" = ["FBT003"]
