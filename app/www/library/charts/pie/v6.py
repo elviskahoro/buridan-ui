@@ -23,7 +23,7 @@ def piechart_v6():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),

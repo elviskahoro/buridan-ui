@@ -90,7 +90,7 @@ def test_generate_doc_routes_sorts_by_frontmatter_order_and_url_ties(
     monkeypatch.setattr(
         routes.glob,
         "glob",
-        lambda _pattern, recursive: [str(path) for path in glob_order],
+        lambda _pattern, recursive=False: [str(path) for path in glob_order],
     )
 
     generated = routes.generate_doc_routes("components", "docs/components/")

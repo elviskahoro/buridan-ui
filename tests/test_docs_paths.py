@@ -65,7 +65,7 @@ def test_preview_cards_use_repository_paths_from_another_working_directory(
     monkeypatch.setattr(
         preview_cards,
         "create_social_card",
-        lambda title, description, output_path: generated_paths.append(output_path),
+        lambda **kwargs: generated_paths.append(kwargs["output_path"]),
     )
     monkeypatch.chdir(tmp_path)
 
