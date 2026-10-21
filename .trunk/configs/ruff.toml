@@ -59,6 +59,8 @@ select = [
   "UP",
 ]
 ignore = [
+  # Reflex's HTML element is named `input`; importing it shadows the builtin.
+  "A004",
   "ANN101",
   "B008",
   "C901",
@@ -84,9 +86,16 @@ ignore = [
   "FIX002",
   "PIE807",
   "PLC0415",
+  # Complexity limits on existing utility functions; refactoring is deferred
+  # (#134).
+  "PLR0911",
+  "PLR0912",
   "PLR0913",
+  "PLR0915",
   "PLR0917",
+  "N806",    # ClientStateVar handles are intentionally capitalized.
   "N815",
+  "RUF012",  # Mutable class-level defaults are the Reflex component idiom.
   "RUF100",
   # SIM300's autofix emits a fix object with a null message, which crashes
   # trunk 1.25.0's ruff JSON parser ("type must be string, but is null") --

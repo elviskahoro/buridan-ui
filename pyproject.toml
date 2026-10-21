@@ -60,13 +60,3 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["app", "cli", "components"]
-
-[tool.ruff]
-ignore = [
-  "A004",    # Import input shadows builtin (Reflex component design)
-  "RUF012",  # Mutable class attributes (Reflex component design)
-  "N806",    # Uppercase variable in function (ClientStateVar names)
-  "PLR0911", # Too many return statements (utility functions)
-  "PLR0912", # Too many branches (utility functions)
-  "PLR0915", # Too many statements (utility functions)
-]
