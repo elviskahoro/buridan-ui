@@ -15,5 +15,5 @@ project-includes = [
   "tests/**/*.py",
 ]
 project-excludes = ["tmp/**", "node_modules/**", "venv/**"]
-search-path = ["."]
-python-interpreter-path = ".venv/bin/python"
+search-path = ["/home/vercel-sandbox/buridan-ui"]
+python-interpreter-path = "/home/vercel-sandbox/buridan-ui/.venv/bin/python"
