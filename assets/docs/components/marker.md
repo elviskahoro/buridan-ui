@@ -7,8 +7,99 @@ The Marker component displays inline conversation markers such as status updates
 ## Installation 
 Copy the following code into your app directory.
 
+### CLI
 
-> **Error: 'marker' not found in registry**
+```bash
+buridan add component marker
+```
+
+### Manual Installation
+
+```python
+from typing import Literal
+
+import reflex as rx
+from reflex.components.component import ComponentNamespace
+
+from .core import cn
+
+MarkerVariant = Literal["default", "separator", "border"]
+
+
+class ClassNames:
+    ROOT = (
+        "group/marker relative flex min-h-4 w-full items-center gap-2 "
+        "text-left text-sm text-muted-foreground"
+    )
+
+    VARIANTS: dict[str, str] = {
+        "default": "",
+        "separator": (
+            "before:mr-1 before:h-px before:min-w-0 before:flex-1 before:bg-border "
+            "after:ml-1 after:h-px after:min-w-0 after:flex-1 after:bg-border"
+        ),
+        "border": "border-b border-border pb-2",
+    }
+
+    ICON = "size-4 shrink-0"
+    CONTENT = (
+        "min-w-0 break-words "
+        "group-data-[variant=separator]/marker:flex-none "
+        "group-data-[variant=separator]/marker:text-center"
+    )
+
+
+def marker_root(
+    *children,
+    variant: MarkerVariant = "default",
+    class_name: str = "",
+    **props,
+) -> rx.Component:
+
+    return rx.el.div(
+        *children,
+        data_slot="marker",
+        data_variant=variant,
+        class_name=cn(
+            ClassNames.ROOT,
+            ClassNames.VARIANTS.get(variant, ""),
+            class_name,
+        ),
+        **props,
+    )
+
+
+def marker_icon(*children, class_name: str = "", **props) -> rx.Component:
+
+    return rx.el.span(
+        *children,
+        data_slot="marker-icon",
+        aria_hidden="true",
+        class_name=cn(ClassNames.ICON, class_name),
+        **props,
+    )
+
+
+def marker_content(*children, class_name: str = "", **props) -> rx.Component:
+
+    return rx.el.span(
+        *children,
+        data_slot="marker-content",
+        class_name=cn(ClassNames.CONTENT, class_name),
+        **props,
+    )
+
+
+class Marker(ComponentNamespace):
+    root = staticmethod(marker_root)
+    icon = staticmethod(marker_icon)
+    content = staticmethod(marker_content)
+
+    class_names = ClassNames
+
+
+marker = Marker()
+```
 
 
 ## Anatomy
@@ -26,7 +117,9 @@ marker.root(
 ## Usage
 
 
-> **Error: 'marker' not found in registry**
+```python
+from components.ui.marker import Marker
+```
 
 
 ## Examples
@@ -36,7 +129,26 @@ marker.root(
 Use `variant` to switch between an inline marker, bordered row, and labeled separator.
 
 
-> **Error: 'marker_variants_demo' not found in registry**
+```python
+def marker_variants_demo():
+    return rx.el.div(
+        # Default Marker
+        marker.root(
+            marker.content("A default marker for inline notes."),
+        ),
+        # Separator Marker
+        marker.root(
+            marker.content("A separator marker"),
+            variant="separator",
+        ),
+        # Border Marker
+        marker.root(
+            marker.content("A border marker for row boundaries."),
+            variant="border",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 | Variant     | Description                                          |
@@ -51,7 +163,23 @@ Use `variant` to switch between an inline marker, bordered row, and labeled sepa
 Set `role="status"` and include a [`Spinner`](/docs/components/spinner) for streaming or in-progress markers so updates are announced.
 
 
-> **Error: 'marker_status_demo' not found in registry**
+```python
+def marker_status_demo():
+    return rx.el.div(
+        marker.root(
+            marker.icon(spinner()),
+            marker.content("Compacting conversation"),
+            role="status",
+        ),
+        marker.root(
+            marker.icon(spinner()),
+            marker.content("Running tests"),
+            variant="separator",
+            role="status",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Shimmer
@@ -59,7 +187,21 @@ Set `role="status"` and include a [`Spinner`](/docs/components/spinner) for stre
 Add the [`shimmer`](/docs/utilities/shimmer) utility class to `marker.content` for an animated streaming-text effect. The utility ships with the `buridan` package — see the shimmer docs for installation.
 
 
-> **Error: 'marker_shimmer' not found in registry**
+```python
+def marker_shimmer():
+    return rx.el.div(
+        marker.root(
+            marker.content("Thinking...", class_name="shimmer"),
+            role="status",
+        ),
+        marker.root(
+            marker.content("Reading 4 files", class_name="shimmer"),
+            variant="separator",
+            role="status",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Separator
@@ -67,7 +209,24 @@ Add the [`shimmer`](/docs/utilities/shimmer) utility class to `marker.content` f
 Use the `separator` variant for labeled dividers, such as dates or section breaks, in a conversation.
 
 
-> **Error: 'marker_separator' not found in registry**
+```python
+def marker_separator():
+    return rx.el.div(
+        marker.root(
+            marker.content("Today"),
+            variant="separator",
+        ),
+        marker.root(
+            marker.content("Worked for 42s"),
+            variant="separator",
+        ),
+        marker.root(
+            marker.content("Conversation compacted"),
+            variant="separator",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Border
@@ -75,7 +234,27 @@ Use the `separator` variant for labeled dividers, such as dates or section break
 Use the `border` variant for status rows that should keep the default marker alignment while separating the next row.
 
 
-> **Error: 'marker_border' not found in registry**
+```python
+def marker_border():
+    return rx.el.div(
+        marker.root(
+            marker.icon(hi("GitBranchIcon")),
+            marker.content("Switched to release-candidate"),
+            variant="border",
+        ),
+        marker.root(
+            marker.icon(hi("Search01Icon")),
+            marker.content("Reviewed 8 related files"),
+            variant="border",
+        ),
+        marker.root(
+            marker.icon(hi("File01Icon")),
+            marker.content("Opened implementation notes"),
+            variant="border",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-3 py-12",
+    )
+```
 
 
 ## With Icon
@@ -83,7 +262,26 @@ Use the `border` variant for status rows that should keep the default marker ali
 Use `marker.icon` to render an icon alongside the content. Use `flex-col` to stack the icon above the content.
 
 
-> **Error: 'marker_with_icon' not found in registry**
+```python
+def marker_with_icon():
+    return rx.el.div(
+        marker.root(
+            marker.icon(hi("GitBranchIcon")),
+            marker.content("Switched to a new branch"),
+        ),
+        marker.root(
+            marker.icon(hi("Search01Icon")),
+            marker.content("Explored 4 files"),
+            variant="separator",
+        ),
+        marker.root(
+            marker.icon(hi("BookOpenCheckIcon")),
+            marker.content("Syncing completed"),
+            class_name="flex-col",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-12 py-12",
+    )
+```
 
 
 ## Links and Buttons
@@ -91,7 +289,37 @@ Use `marker.icon` to render an icon alongside the content. Use `flex-col` to sta
 Turn a marker into a link or button with.
 
 
-> **Error: 'marker_link_button' not found in registry**
+```python
+def marker_link_button():
+    return rx.el.div(
+        marker.root(
+            rx.el.a(
+                marker.icon(hi("GitBranchIcon")),
+                marker.content("View the pull request"),
+                href="#links-and-buttons",
+                class_name="group flex flex-row items-center gap-x-2 underline transition-colors hover:text-foreground",
+            ),
+            variant="default",
+        ),
+        marker.root(
+            rx.el.button(
+                marker.icon(
+                    hi("ArrowMoveUpRightIcon"),
+                    class_name="group-hover:text-foreground transition-colors",
+                ),
+                marker.content(
+                    "Revert this change",
+                    class_name="group-hover:text-foreground transition-colors",
+                ),
+                type="button",
+                class_name="group flex flex-row items-center gap-x-2 transition-colors",
+                on_click=rx.toast("You clicked the revert button"),
+            ),
+            variant="default",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12 justify-center",
+    )
+```
 
 
 ## Accessibility

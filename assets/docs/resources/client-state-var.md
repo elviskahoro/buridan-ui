@@ -52,7 +52,17 @@ For forms with multiple fields, store the draft as an object. Use `.merge()` to 
 while preserving the rest of the client-side state.
 
 
-> **Error: 'form_state_pattern_example' not found in registry**
+```python
+def form_state_pattern_example():
+    form_state = ClientStateVar.create("form", {})
+
+    return rx.el.input(
+        value=form_state.value.get("username", ""),
+        on_change=lambda v: form_state.set_value(
+            form_state.value.merge({"username": v}),
+        ),
+    )
+```
 
 
 ## Conditional Rendering

@@ -166,7 +166,20 @@ The effect is pure CSS. The text is painted with `background-clip: text`, and th
 Use `shimmer-color-<color>` to set the highlight color explicitly. It accepts theme colors with an optional opacity modifier, or any arbitrary color value.
 
 
-> **Error: 'shimmer_color' not found in registry**
+```python
+def shimmer_color():
+    return rx.el.div(
+        rx.el.p(
+            "Generating response",
+            class_name="shimmer shimmer-color-blue-500/60 w-fit",
+        ),
+        rx.el.p(
+            "Generating response",
+            class_name="shimmer shimmer-color-[#378ADD] w-fit",
+        ),
+        class_name="flex flex-col items-center gap-2 text-sm text-muted-foreground",
+    )
+```
 
 
 ## Duration
@@ -174,7 +187,25 @@ Use `shimmer-color-<color>` to set the highlight color explicitly. It accepts th
 Use `shimmer-duration-<number>` to set the duration of one sweep in milliseconds. The default is `2000`, i.e. `2s`.
 
 
-> **Error: 'shimmer_duration' not found in registry**
+```python
+def shimmer_duration():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer"),
+            rx.el.p("shimmer", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.p(
+                "Generating response...",
+                class_name="shimmer shimmer-duration-1000",
+            ),
+            rx.el.p("shimmer-duration-1000", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto grid w-full max-w-lg gap-6 text-center text-sm text-muted-foreground sm:grid-cols-2",
+    )
+```
 
 
 ## Spread
@@ -182,7 +213,22 @@ Use `shimmer-duration-<number>` to set the duration of one sweep in milliseconds
 Use `shimmer-spread-<number>` to set the width of the highlight band using the spacing scale. The default is `calc(3ch + 40px)`: a fixed base plus a `3ch` term that scales with the font size.
 
 
-> **Error: 'shimmer_spread' not found in registry**
+```python
+def shimmer_spread():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer shimmer-spread-4"),
+            rx.el.p("shimmer-spread-4", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer shimmer-spread-24"),
+            rx.el.p("shimmer-spread-24", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto grid w-full max-w-lg gap-6 text-center text-sm text-muted-foreground sm:grid-cols-2",
+    )
+```
 
 
 ## Angle
@@ -190,7 +236,22 @@ Use `shimmer-spread-<number>` to set the width of the highlight band using the s
 Use `shimmer-angle-<number>` to set the tilt of the highlight band in degrees. The default is `20`.
 
 
-> **Error: 'shimmer_angle' not found in registry**
+```python
+def shimmer_angle():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer"),
+            rx.el.p("shimmer", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer shimmer-angle-45"),
+            rx.el.p("shimmer-angle-45", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto grid w-full max-w-lg gap-6 text-center text-sm text-muted-foreground sm:grid-cols-2",
+    )
+```
 
 
 ## Reverse
@@ -198,7 +259,17 @@ Use `shimmer-angle-<number>` to set the tilt of the highlight band in degrees. T
 Use `shimmer-reverse` to sweep the highlight in the opposite direction.
 
 
-> **Error: 'shimmer_reverse' not found in registry**
+```python
+def shimmer_reverse():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.p("Generating response...", class_name="shimmer shimmer-reverse"),
+            rx.el.p("shimmer reverse", class_name="font-mono text-xs"),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="flex text-center items-center gap-2 text-sm text-muted-foreground",
+    )
+```
 
 
 ## Play Once
@@ -206,7 +277,28 @@ Use `shimmer-reverse` to sweep the highlight in the opposite direction.
 Use `shimmer-once` to play a single sweep instead of looping, useful as a reveal when streaming completes. Pair it with `shimmer-duration-<number>` to control how long the sweep takes.
 
 
-> **Error: 'shimmer_once' not found in registry**
+```python
+def shimmer_once():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.p(
+                "Generating response...",
+                class_name=(
+                    "shimmer text-sm text-muted-foreground "
+                    "shimmer-duration-1100 shimmer-once"
+                ),
+            ),
+            key=shimmer_key.value.to(str),
+        ),
+        button(
+            "Replay",
+            variant="outline",
+            size="sm",
+            on_click=shimmer_key.set_value(shimmer_key.value.to(int) + 1),
+        ),
+        class_name="flex flex-col items-center gap-4",
+    )
+```
 
 
 ```reflex
@@ -218,5 +310,12 @@ rx.el.p("Response Generated", class_name="shimmer shimmer-duration-1100 shimmer-
 Use `shimmer-none` to turn the effect off and render the text normally. It works in any class order, so the typical use is responsive or stateful.
 
 
-> **Error: 'shimmer_none' not found in registry**
+```python
+def shimmer_none():
+    return rx.el.div(
+        rx.el.p("Generating response...", class_name="shimmer md:shimmer-none"),
+        rx.el.p("shimmer md:shimmer-none", class_name="font-mono text-xs"),
+        class_name="flex flex-col items-center gap-3 text-sm text-muted-foreground",
+    )
+```
 

@@ -14,14 +14,153 @@ For AI apps, you can render reasoning steps, tool calls and assistant messages u
 
 Copy the following code into your app directory.
 
+### CLI
 
-> **Error: 'message' not found in registry**
+```bash
+buridan add component message
+```
+
+### Manual Installation
+
+```python
+from typing import Literal
+
+import reflex as rx
+from reflex.components.component import ComponentNamespace
+
+from .core import cn
+
+MessageAlign = Literal["start", "end"]
+
+
+class ClassNames:
+    GROUP = "flex min-w-0 flex-col gap-2"
+
+    ROOT = (
+        "group/message relative flex w-full min-w-0 gap-2 text-sm "
+        "data-[align=end]:flex-row-reverse"
+    )
+
+    AVATAR = (
+        "flex w-fit min-w-8 shrink-0 items-center justify-center "
+        "self-end overflow-hidden rounded-full bg-muted "
+        "group-has-data-[slot=message-footer]/message:-translate-y-8"
+    )
+
+    CONTENT = (
+        "flex w-full min-w-0 flex-col gap-2.5 break-words "
+        "group-data-[align=end]/message:*:data-slot:self-end"
+    )
+
+    HEADER = (
+        "flex max-w-full min-w-0 items-center px-3 text-xs font-medium "
+        "text-muted-foreground "
+        "group-has-data-[variant=ghost]/message:px-0"
+    )
+
+    FOOTER = (
+        "flex max-w-full min-w-0 items-center px-3 text-xs font-medium "
+        "text-muted-foreground "
+        "group-has-data-[variant=ghost]/message:px-0 "
+        "group-data-[align=end]/message:justify-end"
+    )
+
+
+def message_group(*children, class_name: str = "", **props) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message-group",
+        class_name=cn(ClassNames.GROUP, class_name),
+        **props,
+    )
+
+
+def message_root(
+    *children,
+    align: MessageAlign = "start",
+    class_name: str = "",
+    **props,
+) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message",
+        data_align=align,
+        class_name=cn(ClassNames.ROOT, class_name),
+        **props,
+    )
+
+
+def message_avatar(*children, class_name: str = "", **props) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message-avatar",
+        class_name=cn(ClassNames.AVATAR, class_name),
+        **props,
+    )
+
+
+def message_content(*children, class_name: str = "", **props) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message-content",
+        class_name=cn(ClassNames.CONTENT, class_name),
+        **props,
+    )
+
+
+def message_header(*children, class_name: str = "", **props) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message-header",
+        class_name=cn(ClassNames.HEADER, class_name),
+        **props,
+    )
+
+
+def message_footer(*children, class_name: str = "", **props) -> rx.Component:
+    ##
+
+    return rx.el.div(
+        *children,
+        data_slot="message-footer",
+        class_name=cn(ClassNames.FOOTER, class_name),
+        **props,
+    )
+
+
+class Message(ComponentNamespace):
+    ##
+
+    group = staticmethod(message_group)
+    root = staticmethod(message_root)
+    avatar = staticmethod(message_avatar)
+    content = staticmethod(message_content)
+    header = staticmethod(message_header)
+    footer = staticmethod(message_footer)
+
+    class_names = ClassNames
+
+
+message = Message()
+```
 
 
 ## Usage
 
 
-> **Error: 'message' not found in registry**
+```python
+from components.ui.message import Message
+```
 
 
 **Note:** `Message` owns the row layout—avatar, alignment, header, and footer.
@@ -52,7 +191,63 @@ message.group(
 Use `message.avatar` to render an avatar next to the message. Set `align="end"` on the message to align the avatar to the end of the message.
 
 
-> **Error: 'message_with_avatar' not found in registry**
+```python
+def message_with_avatar():
+    return rx.el.div(
+        message.root(
+            message.avatar(
+                avatar.root(
+                    avatar.image(src="/avatars/03.png", alt="@avatar"),
+                    avatar.fallback("R"),
+                ),
+            ),
+            message.content(
+                bubble.root(
+                    bubble.content("The build failed during dependency installation."),
+                    variant="muted",
+                ),
+            ),
+        ),
+        message.root(
+            message.avatar(
+                avatar.root(
+                    avatar.image(src="/avatars/01.png", alt="@avatar"),
+                    avatar.fallback("R"),
+                ),
+            ),
+            message.content(
+                bubble.root(
+                    bubble.content("Can you share the exact error?"),
+                ),
+            ),
+            align="end",
+        ),
+        message.root(
+            message.avatar(
+                avatar.root(
+                    avatar.image(src="/avatars/03.png", alt="@avatar"),
+                    avatar.fallback("R"),
+                ),
+            ),
+            message.content(
+                bubble.group(
+                    bubble.root(
+                        bubble.content("Here's the error from the logs"),
+                        variant="muted",
+                    ),
+                    bubble.root(
+                        bubble.content(
+                            "Something went wrong with the build. The libraries are not "
+                            "installed correctly. Try running the build again.",
+                        ),
+                        variant="muted",
+                    ),
+                ),
+            ),
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-6 py-12",
+    )
+```
 
 
 | align   | Description                                         |
@@ -66,7 +261,39 @@ Use `message.avatar` to render an avatar next to the message. Set `align="end"` 
 Use `message.group` to stack consecutive messages from the same sender. Render an empty `message.avatar` on the earlier messages to keep them aligned with the avatar on the last one.
 
 
-> **Error: 'message_with_group' not found in registry**
+```python
+def message_with_group():
+    return rx.el.div(
+        message.group(
+            message.root(
+                message.avatar(),
+                message.content(
+                    bubble.root(
+                        bubble.content("I checked the registry addresses."),
+                        variant="muted",
+                    ),
+                ),
+            ),
+            message.root(
+                message.avatar(
+                    avatar.root(
+                        avatar.image(src="/avatars/02.png", alt="@avatar"),
+                        avatar.fallback("CN"),
+                    ),
+                ),
+                message.content(
+                    bubble.root(
+                        bubble.content(
+                            "The component and example JSON now live under the UI registry.",
+                        ),
+                        variant="muted",
+                    ),
+                ),
+            ),
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-6 py-12",
+    )
+```
 
 
 ## Header and Footer
@@ -74,7 +301,37 @@ Use `message.group` to stack consecutive messages from the same sender. Render a
 Use `message.header` for a sender name and `message.footer` for metadata such as a delivery or read status.
 
 
-> **Error: 'message_header_footer' not found in registry**
+```python
+def message_header_footer():
+    return rx.el.div(
+        message.root(
+            message.content(
+                message.header("Olivia"),
+                bubble.root(
+                    bubble.content("I already checked the logs."),
+                    variant="muted",
+                ),
+            ),
+        ),
+        message.root(
+            message.content(
+                bubble.root(
+                    bubble.content(
+                        "Send the report to the team. Ping @lineindent if you need help.",
+                    ),
+                ),
+                message.footer(
+                    rx.el.div(
+                        "Read ",
+                        rx.el.span("Yesterday", class_name="font-normal"),
+                    ),
+                ),
+            ),
+            align="end",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Actions
@@ -82,7 +339,67 @@ Use `message.header` for a sender name and `message.footer` for metadata such as
 Place message-level actions in `message.footer`, such as copy, retry, or feedback buttons.
 
 
-> **Error: 'message_with_actions' not found in registry**
+```python
+def message_with_actions():
+    return rx.el.div(
+        message.root(
+            message.content(
+                bubble.root(
+                    bubble.content(
+                        "The install failure is coming from the workspace package.",
+                    ),
+                    variant="muted",
+                ),
+                message.footer(
+                    button(
+                        hi("Copy01Icon"),
+                        variant="ghost",
+                        size="sm",
+                        aria_label="Copy",
+                        title="Copy",
+                    ),
+                    button(
+                        hi("ThumbsUpIcon"),
+                        variant="ghost",
+                        size="sm",
+                        aria_label="Like",
+                        title="Like",
+                    ),
+                    button(
+                        hi("ThumbsDownIcon"),
+                        variant="ghost",
+                        size="sm",
+                        aria_label="Dislike",
+                        title="Dislike",
+                    ),
+                ),
+            ),
+        ),
+        message.root(
+            message.content(
+                bubble.root(
+                    bubble.content("Okay drop me a link. Taking a look..."),
+                ),
+                message.footer(
+                    rx.el.span(
+                        "Failed to send",
+                        class_name="font-normal text-destructive",
+                    ),
+                    button(
+                        hi("Refresh03Icon"),
+                        variant="ghost",
+                        size="sm",
+                        title="Retry",
+                        aria_label="Retry",
+                    ),
+                    class_name="gap-2",
+                ),
+            ),
+            align="end",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Attachment
@@ -90,7 +407,67 @@ Place message-level actions in `message.footer`, such as copy, retry, or feedbac
 Use the [`Attachment`](/docs/components/attachment) with the messages to displays a file or image attachment with media, metadata, upload state, and actions.
 
 
-> **Error: 'message_with_attachment' not found in registry**
+```python
+def message_with_attachment():
+    return rx.el.div(
+        message.root(
+            message.content(
+                attachment.root(
+                    attachment.media(
+                        rx.el.img(
+                            src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=900&auto=format&fit=crop&q=80",
+                            alt="Workspace",
+                        ),
+                        variant="image",
+                    ),
+                    orientation="vertical",
+                ),
+                bubble.root(
+                    bubble.content(
+                        "Here's the image. Can you add it to the PDF? "
+                        "Use it for the cover page.",
+                    ),
+                ),
+            ),
+            align="end",
+        ),
+        message.root(
+            message.content(
+                bubble.root(
+                    bubble.content(
+                        "Done. Here's the PDF with the image added as the cover page.",
+                    ),
+                    variant="muted",
+                ),
+                attachment.root(
+                    attachment.media(
+                        hi("File02Icon"),
+                    ),
+                    attachment.content(
+                        attachment.title("sales-dashboard.pdf"),
+                        attachment.description("PDF · 2.4 MB"),
+                    ),
+                    attachment.actions(
+                        attachment.action(
+                            hi("Download02Icon"),
+                            title="Download",
+                            aria_label="Download",
+                        ),
+                    ),
+                ),
+            ),
+        ),
+        message.root(
+            message.content(
+                bubble.root(
+                    bubble.content("Thanks. Looks good."),
+                ),
+            ),
+            align="end",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-8 py-12",
+    )
+```
 
 
 ## Accessibility

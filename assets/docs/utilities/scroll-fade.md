@@ -50,7 +50,25 @@ The fade is applied with `mask-image`, so it dissolves the content itself rather
 ## Scroll Fade Demo
 
 
-> **Error: 'scroll_fade_demo' not found in registry**
+```python
+def scroll_fade_demo():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                *[
+                    rx.el.div(
+                        f"Item {index + 1}",
+                        class_name="rounded-lg bg-muted px-3 py-2.5 text-sm",
+                    )
+                    for index in range(12)
+                ],
+                class_name="flex flex-col gap-1.5 p-1.5",
+            ),
+            class_name="h-72 scroll-fade scrollbar-none overflow-y-auto",
+        ),
+        class_name="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-input",
+    )
+```
 
 
 ## No Overflow, No Fade
@@ -58,7 +76,25 @@ The fade is applied with `mask-image`, so it dissolves the content itself rather
 If the content does not overflow, no fade is shown. You can apply `scroll-fade` to any list without checking whether it scrolls.
 
 
-> **Error: 'scroll_fade_no_fade' not found in registry**
+```python
+def scroll_fade_no_fade():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                *[
+                    rx.el.div(
+                        f"Item {index + 1}",
+                        class_name="rounded-lg bg-muted px-3 py-2.5 text-sm",
+                    )
+                    for index in range(3)
+                ],
+                class_name="flex flex-col gap-1.5 p-1.5",
+            ),
+            class_name="scroll-fade scrollbar-none overflow-y-auto",
+        ),
+        class_name="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-input",
+    )
+```
 
 
 ## Horizontal Scrolling
@@ -66,7 +102,25 @@ If the content does not overflow, no fade is shown. You can apply `scroll-fade` 
 Use `scroll-fade-x` on containers that scroll horizontally, i.e. the element that has `overflow-x-auto`.
 
 
-> **Error: 'scroll_fade_horizontal' not found in registry**
+```python
+def scroll_fade_horizontal():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                *[
+                    rx.el.div(
+                        tag,
+                        class_name="shrink-0 rounded-lg bg-muted px-3 py-2.5 text-sm",
+                    )
+                    for tag in tags
+                ],
+                class_name="flex w-max gap-1.5 p-1.5",
+            ),
+            class_name="scroll-fade-x scrollbar-none overflow-x-auto",
+        ),
+        class_name="mx-auto w-full max-w-xs overflow-hidden rounded-2xl border border-input",
+    )
+```
 
 
 ## Edge Fades
@@ -74,7 +128,68 @@ Use `scroll-fade-x` on containers that scroll horizontally, i.e. the element tha
 Use edge utilities when only one edge should track the scroll position.
 
 
-> **Error: 'scroll_fade_edge' not found in registry**
+```python
+def scroll_fade_edge():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_edge_items(),
+                    class_name="h-36 scroll-fade-t scrollbar-none overflow-y-auto",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-t",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_edge_items(),
+                    class_name="h-36 scroll-fade-b scrollbar-none overflow-y-auto",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-b",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_edge_tags(),
+                    class_name="scroll-fade-s scrollbar-none overflow-x-auto",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-s",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_edge_tags(),
+                    class_name="scroll-fade-e scrollbar-none overflow-x-auto",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-e",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto flex max-w-xs min-w-0 flex-col gap-6",
+    )
+```
 
 
 The edge utilities are scroll-aware. Start edges fade in after you scroll away from the start, and end edges fade out when you reach the end. Use `scroll-fade-t`, `scroll-fade-b`, `scroll-fade-l`, and `scroll-fade-r` for physical edges. Use `scroll-fade-s` and `scroll-fade-e` for logical inline edges.
@@ -84,7 +199,40 @@ The edge utilities are scroll-aware. Start edges fade in after you scroll away f
 The fade depth defaults to 12% of the container, capped at 40px so tall scrollers stay subtle. Use `scroll-fade-<number>` to set a fixed size on the spacing scale instead, the same way `scroll-mt-<number>` works.
 
 
-> **Error: 'scroll_fade_size' not found in registry**
+```python
+def scroll_fade_size():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_size_items(),
+                    class_name="h-48 scroll-fade scrollbar-none overflow-y-auto scroll-fade-4",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-4",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_size_items(),
+                    class_name="h-48 scroll-fade scrollbar-none overflow-y-auto scroll-fade-24",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade-24",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto flex w-full max-w-xs flex-col gap-6",
+    )
+```
 
 
 For one-off values, use an arbitrary length or percentage:
@@ -104,7 +252,40 @@ rx.el.div(..., class_name="scroll-fade overflow-y-auto scroll-fade-b-8 scroll-fa
 Use `scroll-fade-none` to remove the fade. It works in any class order, so the typical use is responsive or stateful.
 
 
-> **Error: 'scroll_fade_none' not found in registry**
+```python
+def scroll_fade_none():
+    return rx.el.div(
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_none_items(),
+                    class_name="h-48 scroll-fade scrollbar-none overflow-y-auto",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        rx.el.div(
+            rx.el.div(
+                rx.el.div(
+                    scroll_fade_none_items(),
+                    class_name="h-48 scroll-fade scrollbar-none overflow-y-auto scroll-fade-none",
+                ),
+                class_name="overflow-hidden rounded-2xl border border-input",
+            ),
+            rx.el.p(
+                "scroll-fade scroll-fade-none",
+                class_name="text-center font-mono text-xs text-muted-foreground",
+            ),
+            class_name="flex flex-col gap-3",
+        ),
+        class_name="mx-auto flex w-full max-w-xs min-w-0 flex-col gap-6",
+    )
+```
 
 
 

@@ -8,14 +8,46 @@ An indicator that can be used to show a loading state.
 ## Installation 
 Copy the following code into your app directory.
 
+### CLI
 
-> **Error: 'spinner' not found in registry**
+```bash
+buridan add component spinner
+```
+
+### Manual Installation
+
+```python
+import reflex as rx
+from reflex_components_core.el import svg
+
+from .core import cn
+
+
+def spinner(class_name: str = "", **props) -> rx.Component:
+    return svg(
+        svg.path(
+            d="M21.9961 12C21.9961 17.5228 17.5189 22 11.9961 22C6.47325 22 1.99609 17.5228 1.99609 12C1.99609 6.47715 6.47325 2 11.9961 2",
+        ),
+        xmlns="http://www.w3.org/2000/svg",
+        view_box="0 0 24 24",
+        fill="none",
+        stroke="currentColor",
+        stroke_width="1.5",
+        stroke_linecap="round",
+        class_name=cn("size-4 animate-spin", class_name),
+        data_slot="spinner",
+        role="status",
+        **props,
+    )
+```
 
 
 ## Usage
 
 
-> **Error: 'spinner' not found in registry**
+```python
+from components.ui.spinner import spinner
+```
 
 
 ## Anatomy
@@ -34,7 +66,16 @@ spinner()
 Use the `size-*` utility class to change the size of the spinner.
  
 
-> **Error: 'spinner_size' not found in registry**
+```python
+def spinner_size():
+    return rx.el.div(
+        spinner(class_name="size-3"),
+        spinner(class_name="size-4"),
+        spinner(class_name="size-6"),
+        spinner(class_name="size-8"),
+        class_name="flex items-center gap-6",
+    )
+```
 
 
 ## Button
@@ -42,7 +83,15 @@ Use the `size-*` utility class to change the size of the spinner.
 Add a spinner to a button to indicate a loading state. Place it before the label for a start position.
  
 
-> **Error: 'spinner_button' not found in registry**
+```python
+def spinner_button():
+    return rx.el.div(
+        button(spinner(), "Loading...", disabled=True, size="sm"),
+        button(spinner(), "Please wait", disabled=True, size="sm", variant="outline"),
+        button(spinner(), "Processing", disabled=True, size="sm", variant="secondary"),
+        class_name="flex flex-col items-center gap-4",
+    )
+```
 
 
 ## Badge
@@ -50,7 +99,15 @@ Add a spinner to a button to indicate a loading state. Place it before the label
 Add a spinner to a badge to indicate a loading or syncing state.
  
 
-> **Error: 'spinner_badge' not found in registry**
+```python
+def spinner_badge():
+    return rx.el.div(
+        badge(spinner(), "Syncing"),
+        badge(spinner(), "Updating", variant="secondary"),
+        badge(spinner(), "Processing", variant="outline"),
+        class_name="flex items-center gap-4",
+    )
+```
 
 
 ## Marker
@@ -58,7 +115,29 @@ Add a spinner to a badge to indicate a loading or syncing state.
 Combine `Spinner` with `Marker` and the `shimmer` utility for animated streaming status indicators. Set `role="status"` so assistive technology announces the update.
  
 
-> **Error: 'spinner_marker' not found in registry**
+```python
+def spinner_marker():
+    return rx.el.div(
+        marker.root(
+            marker.icon(spinner()),
+            marker.content("Thinking…", class_name="shimmer w-fit"),
+            role="status",
+        ),
+        marker.root(
+            marker.icon(spinner()),
+            marker.content("Generating response…", class_name="shimmer w-fit"),
+            variant="border",
+            role="status",
+        ),
+        marker.root(
+            marker.icon(spinner()),
+            marker.content("Processing"),
+            variant="separator",
+            role="status",
+        ),
+        class_name="flex w-full max-w-sm flex-col gap-6",
+    )
+```
 
 
 ## API Reference
