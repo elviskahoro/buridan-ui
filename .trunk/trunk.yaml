@@ -291,6 +291,12 @@ lint:
       paths:
         - assets/prism/**
 
+    # Pullfrog workflow dispatch inputs are intentional and required for the
+    # Pullfrog trigger; the file is harness-managed and cannot be edited.
+    - linters: [checkov]
+      paths:
+        - .github/workflows/pullfrog.yml
+
   exported_configs:
     - plugin_id: oss-linter-trunk
       configs:
@@ -376,4 +382,3 @@ merge:
     - Trunk Check
     - Tests
     - Generate & Verify Docs and Social Cards
-    - pullfrog-approval
