@@ -42,9 +42,11 @@ from __future__ import annotations
 
 import argparse
 import ast
+import importlib.abc
 import importlib.util
 import sys
 from pathlib import Path
+from typing import cast
 
 DEFAULT_SRC = "app/anatomy_src"
 DEFAULT_OUT = "app/registry/anatomy.py"
@@ -103,10 +105,8 @@ def validate_by_importing(path: Path, repo_root: Path) -> None:
     module = importlib.util.module_from_spec(spec)
     sys.path.insert(0, str(repo_root))
     try:
-        if spec.loader is None:
-            msg = f"No loader found for {path}"
-            raise ValueError(msg)
-        spec.loader.exec_module(module)
+        loader = cast(importlib.abc.Loader, spec.loader)
+        loader.exec_module(module)
     finally:
         sys.path.pop(0)
 
