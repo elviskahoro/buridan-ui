@@ -20,7 +20,6 @@ uv run buridan init
 
 | Class                             | Styles                                                                                                              |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
-| --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
 | `scroll-fade`                     | `mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));` <br /> `animation-timeline: scroll(self y);`       |
 | `scroll-fade-y`                   | `mask-image: var(--scroll-fade-mask, var(--scroll-fade-block));` <br /> `animation-timeline: scroll(self y);`       |
 | `scroll-fade-x`                   | `mask-image: var(--scroll-fade-mask, var(--scroll-fade-inline));` <br /> `animation-timeline: scroll(self inline);` |

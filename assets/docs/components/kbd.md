@@ -158,7 +158,6 @@ Use the `kbd.root` component to display a keyboard key.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | ``      |
 
 ```python
@@ -171,7 +170,6 @@ Use the `kbd.group` component to group `kbd.root` components together.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | ``      |
 
 ```python

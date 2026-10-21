@@ -221,8 +221,7 @@ def badge_custom_colors() -> rx.Component:
 
 The `badge` component displays a badge or a component that looks like a badge.
 
-| Prop         | Type                                                                          | Default       |
-| ------------ | ----------------------------------------------------------------------------- | ------------- | --------------- | ----------- | --------- | ------- | ----------- |
-| -----------  | ----------------------------------------------------------------------------- | -----------   |
-| `variant`    | `"default" \                                                                  | "secondary" \ | "destructive" \ | "outline" \ | "ghost" \ | "link"` | `"default"` |
-| `class_name` | `string`                                                                      | -             |
+| Prop         | Type                                                                          | Default     |
+| ------------ | ----------------------------------------------------------------------------- | ----------- |
+| `variant`    | `"default" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "link"` | `"default"` |
+| `class_name` | `string`                                                                      | -           |

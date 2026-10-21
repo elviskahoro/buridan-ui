@@ -379,9 +379,8 @@ def card_image() -> rx.Component:
 The `card.root` component is the root container for card content.
 
 | Prop         | Type                | Default     |
-| ------------ | ------------------- | ----------- | ----------- |
-| -----------  | ------------------- | ----------- |
-| `size`       | `"default" \        | "sm"`       | `"default"` |
+| ------------ | ------------------- | ----------- |
+| `size`       | `"default" \| "sm"` | `"default"` |
 | `class_name` | `string`            | -           |
 
 ## card.header
@@ -390,7 +389,6 @@ The `card.header` component is used for a title, description, and optional actio
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.title
@@ -399,7 +397,6 @@ The `card.title` component is used for the card title.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.description
@@ -408,7 +405,6 @@ The `card.description` component is used for helper text under the title.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.action
@@ -417,7 +413,6 @@ The `card.action` component places content in the top-right of the header (for e
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.content
@@ -426,7 +421,6 @@ The `card.content` component is used for the main card body.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.footer
@@ -435,5 +429,4 @@ The `card.footer` component is used for actions and secondary content at the bot
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |

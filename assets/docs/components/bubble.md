@@ -291,7 +291,6 @@ def bubble_with_variants():
 
 | Variant       | Description                                            |
 | ------------- | ------------------------------------------------------ |
-| ------------- | ------------------------------------------------------ |
 | `default`     | A strong primary bubble, usually for the current user. |
 | `secondary`   | The standard neutral bubble for conversation content.  |
 | `muted`       | A lower-emphasis bubble for quiet supporting content.  |
@@ -329,7 +328,6 @@ def bubble_alignment_demo():
 
 
 | align   | Description                                        |
-| ------- | -------------------------------------------------- |
 | ------- | -------------------------------------------------- |
 | `start` | Align the bubble to the start of the conversation. |
 | `end`   | Align the bubble to the end of the conversation.   |
@@ -698,32 +696,29 @@ Bubble variants signal role and tone with color. Pair them with text, alignment,
 
 The root bubble wrapper.
 
-| Prop         | Type                                                                                       | Default       | Description                                      |
-| ------------ | ------------------------------------------------------------------------------------------ | ------------- | ------------------------------------------------ | ----------------------------------- | ----------- | --------- | -------------- | ----------- | ---------------------------- |
-| -----------  | ------------------------------------------------------------------------------------------ | -----------   | ------------------------------------------------ |
-| `variant`    | `"default" \                                                                               | "secondary" \ | "muted" \                                        | "tinted" \                          | "outline" \ | "ghost" \ | "destructive"` | `"default"` | The bubble visual treatment. |
-| `align`      | `"start" \                                                                                 | "end"`        | `"start"`                                        | The inline alignment of the bubble. |
-| `class_name` | `string`                                                                                   | -             | Additional classes to apply to the root element. |
+| Prop         | Type                                                                                       | Default     | Description                                      |
+| ------------ | ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------ |
+| `variant`    | `"default" \| "secondary" \| "muted" \| "tinted" \| "outline" \| "ghost" \| "destructive"` | `"default"` | The bubble visual treatment.                     |
+| `align`      | `"start" \| "end"`                                                                         | `"start"`   | The inline alignment of the bubble.              |
+| `class_name` | `string`                                                                                   | -           | Additional classes to apply to the root element. |
 
 ## bubble.content
 
 The bubble content wrapper.
 
-| Prop         | Type                       | Default | Description                                               |
-| ------------ | -------------------------- | ------- | --------------------------------------------------------- |
-| -----------  | -------------------------- | ------- | --------------------------------------------------------- |
-| `*children`  | `rx.Component`             | -       | Render the content as a different element such as a link. |
-| `class_name` | `string`                   | -       | Additional classes to apply to the content element.       |
+| Prop         | Type           | Default | Description                                               |
+| ------------ | -------------- | ------- | --------------------------------------------------------- |
+| `*children`  | `rx.Component` | -       | Render the content as a different element such as a link. |
+| `class_name` | `string`       | -       | Additional classes to apply to the content element.       |
 
 ## bubble.reactions
 
 Displays overlapped reactions for a bubble.
 
 | Prop         | Type                | Default    | Description                                      |
-| ------------ | ------------------- | ---------- | ------------------------------------------------ | ----------------------------------------------- |
-| -----------  | ------------------- | ---------- | ------------------------------------------------ |
-| `side`       | `"top" \            | "bottom"`  | `"bottom"`                                       | The side of the bubble to anchor the reactions. |
-| `align`      | `"start" \          | "end"`     | `"end"`                                          | The inline alignment of the reactions.          |
+| ------------ | ------------------- | ---------- | ------------------------------------------------ |
+| `side`       | `"top" \| "bottom"` | `"bottom"` | The side of the bubble to anchor the reactions.  |
+| `align`      | `"start" \| "end"`  | `"end"`    | The inline alignment of the reactions.           |
 | `class_name` | `string`            | -          | Additional classes to apply to the reaction row. |
 
 ## bubble.group
@@ -732,5 +727,4 @@ Groups consecutive bubbles from the same sender.
 
 | Prop         | Type     | Default | Description                                    |
 | ------------ | -------- | ------- | ---------------------------------------------- |
-| -----------  | -------- | ------- | ---------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the group root. |

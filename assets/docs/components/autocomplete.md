@@ -605,8 +605,7 @@ def autocomplete_empty_state():
 ### autocomplete
 
 | Prop                     | Type           | Default | Description                                                                                                                                        |
-| ------------------------ | -------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------- |
-| :---                     | :---           | :---    | :---                                                                                                                                               |
+| :----------------------- | :------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `items`                  | `list[str]`    | `[]`    | The list of items to display in the dropdown.                                                                                                      |
 | `placeholder`            | `str`          | `None`  | Placeholder text shown inside the input when empty.                                                                                                |
 | `on_change_query`        | `EventHandler` | `None`  | Fired on every keystroke with the current input value.                                                                                             |

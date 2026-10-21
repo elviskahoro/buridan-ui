@@ -463,7 +463,6 @@ Container that renders a semantic `fieldset` with spacing presets.
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -477,11 +476,10 @@ field.set_(
 
 Legend element for a `field.set_`. Switch to the `"label"` variant to align with standard label sizing.
 
-| Prop         | Type        | Default  |
-| ------------ | ----------- | -------- | ---------- |
-| ---          | ---         | ---      |
-| `variant`    | `"legend" \ | "label"` | `"legend"` |
-| `class_name` | `str`       |          |
+| Prop         | Type                  | Default    |
+| ------------ | --------------------- | ---------- |
+| `variant`    | `"legend" \| "label"` | `"legend"` |
+| `class_name` | `str`                 |            |
 
 ```python
 field.legend("Notification Preferences", variant="label")
@@ -495,7 +493,6 @@ Layout wrapper that stacks `field.root` components and enables container queries
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -510,12 +507,11 @@ field.group(
 
 The core wrapper for a single field. Provides orientation control, invalid state styling, and spacing configurations.
 
-| Prop           | Type          | Default        |
-| -------------- | ------------- | -------------- | ------------- | ------------ |
-| ---            | ---           | ---            |
-| `orientation`  | `"vertical" \ | "horizontal" \ | "responsive"` | `"vertical"` |
-| `class_name`   | `str`         |                |
-| `data_invalid` | `str`         |                |
+| Prop           | Type                                         | Default      |
+| -------------- | -------------------------------------------- | ------------ |
+| `orientation`  | `"vertical" \| "horizontal" \| "responsive"` | `"vertical"` |
+| `class_name`   | `str`                                        |              |
+| `data_invalid` | `str`                                        |              |
 
 ```python
 field.root(
@@ -531,7 +527,6 @@ Flex column that groups control and descriptions when the label sits beside the 
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -550,7 +545,6 @@ Label styled for both direct inputs and nested `field` child items.
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `html_for`   | `str` |         |
 | `class_name` | `str` |         |
 
@@ -564,7 +558,6 @@ Renders a standalone title with matching label typography properties inside a `f
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -580,7 +573,6 @@ Helper text slot that automatically line-balances lengthy strings cleanly when u
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -593,7 +585,6 @@ Visual divider rule used to separate sections or categories inside a wrapping `f
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python
@@ -606,7 +597,6 @@ Accessible error notification typography container block configured automaticall
 
 | Prop         | Type  | Default |
 | ------------ | ----- | ------- |
-| ---          | ---   | ---     |
 | `class_name` | `str` |         |
 
 ```python

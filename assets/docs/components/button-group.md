@@ -260,9 +260,8 @@ def button_group_select() -> rx.Component:
 The `button_group.root` component is a container that groups related buttons together with consistent styling.
 
 | Prop          | Type                         | Default        |
-| ------------- | ---------------------------- | -------------- | -------------- |
 | ------------- | ---------------------------- | -------------- |
-| `orientation` | `"horizontal" \              | "vertical"`    | `"horizontal"` |
+| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
 
 
 ## button_group.separator
@@ -270,9 +269,8 @@ The `button_group.root` component is a container that groups related buttons tog
 The `button_group.separator` component visually divides buttons within a group.
 
 | Prop          | Type                         | Default      |
-| ------------- | ---------------------------- | ------------ | ------------ |
 | ------------- | ---------------------------- | ------------ |
-| `orientation` | `"horizontal" \              | "vertical"`  | `"vertical"` |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` |
 
 
 ## button_group.text
@@ -281,7 +279,6 @@ Use this component to display text within a button group.
 
 | Prop        | Type           | Default |
 | ----------- | -------------- | ------- |
-| ---------   | ---------      | ------- |
 | `*children` | `rx.Component` | `false` |
 
 

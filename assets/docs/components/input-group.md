@@ -485,7 +485,6 @@ The main component that wraps inputs and addons.
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` |         |
 
 
@@ -496,9 +495,8 @@ Displays icons, text, buttons, or other content alongside inputs.
 >For proper focus navigation, the `input_group.addon` component should be placed after the input. Set the `align` prop to position the addon.
 
 | Prop         | Type                                                             | Default          |
-| ------------ | ---------------------------------------------------------------- | ---------------- | --------------- | ------------ | ---------------- |
-| -----------  | ---------------------------------------------------------------- | ---------------- |
-| `align`      | `"inline-start" \                                                | "inline-end" \   | "block-start" \ | "block-end"` | `"inline-start"` |
+| ------------ | ---------------------------------------------------------------- | ---------------- |
+| `align`      | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
 | `class_name` | `string`                                                         |                  |
 
 
@@ -510,12 +508,11 @@ The `input_group.addon` component can have multiple `input_group.button` compone
 
 Displays buttons within input groups. See the [Button](/docs/components/button) docs for more information. 
 
-| Prop         | Type                                                                          | Default         |
-| ------------ | ----------------------------------------------------------------------------- | --------------- | ----------- | ------------- | --------- | ------- | --------- |
-| -----------  | ----------------------------------------------------------------------------- | ---------       |
-| `size`       | `"xs" \                                                                       | "icon-xs" \     | "sm" \      | "icon-sm"`    | `"xs"`    |
-| `variant`    | `"default" \                                                                  | "destructive" \ | "outline" \ | "secondary" \ | "ghost" \ | "link"` | `"ghost"` |
-| `class_name` | `string`                                                                      |                 |
+| Prop         | Type                                                                          | Default   |
+| ------------ | ----------------------------------------------------------------------------- | --------- |
+| `size`       | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
+| `variant`    | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
+| `class_name` | `string`                                                                      |           |
 
 ## input_group.input
 
@@ -523,7 +520,6 @@ Replacement for `input()` when building input groups. This component has the inp
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` |         |
 
 All other props are passed through to the underlying `Input()` component.
@@ -534,7 +530,6 @@ Replacement for `textarea()` when building input groups. This component has the 
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` |         |
 
 All other props are passed through to the underlying `textarea()` component.

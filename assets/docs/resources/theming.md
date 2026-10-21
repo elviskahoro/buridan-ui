@@ -78,7 +78,6 @@ These tokens live in your CSS file under `:root` and `.dark`.
 
 | Token                                            | What it controls                                       | Used by                                                                      |
 | ------------------------------------------------ | ------------------------------------------------------ | ---------------------------------------------------------------------------- |
-| ------------------------------------------------ | ------------------------------------------------------ | ---------------------------------------------------------------------------- |
 | `background` / `foreground`                      | The default app background and text color.             | The page shell, page sections, and default text.                             |
 | `card` / `card-foreground`                       | Elevated surfaces and the content inside them.         | `Card`, dashboard panels, settings panels.                                   |
 | `popover` / `popover-foreground`                 | Floating surfaces and the content inside them.         | `Popover`, `DropdownMenu`, `ContextMenu`, and other overlays.                |

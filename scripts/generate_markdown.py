@@ -65,6 +65,7 @@ def dynamic_load_components(dirs: list[str]) -> Registry:
 
 
 MIN_TABLE_LINES = 2
+MIN_SEPARATOR_WIDTH = 3
 
 
 def align_markdown_tables(content: str) -> str:
@@ -102,13 +103,16 @@ def align_markdown_tables(content: str) -> str:
     return "\n".join(result)
 
 
+# Splits on cell delimiters but not on `\\|`, an escaped pipe inside a cell.
+TABLE_CELL_DELIMITER = re.compile(r"(?<!\\)\|")
+
+
 def _parse_table_rows(lines: list[str]) -> list[list[str]]:
     """Parse table lines into rows of cells."""
-    rows = []
-    for line in lines:
-        cells = [cell.strip() for cell in line.split("|")[1:-1]]
-        rows.append(cells)
-    return rows
+    return [
+        [cell.strip() for cell in TABLE_CELL_DELIMITER.split(line)[1:-1]]
+        for line in lines
+    ]
 
 
 def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
@@ -134,9 +138,20 @@ def _format_table_row(cells: list[str], col_widths: list[int]) -> str:
     return "| " + " | ".join(aligned_cells) + " |"
 
 
-def _format_table_separator(col_widths: list[int]) -> str:
+def _format_separator_cell(cell: str, width: int) -> str:
+    """Pad a separator cell to width, keeping its `:` alignment markers."""
+    left = cell.startswith(":")
+    right = len(cell) > 1 and cell.endswith(":")
+    dashes = "-" * (width - left - right)
+    return (":" if left else "") + dashes + (":" if right else "")
+
+
+def _format_table_separator(cells: list[str], col_widths: list[int]) -> str:
     """Format a table separator line."""
-    sep_cells = ["-" * width for width in col_widths]
+    sep_cells = [
+        _format_separator_cell(cells[col_idx] if col_idx < len(cells) else "", width)
+        for col_idx, width in enumerate(col_widths)
+    ]
     return "| " + " | ".join(sep_cells) + " |"
 
 
@@ -145,19 +160,18 @@ def align_table(lines: list[str]) -> list[str]:
     if not lines or len(lines) < MIN_TABLE_LINES:
         return lines
 
-    rows = _parse_table_rows(lines)
-    if not rows:
-        return lines
+    header, separator, *body = _parse_table_rows(lines)
+    # Separator cells need at least three dashes, so they set a minimum width.
+    col_widths = [
+        max(width, MIN_SEPARATOR_WIDTH)
+        for width in _calculate_col_widths([header, *body])
+    ]
 
-    col_widths = _calculate_col_widths(rows)
-    aligned_lines = []
-
-    for row_idx, row in enumerate(rows):
-        aligned_lines.append(_format_table_row(row, col_widths))
-        if row_idx == 0 and len(lines) > 1:
-            aligned_lines.append(_format_table_separator(col_widths))
-
-    return aligned_lines
+    return [
+        _format_table_row(header, col_widths),
+        _format_table_separator(separator, col_widths),
+        *(_format_table_row(row, col_widths) for row in body),
+    ]
 
 
 def _inspection_target(obj: Callable[..., Any]) -> Callable[..., Any]:

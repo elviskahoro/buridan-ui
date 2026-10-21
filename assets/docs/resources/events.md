@@ -62,8 +62,7 @@ rx.el.button(
 Triggers than can be attached to Reflex components:
 
 | Event       | Description                                               |
-| ----------- | --------------------------------------------------------- |
-| :---        | :---                                                      |
+| :---------- | :-------------------------------------------------------- |
 | `on_click`  | Triggered on mouse click.                                 |
 | `on_change` | Triggered when an input value changes.                    |
 | `on_submit` | Triggered when a form is submitted.                       |
@@ -75,8 +74,7 @@ Triggers than can be attached to Reflex components:
 Reflex provides built-in "Special Actions" that can be triggered from handlers:
 
 | Utility                  | Description                               |
-| ------------------------ | ----------------------------------------- |
-| :---                     | :---                                      |
+| :----------------------- | :---------------------------------------- |
 | `rx.redirect(url)`       | Navigate to a new page.                   |
 | `rx.set_clipboard(text)` | Copy text to the user's clipboard.        |
 | `rx.toast(message)`      | Show a brief notification.                |

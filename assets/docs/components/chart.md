@@ -508,23 +508,21 @@ Use the following props to customize the tooltip.
 
 ### chart_tooltip()
 
-| Prop                  | Type      | Default | Description                                         |
-| --------------------- | --------- | ------- | --------------------------------------------------- | ---------------------------------------------------- |
-| :---                  | :---      | :---    | :---                                                |
-| `label`               | `"show" \ | "hide"` | `"show"`                                            | Whether to render the tooltip label above the items. |
-| `is_animation_active` | `bool`    | `False` | Whether to animate the tooltip on appearance.       |
-| `separator`           | `str`     | `""`    | String placed between the item name and value.      |
-| `cursor`              | `bool`    | `False` | Whether to show the cursor line/highlight on hover. |
-| `item_style`          | `dict \   | None`   | `None`                                              | Style overrides merged onto each tooltip item row.   |
-| `label_style`         | `dict \   | None`   | `None`                                              | Style overrides merged onto the label element.       |
-| `content_style`       | `dict \   | None`   | `None`                                              | Style overrides merged onto the tooltip container.   |
+| Prop                  | Type               | Default  | Description                                          |
+| :-------------------- | :----------------- | :------- | :--------------------------------------------------- |
+| `label`               | `"show" \| "hide"` | `"show"` | Whether to render the tooltip label above the items. |
+| `is_animation_active` | `bool`             | `False`  | Whether to animate the tooltip on appearance.        |
+| `separator`           | `str`              | `""`     | String placed between the item name and value.       |
+| `cursor`              | `bool`             | `False`  | Whether to show the cursor line/highlight on hover.  |
+| `item_style`          | `dict \| None`     | `None`   | Style overrides merged onto each tooltip item row.   |
+| `label_style`         | `dict \| None`     | `None`   | Style overrides merged onto the label element.       |
+| `content_style`       | `dict \| None`     | `None`   | Style overrides merged onto the tooltip container.   |
 
 ### chart_tooltip_content()
 
-| Prop           | Type        | Default  | Description                                                                                                  |
-| -------------- | ----------- | -------- | ------------------------------------------------------------------------------------------------------------ | ---------- | -------------------------------------------------------------------------------------------------------------------------------------- |
-| :---           | :---        | :---     | :---                                                                                                         |
-| `chart_colors` | `list[int]` | —        | Number of data series in the chart. Must match the number of `rx.recharts.bar` / `line` / `area` components. |
-| `swatch`       | `"square" \ | "line" \ | "border"`                                                                                                    | `"square"` | Indicator style per item. `square` = small filled box, `line` = wide pill, `border` = left accent line per series using `--chart-{i}`. |
+| Prop           | Type                             | Default    | Description                                                                                                                            |
+| :------------- | :------------------------------- | :--------- | :------------------------------------------------------------------------------------------------------------------------------------- |
+| `chart_colors` | `list[int]`                      | —          | Number of data series in the chart. Must match the number of `rx.recharts.bar` / `line` / `area` components.                           |
+| `swatch`       | `"square" \| "line" \| "border"` | `"square"` | Indicator style per item. `square` = small filled box, `line` = wide pill, `border` = left accent line per series using `--chart-{i}`. |
 
 >**chart_tooltip_content()** returns a string of Tailwind classes and must be passed to the **chart component's** class_name, not to **chart_tooltip()**.

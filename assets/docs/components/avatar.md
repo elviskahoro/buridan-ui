@@ -409,9 +409,8 @@ def avatar_dropdown_menu() -> rx.Component:
 The `avatar.root` component is the root component that wraps the avatar image and fallback.
 
 | Prop         | Type                        | Default     |
-| ------------ | --------------------------- | ----------- | ----- | ----------- |
-| -----------  | --------------------------- | ----------- |
-| `size`       | `"default" \                | "sm" \      | "lg"` | `"default"` |
+| ------------ | --------------------------- | ----------- |
+| `size`       | `"default" \| "sm" \| "lg"` | `"default"` |
 | `class_name` | `string`                    | -           |
 
 ## avatar.image
@@ -420,7 +419,6 @@ The `avatar.image` component displays the avatar image. It accepts all Base UI A
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `src`        | `string` | -       |
 | `alt`        | `string` | -       |
 | `class_name` | `string` | -       |
@@ -431,7 +429,6 @@ The `avatar.fallback` component displays a fallback when the image fails to load
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.badge
@@ -440,7 +437,6 @@ The `avatar.badge` component displays a badge indicator on the avatar, typically
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.group
@@ -449,7 +445,6 @@ The `avatar.group` component displays a group of avatars with overlapping stylin
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.group_count
@@ -458,5 +453,4 @@ The `avatar.group_count` component displays a count indicator in an avatar group
 
 | Prop         | Type     | Default |
 | ------------ | -------- | ------- |
-| -----------  | -------- | ------- |
 | `class_name` | `string` | -       |

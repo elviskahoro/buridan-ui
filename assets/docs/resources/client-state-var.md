@@ -125,7 +125,6 @@ This section describes the available methods for interacting with frontend and b
 
 | Method        | Context            | Description                                                               |
 | ------------- | ------------------ | ------------------------------------------------------------------------- |
-| ---------     | ---------          | -------------                                                             |
 | .value        | Frontend Component | Access the current state value for rendering.                             |
 | .set_value(v) | Frontend Event     | Update the state value from an event handler.                             |
 | .set          | Frontend Event     | A property alias for `.set_value()` that returns an event chain.          |

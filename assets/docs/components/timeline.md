@@ -315,16 +315,14 @@ def timeline_left_aligned_dates():
 ## timeline.root
 
 | Prop          | Type                         | Default      | Description                                                        |
-| ------------- | ---------------------------- | ------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
 | ------------- | ---------------------------- | -----------: | ------------------------------------------------------------------ |
-| `orientation` | `"horizontal" \              | "vertical"`  | `"vertical"`                                                       | Controls whether timeline items render vertically or horizontally. |
+| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` | Controls whether timeline items render vertically or horizontally. |
 | `class_name`  | `str`                        | `""`         | Additional classes applied to the root container.                  |
 | `**props`     | `Any`                        | —            | Additional props forwarded to the underlying `div`.                |
 
 ## timeline.item
 
 | Prop          | Type  | Default | Description                                             |
-| ------------- | ----- | ------- | ------------------------------------------------------- |
 | ------------- | ----- | ------: | ------------------------------------------------------- |
 | `step`        | `int` | —       | Step number for the item.                               |
 | `active_step` | `int` | —       | Current active step used to determine completion state. |
@@ -335,7 +333,6 @@ def timeline_left_aligned_dates():
 ## timeline.header
 
 | Prop         | Type  | Default | Description                                         |
-| ------------ | ----- | ------- | --------------------------------------------------- |
 | ------------ | ----- | ------: | --------------------------------------------------- |
 | `class_name` | `str` | `""`    | Additional classes applied to the header.           |
 | `**props`    | `Any` | —       | Additional props forwarded to the underlying `div`. |
@@ -344,7 +341,6 @@ def timeline_left_aligned_dates():
 ## timeline.title
 
 | Prop         | Type  | Default | Description                                        |
-| ------------ | ----- | ------- | -------------------------------------------------- |
 | ------------ | ----- | ------: | -------------------------------------------------- |
 | `class_name` | `str` | `""`    | Additional classes applied to the title.           |
 | `**props`    | `Any` | —       | Additional props forwarded to the underlying `h3`. |
@@ -352,7 +348,6 @@ def timeline_left_aligned_dates():
 ## timeline.content
 
 | Prop         | Type  | Default | Description                                          |
-| ------------ | ----- | ------- | ---------------------------------------------------- |
 | ------------ | ----- | ------: | ---------------------------------------------------- |
 | `class_name` | `str` | `""`    | Additional classes applied to the content container. |
 | `**props`    | `Any` | —       | Additional props forwarded to the underlying `div`.  |
@@ -360,7 +355,6 @@ def timeline_left_aligned_dates():
 ## timeline.date
 
 | Prop         | Type  | Default | Description                                          |
-| ------------ | ----- | ------- | ---------------------------------------------------- |
 | ------------ | ----- | ------: | ---------------------------------------------------- |
 | `class_name` | `str` | `""`    | Additional classes applied to the date element.      |
 | `**props`    | `Any` | —       | Additional props forwarded to the underlying `time`. |
@@ -368,7 +362,6 @@ def timeline_left_aligned_dates():
 ## timeline.indicator
 
 | Prop          | Type   | Default | Description                                         |
-| ------------- | ------ | ------- | --------------------------------------------------- |
 | ------------- | ------ | ------: | --------------------------------------------------- |
 | `class_name`  | `str`  | `""`    | Additional classes applied to the indicator.        |
 | `aria_hidden` | `bool` | `True`  | Hidden from assistive technologies.                 |
@@ -377,7 +370,6 @@ def timeline_left_aligned_dates():
 ## timeline.separator
 
 | Prop          | Type   | Default | Description                                         |
-| ------------- | ------ | ------- | --------------------------------------------------- |
 | ------------- | ------ | ------: | --------------------------------------------------- |
 | `class_name`  | `str`  | `""`    | Additional classes applied to the separator.        |
 | `aria_hidden` | `bool` | `True`  | Hidden from assistive technologies.                 |

@@ -394,7 +394,6 @@ def button_render() -> rx.Component:
 The `Button` component is a wrapper around the `button` element that adds a variety of styles and functionality.
 
 | Prop      | Type                                                                                 | Default     |
-| --------- | ------------------------------------------------------------------------------------ | ----------- | --------- | --------------- | ------------- | ----------- | ----------- | ---------- | ----------- |
 | --------- | ------------------------------------------------------------------------------------ | ----------- |
-| `variant` | `"default" \                                                                         | "outline" \ | "ghost" \ | "destructive" \ | "secondary" \ | "link"`     | `"default"` |
-| `size`    | `"default" \                                                                         | "xs" \      | "sm" \    | "lg" \          | "icon" \      | "icon-xs" \ | "icon-sm" \ | "icon-lg"` | `"default"` |
+| `variant` | `"default" \| "outline" \| "ghost" \| "destructive" \| "secondary" \| "link"`        | `"default"` |
+| `size`    | `"default" \| "xs" \| "sm" \| "lg" \| "icon" \| "icon-xs" \| "icon-sm" \| "icon-lg"` | `"default"` |

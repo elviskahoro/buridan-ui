@@ -153,7 +153,6 @@ def marker_variants_demo():
 
 | Variant     | Description                                          |
 | ----------- | ---------------------------------------------------- |
-| ----------- | ---------------------------------------------------- |
 | `default`   | An inline marker for status, notes, and actions.     |
 | `border`    | A default marker with a bottom border under the row. |
 | `separator` | A centered label with divider lines on each side.    |
@@ -394,28 +393,25 @@ rx.link(
 
 The root marker element.
 
-| Prop           | Type                                        | Default       | Description                                        |
-| -------------- | ------------------------------------------- | ------------- | -------------------------------------------------- | ----------- | ------------------ |
-| -------------- | ------------------------------------------- | ------------- | -------------------------------------------------- |
-| `variant`      | `"default" \                                | "border" \    | "separator"`                                       | `"default"` | The marker layout. |
-| `class_name`   | `str`                                       | `""`          | Additional classes to apply to the root element.   |
-| `**props`      | `dict`                                      | —             | Any valid HTML attribute (`role`, `aria_label`).   |
+| Prop         | Type                                   | Default     | Description                                      |
+| ------------ | -------------------------------------- | ----------- | ------------------------------------------------ |
+| `variant`    | `"default" \| "border" \| "separator"` | `"default"` | The marker layout.                               |
+| `class_name` | `str`                                  | `""`        | Additional classes to apply to the root element. |
+| `**props`    | `dict`                                 | —           | Any valid HTML attribute (`role`, `aria_label`). |
 
 ## marker.icon
 
 A decorative icon slot. Hidden from assistive tech with `aria-hidden`.
 
-| Prop           | Type    | Default   | Description                                     |
-| -------------- | ------- | --------- | ----------------------------------------------- |
-| -------------- | ------- | --------- | ----------------------------------------------- |
-| `class_name`   | `str`   | `""`      | Additional classes to apply to the icon slot.   |
+| Prop         | Type  | Default | Description                                   |
+| ------------ | ----- | ------- | --------------------------------------------- |
+| `class_name` | `str` | `""`    | Additional classes to apply to the icon slot. |
 
 ## marker.content
 
 The marker text content.
 
-| Prop           | Type    | Default   | Description                                        |
-| -------------- | ------- | --------- | -------------------------------------------------- |
-| -------------- | ------- | --------- | -------------------------------------------------- |
-| `class_name`   | `str`   | `""`      | Additional classes to apply to the content slot.   |
-| `**props`      | `dict`  | —         | Any valid HTML attribute forwarded to the span.    |
+| Prop         | Type   | Default | Description                                      |
+| ------------ | ------ | ------- | ------------------------------------------------ |
+| `class_name` | `str`  | `""`    | Additional classes to apply to the content slot. |
+| `**props`    | `dict` | —       | Any valid HTML attribute forwarded to the span.  |

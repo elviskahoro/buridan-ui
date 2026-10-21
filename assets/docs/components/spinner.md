@@ -142,8 +142,7 @@ def spinner_marker():
 
 ## API Reference
  
-| Prop           | Type     | Default   | Description                                                                     |
-| -------------- | -------- | --------- | ------------------------------------------------------------------------------- |
-| -------------- | -------- | --------- | --------------------------------------------------                              |
-| `class_name`   | `str`    | `""`      | Additional Tailwind classes applied to the icon.                                |
-| `**props`      | `dict`   | —         | Any valid HTML attribute forwarded to the element (`role`, `aria_label`, etc.). |
+| Prop         | Type   | Default | Description                                                                     |
+| ------------ | ------ | ------- | ------------------------------------------------------------------------------- |
+| `class_name` | `str`  | `""`    | Additional Tailwind classes applied to the icon.                                |
+| `**props`    | `dict` | —       | Any valid HTML attribute forwarded to the element (`role`, `aria_label`, etc.). |

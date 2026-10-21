@@ -291,46 +291,40 @@ def frame_no_border():
 
 ## frame.root
 
-| Prop         | Type         | Default     | Description                                                                                    |
-| ------------ | ------------ | ----------- | ---------------------------------------------------------------------------------------------- | ----------- | ------------------------------------------------- | -------------------------------------------------------------------------------- |
-| :---         | :---         | :---        | :---                                                                                           |
-| `variant`    | `"default" \ | "inverse" \ | "ghost"`                                                                                       | `"default"` | Controls the visual style of the frame container. |
-| `spacing`    | `"xs" \      | "sm" \      | "default" \                                                                                    | "lg"`       | `"default"`                                       | Controls the internal padding of panels, headers, and footers via CSS variables. |
-| `stacked`    | `bool`       | `False`     | When `True`, removes gaps and merges panel borders so they appear as one continuous block.     |
-| `dense`      | `bool`       | `False`     | When `True`, removes all padding and gaps and pulls panels edge-to-edge with negative margins. |
-| `class_name` | `str`        | `None`      | Additional Tailwind classes merged onto the root wrapper.                                      |
+| Prop         | Type                                | Default     | Description                                                                                    |
+| :----------- | :---------------------------------- | :---------- | :--------------------------------------------------------------------------------------------- |
+| `variant`    | `"default" \| "inverse" \| "ghost"` | `"default"` | Controls the visual style of the frame container.                                              |
+| `spacing`    | `"xs" \| "sm" \| "default" \| "lg"` | `"default"` | Controls the internal padding of panels, headers, and footers via CSS variables.               |
+| `stacked`    | `bool`                              | `False`     | When `True`, removes gaps and merges panel borders so they appear as one continuous block.     |
+| `dense`      | `bool`                              | `False`     | When `True`, removes all padding and gaps and pulls panels edge-to-edge with negative margins. |
+| `class_name` | `str`                               | `None`      | Additional Tailwind classes merged onto the root wrapper.                                      |
 
 ## frame.panel
 
 | Prop         | Type  | Default | Description                                                                                   |
-| ------------ | ----- | ------- | --------------------------------------------------------------------------------------------- |
-| :---         | :---  | :---    | :---                                                                                          |
+| :----------- | :---- | :------ | :-------------------------------------------------------------------------------------------- |
 | `class_name` | `str` | `None`  | Additional Tailwind classes merged onto the panel. Overrides default bg, border, and padding. |
 
 ## frame.header
 
 | Prop         | Type  | Default | Description                                                 |
-| ------------ | ----- | ------- | ----------------------------------------------------------- |
-| :---         | :---  | :---    | :---                                                        |
+| :----------- | :---- | :------ | :---------------------------------------------------------- |
 | `class_name` | `str` | `None`  | Additional Tailwind classes merged onto the header element. |
 
 ## frame.title
 
 | Prop         | Type  | Default | Description                                                |
-| ------------ | ----- | ------- | ---------------------------------------------------------- |
-| :---         | :---  | :---    | :---                                                       |
+| :----------- | :---- | :------ | :--------------------------------------------------------- |
 | `class_name` | `str` | `None`  | Additional Tailwind classes merged onto the title element. |
 
 ## frame.description
 
 | Prop         | Type  | Default | Description                                                      |
-| ------------ | ----- | ------- | ---------------------------------------------------------------- |
-| :---         | :---  | :---    | :---                                                             |
+| :----------- | :---- | :------ | :--------------------------------------------------------------- |
 | `class_name` | `str` | `None`  | Additional Tailwind classes merged onto the description element. |
 
 ## frame.footer
 
 | Prop         | Type  | Default | Description                                                 |
-| ------------ | ----- | ------- | ----------------------------------------------------------- |
-| :---         | :---  | :---    | :---                                                        |
+| :----------- | :---- | :------ | :---------------------------------------------------------- |
 | `class_name` | `str` | `None`  | Additional Tailwind classes merged onto the footer element. |

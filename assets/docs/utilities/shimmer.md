@@ -138,7 +138,6 @@ You can also copy paste the `shimmer` source directly into your `globals.css` fi
 
 | Class                         | Styles                                                                                               |
 | ----------------------------- | ---------------------------------------------------------------------------------------------------- |
-| ----------------------------- | ---------------------------------------------------------------------------------------------------- |
 | `shimmer`                     | `background-clip: text;` <br /> `animation: tw-shimmer var(--shimmer-duration, 2s) linear infinite;` |
 | `shimmer-once`                | `animation-iteration-count: 1;`                                                                      |
 | `shimmer-reverse`             | `animation-direction: reverse;`                                                                      |

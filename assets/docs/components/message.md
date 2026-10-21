@@ -252,7 +252,6 @@ def message_with_avatar():
 
 | align   | Description                                         |
 | ------- | --------------------------------------------------- |
-| ------- | --------------------------------------------------- |
 | `start` | Align the message to the start of the conversation. |
 | `end`   | Align the message to the end of the conversation.   |
 
@@ -513,9 +512,8 @@ message.root(
 The message row wrapper.
 
 | Prop         | Type               | Default   | Description                                       |
-| ------------ | ------------------ | --------- | ------------------------------------------------- | ------------------------------------------------- |
-| -----------  | ------------------ | --------- | ------------------------------------------------- |
-| `align`      | `"start" \         | "end"`    | `"start"`                                         | The alignment of the message in the conversation. |
+| ------------ | ------------------ | --------- | ------------------------------------------------- |
+| `align`      | `"start" \| "end"` | `"start"` | The alignment of the message in the conversation. |
 | `class_name` | `string`           | -         | Additional classes to apply to the row.           |
 
 ## message.group
@@ -524,7 +522,6 @@ Groups consecutive messages from the same sender.
 
 | Prop         | Type     | Default | Description                                    |
 | ------------ | -------- | ------- | ---------------------------------------------- |
-| -----------  | -------- | ------- | ---------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the group root. |
 
 ## message.avatar
@@ -533,7 +530,6 @@ The avatar slot, aligned to the bottom of the message. When the message has a `m
 
 | Prop         | Type     | Default | Description                                     |
 | ------------ | -------- | ------- | ----------------------------------------------- |
-| -----------  | -------- | ------- | ----------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the avatar slot. |
 
 ### message.content
@@ -542,7 +538,6 @@ Wraps the header, message surface, and footer.
 
 | Prop         | Type     | Default | Description                                      |
 | ------------ | -------- | ------- | ------------------------------------------------ |
-| -----------  | -------- | ------- | ------------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the content slot. |
 
 ### message.header
@@ -551,7 +546,6 @@ Displays content above the message, such as a sender name. Stays aligned to the 
 
 | Prop         | Type     | Default | Description                                |
 | ------------ | -------- | ------- | ------------------------------------------ |
-| -----------  | -------- | ------- | ------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the header. |
 
 ### message.footer
@@ -560,5 +554,4 @@ Displays content below the message, such as status or actions. Aligns to the mes
 
 | Prop         | Type     | Default | Description                                |
 | ------------ | -------- | ------- | ------------------------------------------ |
-| -----------  | -------- | ------- | ------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the footer. |

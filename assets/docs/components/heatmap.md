@@ -647,7 +647,6 @@ def heatmap_compact():
 
 | Prop            | Type         | Default                    | Description                                                                                                                                                                 |
 | --------------- | ------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ------          | ------       | ---------                  | -------------                                                                                                                                                               |
 | `data`          | `list[dict]` | —                          | **Required.** List of `{"date": "YYYY-MM-DD", "value": int}` entries. Dates not in the list render as empty cells.                                                          |
 | `start_date`    | `str`        | —                          | **Required.** Start of the date range in `YYYY-MM-DD` format.                                                                                                               |
 | `end_date`      | `str`        | —                          | **Required.** End of the date range in `YYYY-MM-DD` format.                                                                                                                 |
@@ -701,9 +700,8 @@ Pass any number of hex strings to customize. More levels give finer granularity.
 Colors are blended smoothly between `min_color` and `max_color` using the chosen `interpolation` function.
 Zero-value cells always use `var(--secondary)` regardless of `min_color`.
 
-| Interpolation   | Best for                                                    |
-| --------------- | ----------------------------------------------------------- |
-| --------------- | ----------                                                  |
-| `"linear"`      | Evenly distributed values                                   |
-| `"sqrt"`        | Sparse data where low values need visibility                |
-| `"log"`         | Data with extreme outliers that would wash out lower values |
+| Interpolation | Best for                                                    |
+| ------------- | ----------------------------------------------------------- |
+| `"linear"`    | Evenly distributed values                                   |
+| `"sqrt"`      | Sparse data where low values need visibility                |
+| `"log"`       | Data with extreme outliers that would wash out lower values |
