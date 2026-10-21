@@ -5,6 +5,8 @@ import pathlib
 import re
 import shutil
 import sys
+from collections.abc import Callable
+from typing import Any
 
 # Add the project root to the Python path to allow imports
 ROOT_DIR = pathlib.Path(__file__).parent.parent
@@ -15,10 +17,13 @@ DOCS_SOURCE_DIR = ROOT_DIR / "docs"
 MARKDOWN_OUTPUT_DIR = ROOT_DIR / "assets" / "docs"
 DYNAMIC_LOAD_DIRS = ["app/www/library", "components/ui"]
 
+# Maps lowercased names to (object, name as defined) for every loaded callable.
+Registry = dict[str, tuple[Callable[..., Any], str]]
 
-def dynamic_load_components(dirs: list[str]) -> dict:
+
+def dynamic_load_components(dirs: list[str]) -> Registry:
     """Dynamically loads component functions and classes from given directories."""
-    registry = {}
+    registry: Registry = {}
     for d in dirs:
         dir_path = ROOT_DIR / d
         if not dir_path.exists():
@@ -155,112 +160,113 @@ def align_table(lines: list[str]) -> list[str]:
     return aligned_lines
 
 
-def _process_delimiter(match: re.Match[str], registry: dict) -> str:
+def _inspection_target(obj: Callable[..., Any]) -> Callable[..., Any]:
+    """Use the class for inspection if obj is an instance (like ComponentNamespace)."""
+    if inspect.isclass(obj) or inspect.isfunction(obj) or inspect.ismethod(obj):
+        return obj
+    return obj.__class__
+
+
+def _module_source(obj: Callable[..., Any]) -> str:
+    """Return the full source of the module that defines obj."""
+    return pathlib.Path(inspect.getfile(obj)).read_text(encoding="utf-8")
+
+
+def _anatomy_block(name: object) -> str:
+    from app.registry.anatomy import ANATOMY
+
+    src = ANATOMY.get(str(name).lower())
+    if not src:
+        return f"\n> **Error: No anatomy found for '{name}'**\n"
+    return f"\n```python\n{src.strip()}\n```\n"
+
+
+def _demo_block(name: object, obj: Callable[..., Any]) -> str:
+    """Source code of the specific demo function."""
+    try:
+        src = inspect.getsource(obj)
+    except (OSError, TypeError) as e:
+        return f"\n> **Error getting source for {name}: {e}**\n"
+    return f"\n```python\n{src.strip()}\n```\n"
+
+
+def _code_block(cmd: str, name: object, obj: Callable[..., Any], language: str) -> str:
+    try:
+        src = (
+            _module_source(_inspection_target(obj))
+            if "_file" in cmd
+            else inspect.getsource(obj)
+        )
+    except (OSError, TypeError) as e:
+        return f"\n> **Error getting code for {name}: {e}**\n"
+    return f"\n```{language}\n{src.strip()}\n```\n"
+
+
+def _install_block(name: object, obj: Callable[..., Any], cli_cmd: str) -> str:
+    try:
+        module_src = _module_source(_inspection_target(obj))
+    except (OSError, TypeError) as e:
+        return f"\n> **Error processing install for {name}: {e}**\n"
+    return (
+        f"### CLI\n\n```bash\n{cli_cmd}\n```\n\n"
+        f"### Manual Installation\n\n```python\n{module_src.strip()}\n```\n"
+    )
+
+
+def _usage_block(name: object, obj: Callable[..., Any], preferred_name: str) -> str:
+    try:
+        file_path = inspect.getfile(_inspection_target(obj))
+    except TypeError as e:
+        return f"\n> **Error processing usage for {name}: {e}**\n"
+    module_stem = pathlib.Path(file_path).stem
+    return (
+        f"\n```python\nfrom components.ui.{module_stem} import {preferred_name}\n```\n"
+    )
+
+
+def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
     """Process a single component delimiter match."""
     cmd = match.group(1).lower()
     arg = match.group(2)
 
+    # Parse argument (handle strings or lists)
     try:
-        # Parse argument (handle strings or lists)
         val = (
             ast.literal_eval(arg)
             if arg and any(arg.startswith(c) for c in "[{'\"")
             else arg
         )
-        name = val[0] if isinstance(val, list) else val
-        registry_entry = registry.get(str(name).lower())
-
-        if not registry_entry and cmd != "anatomy":
-            return f"\n> **Error: '{name}' not found in registry**\n"
-
-        obj, preferred_name = registry_entry if registry_entry else (None, str(name))
-
-        # Use the class for inspection if obj is an instance (like ComponentNamespace)
-        inspect_obj = obj
-        if obj and not (
-            inspect.isclass(obj)
-            or inspect.isfunction(obj)
-            or inspect.ismodule(obj)
-            or inspect.ismethod(obj)
-        ):
-            inspect_obj = getattr(obj, "__class__", obj)
-
-        # 1. Anatomy logic
-        if cmd == "anatomy":
-            from app.registry.anatomy import ANATOMY
-
-            src = ANATOMY.get(str(name).lower())
-            if not src:
-                return f"\n> **Error: No anatomy found for '{name}'**\n"
-            return f"\n```python\n{src.strip()}\n```\n"
-
-        # 2. Demo logic (source code of the specific function)
-        if "demo" in cmd:
-            try:
-                src = inspect.getsource(obj).strip()
-                return f"\n```python\n{src}\n```\n"
-            except Exception as e:
-                return f"\n> **Error getting source for {name}: {e}**\n"
-
-        # 3. Code / Code File logic
-        if "code" in cmd:
-            try:
-                language = "python"
-                if isinstance(val, list) and len(val) > 1:
-                    language = val[1] or "python"
-
-                if "_file" in cmd:
-                    # Full module source
-                    module = inspect.getmodule(inspect_obj)
-                    src = inspect.getsource(module).strip()
-                else:
-                    # Specific object source
-                    src = (
-                        inspect.getsource(obj)
-                        if not inspect.ismethod(obj)
-                        else inspect.getsource(inspect_obj)
-                    )
-                    src = src.strip()
-
-                return f"\n```{language}\n{src}\n```\n"
-            except Exception as e:
-                return f"\n> **Error getting code for {name}: {e}**\n"
-
-        # 4. Install logic
-        if cmd == "install":
-            try:
-                # val is ["Name", "cli_command"] or "Name"
-                cli_cmd = (
-                    val[1]
-                    if isinstance(val, list) and len(val) > 1
-                    else f"buridan add component {str(name).lower()}"
-                )
-                module = inspect.getmodule(inspect_obj)
-                module_src = inspect.getsource(module).strip()
-
-                return (
-                    f"### CLI\n\n```bash\n{cli_cmd}\n```\n\n"
-                    f"### Manual Installation\n\n```python\n{module_src}\n```\n"
-                )
-            except Exception as e:
-                return f"\n> **Error processing install for {name}: {e}**\n"
-
-        # 5. Usage logic
-        if cmd == "usage":
-            try:
-                file_path = inspect.getfile(inspect_obj)
-                module_stem = pathlib.Path(file_path).stem
-                return f"\n```python\nfrom components.ui.{module_stem} import {preferred_name}\n```\n"
-            except Exception as e:
-                return f"\n> **Error processing usage for {name}: {e}**\n"
-
-        return f"\n> **Warning: Unknown command '{cmd}'**\n"
-
-    except Exception as e:
+    except (ValueError, SyntaxError) as e:
         return f"\n> **Error in {cmd}: {e}**\n"
+    name = val[0] if isinstance(val, list) else val
+    # Optional second list item: code language or install CLI command.
+    has_option = isinstance(val, list) and len(val) > 1
+    option = val[1] if has_option else None
+
+    if cmd == "anatomy":
+        return _anatomy_block(name)
+
+    registry_entry = registry.get(str(name).lower())
+    if not registry_entry:
+        return f"\n> **Error: '{name}' not found in registry**\n"
+    obj, preferred_name = registry_entry
+
+    if "demo" in cmd:
+        return _demo_block(name, obj)
+    if "code" in cmd:
+        return _code_block(cmd, name, obj, option or "python")
+    if cmd == "install":
+        cli_cmd = (
+            str(option) if has_option else f"buridan add component {str(name).lower()}"
+        )
+        return _install_block(name, obj, cli_cmd)
+    if cmd == "usage":
+        return _usage_block(name, obj, preferred_name)
+
+    return f"\n> **Warning: Unknown command '{cmd}'**\n"
 
 
-def convert_to_pure_markdown(content: str, registry: dict) -> str:
+def convert_to_pure_markdown(content: str, registry: Registry) -> str:
     """Replaces custom component delimiters in markdown content with formatted code blocks."""
     delimiter_pattern = r"--([\w_]+)(?:\((.*)\))?--"
 
@@ -270,7 +276,7 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
         if len(parts) > 2:
             content = parts[2]
 
-    def replacer(m):
+    def replacer(m: re.Match[str]) -> str:
         return _process_delimiter(m, registry)
 
     content = re.sub(delimiter_pattern, replacer, content)

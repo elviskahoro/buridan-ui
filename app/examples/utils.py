@@ -1,6 +1,6 @@
 import functools
 from collections.abc import Callable
-from typing import Any
+from typing import Any, overload
 
 import reflex as rx
 
@@ -10,6 +10,9 @@ from app.www.wrapper import generate_component_id
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.tooltip import tooltip
+
+# What block_card/masonry_card return when called with only label=.
+CardDecorator = Callable[[Callable[..., Any]], Callable[..., rx.Component]]
 
 
 def open_in_reflex_build(
@@ -47,14 +50,30 @@ def open_in_reflex_build(
     )
 
 
+@overload
+def block_card(func: None = None, *, label: str = ...) -> CardDecorator: ...
+
+
+@overload
+def block_card(
+    func: Callable[..., Any],
+    *,
+    label: str = ...,
+) -> Callable[..., rx.Component]: ...
+
+
 def block_card(
     func: Callable[..., Any] | None = None,
     *,
     label: str = "",
-) -> Callable[..., rx.Component]:
+) -> Callable[..., rx.Component] | CardDecorator:
     """Decorator wrapper to wrap blocks."""
     if func is None:
-        return functools.partial(block_card, label=label)
+
+        def decorator(f: Callable[..., Any]) -> Callable[..., rx.Component]:
+            return block_card(f, label=label)
+
+        return decorator
 
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
@@ -108,16 +127,32 @@ def block_card(
     return wrapper
 
 
+@overload
+def masonry_card(func: None = None, *, label: str = ...) -> CardDecorator: ...
+
+
+@overload
+def masonry_card(
+    func: Callable[..., Any],
+    *,
+    label: str = ...,
+) -> Callable[..., rx.Component]: ...
+
+
 def masonry_card(
     func: Callable[..., Any] | None = None,
     *,
     label: str = "General",
-) -> Callable[..., rx.Component]:
+) -> Callable[..., rx.Component] | CardDecorator:
     """Decorator to wrap a component function inside a standard
     masonry-compatible div container with conditional visibility.
     """
     if func is None:
-        return functools.partial(masonry_card, label=label)
+
+        def decorator(f: Callable[..., Any]) -> Callable[..., rx.Component]:
+            return masonry_card(f, label=label)
+
+        return decorator
 
     @functools.wraps(func)
     def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
