@@ -59,8 +59,6 @@ select = [
   "UP",
 ]
 ignore = [
-  # Reflex's HTML element is named `input`; importing it shadows the builtin.
-  "A004",
   "ANN101",
   "B008",
   "C901",
@@ -86,16 +84,9 @@ ignore = [
   "FIX002",
   "PIE807",
   "PLC0415",
-  # Complexity limits on existing utility functions; refactoring is deferred
-  # (#134).
-  "PLR0911",
-  "PLR0912",
   "PLR0913",
-  "PLR0915",
   "PLR0917",
-  "N806",    # ClientStateVar handles are intentionally capitalized.
   "N815",
-  "RUF012",  # Mutable class-level defaults are the Reflex component idiom.
   "RUF100",
   # SIM300's autofix emits a fix object with a null message, which crashes
   # trunk 1.25.0's ruff JSON parser ("type must be string, but is null") --
@@ -118,14 +109,32 @@ order-by-type = true
 convention = "google"
 
 [lint.per-file-ignores]
+# Ignores are scoped to semantically grouped directories, never single files.
+# Reflex-specific ignores apply only to directories of Reflex UI code.
+
 # assert is pytest's normal check mechanism, not a production safety bypass.
-# ANN401: Any is legitimate for pytest fixtures and dynamic mocking
-# FBT001: Boolean parameters are common in pytest parametrize decorators
-"tests/**" = ["S101", "ANN401", "FBT001"]
+# Mocks of Reflex/Python callables take and return Any.
+"tests/**" = ["S101", "ANN401"]
+
+# --- Reflex UI code ---
 # Reflex event handlers are called positionally; value=<bool> breaks handlers
 # whose parameter isn't named `value`, and component source ships verbatim.
-"components/**" = ["FBT003"]
-# Generation and utility scripts don't require full type annotation overhead.
-"scripts/**" = ["ANN001", "ANN002", "ANN003", "ANN201", "ANN202", "ANN206"]
-# Auto-generated example modules use implicit namespace packages.
-"app/www/library/examples/**" = ["INP001"]
+# A004: the input component is named `input`, shadowing the builtin.
+# RUF012: mutable class-level defaults are how Reflex components declare props.
+"components/**" = ["FBT003", "A004", "RUF012"]
+# A004: these compose the `input` component from components/ui.
+"app/anatomy_src/**" = ["A004"]
+"app/examples/**" = ["A004"]
+"app/templates/**" = ["A004"]
+# Example modules are discovered by directory scan and imported dynamically
+# (app/www/parser.py), so they need no __init__.py. A004 as above.
+"app/www/library/examples/**" = ["INP001", "A004"]
+# ClientStateVar handles are intentionally capitalized.
+"app/www/library/charts/**" = ["N806"]
+
+# --- Developer tooling ---
+# Generation scripts don't need full type annotations. Complexity limits are
+# deferred until the long generators are split up (#134, #209).
+"scripts/**" = ["ANN001", "ANN202", "PLR0911", "PLR0912", "PLR0915"]
+# Typer command bodies branch on many options; refactoring deferred (#134).
+"cli/**" = ["PLR0912", "PLR0915"]
