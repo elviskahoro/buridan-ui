@@ -29,7 +29,7 @@ GRID_LAYOUT = "grid grid-cols-1 lg:grid-cols-3 gap-10 sm:gap-7"
         ),
     ],
 )
-def chart_page():
+def chart_page() -> rx.Component:
     return rx.el.div(
         rx.el.div(areachart_v5(), class_name="w-full"),
         rx.el.div(

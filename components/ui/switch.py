@@ -40,7 +40,7 @@ class SwitchBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/switch"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Switch", package_path="", install=False)
 
 

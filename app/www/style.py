@@ -1,3 +1,5 @@
+from typing import Any
+
 import reflex as rx
 
 PARAGRAPH_CLASS = "text-sm leading-7 mb-4"
@@ -19,7 +21,7 @@ LINK_CLASS = (
 
 
 # --- Helper error functions during parsing ---
-def render_parse_error(msg: str):
+def render_parse_error(msg: str) -> rx.Component:
     return rx.el.p(msg, class_name="text-sm text-red-500")
 
 
@@ -66,13 +68,13 @@ def render_list_item(text: str) -> rx.Component:
     return rx.list_item(rx.el.p(text, class_name=LIST_ITEM_CLASS))
 
 
-def render_link(*args, **props) -> rx.Component:
+def render_link(*args: Any, **props: Any) -> rx.Component:
     # Reflex builds Markdown map callbacks without the runtime href; ReactMarkdown
     # supplies it through the props spread, which keeps this a native Radix link.
     return rx.link(*args, class_name=LINK_CLASS, **props)
 
 
-def render_pre(*children, **props) -> rx.Component:
+def render_pre(*children: Any, **props: Any) -> rx.Component:
     language = props.get("language")
 
     return rx.el.div(
@@ -109,7 +111,7 @@ def render_pre(*children, **props) -> rx.Component:
     )
 
 
-def render_blockquote(*children, **props) -> rx.Component:
+def render_blockquote(*children: Any, **props: Any) -> rx.Component:
     return rx.el.div(
         *children,
         class_name="w-full rounded-[1rem] bg-secondary dark:bg-card flex items-center justify-center p-4 mb-4 "

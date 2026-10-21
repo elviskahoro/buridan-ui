@@ -1,6 +1,7 @@
 import importlib
 import os
 from pathlib import Path
+from typing import Any
 
 import pytest
 from PIL import ImageFont
@@ -11,8 +12,8 @@ from app.www.parser import DocParser
 
 
 def test_docs_generation_is_independent_of_working_directory(
-    monkeypatch,
-    tmp_path,
+    monkeypatch: Any,
+    tmp_path: Path,
 ) -> None:
     monkeypatch.chdir(tmp_path)
     monkeypatch.delenv("BURIDAN_DEV_MODE", raising=False)
@@ -25,8 +26,8 @@ def test_docs_generation_is_independent_of_working_directory(
 
 
 def test_parser_loads_absolute_and_repo_relative_directories(
-    monkeypatch,
-    tmp_path,
+    monkeypatch: Any,
+    tmp_path: Path,
 ) -> None:
     monkeypatch.chdir(tmp_path)
 
@@ -40,8 +41,8 @@ def test_parser_loads_absolute_and_repo_relative_directories(
 
 @pytest.mark.parametrize("absolute", [True, False])
 def test_parser_rejects_load_directories_outside_project_root(
-    tmp_path,
-    absolute,
+    tmp_path: Path,
+    absolute: bool,
 ) -> None:
     project_root = Path(constants.__file__).resolve().parents[2]
     load_dir = tmp_path if absolute else os.path.relpath(tmp_path, project_root)
@@ -51,21 +52,21 @@ def test_parser_rejects_load_directories_outside_project_root(
 
 
 def test_preview_cards_use_repository_paths_from_another_working_directory(
-    monkeypatch,
-    tmp_path,
+    monkeypatch: Any,
+    tmp_path: Path,
 ) -> None:
     default_font = ImageFont.load_default()
     monkeypatch.setattr(
         ImageFont,
         "truetype",
-        lambda *_args, **_kwargs: default_font,
+        lambda *_args, **_kwargs: default_font,  # type: ignore[misc]
     )
     preview_cards = importlib.import_module("scripts.generate_preview_cards")
     generated_paths = []
     monkeypatch.setattr(
         preview_cards,
         "create_social_card",
-        lambda title, description, output_path: generated_paths.append(output_path),
+        lambda title, description, output_path: generated_paths.append(output_path),  # type: ignore[misc]
     )
     monkeypatch.chdir(tmp_path)
 

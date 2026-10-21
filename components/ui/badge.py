@@ -35,7 +35,7 @@ BADGE_VARIANTS = {
 }
 
 
-def badge_variants(variant: str = "default") -> Var:
+def badge_variants(variant: str = "default") -> Var[str]:
     return cn(
         DEFAULT_BASE_CLASSES,
         BADGE_VARIANTS.get(variant, BADGE_VARIANTS["default"]),

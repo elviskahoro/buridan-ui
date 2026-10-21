@@ -30,7 +30,7 @@ from components.ui.button import button
         ),
     ],
 )
-def landing_page():
+def landing_page() -> rx.Component:
 
     landing_desktop = rx.el.div(
         card_five(),

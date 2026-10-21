@@ -18,7 +18,7 @@ for the established assertion convention.
 
 import sys
 from pathlib import Path
-from typing import cast
+from typing import Any, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -40,7 +40,7 @@ from components.ui.core import BaseUIComponent
 # ---------------------------------------------------------------------------
 
 
-def _panel(class_name: str | None = None, **props) -> BaseUIComponent:
+def _panel(class_name: str | None = None, **props: Any) -> BaseUIComponent:
     """Build a panel with a single child, optionally passing class_name."""
     if class_name is None:
         return CollapsiblePanel.create(rx.el.div("content"), **props)
