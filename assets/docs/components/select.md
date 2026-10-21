@@ -54,7 +54,7 @@ class SelectBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/select"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Select", package_path="", install=False)
 
 

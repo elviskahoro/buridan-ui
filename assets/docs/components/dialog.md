@@ -43,7 +43,7 @@ class DialogBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/dialog"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Dialog", package_path="", install=False)
 
 

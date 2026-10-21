@@ -49,7 +49,7 @@ class CheckboxBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/checkbox"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Checkbox", package_path="", install=False)
 
 
