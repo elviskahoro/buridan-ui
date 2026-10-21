@@ -110,7 +110,13 @@ convention = "google"
 
 [lint.per-file-ignores]
 # assert is pytest's normal check mechanism, not a production safety bypass.
-"tests/**" = ["S101"]
+# ANN401: Any is legitimate for pytest fixtures and dynamic mocking
+# FBT001: Boolean parameters are common in pytest parametrize decorators
+"tests/**" = ["S101", "ANN401", "FBT001"]
 # Reflex event handlers are called positionally; value=<bool> breaks handlers
 # whose parameter isn't named `value`, and component source ships verbatim.
 "components/**" = ["FBT003"]
+# Generation and utility scripts don't require full type annotation overhead.
+"scripts/**" = ["ANN001", "ANN002", "ANN003", "ANN201", "ANN202", "ANN206"]
+# Auto-generated example modules use implicit namespace packages.
+"app/www/library/examples/**" = ["INP001"]

@@ -1,4 +1,5 @@
 import functools
+from typing import Any, Callable
 
 import reflex as rx
 
@@ -11,12 +12,12 @@ from components.ui.tooltip import tooltip
 
 
 def open_in_reflex_build(
-    icon_light,
-    icon_dark,
+    icon_light: Any,
+    icon_dark: Any,
     tooltip_content: str,
     href: str,
     icon_size: str = "size-5",
-):
+) -> rx.Component:
     return tooltip.provider(
         tooltip.root(
             tooltip.trigger(
@@ -45,13 +46,17 @@ def open_in_reflex_build(
     )
 
 
-def block_card(func=None, *, label=""):
+def block_card(
+    func: Callable[..., Any] | None = None,
+    *,
+    label: str = "",
+) -> Callable[..., rx.Component]:
     """Decorator wrapper to wrap blocks."""
     if func is None:
         return functools.partial(block_card, label=label)
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
         inner_component = func(*args, **kwargs)
         cmd = f"uv run buridan add {func.__qualname__}"
         btn_id = generate_component_id()
@@ -102,7 +107,11 @@ def block_card(func=None, *, label=""):
     return wrapper
 
 
-def masonry_card(func=None, *, label="General"):
+def masonry_card(
+    func: Callable[..., Any] | None = None,
+    *,
+    label: str = "General",
+) -> Callable[..., rx.Component]:
     """Decorator to wrap a component function inside a standard
     masonry-compatible div container with conditional visibility.
     """
@@ -110,7 +119,7 @@ def masonry_card(func=None, *, label="General"):
         return functools.partial(masonry_card, label=label)
 
     @functools.wraps(func)
-    def wrapper(*args, **kwargs):
+    def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
         inner_component = func(*args, **kwargs)
 
         return rx.el.div(

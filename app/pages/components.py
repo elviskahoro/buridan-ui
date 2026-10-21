@@ -9,8 +9,8 @@ from components.ui.button import button
 BASE_PATH = Path("components/ui")
 
 
-def _get_component_link_data():
-    links = []
+def _get_component_link_data() -> list[tuple[str, str]]:
+    links: list[tuple[str, str]] = []
     for file in BASE_PATH.glob("*.py"):
         if file.name in (
             "__init__.py",
@@ -30,7 +30,7 @@ def _get_component_link_data():
     return links
 
 
-def get_component_links():
+def get_component_links() -> list[rx.Component]:
     links = _get_component_link_data()
 
     return [
@@ -53,7 +53,7 @@ def get_component_links():
         ),
     ],
 )
-def components_page():
+def components_page() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             *get_component_links(),

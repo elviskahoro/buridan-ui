@@ -30,7 +30,7 @@ class CardRoot(Div, CoreComponent):
     size: Var[str]
 
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card"
         if "size" in props:
             props["data-size"] = props.pop("size")
@@ -40,7 +40,7 @@ class CardRoot(Div, CoreComponent):
 
 class CardHeader(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-header"
         cls.set_class_name(ClassNames.HEADER, props)
         return super().create(*children, **props)
@@ -48,7 +48,7 @@ class CardHeader(Div, CoreComponent):
 
 class CardTitle(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-title"
         cls.set_class_name(ClassNames.TITLE, props)
         return super().create(*children, **props)
@@ -56,7 +56,7 @@ class CardTitle(Div, CoreComponent):
 
 class CardDescription(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-description"
         cls.set_class_name(ClassNames.DESCRIPTION, props)
         return super().create(*children, **props)
@@ -64,7 +64,7 @@ class CardDescription(Div, CoreComponent):
 
 class CardAction(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-action"
         cls.set_class_name(ClassNames.ACTION, props)
         return super().create(*children, **props)
@@ -72,7 +72,7 @@ class CardAction(Div, CoreComponent):
 
 class CardContent(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-content"
         cls.set_class_name(ClassNames.CONTENT, props)
         return super().create(*children, **props)
@@ -80,7 +80,7 @@ class CardContent(Div, CoreComponent):
 
 class CardFooter(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-footer"
         cls.set_class_name(ClassNames.FOOTER, props)
         return super().create(*children, **props)

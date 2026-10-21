@@ -20,7 +20,7 @@ class AvatarBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/avatar"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Avatar", package_path="", install=False)
 
 
