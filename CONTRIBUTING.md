@@ -10,7 +10,7 @@ We love contributions! Whether you're fixing a bug, adding a new component, or i
 
 ## Frontend dependency security fixes
 
-Reflex 0.10 restores `reflex.lock/package.json` and `reflex.lock/bun.lock`
+Reflex 0.10.0 restores `reflex.lock/package.json` and `reflex.lock/bun.lock`
 when generating `.web`. Keep both files committed together. Put transitive
 security pins in the persisted manifest's `overrides`, then let Bun generate
 the matching lockfile:
@@ -38,6 +38,21 @@ exceed their parents' declared version ranges; check Markdown math rendering,
 Tailwind typography output, and WebSocket connections when changing those
 overrides. Reassess the pins when their parent packages support patched versions
 directly.
+
+### Known advisories pinned by Reflex 0.10.0
+
+The following advisories are pinned by upstream Reflex 0.10.0 dependencies and
+cannot be upgraded without a Reflex version bump:
+
+- **vite 8.3.2**: Multiple moderate to high severity advisories (cross-origin script
+  execution, file serving restrictions, editor flag misinterpretation). Reflex 0.10.0
+  pins vite via @react-router/dev.
+- **KaTeX, postcss-selector-parser**: Patched via security overrides in the
+  manifest's `overrides` section.
+
+When `reflex export --frontend-only --no-zip` is run, do not commit the injected
+`clsx-for-tailwind` and `react-debounce-input` dependencies into the lockfile;
+these are temporary build artifacts and should not be persisted.
 
 ## Adding Components
 
