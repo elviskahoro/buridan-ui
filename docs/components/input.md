@@ -8,23 +8,23 @@ order: 11
 
 A text input component for forms and user data entry with built-in styling and accessibility features.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(input)--
 
-# Usage
+## Usage
 
 --USAGE(input)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Input` component.
 
 --ANATOMY(input)--
 
 
-# Examples
+## Examples
 
 ## Basic Demo
 A simple text input demonstrating the default appearance and behavior.

@@ -13,7 +13,7 @@ A collection of chart components that you can copy and paste into your apps. Cha
 
 For an overview of whats available, checkout the [Charts](/charts) page. 
 
-# Component
+## Component
 
 Reflex wraps [Recharts](https://recharts.github.io/) under the hood. This means you build your own charts using Recharts components and only bring in your theme tokens and custom components like `chart_tooltip` when and where you need it.
 
@@ -32,13 +32,13 @@ rx.recharts.area_chart(
 
 We do not wrap Recharts. This means you're not locked into an abstraction. When a new Recharts version is released, you can follow the official upgrade path to upgrade your charts.
 
-# Installation
+## Installation
 
 buridan/ui provides a custom `chart_tooltip` that can be used to match the overall theme tokens generated. 
 
 --INSTALL(chart_tooltip)--
 
-# Your First Chart
+## Your First Chart
 
 Let's build your first chart. We'll build a bar chart, add a grid, axis, tooltip and legend.
 
@@ -155,7 +155,7 @@ rx.el.div(
 
 Done. You've built your first chart!
 
-# Theming
+## Theming
 
 Charts have built-in support for theming. You can use css variables (recommended) or color values in any color format, such as hex, hsl or oklch.
 
@@ -194,7 +194,7 @@ data = [
 ]
 ```
 
-# Tooltip
+## Tooltip
 
 A chart tooltip contains a label and swatch type. You can use a combination of these to customize your tooltip.
 
@@ -211,7 +211,7 @@ You can turn on/off any of these using the `display` prop and customize the indi
 
 Use the following props to customize the tooltip.
 
-**chart_tooltip()**
+### chart_tooltip()
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |
@@ -223,7 +223,7 @@ Use the following props to customize the tooltip.
 | `label_style` | `dict \| None` | `None` | Style overrides merged onto the label element. |
 | `content_style` | `dict \| None` | `None` | Style overrides merged onto the tooltip container. |
 
-**chart_tooltip_content()**
+### chart_tooltip_content()
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |

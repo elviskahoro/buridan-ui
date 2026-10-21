@@ -10,22 +10,22 @@ A heatmap component to visualize data density over time.
 
 > **Note:** The Heatmap is a fully custom component with no external dependencies — built as a self-contained JavaScript component exposed through a Python API for use in Reflex.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(heatmap)--
 
-# Usage
+## Usage
 
 --USAGE(heatmap)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Heatmap` component.
 
 --ANATOMY(heatmap)--
 
-# Examples
+## Examples
 
 ## GitHub-Style HeatMap 
 
@@ -63,7 +63,7 @@ Set the `show_dow` and `show_months` props to `False` and lower the `cell_size` 
 
 --DEMO(heatmap_compact)--
 
-# API Reference
+## API Reference
 
 ## Props
 

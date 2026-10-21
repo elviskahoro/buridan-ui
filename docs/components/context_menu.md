@@ -8,17 +8,17 @@ order: 7
 
 Displays a menu of actions triggered by a right click.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(context_menu)--
 
-# Usage
+## Usage
 
 --USAGE(context_menu)--
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build a `Context Menu` component.
 
@@ -61,7 +61,7 @@ context_menu.root
                                 └── context_menu.item
 ```
 
-# Examples
+## Examples
 
 ## Basic
 

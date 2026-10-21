@@ -4,7 +4,7 @@
 
 Latest updates and announcements.
 
-# July 2026 - API Consolidation & High Fidelity
+## July 2026 - API Consolidation & High Fidelity
 
 Following the introduction of our theming engine, the focus shifted entirely toward refining and consolidating the underlying component APIs. The core mission of this release was to bring the library's structural orchestration and code patterns into complete alignment with the high-fidelity standards established by `shadcn/ui`.
 
@@ -13,7 +13,7 @@ This update moves away from standalone, fluid function parameters in favor of a 
 Alongside structural improvements, the underlying style aggregation engine was rebuilt to natively support strict Tailwind merge inheritance `(cn)`. Custom, per-instance layout parameters (such as explicit dimension overrides) are now safely appended at the end of the style cascade. This eliminates utility specificity conflicts and gives developers reliable, uncompromised control over layout sizes and layouts.
 
 
-# June 2026 - buridan/create
+## June 2026 - buridan/create
 
 The key feature introduced is the `buridan/create` feature. Based on the popular shadcn/ui, this feature allows users to generate their own CSS tokens and apply it to their Reflex projects. Local development or via [Reflex Build](https://build.reflex.dev/), both are covered. 
 
@@ -24,7 +24,7 @@ No more purple/green dashboards and components with inconsistent spacing and obs
 > Want to build your theme visually? Use [buridan/create](/create) to preview colors, radius, and fonts, then generate a preset for your project.
 
 
-# May 2026 - buridan v0.9.0
+## May 2026 - buridan v0.9.0
 
 The buridan library went through some major site changes in `v0.9.0`. As Reflex gets closer to `v1.0`, the buridan UI library is getting closer to establishing a solid API for its components as well as a strong [theme system](/resources/theming). 
 

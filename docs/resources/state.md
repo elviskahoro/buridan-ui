@@ -8,7 +8,7 @@ order: 1
 
 In Reflex, **State** is the single source of truth for your application's data. Unlike React where state is typically client-side, Reflex state lives on the server, allowing you to use Python's full power for business logic while keeping the UI in sync.
 
-# Substates & Organization
+## Substates & Organization
 
 As your app grows, putting everything in one `rx.State` class becomes unmanageable and slow. Reflex allows you to split logic into **Substates**.
 
@@ -27,7 +27,7 @@ class AuthState(rx.State):
         return self.user_id is not None
 ```
 
-# Cross-State Communication
+## Cross-State Communication
 
 Sometimes one state needs to know about another. Reflex provides two key async methods for this:
 

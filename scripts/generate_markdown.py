@@ -59,6 +59,86 @@ def dynamic_load_components(dirs: list[str]) -> dict:
     return registry
 
 
+def align_markdown_tables(content: str) -> str:
+    """Align pipes in markdown tables to meet MD060 requirements."""
+    lines = content.split('\n')
+    result = []
+    i = 0
+
+    while i < len(lines):
+        line = lines[i]
+
+        # Check if this is a table header (contains pipes)
+        if line.strip().startswith('|') and i + 1 < len(lines):
+            next_line = lines[i + 1]
+            # Check if next line is a separator (contains dashes and pipes)
+            if '|' in next_line and all(c in '| -:' for c in next_line.replace(' ', '')):
+                # Collect all lines in this table
+                table_lines = [line]
+                j = i + 1
+                while j < len(lines) and '|' in lines[j]:
+                    table_lines.append(lines[j])
+                    j += 1
+
+                # Align the table
+                aligned_table = align_table(table_lines)
+                result.extend(aligned_table)
+                i = j
+                continue
+
+        result.append(line)
+        i += 1
+
+    return '\n'.join(result)
+
+
+def align_table(lines: list[str]) -> list[str]:
+    """Align a markdown table's pipes for consistent column widths."""
+    if not lines or len(lines) < 2:
+        return lines
+
+    # Parse table to find column widths
+    rows = []
+    for line in lines:
+        cells = [cell.strip() for cell in line.split('|')[1:-1]]
+        rows.append(cells)
+
+    if not rows:
+        return lines
+
+    # Calculate column widths
+    col_widths = []
+    max_cols = max(len(row) for row in rows)
+
+    for col_idx in range(max_cols):
+        max_width = 0
+        for row in rows:
+            if col_idx < len(row):
+                max_width = max(max_width, len(row[col_idx]))
+        col_widths.append(max_width)
+
+    # Rebuild aligned table
+    aligned_lines = []
+    for row_idx, row in enumerate(rows):
+        aligned_cells = []
+        for col_idx, cell in enumerate(row):
+            if col_idx < len(col_widths):
+                aligned_cells.append(cell.ljust(col_widths[col_idx]))
+
+        aligned_line = '| ' + ' | '.join(aligned_cells) + ' |'
+        aligned_lines.append(aligned_line)
+
+        # Add separator after header
+        if row_idx == 0 and len(lines) > 1:
+            sep_cells = []
+            for col_idx in range(len(col_widths)):
+                sep_cells.append('-' * col_widths[col_idx])
+            sep_line = '| ' + ' | '.join(sep_cells) + ' |'
+            aligned_lines.append(sep_line)
+
+    return aligned_lines
+
+
 def convert_to_pure_markdown(content: str, registry: dict) -> str:
     """Replaces custom component delimiters in markdown content with formatted code blocks."""
     delimiter_pattern = r"--([\w_]+)(?:\((.*)\))?--"
@@ -174,7 +254,11 @@ def convert_to_pure_markdown(content: str, registry: dict) -> str:
         if len(parts) > 2:
             content = parts[2]
 
-    return re.sub(delimiter_pattern, replacer, content)
+    content = re.sub(delimiter_pattern, replacer, content)
+    # Align markdown tables to meet MD060 requirements
+    content = align_markdown_tables(content)
+
+    return content
 
 
 def main() -> None:

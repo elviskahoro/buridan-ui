@@ -8,22 +8,22 @@ order: 26
 
 A set of two-state buttons that can be toggled on or off.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(toggle_group)--
 
-# Usage
+## Usage
 
 --USAGE(toggle_group)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Toggle Group` component.
 
 --ANATOMY(toggle_group)--
 
-# Examples
+## Examples
 
 ## Outline
 

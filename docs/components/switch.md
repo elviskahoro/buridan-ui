@@ -8,22 +8,22 @@ order: 0
 
 A control that allows the user to toggle between checked and not checked.
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 --INSTALL(switch)--
 
-# Usage
+## Usage
 
 --USAGE(switch)--
 
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Switch` component.
 
 --ANATOMY(switch)--
 
-# Examples
+## Examples
 
 ## Description
 

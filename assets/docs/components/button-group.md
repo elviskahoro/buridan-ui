@@ -4,7 +4,7 @@
 
 A container that groups related buttons together with consistent styling.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -12,13 +12,13 @@ Copy the following code into your app directory.
 > **Error: 'button_group' not found in registry**
 
 
-# Usage
+## Usage
 
 
 > **Error: 'button_group' not found in registry**
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Button Group` component.
 
 
@@ -31,37 +31,20 @@ button_group.root(
 
 
 
-# Accessibility
+## Accessibility
 
 - The `button_group.root` component has the `role` attribute set to `group`.
 - Use `Tab` to navigate between the buttons in the group.
 - Use `aria-label` or `aria-labelledby` to label the button group.
 
-# Examples
+## Examples
 
 ## Orientation
 
 Set the `orientation` prop to change the button group layout.
 
 
-```python
-def button_group_orientation() -> rx.Component:
-    return button_group.root(
-        button(
-            hi("Add01Icon"),
-            variant="outline",
-            size="icon",
-        ),
-        button(
-            hi("MinusSignIcon"),
-            variant="outline",
-            size="icon",
-        ),
-        orientation="vertical",
-        aria_label="Media controls",
-        class_name="h-fit",
-    )
-```
+> **Error: 'button_group_orientation' not found in registry**
 
 
 ## Size
@@ -69,30 +52,7 @@ def button_group_orientation() -> rx.Component:
 Control the size of buttons using the `size` prop on individual buttons.
 
 
-```python
-def button_group_size() -> rx.Component:
-    return rx.el.div(
-        button_group.root(
-            button("Small", variant="outline", size="sm"),
-            button("Button", variant="outline", size="sm"),
-            button("Group", variant="outline", size="sm"),
-            button(hi("Add01Icon"), variant="outline", size="icon-sm"),
-        ),
-        button_group.root(
-            button("Default", variant="outline"),
-            button("Button", variant="outline"),
-            button("Group", variant="outline"),
-            button(hi("Add01Icon"), variant="outline", size="icon"),
-        ),
-        button_group.root(
-            button("Large", variant="outline", size="lg"),
-            button("Button", variant="outline", size="lg"),
-            button("Group", variant="outline", size="lg"),
-            button(hi("Add01Icon"), variant="outline", size="icon-lg"),
-        ),
-        class_name="flex flex-col items-start gap-8",
-    )
-```
+> **Error: 'button_group_size' not found in registry**
 
 
 ## Separator
@@ -102,14 +62,7 @@ The `button_group.separator` component visually divides buttons within a group.
 Buttons with variant `outline` do not need a separator since they have a border. For other variants, a separator is recommended to improve the visual hierarchy.
 
 
-```python
-def button_group_separator() -> rx.Component:
-    return button_group.root(
-        button("Copy", variant="secondary", size="sm"),
-        button_group.separator(),
-        button("Paste", variant="secondary", size="sm"),
-    )
-```
+> **Error: 'button_group_separator' not found in registry**
 
 
 ## Split
@@ -117,18 +70,7 @@ def button_group_separator() -> rx.Component:
 Create a split button group by adding two buttons separated by a `button_group.separator`.
 
 
-```python
-def button_group_split() -> rx.Component:
-    return button_group.root(
-        button("Button", variant="secondary"),
-        button_group.separator(),
-        button(
-            hi("Add01Icon"),
-            variant="secondary",
-            size="icon",
-        ),
-    )
-```
+> **Error: 'button_group_split' not found in registry**
 
 
 ## Input
@@ -136,17 +78,7 @@ def button_group_split() -> rx.Component:
 Wrap an `input` component with buttons.
 
 
-```python
-def button_group_input() -> rx.Component:
-    return button_group.root(
-        input(placeholder="Search..."),
-        button(
-            hi("Search01Icon"),
-            variant="outline",
-            aria_label="Search",
-        ),
-    )
-```
+> **Error: 'button_group_input' not found in registry**
 
 
 ## Dropdown Menu
@@ -154,41 +86,7 @@ def button_group_input() -> rx.Component:
 Create a split button group with a `menu` component.
 
 
-```python
-def button_group_dropdown() -> rx.Component:
-    return button_group.root(
-        button("Follow", variant="outline"),
-        menu.root(
-            menu.trigger(
-                render_=button(
-                    hi("ArrowDown01Icon"),
-                    variant="outline",
-                    class_name="pl-2!",
-                ),
-            ),
-            menu.portal(
-                menu.positioner(
-                    menu.popup(
-                        menu.group(
-                            menu.item("Mute Conversation"),
-                            menu.item("Mark as Read"),
-                            menu.item("Report Conversation"),
-                            menu.item("Block User"),
-                            menu.item("Share Conversation"),
-                            menu.item("Copy Conversation"),
-                        ),
-                        menu.separator(),
-                        menu.group(
-                            menu.item("Delete Conversation", variant="destructive"),
-                        ),
-                        class_name="w-44",
-                    ),
-                    align="end",
-                ),
-            ),
-        ),
-    )
-```
+> **Error: 'button_group_dropdown' not found in registry**
 
 
 
@@ -197,71 +95,19 @@ def button_group_dropdown() -> rx.Component:
 Pair with a `select` component.
 
 
-```python
-def button_group_select() -> rx.Component:
-
-    return button_group.root(
-        button_group.root(
-            select.root(
-                select.trigger(
-                    selected_currency.value,
-                    select.icon(),
-                    class_name="flex items-center gap-1",
-                ),
-                select.portal(
-                    select.positioner(
-                        select.popup(
-                            select.group(
-                                *[
-                                    select.item(
-                                        select.item_text(
-                                            item["value"],
-                                            " ",
-                                            rx.el.span(
-                                                item["label"],
-                                                class_name="text-xs !text-muted-foreground",
-                                            ),
-                                            class_name="text-sm text-foreground",
-                                        ),
-                                        select.item_indicator(),
-                                        value=item["value"],
-                                        class_name="flex flex-row items-center justify-between",
-                                    )
-                                    for item in currencies
-                                ],
-                            ),
-                        ),
-                        align="start",
-                    ),
-                ),
-                items=currencies,
-                value=selected_currency.value,
-                on_value_change=selected_currency.set_value,
-                name="currency_select",
-            ),
-            input(placeholder="10.00", pattern="[0-9]*"),
-        ),
-        button_group.root(
-            button(
-                hi("ArrowRight01Icon"),
-                aria_label="Send",
-                size="icon",
-                variant="outline",
-            ),
-        ),
-    )
-```
+> **Error: 'button_group_select' not found in registry**
 
 
-# API Reference
+## API Reference
 
 ## button_group.root
 
 The `button_group.root` component is a container that groups related buttons together with consistent styling.
 
 | Prop          | Type                         | Default        |
+| ------------- | ---------------------------- | -------------- | -------------- |
 | ------------- | ---------------------------- | -------------- |
-| `orientation` | `"horizontal" \| "vertical"` | `"horizontal"` |
+| `orientation` | `"horizontal" \              | "vertical"`    | `"horizontal"` |
 
 
 ## button_group.separator
@@ -269,16 +115,18 @@ The `button_group.root` component is a container that groups related buttons tog
 The `button_group.separator` component visually divides buttons within a group.
 
 | Prop          | Type                         | Default      |
+| ------------- | ---------------------------- | ------------ | ------------ |
 | ------------- | ---------------------------- | ------------ |
-| `orientation` | `"horizontal" \| "vertical"` | `"vertical"` |
+| `orientation` | `"horizontal" \              | "vertical"`  | `"vertical"` |
 
 
 ## button_group.text
 
 Use this component to display text within a button group.
 
-| Prop      | Type      | Default |
-| --------- | --------- | ------- |
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
+| ---------   | ---------      | ------- |
 | `*children` | `rx.Component` | `false` |
 
 

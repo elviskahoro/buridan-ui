@@ -8,23 +8,23 @@ order: 25
 
 A two-state button that can be either on or off.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(toggle)--
 
-# Usage
+## Usage
 
 --USAGE(toggle)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Toggle` component.
 
 --ANATOMY(toggle)--
 
 
-# Examples
+## Examples
 
 ## Toggle Variants
 Use `toggle` for a pressable on/off control. Control icon behavior with `icon_variant="fill"` to fill icons on press, or omit it and style manually using `data-[pressed] selectors` (e.g. text-* or fill-*).

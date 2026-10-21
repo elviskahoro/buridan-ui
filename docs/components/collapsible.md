@@ -8,24 +8,24 @@ order: 6
 
 An interactive component which expands/collapses a panel.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(collapsible)--
 
-# Usage
+## Usage
 
 --USAGE(collapsible)--
 
 Collapsible components treat `render_` as a full replacement: component defaults are not applied to the target. Add the desired layout classes to the rendered element itself.
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Collapsible` component.
 
 --ANATOMY(collapsible)--
 
-# Controlled State
+## Controlled State
 
 Use the `open` and `on_open_change` props to control the state.
 
@@ -48,7 +48,7 @@ def controlled_example() -> rx.Component:
     )
 ```
 
-# Examples
+## Examples
 
 ## Basic
 

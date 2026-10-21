@@ -10,22 +10,22 @@ An input that suggests options as you type.
 
 > **Note:** The Autocomplete is a fully custom component with no external dependencies — built as a self-contained JavaScript component exposed through a Python API for use in Reflex.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(autocomplete)--
 
-# Usage
+## Usage
 
 --USAGE(autocomplete)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Autocomplete` component. 
 
 --ANATOMY(autocomplete)--
 
-# Examples
+## Examples
 
 ## Basic
 
@@ -63,9 +63,9 @@ When no items match the query, the empty state is shown automatically.
 
 --DEMO(autocomplete_empty_state)--
 
-# API Reference
+## API Reference
 
-**autocomplete**
+### autocomplete
 
 | Prop | Type | Default | Description |
 | :--- | :--- | :--- | :--- |

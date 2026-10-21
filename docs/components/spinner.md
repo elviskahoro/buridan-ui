@@ -9,21 +9,21 @@ An indicator that can be used to show a loading state.
 
 > **Note:** The Spinner component is a fully custom implementation using in-line **svg** with no external dependencies.
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 --INSTALL(spinner)--
 
-# Usage
+## Usage
 
 --USAGE(spinner)--
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Spinner` component.
 
 --ANATOMY(spinner)--
 
-# Examples
+## Examples
 
 ## Size
  
@@ -49,7 +49,7 @@ Combine `Spinner` with `Marker` and the `shimmer` utility for animated streaming
  
 --DEMO(spinner_marker)--
 
-# API Reference
+## API Reference
  
 | Prop         | Type   | Default | Description                                      |
 |--------------|--------|---------|--------------------------------------------------|

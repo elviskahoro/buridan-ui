@@ -8,29 +8,29 @@ order: 3
 
 A container that groups related buttons together with consistent styling.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(button_group)--
 
-# Usage
+## Usage
 
 --USAGE(button_group)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Button Group` component.
 
 --ANATOMY(button_group)--
 
 
-# Accessibility
+## Accessibility
 
 - The `button_group.root` component has the `role` attribute set to `group`.
 - Use `Tab` to navigate between the buttons in the group.
 - Use `aria-label` or `aria-labelledby` to label the button group.
 
-# Examples
+## Examples
 
 ## Orientation
 
@@ -77,7 +77,7 @@ Pair with a `select` component.
 
 --DEMO(button_group_select)--
 
-# API Reference
+## API Reference
 
 ## button_group.root
 

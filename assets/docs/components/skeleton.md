@@ -4,48 +4,21 @@
 
 Use to show a placeholder while content is loading.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
-### CLI
 
-```bash
-buridan add component skeleton
-```
-
-### Manual Installation
-
-```python
-from reflex.components.component import Component
-from reflex.vars.base import Var
-from reflex_components_core.el import Div
-
-from .core import cn
+> **Error: 'skeleton' not found in registry**
 
 
-class ClassNames:
-    ROOT = "animate-pulse bg-secondary"
+## Usage
 
 
-def skeleton_component(class_name: str | Var[str] = "") -> Component:
-
-    return Div.create(class_name=cn(ClassNames.ROOT, class_name))
+> **Error: 'skeleton' not found in registry**
 
 
-skeleton = skeleton_component
-```
-
-
-# Usage
-
-
-```python
-from components.ui.skeleton import skeleton
-```
-
-
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Skeleton` component.
 
 
@@ -54,53 +27,22 @@ skeleton()
 ```
 
 
-# Examples
+## Examples
 
 ## General
 
 
-```python
-def skeleton_general():
-    return skeleton_component(class_name="h-8 w-32 rounded-md")
-```
+> **Error: 'skeleton_general' not found in registry**
 
 
 ## Card
 
 
-```python
-def skeleton_card():
-    return card.root(
-        card.header(
-            skeleton_component(class_name="h-4 w-2/3 rounded-md"),
-            skeleton_component(class_name="h-4 w-1/2 rounded-md"),
-        ),
-        card.content(
-            skeleton_component(class_name="aspect-video w-full rounded-md"),
-        ),
-        class_name="w-full max-w-xs border border-input rounded-lg",
-    )
-```
+> **Error: 'skeleton_card' not found in registry**
 
 
 ## Table
 
 
-```python
-def skeleton_table():
-    """Skeleton table matching shadcn SkeletonTable layout."""
-    return rx.el.div(
-        *[
-            rx.el.div(
-                skeleton_component(class_name="h-4 flex-1"),
-                skeleton_component(class_name="h-4 w-24"),
-                skeleton_component(class_name="h-4 w-20"),
-                class_name="flex gap-4",
-                key=str(i),
-            )
-            for i in range(5)
-        ],
-        class_name="flex w-full max-w-sm flex-col gap-2",
-    )
-```
+> **Error: 'skeleton_table' not found in registry**
 

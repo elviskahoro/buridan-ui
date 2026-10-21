@@ -8,21 +8,19 @@ order: 0
 
 Combine labels, controls, and help text to compose accessible form fields and grouped inputs.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(field)--
 
-# Usage
+## Usage
 
 --USAGE(field)--
 
-# Composition
+## Composition
 
-## field.root
-
-A single control with label, helper text, and validation.
+**field.root** — A single control with label, helper text, and validation.
 
 ```python
 field.root
@@ -32,9 +30,7 @@ field.root
 └── field.error
 ```
 
-## field.group
-
-Related fields in one group. Use `field.separator` between sections when needed.
+**field.group** — Related fields in one group. Use `field.separator` between sections when needed.
 
 ```python
 field.group
@@ -49,9 +45,7 @@ field.group
     └── Input / Textarea / switch.root / select.root
 ```
 
-## field.set
-
-Semantic grouping with a legend and description, usually containing a `field.group`.
+**field.set** — Semantic grouping with a legend and description, usually containing a `field.group`.
 
 ```python
 field.set
@@ -68,7 +62,7 @@ field.set
         └── Input / Textarea / switch.root / select.root
 ```
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Field` component.
 
 --ANATOMY(field)--
@@ -80,13 +74,13 @@ Use the following composition to build a `Field` component.
 
 - Wrap related fields with `field.group`, and use `field.set` with `field.legend` for semantic grouping.
 
-# Examples
+## Examples
 
 ## General
 
 --DEMO(field_demo)--
 
-# Responsive Layout
+## Responsive Layout
 
 - **Vertical fields**: Default orientation stacks label, control, and helper text—ideal for mobile-first layouts.  
 
@@ -94,7 +88,7 @@ Use the following composition to build a `Field` component.
 
 - **Responsive fields**: Set `orientation="responsive"` for automatic column layouts inside container-aware parents.
 
-# Validation and Errors
+## Validation and Errors
 
 - Add `data_invalid="true"` to `field.root` to switch the entire block into an error state.
 
@@ -111,9 +105,9 @@ field.root(
 )
 ```
 
-# API Reference
+## API Reference
 
-## field.set
+### field.set
 
 Container that renders a semantic `fieldset` with spacing presets.
 
@@ -128,7 +122,7 @@ field.set_(
 )
 ```
 
-## field.legend
+### field.legend
 
 Legend element for a `field.set_`. Switch to the `"label"` variant to align with standard label sizing.
 
@@ -143,7 +137,7 @@ field.legend("Notification Preferences", variant="label")
 
 The `field.legend` has two variants: `legend` and `label`. The `label` variant applies standard input label sizing and alignment, which is useful if you are stacking nested fieldsets.
 
-## field.group
+### field.group
 
 Layout wrapper that stacks `field.root` components and enables container queries for responsive orientations.
 
@@ -159,7 +153,7 @@ field.group(
 )
 ```
 
-## field.root
+### field.root
 
 The core wrapper for a single field. Provides orientation control, invalid state styling, and spacing configurations.
 
@@ -177,7 +171,7 @@ field.root(
 )
 ```
 
-## field.content
+### field.content
 
 Flex column that groups control and descriptions when the label sits beside the control. Not required if you have no layout description block.
 
@@ -195,7 +189,7 @@ field.root(
 )
 ```
 
-## field.label
+### field.label
 
 Label styled for both direct inputs and nested `field` child items.
 
@@ -208,7 +202,7 @@ Label styled for both direct inputs and nested `field` child items.
 field.label("Email", html_for="email")
 ```
 
-## field.title
+### field.title
 
 Renders a standalone title with matching label typography properties inside a `field.content` node block.
 
@@ -223,7 +217,7 @@ field.content(
 )
 ```
 
-## field.description
+### field.description
 
 Helper text slot that automatically line-balances lengthy strings cleanly when utilized inside horizontal configurations.
 
@@ -235,7 +229,7 @@ Helper text slot that automatically line-balances lengthy strings cleanly when u
 field.description("We never share your email with anyone.")
 ```
 
-## field.separator
+### field.separator
 
 Visual divider rule used to separate sections or categories inside a wrapping `field.group` component. Accepts optional inline children contents.
 
@@ -247,7 +241,7 @@ Visual divider rule used to separate sections or categories inside a wrapping `f
 field.separator("Or continue with")
 ```
 
-## field.error
+### field.error
 
 Accessible error notification typography container block configured automatically with standard application state layout variables (`role="alert"`).
 

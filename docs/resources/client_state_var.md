@@ -8,7 +8,7 @@ order: 1
 
 Common implementation patterns for responsive, performant UI components.
 
-# Toggle Pattern
+## Toggle Pattern
 
 Use a boolean ClientStateVar to drive UI visibility or style changes instantly.
 
@@ -29,7 +29,7 @@ def toggle_component():
     )
 ```
 
-# Form State Pattern
+## Form State Pattern
 
 Manage input draft state or real-time validation locally before pushing a final, validated payload to the backend.
 
@@ -57,7 +57,7 @@ while preserving the rest of the client-side state.
 
 --demo(form_state_pattern_example)--
 
-# Conditional Rendering
+## Conditional Rendering
 
 Control UI state flow without triggering backend re-renders, perfect for tabbed navigation or step-based interfaces.
 
@@ -79,7 +79,7 @@ def tab_system():
     )
 ```
 
-# Session Management
+## Session Management
 
 This advanced pattern shows how to handle editable UI states on the frontend while syncing changes to the backend.
 
@@ -111,7 +111,7 @@ def session_editor(session_id: str, name: str):
     )
 ```
 
-# API Reference
+## API Reference
 
 This section describes the available methods for interacting with frontend and backend state.
 

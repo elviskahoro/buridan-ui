@@ -8,22 +8,22 @@ order: 0
 
 Displays a card with header, content, and footer.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(card)--
 
-# Usage
+## Usage
 
 --USAGE(card)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Card` component.
 
 --ANATOMY(card)--
 
-# Examples
+## Examples
 
 ## Size
 
@@ -49,7 +49,7 @@ Add an image before the card header to create a card with an image.
 --DEMO(card_image)--
 
 
-# API Reference
+## API Reference
 
 ## card.root
 
