@@ -103,7 +103,8 @@ def validate_by_importing(path: Path, repo_root: Path) -> None:
     module = importlib.util.module_from_spec(spec)
     sys.path.insert(0, str(repo_root))
     try:
-        assert spec.loader is not None
+        if spec.loader is None:
+            raise ValueError(f"No loader found for {path}")
         spec.loader.exec_module(module)
     finally:
         sys.path.pop(0)

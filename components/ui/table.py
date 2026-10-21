@@ -34,7 +34,7 @@ class ClassNames:
 
 class TableRoot(Div, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
 
         cls.set_class_name(ClassNames.ROOT, props)
 
@@ -46,49 +46,49 @@ class TableRoot(Div, CoreComponent):
 
 class TableHeader(Thead, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.HEADER, props)
         return super().create(*children, **props)
 
 
 class TableBody(Tbody, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.BODY, props)
         return super().create(*children, **props)
 
 
 class TableFooter(Tfoot, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.FOOTER, props)
         return super().create(*children, **props)
 
 
 class TableRow(Tr, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.ROW, props)
         return super().create(*children, **props)
 
 
 class TableHead(Th, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.HEAD, props)
         return super().create(*children, **props)
 
 
 class TableCell(Td, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.CELL, props)
         return super().create(*children, **props)
 
 
 class TableCaption(Caption, CoreComponent):
     @classmethod
-    def create(cls, *children: Any, **props: Any) -> Component:
+    def create(cls, *children, **props) -> Component:  # noqa: ANN002, ANN003
         cls.set_class_name(ClassNames.CAPTION, props)
         return super().create(*children, **props)
 
@@ -100,8 +100,8 @@ class HighLevelTable(TableRoot):
         data: Var[list[dict[str, Any]]] | list[dict[str, Any]],
         columns: list[dict[str, Any]] | None = None,
         striped: bool = False,
-        **props: Any,
-    ) -> Component:
+        **props,
+    ) -> Component:  # noqa: ANN003
 
         if columns is None and isinstance(data, list) and len(data) > 0:
             columns = [
