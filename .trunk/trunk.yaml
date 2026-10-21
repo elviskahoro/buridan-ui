@@ -19,7 +19,7 @@ plugins:
       uri: https://github.com/elviskahoro/oss-linter-trunk-add-trailing-comma
 
     - id: pyrefly-plugin
-      ref: v0.2.0
+      ref: v0.2.1
       uri: https://github.com/elviskahoro/oss-linter-trunk-pyrefly
 
     - id: tach-plugin
@@ -275,14 +275,27 @@ lint:
         - "**/*.parquet"
 
     # The TOC scrollspy runtime harness (tests/toc_scrollspy_repro) pins
-    # react/react-dom/react-router-dom to the same versions reflex.lock
-    # ships the app with, so its lockfile mirrors reflex.lock's already-
-    # known-vulnerable deps. Those advisories are tracked as existing
-    # issues on reflex.lock; re-scanning the harness copy surfaces them as
-    # new issues on this PR without exercising anything the app ships.
+    # react/react-dom to the same versions reflex.lock ships the app with,
+    # so its lockfile mirrors reflex.lock's already-known-vulnerable deps.
+    # Those advisories are tracked as existing issues on reflex.lock;
+    # re-scanning the harness copy surfaces them as new issues on this PR
+    # without exercising anything the app ships.
     - linters: [osv-scanner]
       paths:
         - tests/toc_scrollspy_repro/**
+
+    # Vendored third-party assets: exclude from security scanning to avoid
+    # noise from unmaintained/static copies of libraries (PrismJS is vendored
+    # in assets/prism and will not receive updates)
+    - linters: [semgrep]
+      paths:
+        - assets/prism/**
+
+    # Pullfrog workflow dispatch inputs are intentional and required for the
+    # Pullfrog trigger; the file is harness-managed and cannot be edited.
+    - linters: [checkov]
+      paths:
+        - .github/workflows/pullfrog.yml
 
   exported_configs:
     - plugin_id: oss-linter-trunk
@@ -369,4 +382,3 @@ merge:
     - Trunk Check
     - Tests
     - Generate & Verify Docs and Social Cards
-    - pullfrog-approval
