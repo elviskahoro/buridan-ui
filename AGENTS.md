@@ -47,8 +47,9 @@ on every PR and would deadlock the queue.
 side (ruleset `main - PR requirements` plus classic branch protection on
 `main`, pinned to the Pullfrog app); it is no longer in
 `merge.required_statuses`, so the Trunk Merge Queue itself does not wait for
-it. The `merge:` comment in `.trunk/trunk.yaml` documents the required
-statuses and queue behavior.
+it. See the `required_statuses` list in `.trunk/trunk.yaml` for the live set
+of checks the queue waits on (the prose comment above it predates `4dfde77`
+and is not fully current).
 
 <!-- entire-agent:begin -->
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
