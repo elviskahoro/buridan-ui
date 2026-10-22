@@ -81,10 +81,6 @@ class TooltipRoot(TooltipBaseComponent):
 
     disabled: Var[bool]
 
-    delay: Var[int]
-
-    close_delay: Var[int]
-
     hoverable: Var[bool]
 
     @classmethod
@@ -112,6 +108,11 @@ class TooltipTrigger(TooltipBaseComponent):
     tag = "Tooltip.Trigger"
 
     render_: Var[Component]
+
+    delay: Var[int]
+
+    close_delay: Var[int]
+
     _merge_default_classes_with_render: ClassVar[bool] = True
 
     @classmethod
@@ -221,6 +222,8 @@ from components.ui.tooltip import Tooltip
 
 
 `tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
+
+Tooltip open/close timing is not configurable on `tooltip.root()`: in `@base-ui/react` the delays live on `Tooltip.Provider` (group-wide) and `Tooltip.Trigger` (per-trigger), not on `Tooltip.Root`. Configure it group-wide via `tooltip.provider(delay=..., close_delay=...)`, or per-trigger via `tooltip.trigger(delay=..., close_delay=...)`.
 
 ## Anatomy 
 Use the following composition to build a `Tooltip` component.
