@@ -45,11 +45,11 @@ on every PR and would deadlock the queue.
 
 `pullfrog-approval` (Pullfrog's AI review verdict) is required on the GitHub
 side (ruleset `main - PR requirements` plus classic branch protection on
-`main`, pinned to the Pullfrog app) and in `merge.required_statuses` — the
-queue waits for a fresh verdict on the exact state it tests, which depends on
-the queue testing in draft-PR mode and pullfrog reviewing the trunk-io draft
-PRs. Failure modes, recovery, and what to check when a queue entry stalls
-are documented in the `merge:` comment in `.trunk/trunk.yaml`.
+`main`, pinned to the Pullfrog app); it is no longer in
+`merge.required_statuses`, so the Trunk Merge Queue itself does not wait for
+it. See the `required_statuses` list in `.trunk/trunk.yaml` for the live set
+of checks the queue waits on (the prose comment above it predates `4dfde77`
+and is not fully current).
 
 <!-- entire-agent:begin -->
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
