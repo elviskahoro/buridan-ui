@@ -13,7 +13,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component heatmap
+buridan add heatmap
 ```
 
 ### Manual Installation

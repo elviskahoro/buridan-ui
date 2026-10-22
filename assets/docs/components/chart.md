@@ -35,7 +35,7 @@ buridan/ui provides a custom `chart_tooltip` that can be used to match the overa
 ### CLI
 
 ```bash
-buridan add component chart_tooltip
+buridan add chart_tooltip
 ```
 
 ### Manual Installation

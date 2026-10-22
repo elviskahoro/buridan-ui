@@ -15,7 +15,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component bubble
+buridan add bubble
 ```
 
 ### Manual Installation

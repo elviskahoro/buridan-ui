@@ -11,7 +11,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component skeleton
+buridan add skeleton
 ```
 
 ### Manual Installation
