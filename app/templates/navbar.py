@@ -1,7 +1,6 @@
 import reflex as rx
 
 from app.engine.actions import TOGGLE_DARK_JS
-from app.hooks import seed, theme_preset_option
 from app.templates.docsidebar import mobile_menu
 from app.templates.searchbar import searchbar
 from app.templates.utils import attach_tooltip
@@ -24,26 +23,6 @@ def icon_wrapper(svg_str: str, class_name: str = "size-5"):
 
 def separator():
     return rx.el.p("︲", class_name="text-muted-foreground/50 font-thin")
-
-
-def open_in_reflex_build() -> rx.Component:
-    svg = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" class="size-5">
-        <rect width="16" height="16" rx="2" class="fill-black dark:fill-white"/>
-        <path d="M10 9V13H12V9H10Z M4 3V13H6V9H10V7H6V5H10V7H12V3H4Z" class="fill-white dark:fill-black"/>
-    </svg>"""
-    return external_link(
-        button(
-            rx.el.div(
-                rx.el.p("Open in", class_name="text-sm"),
-                icon_wrapper(svg),
-                class_name="flex flex-row items-center gap-x-2",
-            ),
-            variant="outline",
-            size="sm",
-        ),
-        href=f"https://build.reflex.dev/?prompt=Install and run pip install buridan-create and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
-        target="_blank",
-    )
 
 
 def light_and_dark_toggle() -> rx.Component:
@@ -94,7 +73,7 @@ def site_github() -> rx.Component:
     )
 
 
-def navbar(with_create_page_cta: bool = False) -> rx.Component:
+def navbar() -> rx.Component:
     actions = [
         searchbar(),
         light_and_dark_toggle(),
@@ -103,20 +82,6 @@ def navbar(with_create_page_cta: bool = False) -> rx.Component:
         separator(),
         rx.el.a(button("New Project"), href="/create"),
     ]
-
-    if with_create_page_cta:
-        actions.extend(
-            [
-                open_in_reflex_build(),
-                button(
-                    "Get Code",
-                    on_click=rx.call_script(
-                        "document.getElementById('get-code-btn')?.click()",
-                    ),
-                    size="sm",
-                ),
-            ],
-        )
 
     return rx.el.header(
         rx.el.div(
