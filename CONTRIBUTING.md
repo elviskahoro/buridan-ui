@@ -50,10 +50,6 @@ cannot be upgraded without a Reflex version bump:
 - **KaTeX, postcss-selector-parser**: Patched via security overrides in the
   manifest's `overrides` section.
 
-When `reflex export --frontend-only --no-zip` is run, do not commit the injected
-`clsx-for-tailwind` and `react-debounce-input` dependencies into the lockfile;
-these are temporary build artifacts and should not be persisted.
-
 ## Adding Components
 
 - New components should be added to `app/base_ui/components/base/`.
