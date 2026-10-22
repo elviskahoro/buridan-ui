@@ -59,6 +59,20 @@ class AccordionBaseComponent(BaseUIComponent):
         return ImportVar(tag="Accordion", package_path="", install=False)
 
 
+# Raised by ``AccordionHeader.create`` when a child is already an
+# ``AccordionHeader`` (i.e. an ``accordion.trigger(...)`` was wrapped in an
+# explicit ``accordion.header(...)``). Kept module-level so the ``raise`` site
+# satisfies ruff's TRY003/EM101 (no long/string-literal message inline) and the
+# message stays greppable.
+_NESTED_HEADER_MESSAGE = (
+    "accordion.header(...) must not wrap an accordion.trigger(...) -- "
+    "accordion.trigger() already self-wraps in an Accordion.Header "
+    "(rendering an <h3>), so nesting produces <h3> inside <h3> "
+    "(invalid HTML). Place the trigger directly under accordion.item "
+    "instead: accordion.item(accordion.trigger(...), accordion.panel(...))."
+)
+
+
 class AccordionRoot(AccordionBaseComponent):
     tag = "Accordion.Root"
 
@@ -102,6 +116,16 @@ class AccordionHeader(AccordionBaseComponent):
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
+        # AccordionTrigger.create already wraps its trigger in an AccordionHeader
+        # (rendering an <h3>). Wrapping that result in another accordion.header(...)
+        # produces Accordion.Header > Accordion.Header > Accordion.Trigger, i.e. an
+        # <h3> nested inside an <h3> -- invalid HTML and a duplicated heading in the
+        # accessibility tree. Reject the double-wrap loudly so the mismatch can't
+        # silently ship invalid markup again (see commit 755f3ed / v0.9.1 release).
+        for child in children:
+            if isinstance(child, AccordionHeader):
+                raise TypeError(_NESTED_HEADER_MESSAGE)
+
         props["data-slot"] = "accordion-header"
         cls.set_class_name(ClassNames.HEADER, props)
         return super().create(*children, **props)
