@@ -78,16 +78,17 @@ def align_markdown_tables(content: str) -> str:
         line = lines[i]
 
         # Check if this is a table header (contains pipes)
-        if line.strip().startswith("|") and i + 1 < len(lines):
+        if _is_table_row(line) and i + 1 < len(lines):
             next_line = lines[i + 1]
             # Check if next line is a separator (contains dashes and pipes)
-            if "|" in next_line and all(
+            if _is_table_row(next_line) and all(
                 c in "| -:" for c in next_line.replace(" ", "")
             ):
-                # Collect all lines in this table
+                # Collect rows until the first line that isn't a table row, so
+                # prose mentioning a pipe is never absorbed into the table.
                 table_lines = [line]
                 j = i + 1
-                while j < len(lines) and "|" in lines[j]:
+                while j < len(lines) and _is_table_row(lines[j]):
                     table_lines.append(lines[j])
                     j += 1
 
@@ -103,16 +104,25 @@ def align_markdown_tables(content: str) -> str:
     return "\n".join(result)
 
 
-# Splits on cell delimiters but not on `\\|`, an escaped pipe inside a cell.
+def _is_table_row(line: str) -> bool:
+    return line.strip().startswith("|")
+
+
+# Splits on cell delimiters but not on `\|`, an escaped pipe inside a cell.
 TABLE_CELL_DELIMITER = re.compile(r"(?<!\\)\|")
+
+
+def _split_table_row(line: str) -> list[str]:
+    """Split a row into cells; the trailing pipe is optional in GFM."""
+    row = line.strip().removeprefix("|")
+    if row.endswith("|") and not row.endswith("\\|"):
+        row = row[:-1]
+    return [cell.strip() for cell in TABLE_CELL_DELIMITER.split(row)]
 
 
 def _parse_table_rows(lines: list[str]) -> list[list[str]]:
     """Parse table lines into rows of cells."""
-    return [
-        [cell.strip() for cell in TABLE_CELL_DELIMITER.split(line)[1:-1]]
-        for line in lines
-    ]
+    return [_split_table_row(line) for line in lines]
 
 
 def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
