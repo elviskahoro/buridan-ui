@@ -50,15 +50,13 @@ def landing_page() -> rx.Component:
     )
 
     landing_mobile = rx.el.div(
-        rx.color_mode_cond(
-            rx.el.image(
-                src="/landing_preview.webp",
-                class_name="w-[1450px] max-w-none",
-            ),
-            rx.el.image(
-                src="/landing_preview_dark.webp",
-                class_name="w-[1450px] max-w-none",
-            ),
+        rx.el.image(
+            src="/landing_preview.webp",
+            class_name="w-[1450px] max-w-none dark:hidden",
+        ),
+        rx.el.image(
+            src="/landing_preview_dark.webp",
+            class_name="w-[1450px] max-w-none hidden dark:block",
         ),
         class_name="overflow-hidden w-full flex justify-center",
     )
