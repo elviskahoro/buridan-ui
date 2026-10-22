@@ -100,7 +100,7 @@ So far we've only used components from Recharts. They look great out of the box 
 
 To add a tooltip, we'll use the custom `chart_tooltip` and `chart_tooltip_content` components from chart.
 
->**Note**: A small comment regarding the custom tooltip. Because of the way Recharts is composed and the way it's wrapped in Reflex, the custom tooltip, as of now, works only for Area, Bar, and Line charts.
+>**Note**: A small comment regarding the custom tooltip. Because of the way Recharts is composed and the way it's wrapped in Reflex, the custom tooltip, as of now, works for Area, Bar, Line, and Pie charts. The `chart_tooltip_content` swatch styling (the `nth-child` color mapping), however, only applies to Area, Bar, and Line charts — a pie tooltip renders a single item, so its swatch always paints `--chart-1` regardless of the hovered sector.
 
 To use the custom tooltip, first import it at the top of your chart file.
 
