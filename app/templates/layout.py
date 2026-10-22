@@ -28,7 +28,6 @@ def layout_decorator(
     title: str,
     description: str,
     ctas: list | None = None,
-    with_create_page_cta: bool = False,
 ):
     """Decorator to wrap a page function with a sticky navbar,
     a landing header, and page-specific content.
@@ -43,7 +42,7 @@ def layout_decorator(
                 rx.el.div(
                     banner,
                     rx.el.header(
-                        navbar(with_create_page_cta=with_create_page_cta),
+                        navbar(),
                         class_name="sticky top-0 z-50 w-full bg-background",
                     ),
                     rx.el.main(
