@@ -1,0 +1,12 @@
+{
+  "name": "buridan-autocomplete-repro",
+  "private": true,
+  "description": "jsdom + react-dom + esbuild harness that mounts the real BuridanAutocompleteRoot source extracted from components/ui/autocomplete.py (with its JSX transpiled by esbuild) and drives the Escape->Enter / Escape->Arrow->Enter sequences that expose the close-animation keydown bug. react and react-dom are pinned to the same major shipped by the Reflex web app (see reflex.lock/package.json); jsdom is pinned independently to the version below; esbuild is the transpile-only JSX->React.createElement pipeline (no bundler required).",
+  "type": "commonjs",
+  "dependencies": {
+    "esbuild": "0.25.5",
+    "jsdom": "30.1.2",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  }
+}
