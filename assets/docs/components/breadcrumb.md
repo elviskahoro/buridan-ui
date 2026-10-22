@@ -4,7 +4,7 @@
 
 Displays the path to the current resource using a hierarchy of links.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -153,7 +153,7 @@ breadcrumb = Breadcrumb
 
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Breadcrumb` component.
 
 
@@ -172,7 +172,7 @@ breadcrumb.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Basic 
 A basic breadcrumb with a home link and a components link.
@@ -300,61 +300,61 @@ def breadcrumb_ellipsis() -> rx.Component:
 ```
 
 
-# API Reference
+## API Reference
 
 ## breadcrumb.root
 
 The `breadcrumb.root` component is the root navigation element that wraps all breadcrumb components.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## breadcrumb.list
 
 The `breadcrumb.list` component displays the ordered list of breadcrumb items.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## breadcrumb.item
 
 The `breadcrumb.item` component wraps individual breadcrumb items.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## breadcrumb.link
 
 The `breadcrumb.link` component displays a clickable link in the breadcrumb.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## breadcrumb.page
 
 The `breadcrumb.page` component displays the current page in the breadcrumb (non-clickable).
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## breadcrumb.separator
 
 The `breadcrumb.separator` component displays a separator between breadcrumb items. You can pass custom children to override the default separator icon.
 
-| Prop        | Type              | Default |
-| ----------- | ----------------- | ------- |
-| `children`  | `rx.Component` | -       |
-| `class_name` | `string`          | -       |
+| Prop         | Type           | Default |
+| ------------ | -------------- | ------- |
+| `children`   | `rx.Component` | -       |
+| `class_name` | `string`       | -       |
 
 ## breadcrumb.ellipsis
 
 The `breadcrumb.ellipsis` component displays an ellipsis indicator for collapsed breadcrumb items.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |

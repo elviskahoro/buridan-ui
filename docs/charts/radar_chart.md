@@ -8,7 +8,7 @@ order: 0
 
 Radar Charts are ideal for showing changes over time or the magnitude of multiple datasets stacked together. They combine the smoothness of line charts with the visual impact of filled areas.
 
-# Examples
+## Examples
 
 >**Note**: The chart example charts below are wrapped in [Card](/docs/components/card). Make sure to have the component installed before using any of the examples.
 

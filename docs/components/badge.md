@@ -8,22 +8,22 @@ order: 2
 
 Displays a badge or a component that looks like a badge.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(badge)--
 
-# Usage
+## Usage
 
 --USAGE(badge)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Badge` component.
 
 --ANATOMY(badge)--
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -56,7 +56,7 @@ You can customize the colors of a badge by adding custom classes such as `bg-gre
 --DEMO(badge_custom_colors)--
 
 
-# API Reference
+## API Reference
 
 ## badge
 

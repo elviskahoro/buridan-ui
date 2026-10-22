@@ -4,7 +4,7 @@
 
 Displays a card with header, content, and footer.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -49,7 +49,7 @@ class CardRoot(Div, CoreComponent):
     size: Var[str]
 
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card"
         if "size" in props:
             props["data-size"] = props.pop("size")
@@ -59,7 +59,7 @@ class CardRoot(Div, CoreComponent):
 
 class CardHeader(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-header"
         cls.set_class_name(ClassNames.HEADER, props)
         return super().create(*children, **props)
@@ -67,7 +67,7 @@ class CardHeader(Div, CoreComponent):
 
 class CardTitle(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-title"
         cls.set_class_name(ClassNames.TITLE, props)
         return super().create(*children, **props)
@@ -75,7 +75,7 @@ class CardTitle(Div, CoreComponent):
 
 class CardDescription(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-description"
         cls.set_class_name(ClassNames.DESCRIPTION, props)
         return super().create(*children, **props)
@@ -83,7 +83,7 @@ class CardDescription(Div, CoreComponent):
 
 class CardAction(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-action"
         cls.set_class_name(ClassNames.ACTION, props)
         return super().create(*children, **props)
@@ -91,7 +91,7 @@ class CardAction(Div, CoreComponent):
 
 class CardContent(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-content"
         cls.set_class_name(ClassNames.CONTENT, props)
         return super().create(*children, **props)
@@ -99,7 +99,7 @@ class CardContent(Div, CoreComponent):
 
 class CardFooter(Div, CoreComponent):
     @classmethod
-    def create(cls, *children, **props):
+    def create(cls, *children, **props) -> Div:
         props["data-slot"] = "card-footer"
         cls.set_class_name(ClassNames.FOOTER, props)
         return super().create(*children, **props)
@@ -120,7 +120,7 @@ card = Card()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -128,7 +128,7 @@ from components.ui.card import Card
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Card` component.
 
 
@@ -145,7 +145,7 @@ card.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Size
 
@@ -372,61 +372,61 @@ def card_image() -> rx.Component:
 
 
 
-# API Reference
+## API Reference
 
 ## card.root
 
 The `card.root` component is the root container for card content.
 
-| Prop        | Type                | Default     |
-| ----------- | ------------------- | ----------- |
-| `size`      | `"default" \| "sm"` | `"default"` |
+| Prop         | Type                | Default     |
+| ------------ | ------------------- | ----------- |
+| `size`       | `"default" \| "sm"` | `"default"` |
 | `class_name` | `string`            | -           |
 
 ## card.header
 
 The `card.header` component is used for a title, description, and optional action.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.title
 
 The `card.title` component is used for the card title.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.description
 
 The `card.description` component is used for helper text under the title.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.action
 
 The `card.action` component places content in the top-right of the header (for example, a button or a badge).
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.content
 
 The `card.content` component is used for the main card body.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## card.footer
 
 The `card.footer` component is used for actions and secondary content at the bottom of the card.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |

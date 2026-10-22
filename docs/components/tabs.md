@@ -8,22 +8,22 @@ order: 22
 
 A set of layered sections of content—known as tab panels—that are displayed one at a time.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(tabs)--
 
-# Usage
+## Usage
 
 --USAGE(tabs)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Tabs` component.
 
 --ANATOMY(tabs)--
 
-# Example
+## Example
 
 ## Basic
 --DEMO(tabs_basic)--

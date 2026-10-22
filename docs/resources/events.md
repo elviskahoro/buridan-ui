@@ -8,7 +8,7 @@ order: 3
 
 Events are how Reflex responds to user interactions like clicking a button, submitting a form, or hovering over an element. In Reflex, events trigger **Event Handlers** in your State class.
 
-# Event Handlers
+## Event Handlers
 
 An event handler is a method in your state class that logic.
 
@@ -26,7 +26,7 @@ You hook this up in your UI using component props:
 rx.el.button("Add", on_click=CounterState.increment)
 ```
 
-# Async Handlers & Yielding
+## Async Handlers & Yielding
 
 If an event handler performs a long-running task (like an API call), it should be `async`. Reflex also allows you to **yield** actions to update the UI progressively.
 
@@ -46,7 +46,7 @@ class SearchState(rx.State):
         self.loading = False
 ```
 
-# Chaining Events
+## Chaining Events
 
 You can trigger multiple events from a single interaction by passing a list to the event prop.
 
@@ -61,7 +61,7 @@ rx.el.button(
 )
 ```
 
-# Common Event Triggers
+## Common Event Triggers
 
 Triggers than can be attached to Reflex components:
 
@@ -73,7 +73,7 @@ Triggers than can be attached to Reflex components:
 | `on_mount` | Triggered when a component is first rendered on the page. |
 | `on_blur` | Triggered when a component loses focus. |
 
-# Special Actions
+## Special Actions
 
 Reflex provides built-in "Special Actions" that can be triggered from handlers:
 

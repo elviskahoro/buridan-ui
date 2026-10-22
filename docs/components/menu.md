@@ -8,22 +8,22 @@ order: 13
 
 Displays a menu to the user — such as a set of actions or functions — triggered by a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(menu)--
 
-# Usage
+## Usage
 
 --USAGE(menu)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Menu` component.
 
 --ANATOMY(menu)--
 
-# Example
+## Example
 
 ## Basic
 

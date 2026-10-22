@@ -5,7 +5,7 @@ An indicator that can be used to show a loading state.
 
 > **Note:** The Spinner component is a fully custom implementation using in-line **svg** with no external dependencies.
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 ### CLI
@@ -42,7 +42,7 @@ def spinner(class_name: str = "", **props) -> rx.Component:
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -50,7 +50,7 @@ from components.ui.spinner import spinner
 ```
 
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Spinner` component.
 
 
@@ -59,7 +59,7 @@ spinner()
 ```
 
 
-# Examples
+## Examples
 
 ## Size
  
@@ -140,9 +140,9 @@ def spinner_marker():
 ```
 
 
-# API Reference
+## API Reference
  
-| Prop         | Type   | Default | Description                                      |
-|--------------|--------|---------|--------------------------------------------------|
-| `class_name` | `str`  | `""`    | Additional Tailwind classes applied to the icon. |
+| Prop         | Type   | Default | Description                                                                     |
+| ------------ | ------ | ------- | ------------------------------------------------------------------------------- |
+| `class_name` | `str`  | `""`    | Additional Tailwind classes applied to the icon.                                |
 | `**props`    | `dict` | —       | Any valid HTML attribute forwarded to the element (`role`, `aria_label`, etc.). |

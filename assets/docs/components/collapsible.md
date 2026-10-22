@@ -4,7 +4,7 @@
 
 An interactive component which expands/collapses a panel.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -37,7 +37,7 @@ class CollapsibleBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/collapsible"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Collapsible", package_path="", install=False)
 
 
@@ -99,7 +99,7 @@ collapsible = Collapsible()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -109,7 +109,7 @@ from components.ui.collapsible import Collapsible
 
 Collapsible components treat `render_` as a full replacement: component defaults are not applied to the target. Add the desired layout classes to the rendered element itself.
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Collapsible` component.
 
 
@@ -121,7 +121,7 @@ collapsible.root(
 ```
 
 
-# Controlled State
+## Controlled State
 
 Use the `open` and `on_open_change` props to control the state.
 
@@ -144,7 +144,7 @@ def controlled_example() -> rx.Component:
     )
 ```
 
-# Examples
+## Examples
 
 ## Basic
 

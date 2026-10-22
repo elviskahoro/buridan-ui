@@ -4,7 +4,7 @@
 
 Displays a button or a component that looks like a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -148,7 +148,7 @@ class Button(BaseButton, CoreComponent):
         return [*super()._exclude_props(), "size", "variant"]
 
 
-def button_variants(variant: str = "default", size: str = "default") -> Var:
+def button_variants(variant: str = "default", size: str = "default") -> Var[str]:
     return cn(
         DEFAULT_CLASS_NAME,
         BUTTON_VARIANTS["variant"].get(variant, ""),
@@ -160,7 +160,7 @@ button = Button.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -168,7 +168,7 @@ from components.ui.button import button
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Button` component.
 
 
@@ -177,7 +177,7 @@ button()
 ```
 
 
-# Examples
+## Examples
 
 ## Sizes
 
@@ -387,9 +387,9 @@ def button_render() -> rx.Component:
 
 
 
-# API Reference
+## API Reference
 
-## Button
+### button()
 
 The `Button` component is a wrapper around the `button` element that adds a variety of styles and functionality.
 

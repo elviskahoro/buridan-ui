@@ -18,7 +18,7 @@ class CollapsibleBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/collapsible"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Collapsible", package_path="", install=False)
 
 

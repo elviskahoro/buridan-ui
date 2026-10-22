@@ -11,7 +11,7 @@ We use and recommend CSS variables for theming. This approach provides semantic 
 rx.el.div(class_name="bg-background text-foreground")
 ```
 
-# rxconfig.py
+## rxconfig.py
 
 To use CSS variables for theming, make the following changes to your `rxconfig.py` file found at the root of your Reflex app. 
 
@@ -72,7 +72,7 @@ app = rx.App(stylesheets=["globals.css"])
 Tailwind maps these tokens into utilities like `bg-background`, `text-foreground`, `border-border`, and `rounded-lg`. Dark mode works by overriding the same tokens inside a `.dark` selector.
 
 
-# Theme Tokens
+## Theme Tokens
 
 These tokens live in your CSS file under `:root` and `.dark`.
 
@@ -98,7 +98,7 @@ These tokens live in your CSS file under `:root` and `.dark`.
 | `radius`                                         | The base corner radius scale.                          | Cards, inputs, buttons, popovers, and the derived `radius-*` tokens.         |
 
 
-# Adding New Tokens
+## Adding New Tokens
 
 To add a new token, define it under `:root` and `.dark`, then expose it to Tailwind by appending `rxconfig.py`.
 
@@ -120,7 +120,7 @@ You can now use `bg-warning` and `text-warning-foreground` in your components.
 rx.el.div(class_name="bg-warning text-warning-foreground")
 ```
 
-# Default Theme CSS
+## Default Theme CSS
 
 The following is the full default `neutral` theme scaffold. Copy it into your global CSS file and adjust the tokens as needed.
 This scaffold also corresponds to preset `b0` in [buridan/create](/create?preset=b0).

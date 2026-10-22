@@ -4,7 +4,7 @@
 
 A set of collapsible panels with headings.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -187,7 +187,7 @@ accordion = Accordion()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -195,7 +195,7 @@ from components.ui.accordion import Accordion
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Accordion` component.
 
 
@@ -217,7 +217,7 @@ accordion.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Basic
 

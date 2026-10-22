@@ -6,15 +6,15 @@ How to install dependencies and structure your app.
 
 >Recommended for new projects: Use [buridan/create](/create) to build your preset visually and generate the right setup command for your framework.
 
-# Use buridan/create
+## Use buridan/create
 
 Build your preset visually, preview your choices, and generate a framework-specific setup command. You can use your final theme system locally or pipe-lined to Reflex Build. Start with the default preset [Neutral](/create?preset=b0)
 
-# Prerequisites
+## Prerequisites
 
 Python 3.10+ (required by Reflex)
 
-# Local Environment 
+## Local Environment 
 
 It's recommended to use the [uv](https://docs.astral.sh/uv/) package manager when working with Reflex apps. 
 

@@ -4,7 +4,7 @@
 
 Use to show a placeholder while content is loading.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -37,7 +37,7 @@ skeleton = skeleton_component
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -45,7 +45,7 @@ from components.ui.skeleton import skeleton
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Skeleton` component.
 
 
@@ -54,7 +54,7 @@ skeleton()
 ```
 
 
-# Examples
+## Examples
 
 ## General
 

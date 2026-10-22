@@ -4,7 +4,7 @@
 
 Augments native scroll functionality for custom, cross-browser styling.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -175,7 +175,7 @@ scroll_area = ScrollArea()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -183,7 +183,7 @@ from components.ui.scroll_area import scroll_area
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Scroll Area` component.
 
 
@@ -201,7 +201,7 @@ scroll_area.root(
 
 
 
-# Examples
+## Examples
 
 
 ## General

@@ -8,19 +8,19 @@ order: 0
 
 Displays the path to the current resource using a hierarchy of links.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(breadcrumb)--
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Breadcrumb` component.
 
 --ANATOMY(breadcrumb)--
 
-# Examples
+## Examples
 
 ## Basic 
 A basic breadcrumb with a home link and a components link.
@@ -44,7 +44,7 @@ We provide a `breadcrumb.ellipsis` component to show a collapsed state when the 
 
 --DEMO(breadcrumb_ellipsis)--
 
-# API Reference
+## API Reference
 
 ## breadcrumb.root
 

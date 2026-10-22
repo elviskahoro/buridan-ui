@@ -4,7 +4,7 @@
 The Marker component displays inline conversation markers such as status updates, system notes, bordered rows, and labeled separators. 
 
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 ### CLI
@@ -102,7 +102,7 @@ marker = Marker()
 ```
 
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Marker` component.
 
 
@@ -114,7 +114,7 @@ marker.root(
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -122,7 +122,7 @@ from components.ui.marker import Marker
 ```
 
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -387,31 +387,31 @@ rx.link(
 )
 ```
 
-# API Reference
+## API Reference
 
 ## marker.root
 
 The root marker element.
 
-| Prop         | Type                                      | Default     | Description                                      |
-|--------------|-------------------------------------------|-------------|--------------------------------------------------|
-| `variant`    | `"default" \| "border" \| "separator"`   | `"default"` | The marker layout.                               |
-| `class_name` | `str`                                     | `""`        | Additional classes to apply to the root element. |
-| `**props`    | `dict`                                    | —           | Any valid HTML attribute (`role`, `aria_label`). |
+| Prop         | Type                                   | Default     | Description                                      |
+| ------------ | -------------------------------------- | ----------- | ------------------------------------------------ |
+| `variant`    | `"default" \| "border" \| "separator"` | `"default"` | The marker layout.                               |
+| `class_name` | `str`                                  | `""`        | Additional classes to apply to the root element. |
+| `**props`    | `dict`                                 | —           | Any valid HTML attribute (`role`, `aria_label`). |
 
 ## marker.icon
 
 A decorative icon slot. Hidden from assistive tech with `aria-hidden`.
 
 | Prop         | Type  | Default | Description                                   |
-|--------------|-------|---------|-----------------------------------------------|
+| ------------ | ----- | ------- | --------------------------------------------- |
 | `class_name` | `str` | `""`    | Additional classes to apply to the icon slot. |
 
 ## marker.content
 
 The marker text content.
 
-| Prop         | Type  | Default | Description                                      |
-|--------------|-------|---------|--------------------------------------------------|
-| `class_name` | `str` | `""`    | Additional classes to apply to the content slot. |
-| `**props`    | `dict`| —       | Any valid HTML attribute forwarded to the span.  |
+| Prop         | Type   | Default | Description                                      |
+| ------------ | ------ | ------- | ------------------------------------------------ |
+| `class_name` | `str`  | `""`    | Additional classes to apply to the content slot. |
+| `**props`    | `dict` | —       | Any valid HTML attribute forwarded to the span.  |

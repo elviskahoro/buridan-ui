@@ -44,6 +44,9 @@ dev = [
   "pytest>=9.1.1",
   "gtm-linear>=0.2.1",
   "typer>=0.27.2",
+  # Pre-staged for httpx → httpx2 migration (see #198). Not yet imported;
+  # blocked on upstream (reflex) migrating first. Intentional dependency.
+  "httpx2>=2.13.1",
 ]
 
 [tool.uv]

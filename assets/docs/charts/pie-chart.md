@@ -4,7 +4,7 @@
 
 Pie Charts are ideal for showing changes over time or the magnitude of multiple datasets stacked together. They combine the smoothness of line charts with the visual impact of filled areas.
 
-# Examples
+## Examples
 
 >**Note**: The chart example charts below are wrapped in [Card](/docs/components/card). Make sure to have the component installed before using any of the examples.
 
@@ -24,7 +24,7 @@ def piechart_v1():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),
@@ -76,7 +76,7 @@ def piechart_v2():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),
@@ -135,7 +135,7 @@ def piechart_v3():
                     ),
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),
@@ -187,7 +187,7 @@ def piechart_v4():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),
@@ -240,7 +240,7 @@ def piechart_v5():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),
@@ -293,7 +293,7 @@ def piechart_v6():
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
-                        lambda color, index: rx.recharts.cell(
+                        lambda _, index: rx.recharts.cell(
                             fill=f"var(--chart-{index + 1})",
                         ),
                     ),

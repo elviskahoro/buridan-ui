@@ -8,7 +8,7 @@ The `Bubble` component displays framed conversational content. Use it for chat t
 
 For full-featured chat interfaces, use the [`Message`](/docs/components/message) component. `Bubble` is intentionally scoped to the bubble surface. Place avatars, names, timestamps, metadata, and message-level actions in [`Message`](/docs/components/message).
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -189,7 +189,7 @@ bubble = Bubble()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -197,7 +197,7 @@ from components.ui.bubble import Bubble
 ```
 
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Bubble` component.
 
 
@@ -209,7 +209,7 @@ bubble.root(
 ```
 
 
-# Features
+## Features
 
 - Seven visual variants, from a strong primary bubble to unframed ghost content
 - Start and end alignment for sender and receiver bubbles
@@ -218,7 +218,7 @@ bubble.root(
 - Polymorphic content via `render` for link and button bubbles
 - Customizable styling through the `class_name` prop on every part
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -640,7 +640,7 @@ def bubble_popover_demo():
 ```
 
 
-# Accessibility
+## Accessibility
 
 `bubble.root` renders the presentational message surface. Keep conversation-level semantics on the surrounding container and follow the guidelines below.
 
@@ -690,41 +690,41 @@ bubble.root(
 
 Bubble variants signal role and tone with color. Pair them with text, alignment, or icons so meaning is not conveyed by color alone. For a `destructive` bubble, keep the error context in the message text rather than relying on the color treatment.
 
-# API Reference
+## API Reference
 
 ## bubble.root
 
 The root bubble wrapper.
 
-| Prop        | Type                                                                                       | Default     | Description                                      |
-| ----------- | ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------ |
-| `variant`   | `"default" \| "secondary" \| "muted" \| "tinted" \| "outline" \| "ghost" \| "destructive"` | `"default"` | The bubble visual treatment.                     |
-| `align`     | `"start" \| "end"`                                                                         | `"start"`   | The inline alignment of the bubble.              |
+| Prop         | Type                                                                                       | Default     | Description                                      |
+| ------------ | ------------------------------------------------------------------------------------------ | ----------- | ------------------------------------------------ |
+| `variant`    | `"default" \| "secondary" \| "muted" \| "tinted" \| "outline" \| "ghost" \| "destructive"` | `"default"` | The bubble visual treatment.                     |
+| `align`      | `"start" \| "end"`                                                                         | `"start"`   | The inline alignment of the bubble.              |
 | `class_name` | `string`                                                                                   | -           | Additional classes to apply to the root element. |
 
 ## bubble.content
 
 The bubble content wrapper.
 
-| Prop        | Type                       | Default | Description                                               |
-| ----------- | -------------------------- | ------- | --------------------------------------------------------- |
-| `*children`    | `rx.Component` | -       | Render the content as a different element such as a link. |
-| `class_name` | `string`                   | -       | Additional classes to apply to the content element.       |
+| Prop         | Type           | Default | Description                                               |
+| ------------ | -------------- | ------- | --------------------------------------------------------- |
+| `*children`  | `rx.Component` | -       | Render the content as a different element such as a link. |
+| `class_name` | `string`       | -       | Additional classes to apply to the content element.       |
 
 ## bubble.reactions
 
 Displays overlapped reactions for a bubble.
 
-| Prop        | Type                | Default    | Description                                      |
-| ----------- | ------------------- | ---------- | ------------------------------------------------ |
-| `side`      | `"top" \| "bottom"` | `"bottom"` | The side of the bubble to anchor the reactions.  |
-| `align`     | `"start" \| "end"`  | `"end"`    | The inline alignment of the reactions.           |
+| Prop         | Type                | Default    | Description                                      |
+| ------------ | ------------------- | ---------- | ------------------------------------------------ |
+| `side`       | `"top" \| "bottom"` | `"bottom"` | The side of the bubble to anchor the reactions.  |
+| `align`      | `"start" \| "end"`  | `"end"`    | The inline alignment of the reactions.           |
 | `class_name` | `string`            | -          | Additional classes to apply to the reaction row. |
 
 ## bubble.group
 
 Groups consecutive bubbles from the same sender.
 
-| Prop        | Type     | Default | Description                                    |
-| ----------- | -------- | ------- | ---------------------------------------------- |
+| Prop         | Type     | Default | Description                                    |
+| ------------ | -------- | ------- | ---------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the group root. |

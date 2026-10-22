@@ -8,23 +8,23 @@ order: 20
 
 An input where the user selects a value from within a given range.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(slider)--
 
-# Usage
+## Usage
 
 --USAGE(slider)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Slider` component.
 
 --ANATOMY(slider)--
 
 
-# Examples
+## Examples
 
 ## Basic
 A basic low-level slider demo.

@@ -34,7 +34,7 @@ BLOCKS = [
         rx.el.a(button("View Components", variant="secondary"), href="/components"),
     ],
 )
-def blocks_page():
+def blocks_page() -> rx.Component:
     return rx.el.div(
         rx.el.div(
             *[

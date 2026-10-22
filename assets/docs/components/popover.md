@@ -4,7 +4,7 @@
 
 Displays rich content in a portal, triggered by a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -241,7 +241,7 @@ popover = Popover()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -249,7 +249,7 @@ from components.ui.popover import Popover
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Popover` component.
 
 
@@ -273,7 +273,7 @@ popover.root(
 
 
 
-# Example
+## Example
 A basic popover that appears when the user clicks the trigger button.
 
 

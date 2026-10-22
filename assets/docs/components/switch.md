@@ -4,7 +4,7 @@
 
 A control that allows the user to toggle between checked and not checked.
 
-# Installation 
+## Installation 
 Copy the following code into your app directory.
 
 ### CLI
@@ -58,7 +58,7 @@ class SwitchBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/switch"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Switch", package_path="", install=False)
 
 
@@ -113,7 +113,7 @@ switch = Switch()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -122,7 +122,7 @@ from components.ui.switch import Switch
 
 
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Switch` component.
 
 
@@ -133,7 +133,7 @@ switch.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Description
 

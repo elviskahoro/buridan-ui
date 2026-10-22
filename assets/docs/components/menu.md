@@ -4,7 +4,7 @@
 
 Displays a menu to the user — such as a set of actions or functions — triggered by a button.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -499,7 +499,7 @@ menu = Menu()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -507,7 +507,7 @@ from components.ui.menu import Menu
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Menu` component.
 
 
@@ -546,7 +546,7 @@ menu.root(
 ```
 
 
-# Example
+## Example
 
 ## Basic
 

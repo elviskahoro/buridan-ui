@@ -4,7 +4,7 @@
 
 Displays a form textarea or a component that looks like a textarea.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -54,7 +54,7 @@ textarea = TextAreaComponent.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -62,7 +62,7 @@ from components.ui.textarea import textarea
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Textarea` component.
 
 
@@ -71,7 +71,7 @@ textarea()
 ```
 
 
-# Examples
+## Examples
 
 ## Basic
 A standard multiline text area for general text input.

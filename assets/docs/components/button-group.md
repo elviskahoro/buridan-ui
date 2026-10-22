@@ -4,7 +4,7 @@
 
 A container that groups related buttons together with consistent styling.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -12,13 +12,13 @@ Copy the following code into your app directory.
 > **Error: 'button_group' not found in registry**
 
 
-# Usage
+## Usage
 
 
 > **Error: 'button_group' not found in registry**
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Button Group` component.
 
 
@@ -31,13 +31,13 @@ button_group.root(
 
 
 
-# Accessibility
+## Accessibility
 
 - The `button_group.root` component has the `role` attribute set to `group`.
 - Use `Tab` to navigate between the buttons in the group.
 - Use `aria-label` or `aria-labelledby` to label the button group.
 
-# Examples
+## Examples
 
 ## Orientation
 
@@ -253,7 +253,7 @@ def button_group_select() -> rx.Component:
 ```
 
 
-# API Reference
+## API Reference
 
 ## button_group.root
 
@@ -277,8 +277,8 @@ The `button_group.separator` component visually divides buttons within a group.
 
 Use this component to display text within a button group.
 
-| Prop      | Type      | Default |
-| --------- | --------- | ------- |
+| Prop        | Type           | Default |
+| ----------- | -------------- | ------- |
 | `*children` | `rx.Component` | `false` |
 
 

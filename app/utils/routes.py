@@ -1,12 +1,13 @@
 import glob
 import os
+from typing import Any
 
 from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 
 
 # --- Method: Generate doc routes/urls ---
-def generate_doc_routes(section_folder, base_path) -> list[dict]:
+def generate_doc_routes(section_folder: str, base_path: str) -> list[dict[str, Any]]:
     """Generates routes for a documentation section by recursively reading
     frontmatter from markdown files.
 
@@ -52,7 +53,7 @@ def generate_doc_routes(section_folder, base_path) -> list[dict]:
 
         routes.append(route_info)
 
-    def order_sort_key(route):
+    def order_sort_key(route: dict[str, Any]) -> tuple[int, int | str, Any]:
         order = route["order"]
         if isinstance(order, int):
             return 0, order, route["url"]
@@ -77,15 +78,19 @@ DOC_SECTIONS = [
 ]
 
 
-def build_all_routes():
-    result = {}
+def build_all_routes() -> dict[str, list[dict[str, Any]]]:
+    result: dict[str, list[dict[str, Any]]] = {}
 
     for section, base_path, sort_key, extras in DOC_SECTIONS:
         routes = generate_doc_routes(section, base_path)
         routes.extend(extras)
         # A None sort key preserves the order produced by generate_doc_routes.
         if sort_key is not None:
-            routes.sort(key=lambda x: x.get(sort_key, ""))
+
+            def sort_by_key(x: dict[str, Any], key: str = sort_key) -> str:
+                return x.get(key, "")
+
+            routes.sort(key=sort_by_key)
 
         result[section] = routes
 

@@ -8,23 +8,23 @@ order: 0
 
 Visually or semantically separates content.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(separator)--
 
-# Usage
+## Usage
 
 --USAGE(separator)--
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build a `Separator` component.
 
 --ANATOMY(separator)--
 
-# Examples
+## Examples
 
 ## Default
 

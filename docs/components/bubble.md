@@ -12,22 +12,22 @@ The `Bubble` component displays framed conversational content. Use it for chat t
 
 For full-featured chat interfaces, use the [`Message`](/docs/components/message) component. `Bubble` is intentionally scoped to the bubble surface. Place avatars, names, timestamps, metadata, and message-level actions in [`Message`](/docs/components/message).
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(bubble)--
 
-# Usage
+## Usage
 
 --USAGE(bubble)--
 
-# Anatomy
+## Anatomy
 Use the following composition to build a `Bubble` component.
 
 --ANATOMY(bubble)--
 
-# Features
+## Features
 
 - Seven visual variants, from a strong primary bubble to unframed ghost content
 - Start and end alignment for sender and receiver bubbles
@@ -36,7 +36,7 @@ Use the following composition to build a `Bubble` component.
 - Polymorphic content via `render` for link and button bubbles
 - Customizable styling through the `class_name` prop on every part
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -115,7 +115,7 @@ Pair a bubble with a [`Popover`](/docs/components/popover) to surface more infor
 
 --DEMO(bubble_popover_demo)--
 
-# Accessibility
+## Accessibility
 
 `bubble.root` renders the presentational message surface. Keep conversation-level semantics on the surrounding container and follow the guidelines below.
 
@@ -165,7 +165,7 @@ bubble.root(
 
 Bubble variants signal role and tone with color. Pair them with text, alignment, or icons so meaning is not conveyed by color alone. For a `destructive` bubble, keep the error context in the message text rather than relying on the color treatment.
 
-# API Reference
+## API Reference
 
 ## bubble.root
 

@@ -10,22 +10,22 @@ Displays related content in a structured frame.
 
 > **Note:** The Frame component is a fully custom implementation with no external dependencies.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(frame)--
 
-# Usage
+## Usage
 
 --USAGE(frame)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Frame` component.
 
 --ANATOMY(frame)--
 
-# Examples
+## Examples
 
 ## Basic Panels
 
@@ -51,7 +51,7 @@ Set the `variant` prop to `ghost` to remove the frame outer border.
 
 --DEMO(frame_no_border)--
 
-# API Reference
+## API Reference
 
 ## frame.root
 

@@ -3,7 +3,7 @@
 # Select
 Displays a list of options for the user to pick from—triggered by a button.
 
-# Installation
+## Installation
 Copy the following code into your app directory.
 
 ### CLI
@@ -54,7 +54,7 @@ class SelectBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/select"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Select", package_path="", install=False)
 
 
@@ -392,14 +392,14 @@ select = Select()
 ```
 
 
-# Usage
+## Usage
 
 ```python
 from components.ui.select import Select
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Select` component.
 
 ```python
@@ -426,7 +426,7 @@ select.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Align Item
 Use `align_item_with_trigger` on `select.positioner()` to control whether the selected item aligns with the trigger. When true (default), the popup positions so the selected item appears over the trigger. When false, the popup aligns to the trigger edge.

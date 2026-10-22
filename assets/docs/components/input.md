@@ -4,7 +4,7 @@
 
 A text input component for forms and user data entry with built-in styling and accessibility features.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -86,7 +86,7 @@ input = Input()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -94,7 +94,7 @@ from components.ui.input import input
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Input` component.
 
 
@@ -104,7 +104,7 @@ input()
 
 
 
-# Examples
+## Examples
 
 ## Basic Demo
 A simple text input demonstrating the default appearance and behavior.

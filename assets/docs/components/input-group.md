@@ -4,7 +4,7 @@
 
 Add addons, buttons, and helper content to inputs.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -12,13 +12,13 @@ Copy the following code into your app directory.
 > **Error: 'input_group' not found in registry**
 
 
-# Usage
+## Usage
 
 
 > **Error: 'input_group' not found in registry**
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Input Group` component.
 
 
@@ -30,7 +30,7 @@ input_group.root(
 ```
 
 
-# Align
+## Align
 
 Use the `align` prop on `input_group.addon` to position the addon relative to the input.
 
@@ -190,7 +190,7 @@ def input_group_block_end() -> rx.Component:
 ```
 
 
-# Examples
+## Examples
 
 ## Icons
 
@@ -477,14 +477,14 @@ def input_group_dropdown() -> rx.Component:
 ```
 
 
-# API Reference
+## API Reference
 
 ## input_group.root
 
 The main component that wraps inputs and addons.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` |         |
 
 
@@ -494,9 +494,9 @@ Displays icons, text, buttons, or other content alongside inputs.
 
 >For proper focus navigation, the `input_group.addon` component should be placed after the input. Set the `align` prop to position the addon.
 
-| Prop        | Type                                                             | Default          |
-| ----------- | ---------------------------------------------------------------- | ---------------- |
-| `align`     | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
+| Prop         | Type                                                             | Default          |
+| ------------ | ---------------------------------------------------------------- | ---------------- |
+| `align`      | `"inline-start" \| "inline-end" \| "block-start" \| "block-end"` | `"inline-start"` |
 | `class_name` | `string`                                                         |                  |
 
 
@@ -508,18 +508,18 @@ The `input_group.addon` component can have multiple `input_group.button` compone
 
 Displays buttons within input groups. See the [Button](/docs/components/button) docs for more information. 
 
-| Prop        | Type                                                                          | Default   |
-| ----------- | ----------------------------------------------------------------------------- | --------- |
-| `size`      | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
-| `variant`   | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
+| Prop         | Type                                                                          | Default   |
+| ------------ | ----------------------------------------------------------------------------- | --------- |
+| `size`       | `"xs" \| "icon-xs" \| "sm" \| "icon-sm"`                                      | `"xs"`    |
+| `variant`    | `"default" \| "destructive" \| "outline" \| "secondary" \| "ghost" \| "link"` | `"ghost"` |
 | `class_name` | `string`                                                                      |           |
 
 ## input_group.input
 
 Replacement for `input()` when building input groups. This component has the input group styles pre-applied and uses the unified `data-slot="input-group-control"` for focus state handling.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` |         |
 
 All other props are passed through to the underlying `Input()` component.
@@ -528,8 +528,8 @@ All other props are passed through to the underlying `Input()` component.
 
 Replacement for `textarea()` when building input groups. This component has the textarea group styles pre-applied and uses the unified `data-slot="input-group-control"` for focus state handling.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` |         |
 
 All other props are passed through to the underlying `textarea()` component.

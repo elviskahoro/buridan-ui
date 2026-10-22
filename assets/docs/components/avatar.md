@@ -4,7 +4,7 @@
 
 Displays a user's profile picture, initials, or fallback icon.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -39,7 +39,7 @@ class AvatarBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/avatar"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Avatar", package_path="", install=False)
 
 
@@ -149,7 +149,7 @@ avatar = Avatar()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -157,7 +157,7 @@ from components.ui.avatar import Avatar
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Avatar` component.
 
 
@@ -169,7 +169,7 @@ avatar.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Basic
 
@@ -402,55 +402,55 @@ def avatar_dropdown_menu() -> rx.Component:
 ```
 
 
-# API Reference
+## API Reference
 
 ## avatar.root
 
 The `avatar.root` component is the root component that wraps the avatar image and fallback.
 
-| Prop        | Type                        | Default     |
-| ----------- | --------------------------- | ----------- |
-| `size`      | `"default" \| "sm" \| "lg"` | `"default"` |
+| Prop         | Type                        | Default     |
+| ------------ | --------------------------- | ----------- |
+| `size`       | `"default" \| "sm" \| "lg"` | `"default"` |
 | `class_name` | `string`                    | -           |
 
 ## avatar.image
 
 The `avatar.image` component displays the avatar image. It accepts all Base UI Avatar Image props.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
-| `src`       | `string` | -       |
-| `alt`       | `string` | -       |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
+| `src`        | `string` | -       |
+| `alt`        | `string` | -       |
 | `class_name` | `string` | -       |
 
 ## avatar.fallback
 
 The `avatar.fallback` component displays a fallback when the image fails to load. It accepts all Base UI Avatar Fallback props.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.badge
 
 The `avatar.badge` component displays a badge indicator on the avatar, typically positioned at the bottom right.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.group
 
 The `avatar.group` component displays a group of avatars with overlapping styling.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |
 
 ## avatar.group_count
 
 The `avatar.group_count` component displays a count indicator in an avatar group, typically showing the number of additional avatars.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | -       |

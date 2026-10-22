@@ -6,7 +6,7 @@ Utilities for adding a fade effect to the edges of a scroll container.
 
 >The **scroll-fade** utility is purely composed of CSS and is based on [shadcn/scroll-fade](https://ui.shadcn.com/docs/utils/scroll-fade). No extensions to **rxconfig.py** are needed as it uses **Tailwind v4** syntax. 
 
-# Installation 
+## Installation 
 
 If your project was set up with `buridan init`, you already have scroll-fade. It ships with the `buridan` package, which the CLI imports in your global CSS file.
 
@@ -16,7 +16,7 @@ Otherwise install the `buirdan` package:
 uv run buridan init
 ```
 
-# Usage
+## Usage
 
 | Class                             | Styles                                                                                                              |
 | --------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
@@ -46,7 +46,7 @@ The fade is scroll-aware and tracks the scroll position:
 The fade is applied with `mask-image`, so it dissolves the content itself rather than overlaying a color. The mask uses a linear fade from transparent to black, so it adapts to any background without configuration. If your scroll area sits inside a card, put the background and border on a wrapper and `scroll-fade` on the inner scroller, so the fade dissolves the content and not the card.
 
 
-# Scroll Fade Demo
+## Scroll Fade Demo
 
 
 ```python
@@ -70,7 +70,7 @@ def scroll_fade_demo():
 ```
 
 
-# No Overflow, No Fade
+## No Overflow, No Fade
 
 If the content does not overflow, no fade is shown. You can apply `scroll-fade` to any list without checking whether it scrolls.
 
@@ -96,7 +96,7 @@ def scroll_fade_no_fade():
 ```
 
 
-# Horizontal Scrolling
+## Horizontal Scrolling
 
 Use `scroll-fade-x` on containers that scroll horizontally, i.e. the element that has `overflow-x-auto`.
 
@@ -122,7 +122,7 @@ def scroll_fade_horizontal():
 ```
 
 
-# Edge Fades
+## Edge Fades
 
 Use edge utilities when only one edge should track the scroll position.
 
@@ -193,7 +193,7 @@ def scroll_fade_edge():
 
 The edge utilities are scroll-aware. Start edges fade in after you scroll away from the start, and end edges fade out when you reach the end. Use `scroll-fade-t`, `scroll-fade-b`, `scroll-fade-l`, and `scroll-fade-r` for physical edges. Use `scroll-fade-s` and `scroll-fade-e` for logical inline edges.
 
-# Fade Size
+## Fade Size
 
 The fade depth defaults to 12% of the container, capped at 40px so tall scrollers stay subtle. Use `scroll-fade-<number>` to set a fixed size on the spacing scale instead, the same way `scroll-mt-<number>` works.
 
@@ -246,7 +246,7 @@ To fade opposite edges by different amounts, use the per-edge modifiers `scroll-
 rx.el.div(..., class_name="scroll-fade overflow-y-auto scroll-fade-b-8 scroll-fade-t-2")
 ```
 
-# Disabling the Fade
+## Disabling the Fade
 
 Use `scroll-fade-none` to remove the fade. It works in any class order, so the typical use is responsive or stateful.
 
@@ -288,7 +288,7 @@ def scroll_fade_none():
 
 
 
-# Fallback
+## Fallback
 
 The scroll-aware behavior is implemented with [CSS scroll-driven animations](https://developer.mozilla.org/en-US/docs/Web/CSS/Guides/Scroll-driven_animations), with no JavaScript and no scroll listeners. In browsers that do not support scroll-driven animations, `scroll-fade` falls back to a static fade on both edges, and edge utilities fall back to a static fade on the selected edge.
 

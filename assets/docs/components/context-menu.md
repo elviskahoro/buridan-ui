@@ -4,7 +4,7 @@
 
 Displays a menu of actions triggered by a right click.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -12,13 +12,13 @@ Copy the following code into your app directory.
 > **Error: 'context_menu' not found in registry**
 
 
-# Usage
+## Usage
 
 
 > **Error: 'context_menu' not found in registry**
 
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build a `Context Menu` component.
 
@@ -95,7 +95,7 @@ context_menu.root
                                 └── context_menu.item
 ```
 
-# Examples
+## Examples
 
 ## Basic
 

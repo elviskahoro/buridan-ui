@@ -6,7 +6,7 @@ A heatmap component to visualize data density over time.
 
 > **Note:** The Heatmap is a fully custom component with no external dependencies — built as a self-contained JavaScript component exposed through a Python API for use in Reflex.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -394,7 +394,7 @@ heatmap = BuridanHeatmap.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -402,7 +402,7 @@ from components.ui.heatmap import heatmap
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Heatmap` component.
 
 
@@ -411,7 +411,7 @@ heatmap()
 ```
 
 
-# Examples
+## Examples
 
 ## GitHub-Style HeatMap 
 
@@ -641,27 +641,27 @@ def heatmap_compact():
 ```
 
 
-# API Reference
+## API Reference
 
 ## Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `data` | `list[dict]` | — | **Required.** List of `{"date": "YYYY-MM-DD", "value": int}` entries. Dates not in the list render as empty cells. |
-| `start_date` | `str` | — | **Required.** Start of the date range in `YYYY-MM-DD` format. |
-| `end_date` | `str` | — | **Required.** End of the date range in `YYYY-MM-DD` format. |
-| `color_mode` | `str` | `"discrete"` | Color strategy. `"discrete"` maps values to a fixed color scale. `"interpolate"` blends smoothly between `min_color` and `max_color`. |
-| `color_scale` | `list[str]` | GitHub green scale | Discrete mode only. List of hex color strings ordered from empty → max intensity. The first entry is always used for zero-value cells. |
-| `min_color` | `str` | `"#9be9a8"` | Interpolate mode only. Hex color for the lowest non-zero value. |
-| `max_color` | `str` | `"#216e39"` | Interpolate mode only. Hex color for the highest value. |
-| `interpolation` | `str` | `"linear"` | Interpolate mode only. Scaling function applied before color blending. `"linear"` is uniform. `"sqrt"` makes low values more visible. `"log"` compresses high-end outliers. |
-| `cell_size` | `int` | `14` | Width and height of each cell in pixels. Also scales the border radius and font size proportionally. |
-| `gap` | `int` | `3` | Gap between cells in pixels. |
-| `show_dow` | `bool` | `True` | Whether to show Mon / Wed / Fri labels on the left axis. |
-| `show_months` | `bool` | `True` | Whether to show month labels along the top axis. |
-| `value_label` | `str` | `"contributions"` | Word appended to the count in the tooltip, e.g. `"commits"` → `"3 commits · Mon Jan 1 2025"`. |
-| `root_class` | `str` | `"w-full overflow-x-auto"` | Tailwind classes applied to the outermost div. Controls scroll and outer layout. |
-| `wrapper_class` | `str` | `"inline-block"` | Tailwind classes applied to the inner SVG wrapper div. |
+| Prop            | Type         | Default                    | Description                                                                                                                                                                 |
+| --------------- | ------------ | -------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `data`          | `list[dict]` | —                          | **Required.** List of `{"date": "YYYY-MM-DD", "value": int}` entries. Dates not in the list render as empty cells.                                                          |
+| `start_date`    | `str`        | —                          | **Required.** Start of the date range in `YYYY-MM-DD` format.                                                                                                               |
+| `end_date`      | `str`        | —                          | **Required.** End of the date range in `YYYY-MM-DD` format.                                                                                                                 |
+| `color_mode`    | `str`        | `"discrete"`               | Color strategy. `"discrete"` maps values to a fixed color scale. `"interpolate"` blends smoothly between `min_color` and `max_color`.                                       |
+| `color_scale`   | `list[str]`  | GitHub green scale         | Discrete mode only. List of hex color strings ordered from empty → max intensity. The first entry is always used for zero-value cells.                                      |
+| `min_color`     | `str`        | `"#9be9a8"`                | Interpolate mode only. Hex color for the lowest non-zero value.                                                                                                             |
+| `max_color`     | `str`        | `"#216e39"`                | Interpolate mode only. Hex color for the highest value.                                                                                                                     |
+| `interpolation` | `str`        | `"linear"`                 | Interpolate mode only. Scaling function applied before color blending. `"linear"` is uniform. `"sqrt"` makes low values more visible. `"log"` compresses high-end outliers. |
+| `cell_size`     | `int`        | `14`                       | Width and height of each cell in pixels. Also scales the border radius and font size proportionally.                                                                        |
+| `gap`           | `int`        | `3`                        | Gap between cells in pixels.                                                                                                                                                |
+| `show_dow`      | `bool`       | `True`                     | Whether to show Mon / Wed / Fri labels on the left axis.                                                                                                                    |
+| `show_months`   | `bool`       | `True`                     | Whether to show month labels along the top axis.                                                                                                                            |
+| `value_label`   | `str`        | `"contributions"`          | Word appended to the count in the tooltip, e.g. `"commits"` → `"3 commits · Mon Jan 1 2025"`.                                                                               |
+| `root_class`    | `str`        | `"w-full overflow-x-auto"` | Tailwind classes applied to the outermost div. Controls scroll and outer layout.                                                                                            |
+| `wrapper_class` | `str`        | `"inline-block"`           | Tailwind classes applied to the inner SVG wrapper div.                                                                                                                      |
 
 ## Data format
 
@@ -700,8 +700,8 @@ Pass any number of hex strings to customize. More levels give finer granularity.
 Colors are blended smoothly between `min_color` and `max_color` using the chosen `interpolation` function.
 Zero-value cells always use `var(--secondary)` regardless of `min_color`.
 
-| Interpolation | Best for |
-|---------------|----------|
-| `"linear"` | Evenly distributed values |
-| `"sqrt"` | Sparse data where low values need visibility |
-| `"log"` | Data with extreme outliers that would wash out lower values |
+| Interpolation | Best for                                                    |
+| ------------- | ----------------------------------------------------------- |
+| `"linear"`    | Evenly distributed values                                   |
+| `"sqrt"`      | Sparse data where low values need visibility                |
+| `"log"`       | Data with extreme outliers that would wash out lower values |

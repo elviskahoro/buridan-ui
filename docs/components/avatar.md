@@ -8,22 +8,22 @@ order: 1
 
 Displays a user's profile picture, initials, or fallback icon.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(avatar)--
 
-# Usage
+## Usage
 
 --USAGE(avatar)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Avatar` component.
 
 --ANATOMY(avatar)--
 
-# Examples
+## Examples
 
 ## Basic
 
@@ -79,7 +79,7 @@ You can use the `Avatar` component as a trigger for a dropdown menu.
 
 --DEMO(avatar_dropdown_menu)--
 
-# API Reference
+## API Reference
 
 ## avatar.root
 

@@ -4,7 +4,7 @@
 
 Displays a file or image attachment with media, metadata, upload state, and actions.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -271,7 +271,7 @@ attachment = Attachment()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -279,7 +279,7 @@ from components.ui.attachment import Attachment
 ```
 
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build an `Attachment` component.
 
@@ -298,7 +298,7 @@ attachment.root(
 ```
 
 
-# Features
+## Features
 
 - Icon and image media through `attachment.media`
 - Upload states: `idle`, `uploading`, `processing`, `error`, and `done` with built-in styling and a shimmer while in progress
@@ -307,7 +307,7 @@ attachment.root(
 - Scrollable, snapping `attachment.group` with an edge fade
 - Customizable styling through the `class_name` prop on every part
 
-# Examples
+## Examples
 
 ## Image
 
@@ -557,7 +557,7 @@ def attachment_trigger_dialog_demo():
 
 
 
-# Accessibility
+## Accessibility
 
 `attachment.action` renders a `Button`, and `attachment.trigger` renders either a real `rx.el.button()` or a `rx.el.a()` if the `link` prop is set to `True`. Follow the guidance below so both are operable and announced.
 
@@ -609,7 +609,7 @@ An `attachment.group` scrolls horizontally. When its attachments are interactive
 
 The `error` state uses a destructive color. Keep the failure reason in `attachment.description` so the state is not conveyed by color alone.
 
-# API Reference
+## API Reference
 
 ## attachment.root
 
@@ -620,73 +620,73 @@ The root attachment container.
 | `state`       | `"idle" \| "uploading" \| "processing" \| "error" \| "done"` | `"done"`       | The upload state. Drives styling and the shimmer. |
 | `size`        | `"default" \| "sm" \| "xs"`                                  | `"default"`    | The attachment size.                              |
 | `orientation` | `"horizontal" \| "vertical"`                                 | `"horizontal"` | Lay the media beside or above the content.        |
-| `class_name`   | `string`                                                     | -              | Additional classes to apply to the root element.  |
+| `class_name`  | `string`                                                     | -              | Additional classes to apply to the root element.  |
 
 ## attachment.media
 
 The media slot for an icon or image preview.
 
-| Prop        | Type                | Default  | Description                                    |
-| ----------- | ------------------- | -------- | ---------------------------------------------- |
-| `variant`   | `"icon" \| "image"` | `"icon"` | Whether the media holds an icon or an `<img>`. |
+| Prop         | Type                | Default  | Description                                    |
+| ------------ | ------------------- | -------- | ---------------------------------------------- |
+| `variant`    | `"icon" \| "image"` | `"icon"` | Whether the media holds an icon or an `<img>`. |
 | `class_name` | `string`            | -        | Additional classes to apply to the media slot. |
 
 ## attachment.content
 
 Wraps the title and description.
 
-| Prop        | Type     | Default | Description                                      |
-| ----------- | -------- | ------- | ------------------------------------------------ |
+| Prop         | Type     | Default | Description                                      |
+| ------------ | -------- | ------- | ------------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the content slot. |
 
 ## attachment.title
 
 The attachment name. Shimmers while the attachment is `uploading` or `processing`.
 
-| Prop        | Type     | Default | Description                               |
-| ----------- | -------- | ------- | ----------------------------------------- |
+| Prop         | Type     | Default | Description                               |
+| ------------ | -------- | ------- | ----------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the title. |
 
 ## attachment.description
 
 Secondary metadata such as the file type, size, or upload status.
 
-| Prop        | Type     | Default | Description                                     |
-| ----------- | -------- | ------- | ----------------------------------------------- |
+| Prop         | Type     | Default | Description                                     |
+| ------------ | -------- | ------- | ----------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the description. |
 
 ## attachment.actions
 
 A container for one or more actions, aligned to the end of the attachment.
 
-| Prop        | Type     | Default | Description                                 |
-| ----------- | -------- | ------- | ------------------------------------------- |
+| Prop         | Type     | Default | Description                                 |
+| ------------ | -------- | ------- | ------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the actions. |
 
 ## attachment.action
 
 An action button. Renders a [`Button`](/docs/components/button) and accepts all of its props.
 
-| Prop       | Type                                  | Default     | Description                              |
-| ---------- | ------------------------------------- | ----------- | ---------------------------------------- |
-| `size`     | `Button["size"]`                      | `"icon-xs"` | The button size.                         |
-| `class_name` | `string` | -       | Additional classes to apply to the actions. |
+| Prop         | Type             | Default     | Description                                 |
+| ------------ | ---------------- | ----------- | ------------------------------------------- |
+| `size`       | `Button["size"]` | `"icon-xs"` | The button size.                            |
+| `class_name` | `string`         | -           | Additional classes to apply to the actions. |
 
 ## attachment.trigger
 
 A full-card overlay that activates the attachment. Renders a `rx.el.button` by default or a `rx.el.a` when `link=True`.
 
-| Prop         | Type                  | Default | Description                                                                   |
-| ------------ | --------------------- | ------- | ----------------------------------------------------------------------------- |
-| `link`       | `bool`         | `False`  | If set, renders an anchor (`rx.el.a`) instead of a button.                        |
-| `aria_label` | `str \| None`         | `None`  | Accessibility label for screen readers. Required when no visible text exists. |
-| `class_name` | `str`                 | `""`    | Additional CSS classes applied to the trigger.                                |
+| Prop         | Type          | Default | Description                                                                   |
+| ------------ | ------------- | ------- | ----------------------------------------------------------------------------- |
+| `link`       | `bool`        | `False` | If set, renders an anchor (`rx.el.a`) instead of a button.                    |
+| `aria_label` | `str \| None` | `None`  | Accessibility label for screen readers. Required when no visible text exists. |
+| `class_name` | `str`         | `""`    | Additional CSS classes applied to the trigger.                                |
 
 
 ## attachment.group
 
 Lays out attachments in a horizontally scrollable, snapping row.
 
-| Prop        | Type     | Default | Description                               |
-| ----------- | -------- | ------- | ----------------------------------------- |
+| Prop         | Type     | Default | Description                               |
+| ------------ | -------- | ------- | ----------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the group. |

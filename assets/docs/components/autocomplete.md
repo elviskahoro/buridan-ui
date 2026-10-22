@@ -6,7 +6,7 @@ An input that suggests options as you type.
 
 > **Note:** The Autocomplete is a fully custom component with no external dependencies — built as a self-contained JavaScript component exposed through a Python API for use in Reflex.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -482,7 +482,7 @@ autocomplete = BuridanAutocomplete.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -490,7 +490,7 @@ from components.ui.autocomplete import autocomplete
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build an `Autocomplete` component. 
 
 
@@ -501,7 +501,7 @@ autocomplete(
 ```
 
 
-# Examples
+## Examples
 
 ## Basic
 
@@ -600,21 +600,21 @@ def autocomplete_empty_state():
 ```
 
 
-# API Reference
+## API Reference
 
-**autocomplete**
+### autocomplete
 
-| Prop | Type | Default | Description |
-| :--- | :--- | :--- | :--- |
-| `items` | `list[str]` | `[]` | The list of items to display in the dropdown. |
-| `placeholder` | `str` | `None` | Placeholder text shown inside the input when empty. |
-| `on_change_query` | `EventHandler` | `None` | Fired on every keystroke with the current input value. |
-| `on_select_item` | `EventHandler` | `None` | Fired when an item is selected, with the selected value as argument. |
-| `root_class` | `str` | `None` | Additional Tailwind classes merged onto the root wrapper. |
-| `input_class` | `str` | `None` | Additional Tailwind classes merged onto the input element. |
-| `popup_class` | `str` | `None` | Additional Tailwind classes merged onto the dropdown popup. |
-| `list_class` | `str` | `None` | Additional Tailwind classes merged onto the scrollable list. |
-| `item_class` | `str` | `None` | Additional Tailwind classes merged onto each list item. |
-| `item_highlighted_class` | `str` | `None` | Additional Tailwind classes merged onto the currently highlighted item. |
-| `empty_class` | `str` | `None` | Additional Tailwind classes merged onto the empty state element. |
-| `set_query_on_select` | `bool` | `True`  | Controls whether selecting an item updates the input value. If `False`, selection clears the input (useful for command palette / navigation mode). |
+| Prop                     | Type           | Default | Description                                                                                                                                        |
+| :----------------------- | :------------- | :------ | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `items`                  | `list[str]`    | `[]`    | The list of items to display in the dropdown.                                                                                                      |
+| `placeholder`            | `str`          | `None`  | Placeholder text shown inside the input when empty.                                                                                                |
+| `on_change_query`        | `EventHandler` | `None`  | Fired on every keystroke with the current input value.                                                                                             |
+| `on_select_item`         | `EventHandler` | `None`  | Fired when an item is selected, with the selected value as argument.                                                                               |
+| `root_class`             | `str`          | `None`  | Additional Tailwind classes merged onto the root wrapper.                                                                                          |
+| `input_class`            | `str`          | `None`  | Additional Tailwind classes merged onto the input element.                                                                                         |
+| `popup_class`            | `str`          | `None`  | Additional Tailwind classes merged onto the dropdown popup.                                                                                        |
+| `list_class`             | `str`          | `None`  | Additional Tailwind classes merged onto the scrollable list.                                                                                       |
+| `item_class`             | `str`          | `None`  | Additional Tailwind classes merged onto each list item.                                                                                            |
+| `item_highlighted_class` | `str`          | `None`  | Additional Tailwind classes merged onto the currently highlighted item.                                                                            |
+| `empty_class`            | `str`          | `None`  | Additional Tailwind classes merged onto the empty state element.                                                                                   |
+| `set_query_on_select`    | `bool`         | `True`  | Controls whether selecting an item updates the input value. If `False`, selection clears the input (useful for command palette / navigation mode). |

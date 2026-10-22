@@ -4,7 +4,7 @@
 
 A control that allows the user to toggle between checked and not checked.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -49,7 +49,7 @@ class CheckboxBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/checkbox"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Checkbox", package_path="", install=False)
 
 
@@ -98,7 +98,7 @@ checkbox = Checkbox()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -106,7 +106,7 @@ from components.ui.checkbox import Checkbox
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Checkbox` component.
 
 
@@ -117,7 +117,7 @@ checkbox.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Basic
 

@@ -4,7 +4,7 @@
 
 Used to display textual user input from keyboard.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -12,13 +12,13 @@ Copy the following code into your app directory.
 > **Error: 'kbd' not found in registry**
 
 
-# Usage
+## Usage
 
 
 > **Error: 'kbd' not found in registry**
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Kbd` component.
 
 
@@ -30,7 +30,7 @@ kbd.group(
 ```
 
 
-# Examples
+## Examples
 
 ## Group
 
@@ -150,14 +150,14 @@ def kbd_input_group() -> rx.Component:
 ```
 
 
-# API Reference
+## API Reference
 
 ## kbd.root
 
 Use the `kbd.root` component to display a keyboard key.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | ``      |
 
 ```python
@@ -168,8 +168,8 @@ kbd.root('Ctrl')
 
 Use the `kbd.group` component to group `kbd.root` components together.
 
-| Prop        | Type     | Default |
-| ----------- | -------- | ------- |
+| Prop         | Type     | Default |
+| ------------ | -------- | ------- |
 | `class_name` | `string` | ``      |
 
 ```python

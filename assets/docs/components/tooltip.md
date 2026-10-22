@@ -4,7 +4,7 @@
 
 A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -212,7 +212,7 @@ tooltip = Tooltip()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -222,7 +222,7 @@ from components.ui.tooltip import Tooltip
 
 `tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Tooltip` component.
 
 ```python
@@ -241,7 +241,7 @@ tooltip.root(
 
 
 
-# Examples
+## Examples
 
 
 ## General

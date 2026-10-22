@@ -10,7 +10,7 @@ The `Message` component lays out a single message in a conversation. It handles 
 
 For AI apps, you can render reasoning steps, tool calls and assistant messages using the `Message` component.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -155,7 +155,7 @@ message = Message()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -167,7 +167,7 @@ from components.ui.message import Message
 Render the visible message surface inside it with
 [`Bubble`](/docs/components/bubble).
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Message` component.
 
 
@@ -184,7 +184,7 @@ message.group(
 ```
 
 
-# Examples
+## Examples
 
 ## Avatar
 
@@ -469,7 +469,7 @@ def message_with_attachment():
 ```
 
 
-# Accessibility
+## Accessibility
 
 `Message` is a presentational layout wrapper. Accessibility comes from the content you place inside it.
 
@@ -505,53 +505,53 @@ message.root(
 )
 ```
 
-# API Reference
+## API Reference
 
 ## message.root
 
 The message row wrapper.
 
-| Prop        | Type               | Default   | Description                                       |
-| ----------- | ------------------ | --------- | ------------------------------------------------- |
-| `align`     | `"start" \| "end"` | `"start"` | The alignment of the message in the conversation. |
+| Prop         | Type               | Default   | Description                                       |
+| ------------ | ------------------ | --------- | ------------------------------------------------- |
+| `align`      | `"start" \| "end"` | `"start"` | The alignment of the message in the conversation. |
 | `class_name` | `string`           | -         | Additional classes to apply to the row.           |
 
 ## message.group
 
 Groups consecutive messages from the same sender.
 
-| Prop        | Type     | Default | Description                                    |
-| ----------- | -------- | ------- | ---------------------------------------------- |
+| Prop         | Type     | Default | Description                                    |
+| ------------ | -------- | ------- | ---------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the group root. |
 
 ## message.avatar
 
 The avatar slot, aligned to the bottom of the message. When the message has a `message.footer`, the avatar shifts up to stay aligned with the message surface instead of the footer.
 
-| Prop        | Type     | Default | Description                                     |
-| ----------- | -------- | ------- | ----------------------------------------------- |
+| Prop         | Type     | Default | Description                                     |
+| ------------ | -------- | ------- | ----------------------------------------------- |
 | `class_name` | `string` | -       | Additional classes to apply to the avatar slot. |
 
 ### message.content
 
 Wraps the header, message surface, and footer.
 
-| Prop        | Type     | Default | Description                                      |
-| ----------- | -------- | ------- | ------------------------------------------------ |
+| Prop         | Type     | Default | Description                                      |
+| ------------ | -------- | ------- | ------------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the content slot. |
 
 ### message.header
 
 Displays content above the message, such as a sender name. Stays aligned to the start regardless of `align`.
 
-| Prop        | Type     | Default | Description                                |
-| ----------- | -------- | ------- | ------------------------------------------ |
+| Prop         | Type     | Default | Description                                |
+| ------------ | -------- | ------- | ------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the header. |
 
 ### message.footer
 
 Displays content below the message, such as status or actions. Aligns to the message side.
 
-| Prop        | Type     | Default | Description                                |
-| ----------- | -------- | ------- | ------------------------------------------ |
+| Prop         | Type     | Default | Description                                |
+| ------------ | -------- | ------- | ------------------------------------------ |
 | `class_name` | `string` | -       | Additional classes to apply to the footer. |

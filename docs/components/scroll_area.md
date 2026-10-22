@@ -8,23 +8,23 @@ order: 17
 
 Augments native scroll functionality for custom, cross-browser styling.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
 --INSTALL(scroll_area)--
 
-# Usage
+## Usage
 
 --USAGE(scroll_area)--
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Scroll Area` component.
 
 --ANATOMY(scroll_area)--
 
 
-# Examples
+## Examples
 
 
 ## General

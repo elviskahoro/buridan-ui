@@ -4,7 +4,7 @@
 
 A window overlaid on either the primary window or another dialog window, rendering the content underneath inert.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -43,7 +43,7 @@ class DialogBaseComponent(BaseUIComponent):
     library = f"{PACKAGE_NAME}/dialog"
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Dialog", package_path="", install=False)
 
 
@@ -186,7 +186,7 @@ dialog = Dialog()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -194,7 +194,7 @@ from components.ui.dialog import Dialog
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Dialog` component.
 
 
@@ -213,7 +213,7 @@ dialog.root(
 ```
 
 
-# Examples
+## Examples
 
 ## Custom Close Button
 

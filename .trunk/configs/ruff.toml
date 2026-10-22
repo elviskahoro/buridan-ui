@@ -98,6 +98,11 @@ ignore = [
   "UP037",
 ]
 
+[lint.flake8-annotations]
+# Pass-through *args/**kwargs (Reflex children/props, decorator wrappers) are
+# genuinely Any; ANN401 still flags Any on ordinary parameters.
+allow-star-arg-any = true
+
 [lint.isort]
 case-sensitive = true
 combine-as-imports = true
@@ -109,8 +114,32 @@ order-by-type = true
 convention = "google"
 
 [lint.per-file-ignores]
+# Ignores are scoped to semantically grouped directories, never single files.
+# Reflex-specific ignores apply only to directories of Reflex UI code.
+
 # assert is pytest's normal check mechanism, not a production safety bypass.
-"tests/**" = ["S101"]
+# Mocks of Reflex/Python callables take and return Any.
+"tests/**" = ["S101", "ANN401"]
+
+# --- Reflex UI code ---
 # Reflex event handlers are called positionally; value=<bool> breaks handlers
 # whose parameter isn't named `value`, and component source ships verbatim.
-"components/**" = ["FBT003"]
+# A004: the input component is named `input`, shadowing the builtin.
+# RUF012: mutable class-level defaults are how Reflex components declare props.
+"components/**" = ["FBT003", "A004", "RUF012"]
+# A004: these compose the `input` component from components/ui.
+"app/anatomy_src/**" = ["A004"]
+"app/examples/**" = ["A004"]
+"app/templates/**" = ["A004"]
+# Example modules are discovered by directory scan and imported dynamically
+# (app/www/parser.py), so they need no __init__.py. A004 as above.
+"app/www/library/examples/**" = ["INP001", "A004"]
+# ClientStateVar handles are intentionally capitalized.
+"app/www/library/charts/**" = ["N806"]
+
+# --- Developer tooling ---
+# Generation scripts don't need full type annotations. Complexity limits are
+# deferred until the long generators are split up (#134, #209).
+"scripts/**" = ["ANN001", "ANN202", "PLR0911", "PLR0912", "PLR0915"]
+# Typer command bodies branch on many options; refactoring deferred (#134).
+"cli/**" = ["PLR0912", "PLR0915"]

@@ -4,7 +4,7 @@
 
 Displays a badge or a component that looks like a badge.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -54,7 +54,7 @@ BADGE_VARIANTS = {
 }
 
 
-def badge_variants(variant: str = "default") -> Var:
+def badge_variants(variant: str = "default") -> Var[str]:
     return cn(
         DEFAULT_BASE_CLASSES,
         BADGE_VARIANTS.get(variant, BADGE_VARIANTS["default"]),
@@ -80,7 +80,7 @@ badge = Badge.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -88,7 +88,7 @@ from components.ui.badge import badge
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Badge` component.
 
 
@@ -97,7 +97,7 @@ badge()
 ```
 
 
-# Examples
+## Examples
 
 ## Variants
 
@@ -215,13 +215,13 @@ def badge_custom_colors() -> rx.Component:
 
 
 
-# API Reference
+## API Reference
 
 ## badge
 
 The `badge` component displays a badge or a component that looks like a badge.
 
-| Prop        | Type                                                                          | Default     |
-| ----------- | ----------------------------------------------------------------------------- | ----------- |
-| `variant`   | `"default" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "link"` | `"default"` |
+| Prop         | Type                                                                          | Default     |
+| ------------ | ----------------------------------------------------------------------------- | ----------- |
+| `variant`    | `"default" \| "secondary" \| "destructive" \| "outline" \| "ghost" \| "link"` | `"default"` |
 | `class_name` | `string`                                                                      | -           |

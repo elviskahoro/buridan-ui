@@ -4,7 +4,7 @@
 
 A set of layered sections of content—known as tab panels—that are displayed one at a time.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -168,7 +168,7 @@ tabs = Tabs()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -176,7 +176,7 @@ from components.ui.tabs import tabs
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Tabs` component.
 
 
@@ -191,7 +191,7 @@ tabs.root(
 ```
 
 
-# Example
+## Example
 
 ## Basic
 

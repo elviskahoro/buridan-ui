@@ -4,7 +4,7 @@
 
 An input where the user selects a value from within a given range.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -201,7 +201,7 @@ slider = Slider()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -209,7 +209,7 @@ from components.ui.slider import Slider
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Slider` component.
 
 
@@ -226,7 +226,7 @@ slider.root(
 
 
 
-# Examples
+## Examples
 
 ## Basic
 A basic low-level slider demo.

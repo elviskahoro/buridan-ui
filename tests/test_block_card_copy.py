@@ -44,11 +44,13 @@ def test_block_card_keeps_terminal_icon_separate_from_command_text() -> None:
     assert command_text.id == f"text-{button.id}"
 
 
-def test_block_card_copy_feedback_targets_only_command_text_span(monkeypatch) -> None:
+def test_block_card_copy_feedback_targets_only_command_text_span(
+    monkeypatch: Any,
+) -> None:
     scripts = []
     call_script = example_utils.rx.call_script
 
-    def capture_script(script: str):
+    def capture_script(script: str) -> Any:
         scripts.append(script)
         return call_script(script)
 

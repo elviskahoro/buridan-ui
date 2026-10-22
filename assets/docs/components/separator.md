@@ -4,7 +4,7 @@
 
 Visually or semantically separates content.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -36,11 +36,11 @@ class SeparatorComponent(BaseUIComponent):
     orientation: Var[Literal["horizontal", "vertical"]]
 
     @property
-    def import_var(self):
+    def import_var(self) -> ImportVar:
         return ImportVar(tag="Separator", package_path="", install=False)
 
     @classmethod
-    def create(cls, *children, **props) -> BaseUIComponent:
+    def create(cls, *children, **props) -> "SeparatorComponent":
         props["data-slot"] = "separator"
         if "orientation" not in props:
             props["orientation"] = "horizontal"
@@ -52,7 +52,7 @@ separator = SeparatorComponent.create
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -60,7 +60,7 @@ from components.ui.separator import separator
 ```
 
 
-# Anatomy 
+## Anatomy 
 
 Use the following composition to build a `Separator` component.
 
@@ -70,7 +70,7 @@ separator()
 ```
 
 
-# Examples
+## Examples
 
 ## Default
 

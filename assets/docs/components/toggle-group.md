@@ -4,7 +4,7 @@
 
 A set of two-state buttons that can be toggled on or off.
 
-# Installation
+## Installation
 
 Copy the following code into your app directory.
 
@@ -185,7 +185,7 @@ toggle_group = ToggleGroup()
 ```
 
 
-# Usage
+## Usage
 
 
 ```python
@@ -193,7 +193,7 @@ from components.ui.toggle_group import toggle_group
 ```
 
 
-# Anatomy 
+## Anatomy 
 Use the following composition to build a `Toggle Group` component.
 
 
@@ -205,7 +205,7 @@ toggle_group(
 ```
 
 
-# Examples
+## Examples
 
 ## Outline
 
