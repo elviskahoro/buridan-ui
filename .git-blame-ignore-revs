@@ -6,3 +6,9 @@
 
 # Apply trunk check formatting and fixes (#127)
 9635b1070e782dca8de9467942841d421ab49b31
+
+# Fix Trunk Check issues: BLE001, ANN401, and type errors (#209)
+dc51fe1101454679f5ec44c79fffdc3e57fae566
+
+# Address code review findings: improve exception handling and fence-aware table alignment (#209)
+19adc9b028a1fae5e38d5171c1058426ae7e0ee6
