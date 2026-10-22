@@ -65,7 +65,7 @@ _INSTALL_COMMAND_PATTERN = re.compile(
 # ---------------------------------------------------------------------------
 
 
-def _load_component_registry() -> dict[str, tuple[object, str]]:
+def _load_component_registry() -> generator_module.Registry:
     """Load the real component registry the markdown generator uses.
 
     Used so the install-directive path actually exercises the same fallback
