@@ -86,7 +86,11 @@ def build_all_routes() -> dict[str, list[dict[str, Any]]]:
         routes.extend(extras)
         # A None sort key preserves the order produced by generate_doc_routes.
         if sort_key is not None:
-            routes.sort(key=lambda x, key=sort_key: x.get(key, ""))
+
+            def sort_by_key(x: dict[str, Any], key: str = sort_key) -> str:
+                return x.get(key, "")
+
+            routes.sort(key=sort_by_key)
 
         result[section] = routes
 

@@ -76,8 +76,8 @@ def block_card(
         return decorator
 
     @functools.wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
-        inner_component = func(*args, **kwargs)
+    def wrapper(*args: object, **kwargs: object) -> rx.Component:
+        inner_component = func(*args, **kwargs)  # type: ignore[misc]
         cmd = f"uv run buridan add {func.__qualname__}"
         btn_id = generate_component_id()
         text_id = f"text-{btn_id}"
@@ -155,8 +155,8 @@ def masonry_card(
         return decorator
 
     @functools.wraps(func)
-    def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
-        inner_component = func(*args, **kwargs)
+    def wrapper(*args: object, **kwargs: object) -> rx.Component:
+        inner_component = func(*args, **kwargs)  # type: ignore[misc]
 
         return rx.el.div(
             inner_component,

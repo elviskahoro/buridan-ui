@@ -56,7 +56,7 @@ def dynamic_load_components(dirs: list[str]) -> Registry:
                             or callable(obj)
                         ):
                             registry[name.lower()] = (obj, name)
-            except Exception as e:
+            except (ImportError, AttributeError) as e:
                 print(
                     f"Warning: Could not import from module {module_path}. Error: {e}",
                     file=sys.stderr,
