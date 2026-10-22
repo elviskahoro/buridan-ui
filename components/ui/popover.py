@@ -117,7 +117,7 @@ class PopoverPositioner(PopoverBaseComponent):
 
     position_method: Var[LiteralPosition]
 
-    track_anchor: Var[bool]
+    disable_anchor_tracking: Var[bool]
 
     collision_avoidance: Var[str]
 
