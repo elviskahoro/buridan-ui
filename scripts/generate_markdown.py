@@ -56,9 +56,9 @@ def dynamic_load_components(dirs: list[str]) -> Registry:
                             or callable(obj)
                         ):
                             registry[name.lower()] = (obj, name)
-            except (ImportError, AttributeError) as e:
+            except Exception as e:
                 print(
-                    f"Warning: Could not import from module {module_path}. Error: {e}",
+                    f"Warning: Could not import from module {module_path} ({type(e).__name__}): {e}",
                     file=sys.stderr,
                 )
     return registry
@@ -73,12 +73,18 @@ def align_markdown_tables(content: str) -> str:
     lines = content.split("\n")
     result = []
     i = 0
+    in_fence = False
 
     while i < len(lines):
         line = lines[i]
 
-        # Check if this is a table header (contains pipes)
-        if _is_table_row(line) and i + 1 < len(lines):
+        # Track code fences to avoid reformatting tables inside code blocks
+        fence_marker = "```" if "```" in line else "~~~" if "~~~" in line else None
+        if fence_marker:
+            in_fence = not in_fence
+
+        # Check if this is a table header (contains pipes) — but skip if inside a code fence
+        if not in_fence and _is_table_row(line) and i + 1 < len(lines):
             next_line = lines[i + 1]
             # Check if next line is a separator (contains dashes and pipes)
             if _is_table_row(next_line) and all(
