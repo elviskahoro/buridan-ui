@@ -54,7 +54,13 @@ class HugeIcon(CoreComponent):
 
         ##
 
-        if children and isinstance(children[0], str) and "icon" not in props:
+        if children and "icon" not in props:
+            if not isinstance(children[0], str):
+                raise TypeError(
+                    "hi() expects an icon name string as its first argument, "
+                    f"got {type(children[0]).__name__}. For dynamic icons, "
+                    "use rx.cond/rx.match over whole hi('...') components."
+                )
             props["icon"] = children[0]
             children = children[1:]
 
@@ -63,13 +69,22 @@ class HugeIcon(CoreComponent):
         for prop in ("icon", "alt_icon"):
             value = props.get(prop)
 
-            if isinstance(value, str):
-                props[prop] = Var(
-                    value,
-                    _var_data=VarData(
-                        imports={CORE_ICONS_LIBRARY: [ImportVar(tag=value)]},
-                    ),
+            if value is None:
+                continue
+
+            if not isinstance(value, str):
+                raise TypeError(
+                    f"hi() '{prop}' prop expects a plain str icon name, "
+                    f"got {type(value).__name__}. For dynamic icons, "
+                    "use rx.cond/rx.match over whole hi('...') components."
                 )
+
+            props[prop] = Var(
+                value,
+                _var_data=VarData(
+                    imports={CORE_ICONS_LIBRARY: [ImportVar(tag=value)]},
+                ),
+            )
 
         stroke_width = props.get("stroke_width", 1.5)
 
