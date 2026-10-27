@@ -14,8 +14,8 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from components.ui.core import BaseUIComponent
-from components.ui.menu import MenuRoot, MenuSubMenuRoot, MenuTrigger
+from components.ui.core import BaseUIComponent  # noqa: E402
+from components.ui.menu import MenuRoot, MenuSubMenuRoot, MenuTrigger  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:

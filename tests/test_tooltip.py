@@ -176,7 +176,7 @@ def test_tooltip_root_hoverable_renamed_to_disable_hoverable_popup() -> None:
     assert "disable_hoverable_popup" in props
 
     rendered = " ".join(
-        TooltipRoot.create(disable_hoverable_popup=True).render()["props"]
+        TooltipRoot.create(disable_hoverable_popup=True).render()["props"],
     )
     assert "disableHoverablePopup:true" in rendered
     assert "css:" not in rendered

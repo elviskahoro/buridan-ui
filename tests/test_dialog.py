@@ -20,8 +20,8 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from components.ui.core import BaseUIComponent
-from components.ui.dialog import DialogRoot
+from components.ui.core import BaseUIComponent  # noqa: E402
+from components.ui.dialog import DialogRoot  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:
