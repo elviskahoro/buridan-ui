@@ -17,14 +17,14 @@ import sys
 from collections.abc import Iterator
 from pathlib import Path
 
+ROOT_DIR = Path(__file__).parent.parent
+sys.path.insert(0, str(ROOT_DIR))
+
 from reflex.components.component import Component
 
 from app.www.library.examples import button_group_dropdown, menu_icons
 from components.ui.context_menu import context_menu
 from components.ui.menu import menu
-
-ROOT_DIR = Path(__file__).parent.parent
-sys.path.insert(0, str(ROOT_DIR))
 
 
 def test_menu_item_converts_variant_to_data_attribute() -> None:
@@ -78,6 +78,18 @@ def test_menu_submenu_trigger_converts_inset_to_data_attribute() -> None:
     rendered = " ".join(trigger.render()["props"])
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
+
+
+def test_menu_submenu_trigger_converts_variant_to_data_attribute() -> None:
+    trigger = menu.submenu_trigger("Danger", variant="destructive")
+
+    assert trigger.custom_attrs["data-variant"] == "destructive"
+    rendered = " ".join(trigger.render()["props"])
+    assert '"data-variant":"destructive"' in rendered
+    # The bug folded the kwarg into an Emotion css style object instead of
+    # popping it; the "variant" key must not reach the rendered output.
+    assert '["variant"]' not in rendered
+    assert "css:" not in rendered
 
 
 def _walk(component: Component) -> Iterator[Component]:
