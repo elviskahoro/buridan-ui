@@ -6,7 +6,7 @@ from components.ui.tooltip import tooltip
 def attach_tooltip(func: rx.Component, label: str) -> rx.Component:
     return tooltip.provider(
         tooltip.root(
-            tooltip.trigger(func),
+            tooltip.trigger(render_=func),
             tooltip.portal(
                 tooltip.positioner(
                     tooltip.popup(
