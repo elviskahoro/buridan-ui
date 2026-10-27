@@ -61,6 +61,7 @@ class HeadingIdRegistry:
     """
 
     def __init__(self) -> None:
+        """Initialize per-slug collision counters and the TOC→DOM id queue."""
         self._counts: dict[str, int] = {}
         self._queued: dict[str, list[str]] = {}
 

@@ -30,10 +30,12 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from app.templates.toc import _create_markdown_toc_links
-from app.www.generator import generate_docs_library
-from app.www.parser import DocParser
-from app.www.style import (
+from app.templates.toc import (  # noqa: E402
+    _create_markdown_toc_links,  # pyright: ignore[reportPrivateUsage]
+)
+from app.www.generator import generate_docs_library  # noqa: E402
+from app.www.parser import DocParser  # noqa: E402
+from app.www.style import (  # noqa: E402
     HeadingIdRegistry,
     iter_heading_segments,
 )
