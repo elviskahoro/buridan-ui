@@ -34,11 +34,11 @@ def piechart_v6():
                     stroke="var(--background)",
                     inner_radius=60,
                     custom_attrs={
-                        "activeIndex": 1,
                         "activeShape": {"outerRadius": 110},
                     },
                     is_animation_active=False,
                 ),
+                rx.recharts.tooltip(custom_attrs={"defaultIndex": "1"}),
                 width="100%",
                 height=250,
             ),
