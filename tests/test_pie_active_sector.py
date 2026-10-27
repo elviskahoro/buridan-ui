@@ -21,19 +21,23 @@ from __future__ import annotations
 
 import pathlib
 import sys
+from typing import TYPE_CHECKING
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from reflex.components.component import Component
+from reflex.components.component import Component  # noqa: E402
 
-from app.www.library.charts.pie.v6 import piechart_v6
+from app.www.library.charts.pie.v6 import piechart_v6  # noqa: E402
 
 PIE_TAG = "Pie"
 TOOLTIP_TAG = "Tooltip"
 
+if TYPE_CHECKING:
+    from collections.abc import Iterator
 
-def _walk(component: Component):
+
+def _walk(component: Component) -> Iterator[Component]:
     """Yield ``component`` and every descendant in render-tree order."""
     pending = [component]
     while pending:
@@ -50,12 +54,14 @@ def _find(component: Component, tag: str) -> Component:
     for node in _walk(component):
         if getattr(node, "tag", None) == tag:
             return node
-    raise AssertionError(f"No <{tag}> component found in piechart_v6 render tree")
+    msg = f"No <{tag}> component found in piechart_v6 render tree"
+    raise AssertionError(msg)
 
 
 def test_pie_does_not_carry_inert_active_index_prop() -> None:
     """The recharts-2 ``activeIndex`` Pie prop is inert on recharts 3 and must
-    not be re-introduced (it is silently ignored, masking the bug)."""
+    not be re-introduced (it is silently ignored, masking the bug).
+    """
     rendered = str(piechart_v6())
     assert "activeIndex" not in rendered, (
         "piechart_v6 must not pass the inert recharts-2 `activeIndex` Pie prop; "
@@ -65,7 +71,8 @@ def test_pie_does_not_carry_inert_active_index_prop() -> None:
 
 def test_pie_keeps_active_shape_enlarged_geometry() -> None:
     """``activeShape`` (still supported on recharts 3) supplies the enlarged
-    sector geometry, so it must remain on the Pie with ``outerRadius: 110``."""
+    sector geometry, so it must remain on the Pie with ``outerRadius: 110``.
+    """
     pie = _find(piechart_v6(), PIE_TAG)
     assert "outerRadius" in str(pie.custom_attrs.get("activeShape", ""))
     rendered_pie = str(pie.render())
@@ -76,16 +83,18 @@ def test_pie_keeps_active_shape_enlarged_geometry() -> None:
 
 def test_tooltip_is_rendered_inside_pie_chart() -> None:
     """A ``<Tooltip>`` must be rendered so the static active sector has a
-    recharts-3-supported state path to draw from."""
+    recharts-3-supported state path to draw from.
+    """
     tooltip = _find(piechart_v6(), TOOLTIP_TAG)
     assert tooltip.tag == TOOLTIP_TAG
 
 
 def test_tooltip_carries_default_index_prop_for_static_active_sector() -> None:
-    """The static highlight is driven by ``<Tooltip defaultIndex=\"1\">``, the
+    r"""The static highlight is driven by ``<Tooltip defaultIndex=\"1\">``, the
     documented recharts-3 mechanism that pre-populates
     ``selectActiveTooltipIndex`` so sector #1 (safari) renders enlarged on
-    first paint without any hover interaction."""
+    first paint without any hover interaction.
+    """
     tooltip = _find(piechart_v6(), TOOLTIP_TAG)
     assert tooltip.custom_attrs.get("defaultIndex") == "1"
     rendered = str(piechart_v6())
@@ -93,7 +102,7 @@ def test_tooltip_carries_default_index_prop_for_static_active_sector() -> None:
 
 
 def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
-    """Guard against the broken ``tooltip(default_index=\"1\")`` kwarg form.
+    r"""Guard against the broken ``tooltip(default_index=\"1\")`` kwarg form.
 
     Passing ``default_index=`` as a direct kwarg (the naive reflex translation
     of ``<Tooltip defaultIndex>``) does NOT become a JSX prop -- reflex routes
@@ -114,7 +123,8 @@ def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
 def test_docs_snippet_does_not_advertise_inert_active_index_pattern() -> None:
     """The embedded docs snippet (the ``--DEMO(piechart_v6)--`` mirror in
     ``assets/docs/charts/pie-chart.md``) must not advertise the broken
-    ``activeIndex`` prop -- users copy this snippet verbatim."""
+    ``activeIndex`` prop -- users copy this snippet verbatim.
+    """
     snippet_path = ROOT_DIR / "assets" / "docs" / "charts" / "pie-chart.md"
     assert snippet_path.is_file(), f"Missing generated snippet: {snippet_path}"
     snippet = snippet_path.read_text(encoding="utf-8")
@@ -129,7 +139,8 @@ def test_docs_snippet_is_in_sync_with_demo_source() -> None:
     """The generated pie-chart markdown must match what
     ``scripts/generate_markdown.py`` would regenerate from the demo source, so
     the CI ``git diff --exit-code assets/docs`` gate stays green and the docs
-    never drift from the live demo."""
+    never drift from the live demo.
+    """
     from scripts.generate_markdown import (
         convert_to_pure_markdown,
         dynamic_load_components,
@@ -141,7 +152,7 @@ def test_docs_snippet_is_in_sync_with_demo_source() -> None:
     )
     expected = convert_to_pure_markdown(source_md, registry)
     on_disk = (ROOT_DIR / "assets" / "docs" / "charts" / "pie-chart.md").read_text(
-        encoding="utf-8"
+        encoding="utf-8",
     )
     assert expected.strip() == on_disk.strip(), (
         "assets/docs/charts/pie-chart.md is out of sync with the demo source / "
