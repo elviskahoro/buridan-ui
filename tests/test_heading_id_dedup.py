@@ -125,13 +125,25 @@ def test_generator_toc_href_fragments_match_rendered_dom_ids() -> None:
 
 def test_no_doc_page_has_duplicate_heading_ids() -> None:
     # Scope guard: the dedup must hold across every doc page, not just badge.
+    # Each TOC slug must also resolve to exactly one rendered DOM heading id on
+    # the page, so the TOC↔DOM agreement the badge test pins is not silently
+    # lost on the other pages. Only TOC slugs are asserted — non-heading
+    # component ids legitimately repeat in page bodies (e.g. chart demos
+    # serialize `id:"desktop"` more than once).
     docs = generate_docs_library()
     offenders: list[str] = []
     for doc in docs:
         toc_ids = [entry["id"] for entry in doc.table_of_content]
         if len(toc_ids) != len(set(toc_ids)):
             offenders.append(doc.url)
-    assert not offenders, f"pages with duplicate TOC ids: {offenders}"
+            continue
+        dom_ids: list[str] = []
+        for component in doc.component:
+            dom_ids.extend(re.findall(r'id:"([^"]+)"', str(component)))
+        for slug in toc_ids:
+            if dom_ids.count(slug) != 1:
+                offenders.append(f"{doc.url} (slug {slug!r}: {dom_ids.count(slug)} DOM hits)")
+    assert not offenders, f"pages with duplicate or unmatched TOC ids: {offenders}"
 
 
 def test_toc_links_href_uses_precomputed_slug_verbatim() -> None:
