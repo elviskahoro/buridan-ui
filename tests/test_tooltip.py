@@ -9,6 +9,7 @@ from components.ui.tooltip import (
     ClassNames,
     LiteralTrackCursorAxis,
     TooltipPopup,
+    TooltipProvider,
     TooltipRoot,
     TooltipTrigger,
 )
@@ -145,3 +146,54 @@ def test_tooltip_popup_render_with_var_unstyled_does_not_crash() -> None:
 
     assert "render:" in rendered_props
     assert ClassNames.POPUP not in rendered_props
+
+
+# ---------------------------------------------------------------------------
+# Base UI 1.6.0 dead-prop audit (parity with DialogRoot.dismissible)
+# ---------------------------------------------------------------------------
+
+
+def test_tooltip_root_no_longer_declares_dead_delay_props() -> None:
+    """``delay``/``close_delay`` are not 1.6.0 ``Tooltip.Root`` props -- they live
+    on ``Tooltip.Provider``/``Tooltip.Trigger``. Declaring them on Root was a
+    silent no-op (same dead-prop pattern as ``DialogRoot.dismissible``). The
+    audit removes them; the capability is preserved via ``TooltipProvider``
+    (see ``test_tooltip_provider_still_exposes_delay_props``).
+    """
+    props = TooltipRoot.get_props()
+    assert "delay" not in props
+    assert "close_delay" not in props
+
+
+def test_tooltip_root_hoverable_renamed_to_disable_hoverable_popup() -> None:
+    """1.6.0 renamed ``hoverable`` -> ``disableHoverablePopup`` (inverted:
+    ``hoverable={false}`` == ``disableHoverablePopup={true}``; defaults align at
+    "hoverable" behavior). The wrapper exposes the 1.6.0 name and no longer
+    offers the dead ``hoverable`` prop.
+    """
+    props = TooltipRoot.get_props()
+    assert "hoverable" not in props
+    assert "disable_hoverable_popup" in props
+
+    rendered = " ".join(
+        TooltipRoot.create(disable_hoverable_popup=True).render()["props"]
+    )
+    assert "disableHoverablePopup:true" in rendered
+    assert "css:" not in rendered
+
+
+def test_tooltip_provider_still_exposes_delay_props() -> None:
+    """Removing ``delay``/``close_delay`` from Root must not lose the capability:
+    ``TooltipProvider`` declares them (matching 1.6.0's ``TooltipProviderProps``),
+    which is the correct component and how the app already uses them
+    (``tooltip.provider(delay=0)``). Hover-delay config remains available.
+    """
+    props = TooltipProvider.get_props()
+    assert "delay" in props
+    assert "close_delay" in props
+    assert "timeout" in props
+
+    assert "delay:0" in " ".join(TooltipProvider.create(delay=0).render()["props"])
+    assert "closeDelay:300" in " ".join(
+        TooltipProvider.create(close_delay=300).render()["props"],
+    )

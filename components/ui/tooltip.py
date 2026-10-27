@@ -62,11 +62,7 @@ class TooltipRoot(TooltipBaseComponent):
 
     disabled: Var[bool]
 
-    delay: Var[int]
-
-    close_delay: Var[int]
-
-    hoverable: Var[bool]
+    disable_hoverable_popup: Var[bool]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
