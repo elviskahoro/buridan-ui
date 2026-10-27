@@ -56,11 +56,12 @@ class HugeIcon(CoreComponent):
 
         if children and "icon" not in props:
             if not isinstance(children[0], str):
-                raise TypeError(
+                msg = (
                     "hi() expects an icon name string as its first argument, "
                     f"got {type(children[0]).__name__}. For dynamic icons, "
                     "use rx.cond/rx.match over whole hi('...') components."
                 )
+                raise TypeError(msg)
             props["icon"] = children[0]
             children = children[1:]
 
@@ -73,11 +74,12 @@ class HugeIcon(CoreComponent):
                 continue
 
             if not isinstance(value, str):
-                raise TypeError(
+                msg = (
                     f"hi() '{prop}' prop expects a plain str icon name, "
                     f"got {type(value).__name__}. For dynamic icons, "
                     "use rx.cond/rx.match over whole hi('...') components."
                 )
+                raise TypeError(msg)
 
             props[prop] = Var(
                 value,
