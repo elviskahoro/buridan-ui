@@ -20,11 +20,11 @@ from pathlib import Path
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-from reflex.components.component import Component
+from reflex.components.component import Component  # noqa: E402
 
-from app.www.library.examples import button_group_dropdown, menu_icons
-from components.ui.context_menu import context_menu
-from components.ui.menu import menu
+from app.www.library.examples import button_group_dropdown, menu_icons  # noqa: E402
+from components.ui.context_menu import context_menu  # noqa: E402
+from components.ui.menu import menu  # noqa: E402
 
 
 def test_menu_item_converts_variant_to_data_attribute() -> None:
