@@ -1,9 +1,9 @@
 import os
-import re
 
 from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 from app.www.parser import DocParser
+from app.www.style import HeadingIdRegistry, iter_heading_segments
 
 parser = DocParser(
     dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],
@@ -59,16 +59,24 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
 
         md_data, md_content = parse_frontmatter(md_content)
 
-        # Extract headings for TOC from THIS file's content
+        # Extract the page's h1/h2 headings in document order and reserve a
+        # unique DOM-id slug for each one (later collisions are suffixed:
+        # ``badge``, ``badge-1``). The same registry is then handed to
+        # ``parse_and_render`` so the rendered heading DOM ids match the TOC
+        # href fragments exactly (one element per section). The shared
+        # ``iter_heading_segments`` extractor is also used by the parser, so
+        # the TOC and the rendered DOM see precisely the same headings — even
+        # ``#``-lines inside fenced code blocks never become phantom sections.
+        heading_registry = HeadingIdRegistry()
         toc_data = []
-        for match in re.finditer(r"^(#{1,2})\s+(.+)$", md_content, re.MULTILINE):
-            level = len(match.group(1))  # Count the # characters (1-2)
-            heading_text = match.group(2).strip()  # Get the heading text
-
+        for kind, payload in iter_heading_segments(md_content):
+            if kind != "heading":
+                continue
+            level, heading_text = payload
             toc_data.append(
                 {
                     "text": heading_text,
-                    "id": heading_text,
+                    "id": heading_registry.register(heading_text),
                     "level": level,
                 },
             )
@@ -77,7 +85,10 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
         doc = constants.DocDataStruct(
             url=url_path,
             description=md_data["description"],
-            component=parser.parse_and_render(md_content),
+            component=parser.parse_and_render(
+                md_content,
+                heading_registry=heading_registry,
+            ),
             table_of_content=toc_data,
         )
 

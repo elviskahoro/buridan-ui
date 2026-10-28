@@ -9,7 +9,13 @@ from pathlib import Path
 import reflex as rx
 
 from app.registry.components import COMPONENT_REGISTRY
-from app.www.style import markdown_component_map, render_parse_error
+from app.www.style import (
+    HeadingIdRegistry,
+    iter_heading_segments,
+    markdown_component_map,
+    render_heading,
+    render_parse_error,
+)
 from app.www.wrapper import (
     chart_util_wrapper,
     cli_and_manual_installation_wrapper,
@@ -173,12 +179,39 @@ class DocParser:
         except Exception as e:
             return render_parse_error(f"Error in {cmd}: {e}")
 
-    def parse_and_render(self, content: str) -> list[rx.Component]:
-        res = []
+    def parse_and_render(
+        self,
+        content: str,
+        heading_registry: HeadingIdRegistry | None = None,
+    ) -> list[rx.Component]:
+        res: list[rx.Component] = []
         for s in re.split(r"(--[\w_]+(?:\([^)]+\))?--)", content):
             if m := re.match(r"--([\w_]+)(?:\(([^)]+)\))?--", s):
                 res.append(self._render(m.group(1).lower(), m.group(2)))
-            elif t := s.strip():
-                res.append(rx.markdown(t, component_map=markdown_component_map))
+                continue
+            if not s.strip():
+                continue
+
+            # Split the prose chunk at every h1/h2 heading so the heading DOM
+            # ids can be assigned server-side (with a HeadingIdRegistry that
+            # deduplicates slugs across the whole page) instead of computed in
+            # the browser from an unevaluated Reflex Var. Only the prose between
+            # headings is handed to ``rx.markdown``; h3+ headings stay inside
+            # those prose segments and keep their default (id-less) rendering.
+            for kind, payload in iter_heading_segments(s):
+                if kind == "heading":
+                    level, text = payload
+                    heading_id = (
+                        heading_registry.next_id(text)
+                        if heading_registry is not None
+                        else None
+                    )
+                    res.append(render_heading(level, text, heading_id))
+                else:
+                    body = payload
+                    if body.strip():
+                        res.append(
+                            rx.markdown(body, component_map=markdown_component_map),
+                        )
 
         return res
