@@ -287,7 +287,6 @@ class ContextMenuSubmenuRoot(ContextMenuBaseComponent):
     disabled: Var[bool]
     loop_focus: Var[bool]
     orientation: Var[LiteralMenuOrientation]
-    render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:

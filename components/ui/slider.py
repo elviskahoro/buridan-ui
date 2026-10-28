@@ -91,8 +91,6 @@ class SliderRoot(SliderBaseComponent):
 
     orientation: Var[LiteralOrientation]
 
-    input_ref: Var[str]
-
     render_: Var[Component]
 
     @classmethod

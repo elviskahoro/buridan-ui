@@ -89,3 +89,13 @@ def test_menu_submenu_trigger_hover_props_forward_as_camel_case() -> None:
     assert "delay:100" in rendered
     assert "closeDelay:50" in rendered
     assert "css:" not in rendered
+
+
+def test_menu_submenu_root_no_longer_declares_dead_render() -> None:
+    """``MenuSubMenuRoot`` is an element-less context-provider Root like
+    ``MenuRoot`` (which declares no ``render_``), and 1.6.0's
+    ``MenuSubmenuRootProps`` (``Omit<MenuRoot.Props, ...>``) declares no
+    ``render`` -- so ``render_`` forwarded a dead prop React silently dropped.
+    The audit removes it for parity with the other element-less Roots.
+    """
+    assert "render_" not in MenuSubMenuRoot.get_props()
