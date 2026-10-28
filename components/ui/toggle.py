@@ -92,7 +92,7 @@ class Toggle(ToggleBaseComponent):
         return super().create(*children, **props)
 
     def _exclude_props(self) -> list[str]:
-        return [*super()._exclude_props(), "variant", "size"]
+        return [*super()._exclude_props(), "variant", "size", "icon_variant"]
 
 
 toggle = Toggle.create

@@ -53,7 +53,7 @@ class DialogRoot(DialogBaseComponent):
     default_open: Var[bool]
     open: Var[bool]
     on_open_change: EventHandler[passthrough_event_spec(bool, dict)]
-    dismissible: Var[bool]
+    disable_pointer_dismissal: Var[bool]
     modal: Var[bool | Literal["trap-focus"]]
     on_open_change_complete: EventHandler[passthrough_event_spec(bool)]
 

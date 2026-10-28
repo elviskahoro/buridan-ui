@@ -59,7 +59,7 @@ class ContextMenuRoot(ContextMenuBaseComponent):
     close_parent_on_esc: Var[bool]
     on_open_change_complete: EventHandler[passthrough_event_spec(bool)]
     disabled: Var[bool]
-    loop: Var[bool]
+    loop_focus: Var[bool]
     orientation: Var[LiteralMenuOrientation]
 
     @classmethod
@@ -285,12 +285,8 @@ class ContextMenuSubmenuRoot(ContextMenuBaseComponent):
     close_parent_on_esc: Var[bool]
     on_open_change_complete: EventHandler[passthrough_event_spec(bool)]
     disabled: Var[bool]
-    open_on_hover: Var[bool]
-    delay: Var[int]
-    close_delay: Var[int]
-    loop: Var[bool]
+    loop_focus: Var[bool]
     orientation: Var[LiteralMenuOrientation]
-    render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
@@ -303,6 +299,9 @@ class ContextMenuSubmenuTrigger(ContextMenuBaseComponent):
 
     label: Var[str]
     native_button: Var[bool]
+    open_on_hover: Var[bool]
+    delay: Var[int]
+    close_delay: Var[int]
     inset: Var[bool]
     render_: Var[Component]
 
