@@ -31,6 +31,11 @@ def test_slider_root_no_longer_declares_input_ref() -> None:
 
 def test_slider_root_does_not_forward_input_ref() -> None:
     """An undeclared ``input_ref`` kwarg routes to the inert ``css`` style dict
-    rather than forwarding as a top-level ``inputRef`` React prop.
+    rather than forwarding as a top-level ``inputRef`` React prop. The top-level
+    prop serializes as ``inputRef:"myref"`` (colon), while the inert ``css`` entry
+    serializes as ``["inputRef"]`` (brackets) -- the bracket form is what the
+    ``inputRef`` key landing in ``css`` looks like.
     """
-    assert "inputRef" not in _rendered(SliderRoot.create())
+    rendered = _rendered(SliderRoot.create(input_ref="myref"))
+    assert "inputRef:" not in rendered
+    assert '["inputRef"]' in rendered
