@@ -101,6 +101,23 @@ def test_tooltip_carries_default_index_prop_for_static_active_sector() -> None:
     assert 'defaultIndex:"1"' in rendered
 
 
+def test_tooltip_disables_active_box_so_it_does_not_render_on_first_paint() -> None:
+    r"""``defaultIndex`` pre-populates recharts' interaction state, which both
+    enlarges sector #1 (``activeShape``) AND flips the tooltip box
+    ``visibility: visible`` -- the latter via ``TooltipBoundingBox`` reading
+    ``active`` from the same state. The pre-regression demo had no ``<Tooltip>``
+    at all, so a permanently open box is an unrelated visual change. Passing
+    ``active: False`` (a real recharts-3 ``<Tooltip>`` prop) makes
+    ``finalIsActive = activeFromProps ?? ... = false`` in ``Tooltip.js`` while
+    the Pie still reads the default index from the interaction state -- sector
+    stays enlarged, box stays hidden on first paint (and on hover).
+    """
+    tooltip = _find(piechart_v6(), TOOLTIP_TAG)
+    assert tooltip.custom_attrs.get("active") is False
+    rendered = str(piechart_v6())
+    assert '"active":false' in rendered or "active:false" in rendered
+
+
 def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
     r"""Guard against the broken ``tooltip(default_index=\"1\")`` kwarg form.
 
@@ -132,7 +149,7 @@ def test_docs_snippet_does_not_advertise_inert_active_index_pattern() -> None:
         "assets/docs/charts/pie-chart.md still advertises the inert "
         "`activeIndex` Pie prop."
     )
-    assert 'rx.recharts.tooltip(custom_attrs={"defaultIndex": "1"})' in snippet
+    assert 'custom_attrs={"defaultIndex": "1", "active": False}' in snippet
 
 
 def test_docs_snippet_is_in_sync_with_demo_source() -> None:

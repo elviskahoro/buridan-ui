@@ -38,7 +38,9 @@ def piechart_v6():
                     },
                     is_animation_active=False,
                 ),
-                rx.recharts.tooltip(custom_attrs={"defaultIndex": "1"}),
+                rx.recharts.tooltip(
+                    custom_attrs={"defaultIndex": "1", "active": False},
+                ),
                 width="100%",
                 height=250,
             ),
