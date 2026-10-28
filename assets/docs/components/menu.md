@@ -266,11 +266,19 @@ class MenuItem(MenuBaseComponent):
 
     disabled: Var[bool]
 
+    inset: Var[bool]
+
+    variant: Var[str]
+
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
         props["data-slot"] = "menu-item"
+        if props.get("inset"):
+            props["data-inset"] = props.pop("inset")
+        if props.get("variant"):
+            props["data-variant"] = props.pop("variant")
         cls.set_class_name(ClassNames.ITEM, props)
         return super().create(*children, **props)
 
@@ -316,11 +324,19 @@ class MenuSubMenuTrigger(MenuBaseComponent):
 
     native_button: Var[bool]
 
+    inset: Var[bool]
+
+    variant: Var[str]
+
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
         props["data-slot"] = "menu-submenu-trigger"
+        if props.get("inset"):
+            props["data-inset"] = props.pop("inset")
+        if props.get("variant"):
+            props["data-variant"] = props.pop("variant")
         cls.set_class_name(ClassNames.SUBMENU_TRIGGER, props)
         return super().create(
             *children,
@@ -344,11 +360,15 @@ class MenuGroup(MenuBaseComponent):
 class MenuGroupLabel(MenuBaseComponent):
     tag = "Menu.GroupLabel"
 
+    inset: Var[bool]
+
     render_: Var[Component]
 
     @classmethod
     def create(cls, *children, **props) -> BaseUIComponent:
         props["data-slot"] = "menu-group-label"
+        if props.get("inset"):
+            props["data-inset"] = props.pop("inset")
         cls.set_class_name(ClassNames.GROUP_LABEL, props)
         return super().create(*children, **props)
 
