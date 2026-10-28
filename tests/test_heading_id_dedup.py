@@ -143,7 +143,7 @@ def test_no_doc_page_has_duplicate_heading_ids() -> None:
         for slug in toc_ids:
             if dom_ids.count(slug) != 1:
                 offenders.append(
-                    f"{doc.url} (slug {slug!r}: {dom_ids.count(slug)} DOM hits)"
+                    f"{doc.url} (slug {slug!r}: {dom_ids.count(slug)} DOM hits)",
                 )
     assert not offenders, f"pages with duplicate or unmatched TOC ids: {offenders}"
 
