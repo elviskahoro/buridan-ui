@@ -15,7 +15,12 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.core import BaseUIComponent  # noqa: E402
-from components.ui.menu import MenuRoot, MenuSubMenuRoot, MenuTrigger  # noqa: E402
+from components.ui.menu import (  # noqa: E402
+    MenuRoot,
+    MenuSubMenuRoot,
+    MenuSubMenuTrigger,
+    MenuTrigger,
+)
 
 
 def _rendered(component: BaseUIComponent) -> str:
@@ -65,3 +70,22 @@ def test_menu_submenu_root_no_longer_declares_dead_hover_props() -> None:
     assert "close_delay" not in props
     assert "loop" not in props
     assert "loop_focus" in props
+
+
+def test_menu_submenu_trigger_hover_props_forward_as_camel_case() -> None:
+    """1.6.0 consumes ``openOnHover``/``delay``/``closeDelay`` on
+    ``Menu.SubmenuTrigger`` too, so the trio is re-exposed on
+    ``MenuSubMenuTrigger`` (mirroring ``MenuTrigger``) and forwards as the
+    camelCase top-level props, not into the inert ``css`` style dict.
+    """
+    assert "open_on_hover" in MenuSubMenuTrigger.get_props()
+    assert "delay" in MenuSubMenuTrigger.get_props()
+    assert "close_delay" in MenuSubMenuTrigger.get_props()
+
+    rendered = _rendered(
+        MenuSubMenuTrigger.create(open_on_hover=True, delay=100, close_delay=50),
+    )
+    assert "openOnHover:true" in rendered
+    assert "delay:100" in rendered
+    assert "closeDelay:50" in rendered
+    assert "css:" not in rendered

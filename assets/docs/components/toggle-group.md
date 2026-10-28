@@ -108,7 +108,7 @@ class ToggleGroupRoot(ToggleGroupBaseComponent):
     on_value_change: EventHandler[passthrough_event_spec(list[str | int], dict)]
     multiple: Var[bool]
     disabled: Var[bool]
-    loop: Var[bool]
+    loop_focus: Var[bool]
     orientation: Var[LiteralOrientation]
     render_: Var[Component]
 

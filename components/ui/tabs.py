@@ -85,7 +85,7 @@ class TabsRoot(TabsBaseComponent):
 class TabsList(TabsBaseComponent):
     tag = "Tabs.List"
     activate_on_focus: Var[bool]
-    loop: Var[bool]
+    loop_focus: Var[bool]
     variant: Var[Literal["default", "line"]]
 
     @classmethod

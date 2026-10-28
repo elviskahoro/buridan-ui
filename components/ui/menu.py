@@ -291,6 +291,12 @@ class MenuSubMenuTrigger(MenuBaseComponent):
 
     native_button: Var[bool]
 
+    open_on_hover: Var[bool]
+
+    delay: Var[int]
+
+    close_delay: Var[int]
+
     render_: Var[Component]
 
     @classmethod
