@@ -82,6 +82,11 @@ def _engine_js() -> str:
             const fI  = _FR.findIndex(f => f.id === cfg['__font_id']);
             const rI  = _RO.findIndex(r => r[1] === cfg['--radius']);
             if (bI < 0 || sI < 0 || fI < 0 || rI < 0) return null;
+            // Default state special case — canonicalise the all-default config
+            // to `b0`. The duplicate formula seed for this config (`caaaoAgaa`,
+            // the n=2 encoding) is collapsed onto `b0` at intake in `_fromSeed`
+            // below so a no-op sidebar action does not push a spurious history
+            // entry. Keep this in lockstep with `_fromSeed`'s canonicalisation.
             if (bI === 0 && cI === 0 && chI === 0 && sI === 0 && fI === 0 && rI === 2) return 'b0';
             const n = (((((bI * _CR + cI) * _CR + chI) * _SR.length + sI) * _FR.length + fI) * _RO.length + rI);
             return _b62e(n, 4) + _b62e((n * 12345) % 916132832, 5);
@@ -148,7 +153,20 @@ def _engine_js() -> str:
                 }};
             }}
             const th = _rebuild({{ ...cfg, darkMode: dark }});
-            return {{ ...th, '__seed': s, '__dark': dark }};
+            // Canonicalise the seed identity: two distinct seeds (`b0`, the
+            // shortcut above, and the n=2 formula seed `caaaoAgaa`) both decode
+            // to the all-default config. Re-derive the canonical seed from the
+            // decoded config so state/URL always hold the canonical form,
+            // eliminating no-op `pushState` churn (see _encode's special case).
+            // Falls back to the raw input for any other (incl. legacy) seed.
+            let canonicalSeed = s;
+            if (s && s !== 'b0'
+                && cfg.baseId === _BT[0].id && cfg.colorId === null && cfg.chartId === null
+                && cfg.styleId === _SR[0].id && cfg.fontId === _FR[0].id
+                && cfg.radius === _RO[2][1]) {{
+                canonicalSeed = 'b0';
+            }}
+            return {{ ...th, '__seed': canonicalSeed, '__dark': dark }};
         }}
 
         // ── KEY FUNCTION: apply CSS vars to preview container only ──────────
@@ -176,19 +194,22 @@ SHUFFLE_JS = f"""
     const dark = refs['_client_state_darkmode'] || false;
     const s    = _randomSeed();
 
-    const el = document.getElementById('seed-input-el');
-    if (el) el.value = s;
-
     const config = _fromSeed(s, dark);
+    // Use the canonical seed (`config['__seed']`) so a shuffle that lands on the
+    // all-default config exposes `b0`, never the unstable `caaaoAgaa` partner.
+    const cs = config['__seed'];
+
+    const el = document.getElementById('seed-input-el');
+    if (el) el.value = cs;
 
     // Apply CSS vars directly — no WebSocket needed
     _applyToRoot(config);
 
     // Sync remaining refs
-    if (refs['_client_state_setSeed'])  refs['_client_state_setSeed'](s);
+    if (refs['_client_state_setSeed'])  refs['_client_state_setSeed'](cs);
 
     {_sync_sidebar_js()}
-    if (window.__updatePresetURL) window.__updatePresetURL(s);
+    if (window.__updatePresetURL) window.__updatePresetURL(cs);
 }})();
 """
 
@@ -202,13 +223,16 @@ APPLY_SEED_JS = f"""
     if (!s) return;
 
     const config = _fromSeed(s, dark);
+    // Use the canonical seed so a pasted `caaaoAgaa` collapses to `b0`
+    // immediately instead of churning the URL on the next no-op action.
+    const cs = config['__seed'];
 
     _applyToRoot(config);
 
-    if (refs['_client_state_setSeed']) refs['_client_state_setSeed'](s);
+    if (refs['_client_state_setSeed']) refs['_client_state_setSeed'](cs);
 
     {_sync_sidebar_js()}
-    if (window.__updatePresetURL) window.__updatePresetURL(s);
+    if (window.__updatePresetURL) window.__updatePresetURL(cs);
 }})();
 """
 
@@ -239,19 +263,23 @@ INITIAL_LOAD_JS = f"""
 
     // 4. Build config and apply CSS vars immediately — before WebSocket matters
     const config = _fromSeed(s, isDark);
+    // Canonicalise intake: a pre-existing `?preset=caaaoAgaa` bookmark is
+    // silently normalised to `b0` here via replaceState (no new history entry),
+    // so a subsequent no-op sidebar action's dedup guard short-circuits.
+    const cs = config['__seed'];
 
     function apply() {{
         // Apply CSS vars to :root — instant, no WebSocket needed
         _applyToRoot(config);
 
         // Sync remaining reactive refs
-        if (refs['_client_state_setSeed']) refs['_client_state_setSeed'](s);
+        if (refs['_client_state_setSeed']) refs['_client_state_setSeed'](cs);
 
         if (window.__syncSidebar) window.__syncSidebar(config);
-        if (window.__updatePresetURL) window.__updatePresetURL(s, false);
+        if (window.__updatePresetURL) window.__updatePresetURL(cs, false);
 
         const el = document.getElementById('seed-input-el');
-        if (el) el.value = s;
+        if (el) el.value = cs;
     }}
 
     apply();
