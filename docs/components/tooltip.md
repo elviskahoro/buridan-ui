@@ -20,6 +20,8 @@ Copy the following code into your app directory.
 
 `tooltip.trigger()` forwards its default centering classes to custom `render_` targets. Pass `unstyled=True` to omit those defaults while keeping any caller-supplied `class_name`.
 
+Tooltip open/close timing is not configurable on `tooltip.root()`: in `@base-ui/react` the delays live on `Tooltip.Provider` (group-wide) and `Tooltip.Trigger` (per-trigger), not on `Tooltip.Root`. Configure it group-wide via `tooltip.provider(delay=..., close_delay=...)`, or per-trigger via `tooltip.trigger(delay=..., close_delay=...)`.
+
 ## Anatomy 
 Use the following composition to build a `Tooltip` component.
 --ANATOMY(tooltip)--
