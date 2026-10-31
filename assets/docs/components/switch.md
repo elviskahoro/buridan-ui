@@ -10,7 +10,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component switch
+buridan add switch
 ```
 
 ### Manual Installation

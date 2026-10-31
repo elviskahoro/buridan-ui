@@ -139,7 +139,11 @@ class DocParser:
                         except Exception as e:
                             return render_parse_error(f"Error reading {f_path}: {e}")
 
-                cli_cmd = f"uv run buridan add component {comp_name}"
+                # `buridan add` takes component names as bare positional args;
+                # qualifying the name with a `component` sub-keyword would be
+                # looked up as a component name itself and trigger a spurious
+                # registry warning, so render only the bare component name.
+                cli_cmd = f"uv run buridan add {comp_name}"
                 return cli_and_manual_installation_wrapper(cli_cmd, files_data)
 
             if cmd == "usage":

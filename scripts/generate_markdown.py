@@ -286,9 +286,7 @@ def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
     if "code" in cmd:
         return _code_block(cmd, name, obj, option or "python")
     if cmd == "install":
-        cli_cmd = (
-            str(option) if has_option else f"buridan add component {str(name).lower()}"
-        )
+        cli_cmd = str(option) if has_option else f"buridan add {str(name).lower()}"
         return _install_block(name, obj, cli_cmd)
     if cmd == "usage":
         return _usage_block(name, obj, preferred_name)

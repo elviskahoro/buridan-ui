@@ -9,7 +9,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component select
+buridan add select
 ```
 
 ### Manual Installation

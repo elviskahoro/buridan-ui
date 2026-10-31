@@ -17,7 +17,7 @@ Copy the following code into your app directory.
 ### CLI
 
 ```bash
-buridan add component message
+buridan add message
 ```
 
 ### Manual Installation
