@@ -378,6 +378,15 @@ merge:
   #
   # Entire Gates stays excluded entirely (agent session tracking; not posted on
   # every PR).
+  #
+  # Graph mode also gates admission on impacted targets: the queue holds every
+  # PR at Not Ready until targets have been uploaded for its head sha.
+  # .github/workflows/trunk-impacted-targets.yml does that on every PR to main
+  # (PUT /v2/impacted-targets, authorized by the TRUNK_API_TOKEN repo secret).
+  # The job stays out of this list on purpose -- the queue waits on the upload
+  # itself, not the check -- but a red Upload Impacted Targets job means no
+  # upload landed and queued PRs stall at Not Ready even with every required
+  # status green.
   required_statuses:
     - Trunk Check
     - Tests
