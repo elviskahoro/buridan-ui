@@ -118,5 +118,10 @@ def bar_chart_03():
             rx.el.div(_chart(show_y_axis=True), class_name="hidden sm:block"),
         ),
         size="sm",
-        class_name=chart_tooltip_content([2, 3], "square") + " w-full p-4 !ring-0",
+        class_name=chart_tooltip_content(
+            [2, 3],
+            "square",
+            series_names=["Running", "Cycling"],
+        )
+        + " w-full p-4 !ring-0",
     )

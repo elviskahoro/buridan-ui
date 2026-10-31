@@ -112,5 +112,10 @@ def bar_chart_01():
             ),
         ),
         size="sm",
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-4 !ring-0",
+        class_name=chart_tooltip_content(
+            [1, 2],
+            "square",
+            series_names=["This Year", "Last Year"],
+        )
+        + " w-full p-4 !ring-0",
     )

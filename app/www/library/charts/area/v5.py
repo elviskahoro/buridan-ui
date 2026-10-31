@@ -127,5 +127,10 @@ def areachart_v5():
             ),
             class_name="flex flex-col items-center",
         ),
-        class_name=chart_tooltip_content([1, 2], "square") + " w-full p-0",
+        class_name=chart_tooltip_content(
+            [1, 2],
+            "square",
+            series_names=["desktop", "mobile"],
+        )
+        + " w-full p-0",
     )

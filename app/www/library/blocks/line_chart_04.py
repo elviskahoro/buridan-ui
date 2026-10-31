@@ -101,5 +101,10 @@ def line_chart_04():
             class_name="relative",
         ),
         size="sm",
-        class_name=chart_tooltip_content([1, 2], "line") + " w-full p-4 !ring-0",
+        class_name=chart_tooltip_content(
+            [1, 2],
+            "line",
+            series_names=["SolarPanels", "Inverters"],
+        )
+        + " w-full p-4 !ring-0",
     )
