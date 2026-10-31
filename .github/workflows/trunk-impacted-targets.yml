@@ -3,7 +3,13 @@
 # The queue runs in graph (Parallel) mode, where Trunk holds every PR at "Not
 # Ready" until impacted targets have been uploaded for its head commit. This repo
 # is a single deployable unit, so every PR declares that it impacts everything
-# (--all): the queue then serializes entries instead of testing them in parallel.
+# (impactsAllTargets): the queue then serializes entries instead of testing them
+# in parallel.
+#
+# Authenticates with the TRUNK_API_TOKEN repo secret (a Trunk API key). The
+# trunk-io/login OIDC action returned HTTP 500 for this repo, so the REST
+# endpoint is called directly:
+# https://docs.trunk.io/merge-queue/reference/api-v2/impactedtargets/upload-a-pull-requests-impacted-targets
 #
 # Do NOT add path filters here: a PR that skips this workflow never uploads, and
 # the queue would hold it forever. Re-uploads on every push via `synchronize`.
@@ -16,20 +22,29 @@ on:
 
 permissions:
   contents: read
-  id-token: write # OIDC login to Trunk for same-repo pull requests
 
 jobs:
   upload-impacted-targets:
     name: Upload Impacted Targets
     runs-on: ubuntu-latest
     steps:
-      - name: Check out
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - name: Log in to Trunk
-        uses: trunk-io/login@dd43b5c040326ee204a3d1f18f5522a717466ce2 # v1
-
       - name: Upload impacted targets
         env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: trunk mergequeue upload-impacted-targets --all
+          TRUNK_API_TOKEN: ${{ secrets.TRUNK_API_TOKEN }}
+          # Trunk's internal ID for elviskahoro/buridan-ui (not the queue ID).
+          TRUNK_REPOSITORY_ID: c064fac2-557f-48fd-9979-1f94fa82cb55
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
+        run: |
+          if [ -z "${TRUNK_API_TOKEN}" ]; then
+            echo "::error::TRUNK_API_TOKEN is not available to this run"
+            exit 1
+          fi
+          status=$(curl -sS -o response.json -w '%{http_code}' \
+            -X PUT https://api.trunk.io/v2/impacted-targets \
+            -H "Authorization: Bearer ${TRUNK_API_TOKEN}" \
+            -H 'Content-Type: application/json' \
+            -d "{\"repositoryId\":\"${TRUNK_REPOSITORY_ID}\",\"targetBranch\":\"${TARGET_BRANCH}\",\"sha\":\"${HEAD_SHA}\",\"number\":${PR_NUMBER},\"impactsAllTargets\":true}")
+          cat response.json
+          [ "${status}" = "202" ] || { echo "::error::Trunk returned HTTP ${status}"; exit 1; }
