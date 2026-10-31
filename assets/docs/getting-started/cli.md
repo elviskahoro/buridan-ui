@@ -30,7 +30,7 @@ buridan init
 
 ## apply
 
-Apply a theme preset to your project. Generates `:root` and `.dark` CSS variable blocks in `assets/globals.css` based on the preset ID from the theme builder.
+Apply a theme preset to your project. Generates `:root` and `.dark` CSS variable blocks, plus a derived `@theme inline` radius scale block, in `assets/globals.css` based on the preset ID from the theme builder.
 
 ```bash
 buridan apply --preset <ID>

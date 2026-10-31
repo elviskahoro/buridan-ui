@@ -30,6 +30,20 @@ UTILITY_SENTINELS = {
     "scrollbar": "/* ── Scrollbar utilities",
 }
 
+# Derived radius scale emitted alongside the `:root` / `.dark` blocks so that
+# the CLI-injected Tailwind `borderRadius` mapping (`var(--radius-sm)` …
+# `var(--radius-4xl)`) resolves in generated projects. Mirrors the
+# `@theme inline` block in this repo's own `assets/globals.css`.
+RADIUS_SCALE_BLOCK = """@theme inline {
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}"""
+
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
@@ -155,7 +169,11 @@ def generate_theme_css(seed: str) -> str:
     def build(dark):
         return format_css(rebuild_theme({**decode_seed(seed), "darkMode": dark}))
 
-    return f":root {{\n{build(False)}\n}}\n\n.dark {{\n{build(True)}\n}}"
+    return (
+        f":root {{\n{build(False)}\n}}\n\n"
+        f".dark {{\n{build(True)}\n}}\n\n"
+        f"{RADIUS_SCALE_BLOCK}"
+    )
 
 
 def get_source_root() -> Path | None:
@@ -397,6 +415,36 @@ def cmd_init() -> None:
     print("     buridan add button")
 
 
+def _consume_radius_scale_block(lines: list[str], end_line: int) -> int:
+    """If a `@theme inline { ... }` block defining `--radius-sm` immediately
+    follows `end_line` (skipping blank lines), return the index of its closing
+    brace; otherwise return `end_line` unchanged.
+
+    Only the radius scale block emitted by ``generate_theme_css`` is consumed
+    — other ``@theme inline`` blocks (e.g. shimmer/scrollbar keyframes) do not
+    define ``--radius-sm`` and are left untouched.
+    """
+    i = end_line + 1
+    while i < len(lines) and lines[i].strip() == "":
+        i += 1
+    if i >= len(lines) or not lines[i].strip().startswith("@theme inline {"):
+        return end_line
+
+    brace_depth = 0
+    started = False
+    seen_radius_sm = False
+    for j in range(i, len(lines)):
+        line = lines[j]
+        if "--radius-sm" in line:
+            seen_radius_sm = True
+        brace_depth += line.count("{") - line.count("}")
+        if brace_depth > 0:
+            started = True
+        if started and brace_depth == 0:
+            return j if seen_radius_sm else end_line
+    return end_line
+
+
 def cmd_apply(preset: str) -> None:
     """Apply a theme preset to the project.
 
@@ -438,7 +486,7 @@ def cmd_apply(preset: str) -> None:
                 None,
             )
             if start_line is not None:
-                # find end of .dark block
+                # find end of :root block
                 brace_depth = 0
                 end_line = start_line
                 in_block = False
@@ -466,6 +514,11 @@ def cmd_apply(preset: str) -> None:
                                         break
                                 break
                         break
+
+                # also consume a trailing `@theme inline` radius scale block
+                # previously emitted by generate_theme_css(), so re-applying
+                # a preset does not leave a stale/duplicate radius block.
+                end_line = _consume_radius_scale_block(lines, end_line)
 
                 after = "\n".join(lines[end_line + 1 :]).lstrip("\n")
                 new_css = theme_css + ("\n\n" + after if after else "")
