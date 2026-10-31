@@ -1,0 +1,35 @@
+# Uploads impacted targets for the Trunk merge queue.
+#
+# The queue runs in graph (Parallel) mode, where Trunk holds every PR at "Not
+# Ready" until impacted targets have been uploaded for its head commit. This repo
+# is a single deployable unit, so every PR declares that it impacts everything
+# (--all): the queue then serializes entries instead of testing them in parallel.
+#
+# Do NOT add path filters here: a PR that skips this workflow never uploads, and
+# the queue would hold it forever. Re-uploads on every push via `synchronize`.
+name: Trunk Impacted Targets
+
+on:
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+  id-token: write # OIDC login to Trunk for same-repo pull requests
+
+jobs:
+  upload-impacted-targets:
+    name: Upload Impacted Targets
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Log in to Trunk
+        uses: trunk-io/login@dd43b5c040326ee204a3d1f18f5522a717466ce2 # v1
+
+      - name: Upload impacted targets
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: trunk mergequeue upload-impacted-targets --all
