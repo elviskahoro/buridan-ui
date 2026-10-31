@@ -180,22 +180,20 @@ def _accordion_icon() -> rx.Component:
 def _accordion_item(item: dict) -> rx.Component:
     """Build a single accordion item from a dict with trigger/content/value keys."""
     return accordion.item(
-        accordion.header(
-            accordion.trigger(
-                render_=rx.el.button(
-                    rx.el.span(
-                        item["trigger"],
-                        class_name=(
-                            "text-sm font-medium text-left whitespace-normal "
-                            "break-words leading-snug"
-                        ),
-                    ),
-                    _accordion_icon(),
+        accordion.trigger(
+            render_=rx.el.button(
+                rx.el.span(
+                    item["trigger"],
                     class_name=(
-                        "w-full flex items-start justify-between gap-4 "
-                        "group py-3 bg-transparent hover:bg-transparent "
-                        "cursor-pointer"
+                        "text-sm font-medium text-left whitespace-normal "
+                        "break-words leading-snug"
                     ),
+                ),
+                _accordion_icon(),
+                class_name=(
+                    "w-full flex items-start justify-between gap-4 "
+                    "group py-3 bg-transparent hover:bg-transparent "
+                    "cursor-pointer"
                 ),
             ),
         ),
