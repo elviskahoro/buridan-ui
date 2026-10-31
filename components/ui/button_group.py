@@ -2,9 +2,10 @@ from typing import Literal
 
 from reflex.components.component import ComponentNamespace
 from reflex.vars.base import Var
+from reflex_components_core.core.cond import cond
 from reflex_components_core.el import Div
 
-from .core import BaseUIComponent, CoreComponent
+from .core import BaseUIComponent, CoreComponent, cn
 from .separator import SeparatorComponent
 
 
@@ -24,12 +25,12 @@ class ButtonGroupRoot(Div, CoreComponent):
         props["data-slot"] = "button-group"
         orientation = props.get("orientation", "horizontal")
 
-        variant_class = (
-            ClassNames.HORIZONTAL
-            if orientation == "horizontal"
-            else ClassNames.VERTICAL
+        variant_class = cond(
+            orientation == "horizontal",
+            ClassNames.HORIZONTAL,
+            ClassNames.VERTICAL,
         )
-        combined_class = f"{ClassNames.BASE_GROUP} {variant_class}"
+        combined_class = cn(ClassNames.BASE_GROUP, variant_class)
 
         cls.set_class_name(combined_class, props)
 
