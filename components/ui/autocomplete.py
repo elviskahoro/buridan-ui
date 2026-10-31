@@ -220,7 +220,7 @@ function BuridanAutocompleteRoot({
     }
 
     function handleKeyDown(e) {
-        if (!open) return;
+        if (!open || closing) return;
 
         if (e.key === "ArrowDown") {
             e.preventDefault();
