@@ -43,6 +43,15 @@ every PR. Re-verify after any pipeline rename:
 path-filtered or `workflow_run`-triggered workflows there: they do not report
 on every PR and would deadlock the queue.
 
+Graph mode adds one more admission gate beyond `merge.required_statuses`: the
+queue holds every PR at Not Ready until impacted targets have been uploaded
+for its head sha. `.github/workflows/trunk-impacted-targets.yml` uploads them
+on every PR to main (`PUT /v2/impacted-targets` authorized by the
+`TRUNK_API_TOKEN` repo secret). The job stays out of
+`merge.required_statuses` on purpose — the queue waits on the upload itself,
+not the check — but a red `Upload Impacted Targets` job means nothing was
+uploaded, and PRs stall at Not Ready even with every required status green.
+
 `pullfrog-approval` (Pullfrog's AI review verdict) is required on the GitHub
 side (ruleset `main - PR requirements` plus classic branch protection on
 `main`, pinned to the Pullfrog app) and in `merge.required_statuses` — the
