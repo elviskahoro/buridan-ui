@@ -14,7 +14,6 @@ LiteralMenuOrientation = Literal["vertical", "horizontal"]
 LiteralSide = Literal["top", "right", "bottom", "left"]
 LiteralAlign = Literal["start", "center", "end"]
 LiteralPositionMethod = Literal["absolute", "fixed"]
-LiteralCollisionAvoidance = Literal["flip", "shift", "auto"]
 
 
 class ClassNames:
@@ -175,7 +174,7 @@ class MenuPortal(MenuBaseComponent):
 class MenuPositioner(MenuBaseComponent):
     tag = "Menu.Positioner"
 
-    collision_avoidance: Var[bool | LiteralCollisionAvoidance]
+    collision_avoidance: Var[str | dict[str, str] | bool]
 
     align: Var[LiteralAlign]
 
