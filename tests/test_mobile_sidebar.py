@@ -1,7 +1,7 @@
 # noqa: INP001
 """Regression coverage for the mobile sidebar dropdown's per-route link dispatch.
 
-The mobile ``mobile_menu`` (rendered for ``< md`` viewports) previously routed
+The mobile ``mobile_menu`` (rendered for ``< lg`` viewports) previously routed
 every ``SIDEBAR_SECTIONS`` entry through a single ``rx.el.a(..., to=f"/{route['url']}")``
 branch. For the external ``pypi 0.1.19`` entry this produced
 ``to="/https://pypi.org/project/buridan-create/"`` with no ``reload_document``,
