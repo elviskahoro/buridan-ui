@@ -1,0 +1,69 @@
+can you go through and figure out why the trunk merge queue stopped? Maybe these PRs need to be queued or we're being blocked by one that needs submission: https://github.com/elviskahoro/buridan-ui/pulls
+
+---
+
+make sure every PR is rebased on main and then retrigger the ones that say not ready!
+
+---
+
+investigate the ones that are failing the resubmission
+
+---
+
+approved!
+
+---
+
+keep going through the PRs and unblocking the ones that aren't working!
+
+---
+
+fix the queue!
+restart pullfrog for 113.
+101-108 we can ignore ntire gates
+115 fix the unresolved feedback
+179, 225, 226, actually fix the findings and push to the pr.
+
+---
+
+tell me if they are queued
+
+---
+
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+❯ maybe we need a trunk api key in the repo secrets?
+
+---
+
+<task-notification>
+<task-id>b929hilcb</task-id>
+<summary>Monitor event: "Wait for rerun of impacted-targets workflow"</summary>
+<event>Upload Impacted Targets	Check out	2026-10-31T17:31:51.2143331Z Removing HTTP extra header
+Upload Impacted Targets	Log in to Trunk	2026-10-31T17:31:53.0203622Z Error: the Trunk API returned HTTP 500: {"error":"internal error"}
+Upload Impacted Targets	Log in to Trunk	2026-10-31T17:31:53.0219787Z ##[error]Process completed with exit code 1.
+Upload Impacted Targets	Post Check out	2026-10-31T17:31:53.1435236Z Removing HTTP extra header</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b929hilcb</task-id>
+<tool-use-id>toolu_01384goeLfpCxxVVe4MkJ4Vy</tool-use-id>
+<output-file>/private/tmp/claude-501/-Users-elvis-Documents-hq-repos-buridan-ui/add1dbcd-b367-4bd7-9a6e-aaf172807c1a/tasks/b929hilcb.output</output-file>
+<status>completed</status>
+<summary>Monitor "Wait for rerun of impacted-targets workflow" stream ended</summary>
+<event>failure</event>
+If this event is something the user would act on now, send a PushNotification. Routine or benign output doesn't need one.
+</task-notification>
+
+---
+
+just do it:
+
+  One more thing I hit: a hook blocked a git push while the shell was in the main checkout, so I did the pushes from worktrees. I haven't
+  used the ALLOW_PROTECTED_PUSH override and won't without your say-so.
+
+---
+
+added eto .env.local the trunk api key we need for the repo
