@@ -106,7 +106,7 @@ class ContextMenuPositioner(ContextMenuBaseComponent):
     collision_padding: Var[int]
     collision_boundary: Var[str]
     sticky: Var[bool]
-    track_anchor: Var[bool]
+    disable_anchor_tracking: Var[bool]
     position_method: Var[LiteralPositionMethod]
     render_: Var[Component]
 
