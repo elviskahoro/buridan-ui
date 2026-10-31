@@ -467,9 +467,10 @@ def cmd_apply(preset: str) -> None:
                                 break
                         break
 
+                before = "\n".join(lines[:start_line]).rstrip("\n")
                 after = "\n".join(lines[end_line + 1 :]).lstrip("\n")
-                new_css = theme_css + ("\n\n" + after if after else "")
-                css_path.write_text(new_css)
+                parts = [p for p in (before, theme_css, after) if p]
+                css_path.write_text("\n\n".join(parts) + "\n")
             else:
                 css_path.write_text(theme_css + "\n\n" + current)
         else:
