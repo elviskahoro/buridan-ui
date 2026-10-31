@@ -28,7 +28,7 @@ from components.ui.table import TableRoot, table  # noqa: E402
 
 
 def test_card_twenty_two_applies_striping_class_to_body_rows() -> None:
-    assert "even:bg-secondary/30" in str(card_twenty_two().render())  # pyrefly: ignore[not-callable, missing-attribute]
+    assert "even:bg-secondary/30" in str(card_twenty_two().render())
 
 
 def test_high_level_table_striped_true_adds_striping() -> None:
