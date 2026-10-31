@@ -73,6 +73,7 @@ def piechart_v2():
         ),
         card.content(
             rx.recharts.pie_chart(
+                chart_tooltip(label="hide"),
                 rx.recharts.pie(
                     rx.foreach(
                         range(5),
