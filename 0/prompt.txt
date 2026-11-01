@@ -1,0 +1,21 @@
+is the merge queu stuck
+
+---
+
+check with trunk merge
+
+---
+
+let's fix it so that it works. give me the links to those PRs that are stuck!
+
+---
+
+what model is it showing? i think the model might be wrong?
+
+---
+
+i added a fireworks key to .env.local try calling fireworks and seeing if that model name works
+
+---
+
+okay let's change them all to use flash. i like flash more anyway.
