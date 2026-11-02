@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6F1SN0DP39H78X9MSV7FGCJ",
+  "session_id": "68cfe885-747a-4447-adae-4bca52169618",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-02T21:14:14.643715268Z",
+  "branch": "conductor/buridan-ui-issue-233",
+  "checkpoints_count": 2,
+  "files_touched": [
+    ".trunk/configs/.markdownlint.yaml",
+    ".trunk/configs/ruff.toml",
+    "pyrefly.toml",
+    "reflex.lock/bun.lock",
+    "reflex.lock/osv-scanner.toml",
+    "reflex.lock/package.json",
+    "scripts/generate_search_index.py",
+    "tests/test_generated_assets.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "ea3686aebb63",
+  "checkpoint_transcript_start": 352,
+  "transcript_lines_at_start": 352,
+  "compact_transcript_start": 42,
+  "token_usage": {
+    "input_tokens": 18,
+    "cache_creation_tokens": 17786,
+    "cache_read_tokens": 738982,
+    "output_tokens": 3478,
+    "api_call_count": 9
+  },
+  "redaction": {
+    "replacements": 3,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 3,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 2
+  }
+}
