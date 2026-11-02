@@ -1,0 +1,21 @@
+create follow up issues for what's remaining!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/4ZOpLj/Trunk_Check_125557190742.log (52.8 KB)
+- .context/attachments/2dwZDX/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/4ZOpLj/Trunk_Check_125557190742.log .context/attachments/2dwZDX/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
