@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6EZBDJJXX9SHHB1SE8QPPYE",
+  "session_id": "ac33a637-e02a-4439-becd-8d19b2993566",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-02T20:31:31.07954383Z",
+  "branch": "conductor/buridan-ui-issue-129",
+  "checkpoints_count": 2,
+  "files_touched": [
+    "assets/docs/charts/area-chart.md",
+    "assets/docs/components/heatmap.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "3dce7ec0bb7b",
+  "checkpoint_transcript_start": 501,
+  "transcript_lines_at_start": 501,
+  "compact_transcript_start": 63,
+  "token_usage": {
+    "input_tokens": 14,
+    "cache_creation_tokens": 5097,
+    "cache_read_tokens": 687907,
+    "output_tokens": 1841,
+    "api_call_count": 7
+  },
+  "redaction": {
+    "replacements": 8,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 8,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 5
+  }
+}
