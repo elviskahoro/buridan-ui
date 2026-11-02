@@ -1,0 +1,54 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6FB5H3YD77529CYMN7YCYZ5",
+  "strategy": "manual-commit",
+  "branch": "conductor/b-gh241",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".trunk/configs/ruff.toml",
+    "components/ui/attachment.py",
+    "components/ui/breadcrumb.py",
+    "components/ui/bubble.py",
+    "components/ui/core.py",
+    "components/ui/field.py",
+    "components/ui/marker.py",
+    "components/ui/metric.py",
+    "components/ui/scroll_area.py",
+    "components/ui/spinner.py",
+    "components/ui/table.py",
+    "components/ui/toggle.py",
+    "components/ui/toggle_group.py",
+    "tests/test_metric.py",
+    "tests/test_table_striping.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 352,
+    "cache_creation_tokens": 173735,
+    "cache_read_tokens": 22487560,
+    "output_tokens": 68756,
+    "api_call_count": 176
+  },
+  "redaction": {
+    "replacements": 1,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 1,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
