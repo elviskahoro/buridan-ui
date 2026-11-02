@@ -1,0 +1,61 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6EHG05KJA28Q14W8NDDG8BC",
+  "strategy": "manual-commit",
+  "branch": "conductor/buridan-ui-issue-210",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "assets/docs/components/accordion.md",
+    "assets/docs/components/attachment.md",
+    "assets/docs/components/avatar.md",
+    "assets/docs/components/bubble.md",
+    "assets/docs/components/button-group.md",
+    "assets/docs/components/card.md",
+    "assets/docs/components/checkbox.md",
+    "assets/docs/components/collapsible.md",
+    "assets/docs/components/context-menu.md",
+    "assets/docs/components/dialog.md",
+    "assets/docs/components/field.md",
+    "assets/docs/components/input-group.md",
+    "assets/docs/components/kbd.md",
+    "assets/docs/components/marker.md",
+    "assets/docs/components/menu.md",
+    "assets/docs/components/message.md",
+    "assets/docs/components/popover.md",
+    "assets/docs/components/select.md",
+    "assets/docs/components/slider.md",
+    "assets/docs/components/switch.md",
+    "assets/docs/components/tooltip.md",
+    "scripts/generate_markdown.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 30,
+    "cache_creation_tokens": 60009,
+    "cache_read_tokens": 550492,
+    "output_tokens": 3991,
+    "api_call_count": 15
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 2,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
