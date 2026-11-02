@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6EHFD98FRRG83NHV4J7Q4AE",
+  "session_id": "6ea37126-fab9-43a6-9902-cdd2c54fdc0f",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-02T16:29:00.465261404Z",
+  "branch": "conductor/buridan-ui-issue-204",
+  "checkpoints_count": 1,
+  "save_step_count": 1,
+  "files_touched": [
+    ".trunk/configs/ruff.toml",
+    "cli/main.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "1d39adf1db5b",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 26,
+    "cache_creation_tokens": 56076,
+    "cache_read_tokens": 457664,
+    "output_tokens": 3388,
+    "api_call_count": 13
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 2,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 1
+  }
+}
