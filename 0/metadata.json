@@ -1,0 +1,38 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6F4EB5T5EJP011S4YE4EEK2",
+  "session_id": "a9f21a99-4407-4581-b8d2-de14dfd98343",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-02T22:00:30.315300424Z",
+  "branch": "conductor/w1a-context-menu",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "components/ui/context_menu.py",
+    "tests/test_context_menu.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5",
+  "turn_id": "51b918f41cd0",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 92,
+    "cache_creation_tokens": 63452,
+    "cache_read_tokens": 2959020,
+    "output_tokens": 11007,
+    "api_call_count": 46
+  },
+  "redaction": {
+    "replacements": 1,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 1,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
