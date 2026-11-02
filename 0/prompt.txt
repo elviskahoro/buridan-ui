@@ -1,0 +1,52 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/MuwrgO/PR instructions.md (65.1 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/MuwrgO/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+what shoud we do about this:
+I didn’t try to clear everything. The remaining ~648 findings need per-site code changes or another policy call: ANN201 in app/www, pyright reportArgumentType, pyrefly, and FBT. I tracked them in https://github.com/elviskahoro/buridan-ui/issues/234. #129 is only partly resolved, so I didn’t use a closing keyword.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+add comments to the github issue you mentioned. I want strict typing as much as possible!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+add comments to the github issue you mentioned. I want strict typing as much as possible!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/aGU5Ds/PR instructions.md (65.1 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/aGU5Ds/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
