@@ -1,0 +1,20 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/fYJPvy/PR instructions.md (unknown size)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/fYJPvy/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+fix failing checks. if pullfrog approval is waiting for approval just restart pullfrog!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
