@@ -1,0 +1,43 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/rEq3bI/PR instructions.md (65.1 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/rEq3bI/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/3QFaS6/PR instructions.md (65.1 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/3QFaS6/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/Lyzpqd/Trunk_Check_125555316216.log (51.2 KB)
+- .context/attachments/SCO8d0/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/Lyzpqd/Trunk_Check_125555316216.log .context/attachments/SCO8d0/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
