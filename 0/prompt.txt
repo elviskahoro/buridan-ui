@@ -1,0 +1,13 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/0oMZ3A/Trunk_Check_125555797479.log (53.5 KB)
+- .context/attachments/RrjkkQ/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/0oMZ3A/Trunk_Check_125555797479.log .context/attachments/RrjkkQ/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
