@@ -64,15 +64,15 @@
       "transcript": "/0/full.jsonl",
       "compact_transcript": "/0/transcript.jsonl",
       "content_hash": "/0/content_hash.txt",
-      "prompt": "/0/prompt.txt"
+      "prompt": ""
     }
   ],
   "token_usage": {
-    "input_tokens": 54,
-    "cache_creation_tokens": 135358,
-    "cache_read_tokens": 1420255,
-    "output_tokens": 10147,
-    "api_call_count": 27
+    "input_tokens": 2,
+    "cache_creation_tokens": 1762,
+    "cache_read_tokens": 94984,
+    "output_tokens": 527,
+    "api_call_count": 1
   },
   "redaction": {
     "replacements": 3,

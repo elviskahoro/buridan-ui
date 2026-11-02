@@ -3,10 +3,9 @@
   "checkpoint_id": "01M6EWBRF2HDCFV3KVQXDJVVXY",
   "session_id": "ad9d8365-e4d3-44a0-b987-1c4bfaeb6fe1",
   "strategy": "manual-commit",
-  "created_at": "2026-11-02T19:39:15.051307071Z",
+  "created_at": "2026-11-02T19:40:34.505413683Z",
   "branch": "conductor/buridan-ui-issue-133-v2",
   "checkpoints_count": 3,
-  "save_step_count": 3,
   "files_touched": [
     "assets/docs/components/accordion.md",
     "assets/docs/components/avatar.md",
@@ -64,13 +63,15 @@
   "agent": "Claude Code",
   "model": "claude-sonnet-5-5",
   "turn_id": "3df2d2c945b2",
-  "compact_transcript_start": 0,
+  "checkpoint_transcript_start": 255,
+  "transcript_lines_at_start": 255,
+  "compact_transcript_start": 32,
   "token_usage": {
-    "input_tokens": 54,
-    "cache_creation_tokens": 135358,
-    "cache_read_tokens": 1420255,
-    "output_tokens": 10147,
-    "api_call_count": 27
+    "input_tokens": 2,
+    "cache_creation_tokens": 1762,
+    "cache_read_tokens": 94984,
+    "output_tokens": 527,
+    "api_call_count": 1
   },
   "redaction": {
     "replacements": 3,
