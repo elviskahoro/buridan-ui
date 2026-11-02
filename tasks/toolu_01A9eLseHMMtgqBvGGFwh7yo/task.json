@@ -1,0 +1,15 @@
+{
+  "tool_use_id": "toolu_01A9eLseHMMtgqBvGGFwh7yo",
+  "agent_id": "af0893593a415d5a8",
+  "subagent_type": "Explore",
+  "task_description": "Explore CI/CD config",
+  "token_usage": {
+    "input_tokens": 16,
+    "cache_creation_tokens": 91444,
+    "cache_read_tokens": 349448,
+    "output_tokens": 26684,
+    "api_call_count": 8
+  },
+  "started_at": "2026-11-02T21:17:21.772657299Z",
+  "completed_at": "2026-11-02T21:20:46.074709996Z"
+}
