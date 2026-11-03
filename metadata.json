@@ -1,0 +1,46 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6FCKP2G5Z0A3BFGRVSRR9B5",
+  "strategy": "manual-commit",
+  "branch": "conductor/b-gh253",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "app/templates/options.py",
+    "app/www/library/charts/chart_tooltip.py",
+    "components/charts/chart_tooltip.py",
+    "components/ui/table.py",
+    "scripts/generate_search_index.py",
+    "scripts/linear_cli.py",
+    "tests/test_keyword_only_booleans.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": ""
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 2,
+    "cache_creation_tokens": 608,
+    "cache_read_tokens": 107586,
+    "output_tokens": 3645,
+    "api_call_count": 1
+  },
+  "redaction": {
+    "replacements": 4,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 3,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 1,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
