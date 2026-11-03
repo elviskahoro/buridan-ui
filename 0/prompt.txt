@@ -1,0 +1,39 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/MWXS6m/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/MWXS6m/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/cO0xhH/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/cO0xhH/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+### Low finding
+
+**Location:** `components/charts/chart_tooltip.py:23`
+
+Making `is_animation_active` (and subsequent params) keyword-only in the exported `chart_tooltip`, and `striped` in `high_level_table`, is a breaking signature change for downstream consumers who pass them positionally; they will now get a TypeError. In-repo callers are fine, but consider a changelog/release note or a deprecation shim for these public library components.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
