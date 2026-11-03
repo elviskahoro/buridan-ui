@@ -1,0 +1,9 @@
+### Low finding
+
+**Location:** `components/ui/metric.py`
+
+The exported class `HighLevelMetric` (with a `create` classmethod) is replaced by the function `high_level_metric`. Downstream code that imports `HighLevelMetric` or calls `HighLevelMetric.create` will break. The `metric(...)` call path is unchanged. Keep a backward-compatible alias or document the removal.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
