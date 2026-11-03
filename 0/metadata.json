@@ -1,0 +1,40 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6FDX3XBMGCGR3VRRC4THYW1",
+  "session_id": "d51435e6-0494-4fcc-9da8-c77d1efb79b5",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-03T00:45:51.105905132Z",
+  "branch": "conductor/b-gh131",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "CHANGELOG.md",
+    "CLAUDE.md",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5",
+  "turn_id": "825d7748b79b",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 72,
+    "cache_creation_tokens": 55588,
+    "cache_read_tokens": 2168255,
+    "output_tokens": 24498,
+    "api_call_count": 36
+  },
+  "redaction": {
+    "replacements": 1,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 1,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
