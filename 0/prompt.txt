@@ -1,0 +1,17 @@
+fix failing checks
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+### Low finding
+
+**Location:** `components/ui/metric.py:76`
+
+HighLevelMetric was an exported MetricRoot subclass (a Reflex Component). It is now a plain class that only exposes `create`. Downstream code that subclasses it or does an `isinstance(..., HighLevelMetric)` check will silently break. Only `HighLevelMetric.create(...)` keeps working. Consider keeping the subclass relationship, or document the removal as a breaking change.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
