@@ -1,0 +1,7 @@
+<task-notification>
+<task-id>bzanl4yu2</task-id>
+<tool-use-id>toolu_01UgZZ1ZDQcK8TkU5DzMiDZR</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/e722601a-2028-41ab-a829-43caa4575203/tasks/bzanl4yu2.output</output-file>
+<status>completed</status>
+<summary>Background command "Run full-repo pyright to confirm overall reportArgumentType count" completed (exit code 0)</summary>
+</task-notification>
