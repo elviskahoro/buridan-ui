@@ -1,0 +1,37 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6FFEF4TY1K8476NBYVSWTFZ",
+  "session_id": "e0884a1e-214b-4e16-832a-07cec194a648",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-03T01:12:48.293939492Z",
+  "branch": "issue-281-248-md041-v1-work",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".trunk/trunk.yaml"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "cbb178ac11d6",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 8,
+    "cache_creation_tokens": 11459,
+    "cache_read_tokens": 79681,
+    "output_tokens": 1133,
+    "api_call_count": 4
+  },
+  "redaction": {
+    "replacements": 1,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 1,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
