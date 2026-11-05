@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6PJWTA8XAWNMA394Q5VJAKV",
+  "session_id": "097e0f1b-1eeb-4d93-ba53-1ec5acc7f086",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-05T19:27:43.912867162Z",
+  "branch": "w-750/gh295-issue",
+  "checkpoints_count": 10,
+  "save_step_count": 3,
+  "files_touched": [
+    "app/utils/routes.py",
+    "app/www/generator.py",
+    "app/www/parser.py",
+    "app/www/wrapper.py",
+    "cli/main.py",
+    "components/charts/chart_tooltip.py",
+    "configs/pyrightconfig.json",
+    "scripts/generate_markdown.py",
+    "scripts/generate_preview_cards.py",
+    "scripts/generate_search_index.py",
+    "tests/test_bar_chart_03.py",
+    "tests/test_docs_paths.py",
+    "tests/test_input.py",
+    "tests/test_routes.py",
+    "tests/test_style.py",
+    "tests/test_theme_cli_prompt.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "2a54f71d4c10",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 150,
+    "cache_creation_tokens": 117074,
+    "cache_read_tokens": 4069088,
+    "output_tokens": 27482,
+    "api_call_count": 73
+  },
+  "redaction": {
+    "replacements": 8,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 8,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 10
+  }
+}
