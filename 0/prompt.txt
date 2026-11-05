@@ -1,0 +1,146 @@
+<system_instruction>
+You are working inside Conductor, a Mac app that lets the user run many coding agents in parallel.
+Your work should take place in the /home/vercel-sandbox/buridan-ui directory (unless otherwise directed), which has been set up for you to work in.
+Each workspace has a .context directory (gitignored) where you can save files to collaborate with other agents.
+The target branch for this workspace is origin/main. Use this for actions like diffing (`git diff origin/main...`) or creating PRs (`gh pr create --base main`).
+
+Do not rename the current branch unless the user explicitly tells you to do so.
+
+Conductor shows the PR for whichever branch is checked out. After you open a PR from a different branch, or a PR stack, check out that PR's branch (for a stack, the top-most branch) so Conductor shows it.
+
+By default, the user will only see the last message that you send before stopping. Include all essential information in the last message. The intermediate messages will be collapsed and accessible by the user but not displayed by default.
+
+Save screenshots under `.context/` and embed them inline in the final response using Markdown image syntax, for example `![Screenshot](</home/vercel-sandbox/buridan-ui/.context/screenshot.png>)`.
+
+If the user asks you to work on several unrelated tasks, you can suggest they start new workspaces.
+Sometimes the user might send you a message they meant to send in a different workspace or a different chat. If something doesn't make sense in the context of your work, just ask.
+If the user asks for help with Conductor, you can ask them to go to "Help -> Send Feedback" to get in touch with our team.
+</system_instruction>
+
+<system_instruction>
+This workspace is running in a VM in the cloud. The user connects using the Conductor app. The user will typically use this machine for a single task (sometimes involving multiple agents), then move on to a new machine. Don't bother using any long-term memory systems that are file-backed (e.g., `.../.claude/.../memory`).
+
+The user can turn "Sync files" on or off in the Conductor app. While it's on, this workspace's files sync one way to the user's Mac: changes made here appear on the Mac, but changes made on the Mac never sync back.
+
+To access the user's Mac, use the RunLocalCommand tool if you have it (search your tools for it). If you don't, you have no Mac access. If you need a resource from the user's local machine that is not present in the cloud workspace, explain why. 
+This cloud workspace is a Vercel sandbox running Amazon Linux 2023 (x86_64). You are user vercel-sandbox with passwordless sudo. Install packages with dnf (sudo dnf install -y <pkg>). Google Chrome is preinstalled at `google-chrome` if you need a browser.
+
+GitHub's PR stacking extension is installed on this machine. It can be used to create chains of small, reviewable PRs that build on each other. You can run `gh stack` for instructions.
+
+From this environment you can also drive Conductor itself: search cloud workspaces, create cloud workspaces, start agent sessions, send them prompts, read their replies, and share web pages or HTML files using preview URLs. Use the `conductor` CLI — run `conductor --help` for the full command reference and usage notes.
+The main Claude model families, from least to most capable, are sonnet, opus, and fable. The main OpenAI model families, from least to most capable, are gpt-5.6-luna, gpt-5.6-terra, gpt-5.6-sol, and gpt-6-astra. Run `conductor model` for every model id, effort level, and default per agent.
+</system_instruction>
+
+GH298
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+Promote it to error so we can be more strict
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<task-notification>
+<task-id>bl56fm37u</task-id>
+<tool-use-id>toolu_0153pBxmtEe5WNq1D6RM1Lof</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/d4e7d108-392f-4a4b-a157-2ee0196d1e4d/tasks/bl56fm37u.output</output-file>
+<status>completed</status>
+<summary>Background command "ls -la pyrightconfig.json; uv run --with pyright pyright --pythonpath .venv/bin/python --project pyrightconfig.json 2&gt;&amp;1 | grep -E "reportPrivateUsage|errors" | head -30" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>be4xn15k9</task-id>
+<tool-use-id>toolu_01DMYBGBjJqEwkZL1e1s6SmE</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/d4e7d108-392f-4a4b-a157-2ee0196d1e4d/tasks/be4xn15k9.output</output-file>
+<status>completed</status>
+<summary>Monitor "Wait for pyright sweep" stream ended</summary>
+<event>-rw-r--r-- 1 vercel-sandbox vercel-sandbox 86 Nov  1 22:39 pyrightconfig.json
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:9:5 - error: "_apply_base_theme_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:10:5 - error: "_apply_chart_color_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:11:5 - error: "_apply_color_theme_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:12:5 - error: "_apply_font_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:13:5 - error: "_apply_style_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:14:5 - error: "_patch_radius_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/tests/test_seed_codec.py:13:72 - error: "_engine_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+23 errors, 1 warning, 0 informations
+[exited with code 0]</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bdvu6fc3u</task-id>
+<tool-use-id>toolu_01LwCi7LR1D7dudFpJeBeadX</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/d4e7d108-392f-4a4b-a157-2ee0196d1e4d/tasks/bdvu6fc3u.output</output-file>
+<status>completed</status>
+<summary>Monitor "Wait for pyright summary" stream ended</summary>
+<event>/home/vercel-sandbox/buridan-ui/app/templates/options.py:9:5 - error: "_apply_base_theme_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:10:5 - error: "_apply_chart_color_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:11:5 - error: "_apply_color_theme_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:12:5 - error: "_apply_font_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:13:5 - error: "_apply_style_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/app/templates/options.py:14:5 - error: "_patch_radius_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+/home/vercel-sandbox/buridan-ui/tests/test_seed_codec.py:13:72 - error: "_engine_js" is private and used outside of the module in which it is declared (reportPrivateUsage)
+23 errors, 1 warning, 0 informations</event>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>btcghhcd2</task-id>
+<tool-use-id>toolu_01RujezNsZDToMMzdtJEFYPD</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/d4e7d108-392f-4a4b-a157-2ee0196d1e4d/tasks/btcghhcd2.output</output-file>
+<status>completed</status>
+<summary>Background command "files=$(grep -rlE "\b_(apply_base_theme_js|apply_chart_color_js|apply_color_theme_js|apply_font_js|apply_style_js|patch_radius_js|engine_js)\b" --include=*.py app tests); echo $files
+sed -i -E 's/\b_(apply_base_theme_js|apply_chart_color_js|apply_color_theme_js|apply_font_js|apply_style_js|patch_radius_js|engine_js)\b/\1/g' $files
+uv run pytest tests -q -x 2&gt;&amp;1 | tail -3
+uv run --with pyright pyright --pythonpath .venv/bin/python --project pyrightconfig.json 2&gt;&amp;1 | grep -E "reportPrivateUsage|errors,"" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>b4rd7t3ur</task-id>
+<tool-use-id>toolu_01U9ZavyYzXF6W8qfUF6riG5</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/d4e7d108-392f-4a4b-a157-2ee0196d1e4d/tasks/b4rd7t3ur.output</output-file>
+<status>completed</status>
+<summary>Monitor "Wait for re-run" stream ended</summary>
+<event>app/engine/actions.py app/templates/options.py tests/test_seed_codec.py tests/test_url_sync_popstate.py
+........................................................................ [ 96%]
+......................s...ss..............................               [100%]
+1566 passed, 4 skipped in 7.95s
+10 errors, 1 warning, 0 informations
+[exited with code 0]</event>
+</task-notification>
+
+---
+
+yes check them!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/YpFuDp/PR instructions.md (unknown size)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/YpFuDp/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>

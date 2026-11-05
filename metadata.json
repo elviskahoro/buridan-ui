@@ -1,0 +1,49 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6PHFTN2CN18X6SKAR6ZQR9X",
+  "strategy": "manual-commit",
+  "branch": "w-748/gh298-issue",
+  "checkpoints_count": 5,
+  "files_touched": [
+    "app/engine/actions.py",
+    "app/pages/components.py",
+    "app/templates/options.py",
+    "configs/pyrightconfig.json",
+    "tests/test_component_links.py",
+    "tests/test_core.py",
+    "tests/test_core_imports.py",
+    "tests/test_linear_cli.py",
+    "tests/test_seed_codec.py",
+    "tests/test_url_sync_popstate.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 58,
+    "cache_creation_tokens": 74574,
+    "cache_read_tokens": 820709,
+    "output_tokens": 5956,
+    "api_call_count": 26
+  },
+  "redaction": {
+    "replacements": 4,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 4,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
