@@ -168,11 +168,11 @@ def test_url_sync_apply_theme_to_dom_matches_actions_apply_to_root_logic() -> No
     prevents the two implementations from silently diverging again (which is
     what happened to the popstate handler in cf1a044).
     """
-    from app.engine.actions import _engine_js  # type: ignore[private-attr]
+    from app.engine.actions import engine_js
 
     actions_block_match = re.search(
         r"function _applyToRoot\(config\)\s*\{(.*?)\}",
-        _engine_js(),
+        engine_js(),
         re.DOTALL,
     )
     assert actions_block_match is not None, "_applyToRoot not found in actions engine"

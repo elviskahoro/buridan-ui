@@ -1,5 +1,7 @@
 # --
 
+from typing import Any
+
 from reflex.utils.imports import ImportVar
 from reflex.vars.base import Var, VarData
 
@@ -47,7 +49,7 @@ class HugeIcon(CoreComponent):
     disable_secondary_opacity: Var[bool]
 
     @classmethod
-    def create(cls, *children, **props) -> "HugeIcon":
+    def create(cls, *children: Any, **props: Any) -> "HugeIcon":
         # --
 
         ##

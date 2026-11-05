@@ -10,7 +10,7 @@ from typing import Any, cast
 import pytest
 import reflex as rx
 
-from app.engine.actions import APPLY_BASE_PRIMARY_JS, INITIAL_LOAD_JS, _engine_js
+from app.engine.actions import APPLY_BASE_PRIMARY_JS, INITIAL_LOAD_JS, engine_js
 from app.engine.seed import seed_engine
 from app.engine.url_sync import url_sync_engine
 from app.registry.colors import COLOR_THEMES
@@ -180,7 +180,7 @@ console.log(JSON.stringify({cases, maximumSeed}));
 """
     js = (
         "const window = globalThis;\n"
-        + _engine_js()
+        + engine_js()
         + "\n"
         + generated_browser_js
         + "\n"
@@ -215,7 +215,7 @@ def test_from_seed_canonicalises_b0_collision_partner() -> None:
 
     js = (
         "const window = globalThis;\n"
-        + _engine_js()
+        + engine_js()
         + "\nconst a = _fromSeed('caaaoAgaa', false);\n"
         + "const b = _fromSeed('b0', false);\n"
         + "console.log(JSON.stringify({seed_a: a.__seed, seed_b: b.__seed}));\n"
@@ -397,7 +397,7 @@ def _assert_init_load_noop_popstate_contract(*, stub_set_theme: bool) -> None:
 
     js = (
         stubs
-        + _engine_js()
+        + engine_js()
         + "\n"
         + seed_js
         + "\n"
@@ -483,7 +483,7 @@ def test_b0_is_the_only_encode_after_decode_asymmetry() -> None:
 
     js = (
         "const window = globalThis;\n"
-        + _engine_js()
+        + engine_js()
         + "\nconst out = [];\n"
         + "for (let n = 0; n < _SEED_SPACE_SIZE; n++) {\n"
         + "  const seed = _b62e(n, 4) + _b62e((n * 12345) % 916132832, 5);\n"

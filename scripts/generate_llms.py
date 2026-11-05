@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+from typing import Any
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
@@ -15,7 +16,7 @@ BASE_URL = "https://ui.buridan.dev"
 
 
 def generate_llms_txt() -> str:
-    def make_links(routes):
+    def make_links(routes: list[dict[str, Any]]) -> str:
         return "\n".join(
             f"- [{route['title']}]({BASE_URL}/{route['url']}): The {route['title']} component."
             for route in routes

@@ -6,12 +6,12 @@ from app.engine.actions import (
     APPLY_SEED_JS,
     SHUFFLE_JS,
     TOGGLE_DARK_JS,
-    _apply_base_theme_js,
-    _apply_chart_color_js,
-    _apply_color_theme_js,
-    _apply_font_js,
-    _apply_style_js,
-    _patch_radius_js,
+    apply_base_theme_js,
+    apply_chart_color_js,
+    apply_color_theme_js,
+    apply_font_js,
+    apply_style_js,
+    patch_radius_js,
 )
 from app.hooks import (
     base_theme_color,
@@ -264,7 +264,7 @@ def style_panel(*, desktop: bool = True) -> rx.Component:
                                 class_name=(
                                     "w-full flex flex-row items-center justify-between rounded-lg"
                                 ),
-                                on_click=rx.call_script(_apply_style_js(s["id"])),
+                                on_click=rx.call_script(apply_style_js(s["id"])),
                             )
                             for s in STYLE_REGISTRY
                         ],
@@ -319,7 +319,7 @@ def font_panel(*, desktop: bool = True) -> rx.Component:
                                     ),
                                     value=f["label"],
                                     class_name="w-full flex flex-row items-center justify-between rounded-lg px-2 py-1.5 text-sm cursor-pointer hover:bg-accent hover:text-accent-foreground",
-                                    on_click=rx.call_script(_apply_font_js(f["id"])),
+                                    on_click=rx.call_script(apply_font_js(f["id"])),
                                 )
                                 for f in FONT_REGISTRY
                                 if f.get("category") == cat_id
@@ -380,7 +380,7 @@ def base_color_panel(*, desktop: bool = True) -> rx.Component:
                                 on_click=[
                                     base_theme_color.set_value(t["light"]["ring"]),
                                     selected_base_color_cs.set_value(t["label"]),
-                                    rx.call_script(_apply_base_theme_js(t["id"])),
+                                    rx.call_script(apply_base_theme_js(t["id"])),
                                 ],
                             )
                             for row in rows
@@ -471,7 +471,7 @@ def theme_panel(*, desktop: bool = True) -> rx.Component:
                                 ),
                                 on_click=[
                                     theme_color.set_value(t["light"]["primary"]),
-                                    rx.call_script(_apply_color_theme_js(t["id"])),
+                                    rx.call_script(apply_color_theme_js(t["id"])),
                                 ],
                             )
                             for row in rows
@@ -562,7 +562,7 @@ def chart_color_panel(*, desktop: bool = True) -> rx.Component:
                                 ),
                                 on_click=[
                                     chart_color.set_value(t["light"]["primary"]),
-                                    rx.call_script(_apply_chart_color_js(t["id"])),
+                                    rx.call_script(apply_chart_color_js(t["id"])),
                                 ],
                             )
                             for row in rows
@@ -614,7 +614,7 @@ def radius_panel(*, desktop: bool = True) -> rx.Component:
                                 class_name=(
                                     "w-full flex flex-row items-center justify-between rounded-lg"
                                 ),
-                                on_click=rx.call_script(_patch_radius_js(value)),
+                                on_click=rx.call_script(patch_radius_js(value)),
                             )
                             for label, value in RADIUS_OPTIONS
                         ],

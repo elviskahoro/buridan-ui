@@ -311,10 +311,7 @@ def cli_and_manual_installation_wrapper(
                         class_name="text-sm font-medium",
                     ),
                     rx.el.div(
-                        *[
-                            file_codeblock(file[0], file[1])
-                            for i, file in enumerate(files[:-1])
-                        ],
+                        *[file_codeblock(file[0], file[1]) for file in files[:-1]],
                         class_name="w-full flex flex-col gap-y-4",
                     ),
                     class_name="w-full flex flex-col gap-y-4",

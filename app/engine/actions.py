@@ -6,13 +6,13 @@ from app.registry.radii import RADIUS_OPTIONS
 from app.registry.styles import STYLE_REGISTRY
 from app.registry.themes import BASE_THEMES
 
-# ── shared engine (inlined once per action via _engine_js()) ──────────────────
+# ── shared engine (inlined once per action via engine_js()) ──────────────────
 # NOTE: We intentionally inline the engine into each action rather than
 # relying on window.__ globals surviving re-renders. Each action is
 # self-contained and safe to call at any time.
 
 
-def _engine_js() -> str:
+def engine_js() -> str:
     return f"""
         const _SR = {json.dumps(STYLE_REGISTRY)};
         const _BT = {json.dumps(BASE_THEMES)};
@@ -189,7 +189,7 @@ def _sync_sidebar_js() -> str:
 
 SHUFFLE_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
 
     const dark = refs['_client_state_darkmode'] || false;
     const s    = _randomSeed();
@@ -215,7 +215,7 @@ SHUFFLE_JS = f"""
 
 APPLY_SEED_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
 
     const dark = refs['_client_state_darkmode'] || false;
     const el   = document.getElementById('seed-input-el');
@@ -238,7 +238,7 @@ APPLY_SEED_JS = f"""
 
 INITIAL_LOAD_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
     window.refs = refs;
 
     // 1. Determine dark mode
@@ -290,7 +290,7 @@ INITIAL_LOAD_JS = f"""
 
 TOGGLE_DARK_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
 
     const nowDark = !document.documentElement.classList.contains('dark');
 
@@ -316,7 +316,7 @@ TOGGLE_DARK_JS = f"""
 
 RESET_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
 
     const dark = document.documentElement.classList.contains('dark');
     const s    = 'b0';
@@ -331,10 +331,10 @@ RESET_JS = f"""
 """
 
 
-def _apply_base_theme_js(base_id: str) -> str:
+def apply_base_theme_js(base_id: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -357,10 +357,10 @@ def _apply_base_theme_js(base_id: str) -> str:
     """
 
 
-def _apply_color_theme_js(color_id: str) -> str:
+def apply_color_theme_js(color_id: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -383,10 +383,10 @@ def _apply_color_theme_js(color_id: str) -> str:
     """
 
 
-def _apply_chart_color_js(color_id: str) -> str:
+def apply_chart_color_js(color_id: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -409,10 +409,10 @@ def _apply_chart_color_js(color_id: str) -> str:
     """
 
 
-def _apply_style_js(style_id: str) -> str:
+def apply_style_js(style_id: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -435,10 +435,10 @@ def _apply_style_js(style_id: str) -> str:
     """
 
 
-def _apply_font_js(font_id: str) -> str:
+def apply_font_js(font_id: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -461,10 +461,10 @@ def _apply_font_js(font_id: str) -> str:
     """
 
 
-def _patch_radius_js(value: str) -> str:
+def patch_radius_js(value: str) -> str:
     return f"""
     (function() {{
-        {_engine_js()}
+        {engine_js()}
         const dark = document.documentElement.classList.contains('dark');
         const cur  = refs['_client_state_seed'] || 'b0';
         const prev = _fromSeed(cur, dark);
@@ -489,7 +489,7 @@ def _patch_radius_js(value: str) -> str:
 
 APPLY_BASE_PRIMARY_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
     const dark = document.documentElement.classList.contains('dark');
     const cur  = refs['_client_state_seed'] || 'b0';
     const prev = _fromSeed(cur, dark);
@@ -513,7 +513,7 @@ APPLY_BASE_PRIMARY_JS = f"""
 
 APPLY_BASE_CHARTS_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
     const dark = document.documentElement.classList.contains('dark');
     const cur  = refs['_client_state_seed'] || 'b0';
     const prev = _fromSeed(cur, dark);
@@ -555,7 +555,7 @@ ADD_SWATCHES_JS = r"""
 
 FORMAT_CSS_JS = f"""
 (function() {{
-    {_engine_js()}
+    {engine_js()}
 
     const s = refs['_client_state_seed'] || 'b0';
     const light = _fromSeed(s, false);
