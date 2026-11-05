@@ -8,6 +8,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.field import field  # noqa: E402
+from tests.render_helpers import render_text
 
 
 def test_field_separator_with_children_creates_content_span() -> None:
@@ -19,7 +20,7 @@ def test_field_separator_with_children_creates_content_span() -> None:
     content = separator.children[1]
     assert type(content).__name__ == "Span"
     assert cast("Any", content).custom_attrs["data-slot"] == "field-separator-content"
-    assert "Or continue with" in str(content.render())
+    assert "Or continue with" in render_text(content)
 
 
 def test_field_separator_without_children_keeps_only_divider() -> None:

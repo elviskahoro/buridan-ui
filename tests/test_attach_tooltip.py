@@ -25,11 +25,13 @@ from components.ui.tooltip import (
     ClassNames,
     TooltipTrigger,
 )
+from tests.render_helpers import render_props
 
 
 def _walk(component: rx.Component) -> Iterable[rx.Component]:
     yield component
-    for child in getattr(component, "children", None) or []:
+    children: list[rx.Component] = getattr(component, "children", None) or []
+    for child in children:
         yield from _walk(child)
 
 
@@ -56,7 +58,7 @@ def test_attach_tooltip_passes_caller_via_render_prop() -> None:
     assert trigger.children == []
     # The render prop is set, so Base UI clones the caller's button instead of
     # falling back to its own default `<button>`.
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
     assert "render:" in rendered_props
     # The trigger's default centering classes are merged onto the caller's button, so
     # switching to `render_=` does not drop the layout the old wrapper provided.
@@ -85,6 +87,6 @@ def test_navbar_and_searchbar_tooltip_triggers_use_render_prop(
             "Tooltip.Trigger must not have positional children; the caller's button "
             "must be passed via render_"
         )
-        rendered_props = " ".join(trigger.render()["props"])
+        rendered_props = " ".join(render_props(trigger))
         assert "render:" in rendered_props
         assert ClassNames.TRIGGER in rendered_props

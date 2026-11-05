@@ -12,6 +12,7 @@ from components.ui.input import (
     ClassNames,
     InputComponent,
 )
+from tests.render_helpers import render_props
 
 
 class _InputTestState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -27,13 +28,13 @@ class _InputTestState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
 
 def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
     """Capture props passed to the underlying Reflex input component."""
-    captured = {}
+    captured: dict[str, Any] = {}
 
     def create(_cls: type, *_children: Any, **props: Any) -> dict[str, Any]:
         captured.update(props)
         return props
 
-    monkeypatch.setattr(BaseInput, "create", classmethod(create))
+    monkeypatch.setattr(BaseInput, "create", cast("Any", classmethod(create)))
     return captured
 
 
@@ -55,7 +56,7 @@ def _capture_typed_create_props(
         captured.update(props)
         return props
 
-    monkeypatch.setattr(typed_cls, "create", classmethod(create))
+    monkeypatch.setattr(typed_cls, "create", cast("Any", classmethod(create)))
     return captured
 
 
@@ -196,7 +197,7 @@ def test_typed_inputs_do_not_forward_unstyled(
     monkeypatch.setattr(
         InputComponent,
         "set_class_name",
-        classmethod(_noop_set_class_name),
+        cast("Any", classmethod(_noop_set_class_name)),
     )
 
     for input_type, typed_cls in (
@@ -263,7 +264,7 @@ def test_typed_dispatch_normalizes_value_like_upstream() -> None:
         assert type(wrapper_comp) is type(upstream_comp), input_type
 
         def _value_prop(comp: rx.Component, *, input_type: str) -> str:
-            for prop in comp.render()["props"]:
+            for prop in render_props(comp):
                 if prop.startswith("value:"):
                     return prop
             msg = f"no value prop on {input_type}"

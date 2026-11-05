@@ -20,6 +20,7 @@ toggle and the navbar/sidebar divergence cannot be re-introduced.
 
 import sys
 from pathlib import Path
+from typing import Any, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -106,7 +107,7 @@ def test_toggle_on_click_is_single_call_script_event() -> None:
     assert button is not None
     chain = _on_click_chain(button)
 
-    assert len(chain.events) == 1
+    assert len(cast("list[Any]", chain.events)) == 1
     [event] = chain.events
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")
@@ -131,7 +132,7 @@ def test_navbar_toggle_matches_sidebar_light_dark_dispatch() -> None:
     chain = _on_click_chain(sidebar_item)
     rendered = str(sidebar_item)
 
-    assert len(chain.events) == 1
+    assert len(cast("list[Any]", chain.events)) == 1
     [event] = chain.events
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")

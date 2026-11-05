@@ -13,6 +13,7 @@ from components.ui.tooltip import (
     TooltipRoot,
     TooltipTrigger,
 )
+from tests.render_helpers import render_props
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -23,7 +24,7 @@ class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
 
 def test_tooltip_trigger_keeps_default_classes_without_render_target() -> None:
     trigger = TooltipTrigger.create()
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert ClassNames.TRIGGER in rendered_props
 
@@ -31,7 +32,7 @@ def test_tooltip_trigger_keeps_default_classes_without_render_target() -> None:
 def test_tooltip_trigger_keeps_default_classes_with_native_render_targets() -> None:
     for target in (rx.el.div("target"), rx.el.a("target", href="#")):
         trigger = TooltipTrigger.create(render_=target)
-        rendered_props = " ".join(trigger.render()["props"])
+        rendered_props = " ".join(render_props(trigger))
 
         assert ClassNames.TRIGGER in rendered_props
         assert "render:" in rendered_props
@@ -42,7 +43,7 @@ def test_tooltip_trigger_merges_custom_class_with_render_target() -> None:
         render_=rx.el.div("target"),
         class_name="custom-trigger",
     )
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert ClassNames.TRIGGER in rendered_props
     assert "custom-trigger" in rendered_props
@@ -54,7 +55,7 @@ def test_tooltip_trigger_unstyled_omits_default_with_render_target() -> None:
         class_name="custom-trigger",
         unstyled=True,
     )
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert ClassNames.TRIGGER not in rendered_props
     assert "custom-trigger" in rendered_props
@@ -66,7 +67,7 @@ def test_track_cursor_axis_accepts_both_and_rejects_bottom() -> None:
     assert accepted == {"none", "x", "y", "both"}
 
     root = TooltipRoot.create(track_cursor_axis="both")
-    assert 'trackCursorAxis:"both"' in " ".join(root.render()["props"])
+    assert 'trackCursorAxis:"both"' in " ".join(render_props(root))
 
     with pytest.raises(TypeError):
         TooltipRoot.create(track_cursor_axis="bottom")
@@ -82,7 +83,7 @@ def test_tooltip_trigger_render_with_var_unstyled_does_not_crash() -> None:
         render_=rx.el.div("target"),
         unstyled=_UnstyledState.flag,
     )
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert "render:" in rendered_props
     assert ClassNames.TRIGGER in rendered_props
@@ -93,7 +94,7 @@ def test_tooltip_trigger_var_unstyled_without_render_does_not_crash() -> None:
     crashed identically before the fix. Both routes must tolerate a ``Var[bool]``.
     """
     trigger = TooltipTrigger.create(unstyled=_UnstyledState.flag)
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert ClassNames.TRIGGER in rendered_props
 
@@ -142,7 +143,7 @@ def test_tooltip_popup_render_with_var_unstyled_does_not_crash() -> None:
         render_=rx.el.div("popup"),
         unstyled=_UnstyledState.flag,
     )
-    rendered_props = " ".join(popup.render()["props"])
+    rendered_props = " ".join(render_props(popup))
 
     assert "render:" in rendered_props
     assert ClassNames.POPUP not in rendered_props
@@ -176,7 +177,7 @@ def test_tooltip_root_hoverable_renamed_to_disable_hoverable_popup() -> None:
     assert "disable_hoverable_popup" in props
 
     rendered = " ".join(
-        TooltipRoot.create(disable_hoverable_popup=True).render()["props"],
+        render_props(TooltipRoot.create(disable_hoverable_popup=True)),
     )
     assert "disableHoverablePopup:true" in rendered
     assert "css:" not in rendered
@@ -193,9 +194,9 @@ def test_tooltip_provider_still_exposes_delay_props() -> None:
     assert "close_delay" in props
     assert "timeout" in props
 
-    assert "delay:0" in " ".join(TooltipProvider.create(delay=0).render()["props"])
+    assert "delay:0" in " ".join(render_props(TooltipProvider.create(delay=0)))
     assert "closeDelay:300" in " ".join(
-        TooltipProvider.create(close_delay=300).render()["props"],
+        render_props(TooltipProvider.create(close_delay=300)),
     )
 
 
@@ -207,8 +208,8 @@ def test_tooltip_trigger_exposes_delay_props() -> None:
     assert "delay" in props
     assert "close_delay" in props
 
-    delay = " ".join(TooltipTrigger.create(delay=0).render()["props"])
-    close_delay = " ".join(TooltipTrigger.create(close_delay=300).render()["props"])
+    delay = " ".join(render_props(TooltipTrigger.create(delay=0)))
+    close_delay = " ".join(render_props(TooltipTrigger.create(close_delay=300)))
     assert "delay:0" in delay
     assert "closeDelay:300" in close_delay
     assert "css:" not in delay

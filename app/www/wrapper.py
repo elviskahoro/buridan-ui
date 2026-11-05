@@ -398,7 +398,7 @@ def tooltip_row(
         row_style["paddingLeft"] = "8px"
         row_style["margin"] = "0"
 
-    children = []
+    children: list[rx.Component] = []
     if swatch != "border":
         children.append(tooltip_indicator(color, swatch))
 
@@ -439,7 +439,7 @@ def tooltip_wrapper_demo(
     items: list[dict[str, Any]],
     swatch: Swatch = "square",
 ) -> rx.Component:
-    children = []
+    children: list[rx.Component] = []
 
     if label:
         children.append(

@@ -43,10 +43,11 @@ from components.ui.menu import (  # noqa: E402
     MenuTrigger,
     menu,
 )
+from tests.render_helpers import render_props
 
 
 def _rendered(component: BaseUIComponent) -> str:
-    return " ".join(component.render()["props"])
+    return " ".join(render_props(component))
 
 
 def test_menu_root_no_longer_declares_dead_hover_props() -> None:
@@ -127,7 +128,7 @@ def test_menu_item_converts_variant_to_data_attribute() -> None:
     item = menu.item("Delete", variant="destructive")
 
     assert item.custom_attrs["data-variant"] == "destructive"
-    rendered = " ".join(item.render()["props"])
+    rendered = " ".join(render_props(item))
     assert '"data-variant":"destructive"' in rendered
     # The bug folded the kwarg into an Emotion css style object instead of
     # popping it; the "variant" key must not reach the rendered output.
@@ -139,7 +140,7 @@ def test_menu_item_converts_inset_to_data_attribute() -> None:
     item = menu.item("Profile", inset=True)
 
     assert item.custom_attrs["data-inset"] is True
-    rendered = " ".join(item.render()["props"])
+    rendered = " ".join(render_props(item))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
 
@@ -161,7 +162,7 @@ def test_menu_group_label_converts_inset_to_data_attribute() -> None:
 
     assert label.custom_attrs["data-slot"] == "menu-group-label"
     assert label.custom_attrs["data-inset"] is True
-    rendered = " ".join(label.render()["props"])
+    rendered = " ".join(render_props(label))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
 
@@ -171,7 +172,7 @@ def test_menu_submenu_trigger_converts_inset_to_data_attribute() -> None:
 
     assert trigger.custom_attrs["data-slot"] == "menu-submenu-trigger"
     assert trigger.custom_attrs["data-inset"] is True
-    rendered = " ".join(trigger.render()["props"])
+    rendered = " ".join(render_props(trigger))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
 
@@ -180,7 +181,7 @@ def test_menu_submenu_trigger_converts_variant_to_data_attribute() -> None:
     trigger = menu.submenu_trigger("Danger", variant="destructive")
 
     assert trigger.custom_attrs["data-variant"] == "destructive"
-    rendered = " ".join(trigger.render()["props"])
+    rendered = " ".join(render_props(trigger))
     assert '"data-variant":"destructive"' in rendered
     # The bug folded the kwarg into an Emotion css style object instead of
     # popping it; the "variant" key must not reach the rendered output.

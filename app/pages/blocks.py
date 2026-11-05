@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import reflex as rx
 
 from app.examples.utils import block_card
@@ -40,7 +42,9 @@ def blocks_page() -> rx.Component:
             *[
                 rx.el.button(
                     item["name"],
-                    on_click=selected_blocks_category.set_value(item["value"]),
+                    on_click=cast(
+                        "rx.Var[Any]", selected_blocks_category.set_value(item["value"])
+                    ),
                     class_name=rx.cond(
                         selected_blocks_category.value == item["value"],
                         "text-foreground font-medium cursor-pointer",

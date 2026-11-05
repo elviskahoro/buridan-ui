@@ -29,7 +29,7 @@ These tests pin the contract that:
 
 import sys
 from pathlib import Path
-from typing import Any
+from typing import Any, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -119,7 +119,7 @@ def test_render_pre_on_mount_trigger_survives_markdown_compilation() -> None:
     # Reflex-internal compiler hook with no public alias, so access it directly
     # -- this mirrors the bug report's method of searching the built bundle.
     compiled = str(
-        markdown.children[0]._get_custom_code(),  # noqa: SLF001  # pyright: ignore[reportAttributeAccessIssue]  # pyrefly: ignore[missing-attribute]
+        cast("Any", markdown.children[0])._get_custom_code(),
     )
 
     assert "useEffect" in compiled, (

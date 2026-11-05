@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import reflex as rx
 
 from app.engine.actions import (
@@ -418,7 +420,7 @@ def theme_panel(*, desktop: bool = True) -> rx.Component:
                     rx.el.p("Theme", class_name="text-muted-foreground text-xs"),
                     rx.el.p(
                         rx.cond(
-                            theme_color.value,
+                            cast("rx.Var[Any]", theme_color.value),
                             select.value(),
                             selected_base_color_cs.value,
                         ),
@@ -429,9 +431,9 @@ def theme_panel(*, desktop: bool = True) -> rx.Component:
                 rx.el.div(
                     style={
                         "backgroundColor": rx.cond(
-                            theme_color.value,
-                            theme_color.value,
-                            base_theme_color.value,
+                            cast("rx.Var[Any]", theme_color.value),
+                            cast("rx.Var[Any]", theme_color.value),
+                            cast("rx.Var[Any]", base_theme_color.value),
                         ),
                     },
                     class_name="size-4 rounded-full",
@@ -509,7 +511,7 @@ def chart_color_panel(*, desktop: bool = True) -> rx.Component:
                     rx.el.p("Chart Color", class_name="text-muted-foreground text-xs"),
                     rx.el.p(
                         rx.cond(
-                            chart_color.value,
+                            cast("rx.Var[Any]", chart_color.value),
                             select.value(),
                             selected_base_color_cs.value,
                         ),
@@ -520,9 +522,9 @@ def chart_color_panel(*, desktop: bool = True) -> rx.Component:
                 rx.el.div(
                     style={
                         "backgroundColor": rx.cond(
-                            chart_color.value,
-                            chart_color.value,
-                            base_theme_color.value,
+                            cast("rx.Var[Any]", chart_color.value),
+                            cast("rx.Var[Any]", chart_color.value),
+                            cast("rx.Var[Any]", base_theme_color.value),
                         ),
                     },
                     class_name="size-4 rounded-full",

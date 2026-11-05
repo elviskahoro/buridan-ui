@@ -23,6 +23,7 @@ from components.ui.menu import MenuPositioner  # noqa: E402
 from components.ui.popover import PopoverPositioner  # noqa: E402
 from components.ui.select import SelectPositioner  # noqa: E402
 from components.ui.tooltip import TooltipPositioner  # noqa: E402
+from tests.render_helpers import render_props
 
 # (class, id). Sorted by id for stable pytest -v output.
 POSITIONERS: list[tuple[type[Component], str]] = [
@@ -42,7 +43,7 @@ def _rendered_props(cls: type[Component], **props: object) -> str:
     the rendered space-joined string used throughout this repo's test suite.
     """
     positioner = cls.create(**props)
-    return " ".join(positioner.render()["props"])
+    return " ".join(render_props(positioner))
 
 
 @pytest.mark.parametrize(  # pyright: ignore[reportUntypedFunctionDecorator]
@@ -125,7 +126,7 @@ def test_positioner_legacy_track_anchor_no_longer_leaks_to_dom(
     payload rather than reaching the JSX prop list.
     """
     positioner = positioner_cls.create(track_anchor=True)
-    props = positioner.render()["props"]
+    props = render_props(positioner)
 
     # No element of the rendered prop list may be a top-level `trackAnchor:...`
     # JSX prop (which is what the original bug produced).
