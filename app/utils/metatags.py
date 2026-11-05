@@ -8,10 +8,6 @@ SOCIAL_CARD_BASE_PATH = (
     "https://raw.githubusercontent.com/LineIndent/ui/refs/heads/main/assets/social/"
 )
 
-BURIDAN_KEY_WORDS = (
-    "buridan, ui, web apps, framework, open source, frontend, backend, full stack"
-)
-
 
 def generate_site_meta_tags(
     title: str,

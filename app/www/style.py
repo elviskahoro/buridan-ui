@@ -1,5 +1,5 @@
 import re
-from collections.abc import Iterator
+from collections.abc import Callable, Iterator
 from typing import Any
 
 import reflex as rx
@@ -302,7 +302,7 @@ def render_blockquote(*children: Any, **props: Any) -> rx.Component:  # noqa: AR
 
 
 # --- Final Component Map ---
-markdown_component_map = {
+markdown_component_map: dict[str, Callable[..., rx.Component]] = {
     "h1": render_heading_1,
     "h2": render_heading_2,
     "p": render_paragraph,

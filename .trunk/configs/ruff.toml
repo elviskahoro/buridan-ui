@@ -126,7 +126,6 @@ convention = "google"
   "ANN003",
   "ANN201",
   "ANN202",
-  "ANN401",
   "PLR2004",
   "PT018",
   "RUF001",

@@ -64,7 +64,7 @@ def crawl_folder(
         return []
 
     items = gh_get(folder_path, token)
-    if not items or not isinstance(items, list):
+    if not items:
         return []
 
     # Be polite to the API
