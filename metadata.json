@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6MW20TTHF1TNXNM9ZPVEXBY",
+  "strategy": "manual-commit",
+  "branch": "w-755/gh290-issue",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "assets/docs/components/autocomplete.md",
+    "assets/docs/components/scroll-area.md",
+    "assets/docs/components/select.md"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 3953,
+    "cache_read_tokens": 348958,
+    "output_tokens": 1706,
+    "api_call_count": 10
+  },
+  "redaction": {
+    "replacements": 3,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 3,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
