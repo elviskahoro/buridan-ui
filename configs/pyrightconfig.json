@@ -22,6 +22,10 @@
   "reportPrivateUsage": "warning",
   "reportUnknownArgumentType": "none",
   "reportUnknownLambdaType": "error",
+  // Decision for #325: kept at "none". ~95% of findings are Reflex stub noise (rx.el.div/p/span,
+  // chart builders, .render, .value) that is not fixable in this repo; a probe found 2178 findings
+  // and took many minutes. "warning" does not help under Trunk (still fails the new-issue scan).
+  // Revisit on Reflex upgrades; a per-subtree restore is possible via executionEnvironments.
   "reportUnknownMemberType": "none",
   "reportUnknownParameterType": "none",
   "reportUnknownVariableType": "none",
