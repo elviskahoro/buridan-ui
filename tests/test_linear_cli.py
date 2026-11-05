@@ -5,6 +5,7 @@ exercises the real pydantic-settings resolution against an empty directory
 (no env var, no .env files).
 """
 
+import contextlib
 import json
 import os
 import sys
@@ -52,7 +53,7 @@ def _issue(
     )
 
 
-def _patch_workflow(inner: mock.MagicMock) -> "mock._patch[mock.MagicMock]":
+def _patch_workflow(inner: mock.MagicMock) -> contextlib.AbstractContextManager[mock.MagicMock]:
     """Patch ``linear_cli._workflow`` so its context yields ``inner``.
 
     ``__exit__`` must return False so exceptions raised inside the ``with``
