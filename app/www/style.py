@@ -293,7 +293,7 @@ def render_pre(*children: Any, **props: Any) -> rx.Component:
     )
 
 
-def render_blockquote(*children: Any, **props: Any) -> rx.Component:  # noqa: ARG001 - markdown renderer passes props
+def render_blockquote(*children: Any) -> rx.Component:
     return rx.el.div(
         *children,
         class_name="w-full rounded-[1rem] bg-secondary dark:bg-card flex items-center justify-center p-4 mb-4 "
