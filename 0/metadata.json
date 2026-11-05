@@ -3,11 +3,11 @@
   "checkpoint_id": "01M6PG29T0HGM4DR6E5RKGKNAE",
   "session_id": "a01bffe5-afe7-4c75-96c5-dd86be228269",
   "strategy": "manual-commit",
-  "created_at": "2026-11-05T18:38:17.397224765Z",
+  "created_at": "2026-11-05T18:39:15.702794841Z",
   "branch": "w-757/gh289-issue",
   "checkpoints_count": 4,
-  "save_step_count": 4,
   "files_touched": [
+    ".trunk/configs/ruff.toml",
     "app/templates/layout.py",
     "components/icons/hugeicon.py",
     "scripts/generate_llms.py",
@@ -17,13 +17,15 @@
   "agent": "Claude Code",
   "model": "claude-sonnet-5-5",
   "turn_id": "cdb9cbccd669",
-  "compact_transcript_start": 0,
+  "checkpoint_transcript_start": 117,
+  "transcript_lines_at_start": 117,
+  "compact_transcript_start": 20,
   "token_usage": {
-    "input_tokens": 34,
-    "cache_creation_tokens": 58969,
-    "cache_read_tokens": 400186,
-    "output_tokens": 3179,
-    "api_call_count": 15
+    "input_tokens": 6,
+    "cache_creation_tokens": 1875,
+    "cache_read_tokens": 175731,
+    "output_tokens": 569,
+    "api_call_count": 3
   },
   "redaction": {
     "replacements": 4,
