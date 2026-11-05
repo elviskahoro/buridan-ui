@@ -47,7 +47,7 @@ class HugeIcon(CoreComponent):
     disable_secondary_opacity: Var[bool]
 
     @classmethod
-    def create(cls, *children, **props) -> "HugeIcon":
+    def create(cls, *children: object, **props: object) -> "HugeIcon":
         # --
 
         ##
