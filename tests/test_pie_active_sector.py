@@ -29,7 +29,7 @@ sys.path.insert(0, str(ROOT_DIR))
 from reflex.components.component import Component  # noqa: E402
 
 from app.www.library.charts.pie.v6 import piechart_v6  # noqa: E402
-from tests.render_helpers import render_text
+from tests.render_helpers import render_text  # noqa: E402
 
 PIE_TAG = "Pie"
 TOOLTIP_TAG = "Tooltip"

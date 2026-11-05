@@ -40,7 +40,7 @@ from components.ui.menu import MenuPositioner  # noqa: E402
 from components.ui.popover import PopoverPositioner  # noqa: E402
 from components.ui.select import SelectPositioner  # noqa: E402
 from components.ui.tooltip import TooltipPositioner  # noqa: E402
-from tests.render_helpers import render_props
+from tests.render_helpers import render_props  # noqa: E402
 
 POSITIONER_CLASSES = [
     ContextMenuPositioner,

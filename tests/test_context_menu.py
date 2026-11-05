@@ -20,7 +20,7 @@ from components.ui.context_menu import (  # noqa: E402
     ContextMenuSubmenuTrigger,
 )
 from components.ui.core import BaseUIComponent  # noqa: E402
-from tests.render_helpers import render_props
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _ContextMenuState(rx.State):  # pyright: ignore[reportUntypedBaseClass]

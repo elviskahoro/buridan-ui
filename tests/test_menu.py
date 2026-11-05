@@ -43,7 +43,7 @@ from components.ui.menu import (  # noqa: E402
     MenuTrigger,
     menu,
 )
-from tests.render_helpers import render_props
+from tests.render_helpers import render_props  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:

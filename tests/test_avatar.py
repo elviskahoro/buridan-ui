@@ -34,7 +34,7 @@ from components.ui.avatar import (  # noqa: E402
     AvatarRoot,
     ClassNames,
 )
-from tests.render_helpers import render_props
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]

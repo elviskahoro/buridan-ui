@@ -119,7 +119,7 @@ def test_render_pre_on_mount_trigger_survives_markdown_compilation() -> None:
     # Reflex-internal compiler hook with no public alias, so access it directly
     # -- this mirrors the bug report's method of searching the built bundle.
     compiled = str(
-        cast("Any", markdown.children[0])._get_custom_code(),
+        cast("Any", markdown.children[0])._get_custom_code(),  # noqa: SLF001
     )
 
     assert "useEffect" in compiled, (

@@ -25,7 +25,7 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from app.examples.components import card_twenty_two  # noqa: E402
 from components.ui.table import TableRoot, table  # noqa: E402
-from tests.render_helpers import render_text
+from tests.render_helpers import render_text  # noqa: E402
 
 
 def test_card_twenty_two_applies_striping_class_to_body_rows() -> None:

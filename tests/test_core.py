@@ -18,7 +18,7 @@ def test_cn_composes_clsx_and_tailwind_merge_for_all_inputs() -> None:
     dynamic_class = rx.Var("dynamicClass")
 
     result = str(
-        core.cn("p-2", ["p-4", None], ("text-sm",), cast("Any", dynamic_class))
+        core.cn("p-2", ["p-4", None], ("text-sm",), cast("Any", dynamic_class)),
     )
 
     assert result == (

@@ -8,7 +8,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.field import field  # noqa: E402
-from tests.render_helpers import render_text
+from tests.render_helpers import render_text  # noqa: E402
 
 
 def test_field_separator_with_children_creates_content_span() -> None:

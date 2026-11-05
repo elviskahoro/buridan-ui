@@ -6,7 +6,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.metric import MetricRoot, metric  # noqa: E402
-from tests.render_helpers import render_text
+from tests.render_helpers import render_text  # noqa: E402
 
 
 def test_metric_returns_metric_root_instance() -> None:

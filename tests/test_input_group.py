@@ -36,7 +36,7 @@ from components.ui.input_group import (  # noqa: E402
     InputGroupTextarea,
 )
 from components.ui.textarea import ClassNames as TextareaClassNames  # noqa: E402
-from tests.render_helpers import render_props
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
