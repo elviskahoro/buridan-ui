@@ -48,6 +48,7 @@ RADIUS_SCALE_BLOCK = """@theme inline {
 
 # ── helpers ───────────────────────────────────────────────────────────────────
 
+SEED_LENGTH = 9
 CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
 COLOR_RADIX = len(COLOR_THEMES) + 1
 SEED_SPACE_SIZE = (
@@ -144,7 +145,7 @@ def decode_seed(seed: str) -> dict[str, Any] | None:
             "fontId": FONT_REGISTRY[0]["id"],
             "radius": RADIUS_OPTIONS[2][1],
         }
-    if len(seed) != 9:
+    if len(seed) != SEED_LENGTH:
         return None
 
     n = from_base62(seed[:4])

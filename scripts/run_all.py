@@ -30,7 +30,7 @@ def main() -> None:
 
         full_command = ["python", str(script_path), *command_args[1:]]
 
-        result = subprocess.run(full_command, check=False)
+        result = subprocess.run(full_command, check=False)  # noqa: S603 - argv built from repo scripts
 
         if result.returncode != 0:
             print(f"\n❌ Pipeline Failed at execution point: '{script_name}'")

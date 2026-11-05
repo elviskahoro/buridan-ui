@@ -119,7 +119,7 @@ def _render_anatomy(name: object) -> rx.Component:
 class DocParser:
     """Minimal markdown parser for Reflex documentation."""
 
-    def __init__(
+    def __init__(  # noqa: D107 - args are documented on the class
         self,
         registry: dict[str, Any] | None = None,
         dynamic_load_dirs: list[str] | None = None,

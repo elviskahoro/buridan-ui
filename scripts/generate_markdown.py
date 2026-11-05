@@ -43,23 +43,14 @@ def dynamic_load_components(dirs: list[str]) -> Registry:
                 module = importlib.import_module(module_path)
                 # First, identify objects defined in this module
                 for name, obj in inspect.getmembers(module):
-                    if (
-                        hasattr(obj, "__module__") and obj.__module__ == module.__name__
-                    ) or (
-                        # Handle cases where __module__ might be different but it's defined here
-                        # or it's a ComponentNamespace
-                        getattr(obj, "__module__", None) == module.__name__
-                    ):
-                        # Check if it's a function, class, method, or callable assigned to a name
-                        if (
-                            inspect.isfunction(obj)
-                            or inspect.isclass(obj)
-                            or inspect.ismethod(obj)
-                            or callable(obj)
-                            # Namespace instances (e.g. `kbd`) aren't callable.
-                            or isinstance(obj, ComponentNamespace)
-                        ):
-                            registry[name.lower()] = (obj, name)
+                    # Handle cases where __module__ might be different but it's defined here
+                    # or it's a ComponentNamespace
+                    defined_here = getattr(obj, "__module__", None) == module.__name__
+                    # Function, class, method, or callable assigned to a name;
+                    # namespace instances (e.g. `kbd`) aren't callable.
+                    registrable = callable(obj) or isinstance(obj, ComponentNamespace)
+                    if defined_here and registrable:
+                        registry[name.lower()] = (obj, name)
             except Exception as e:  # noqa: BLE001 - a broken example module must not abort generation
                 print(
                     f"Warning: Could not import from module {module_path} ({type(e).__name__}): {e}",

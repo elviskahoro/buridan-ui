@@ -1,4 +1,4 @@
-import datetime
+import datetime as dt
 import random
 from typing import Any, cast
 
@@ -11,10 +11,10 @@ from components.ui.card import card
 
 def areachart_v5() -> rx.Component:
 
-    start_date = datetime.date(2024, 4, 1)
+    start_date = dt.date(2024, 4, 1)
     data: list[dict[str, Any]] = [
         {
-            "date": (start_date + datetime.timedelta(days=i)).strftime("%b %d"),
+            "date": (start_date + dt.timedelta(days=i)).strftime("%b %d"),
             "desktop": random.randint(80, 500),  # nosec B311
             "mobile": random.randint(100, 550),  # nosec B311
         }

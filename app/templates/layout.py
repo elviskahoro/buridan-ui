@@ -1,5 +1,6 @@
 import functools
 from collections.abc import Callable
+from typing import Any
 
 import reflex as rx
 
@@ -36,7 +37,7 @@ def layout_decorator(
 
     def decorator(func: Callable[..., rx.Component]) -> Callable[..., rx.Component]:
         @functools.wraps(func)
-        def wrapper(*args, **kwargs) -> rx.Component:
+        def wrapper(*args: Any, **kwargs: Any) -> rx.Component:
             page_content = func(*args, **kwargs)
 
             return rx.el.div(

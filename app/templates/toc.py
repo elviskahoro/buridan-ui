@@ -59,7 +59,7 @@ def create_copy_button(url: str) -> rx.Component:
 
 
 def _create_markdown_toc_links(
-    url: str,
+    url: str,  # noqa: ARG001 - kept for call-site compatibility
     toc_data: list[dict[str, Any]],
 ) -> rx.Component:
     if not toc_data:

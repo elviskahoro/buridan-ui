@@ -19,6 +19,9 @@ from components.ui.switch import switch
 from components.ui.table import table
 from components.ui.tabs import tabs
 
+LOAD_WARN_PCT = 50
+LOAD_HIGH_PCT = 80
+
 
 @masonry_card(label="General")
 def card_one() -> rx.Component:
@@ -1841,9 +1844,9 @@ def card_twenty_three() -> rx.Component:
                                     class_name=cn(
                                         "h-full rounded-full transition-all",
                                         "bg-emerald-500"
-                                        if row["load"] < 50
+                                        if row["load"] < LOAD_WARN_PCT
                                         else "bg-yellow-500"
-                                        if row["load"] < 80
+                                        if row["load"] < LOAD_HIGH_PCT
                                         else "bg-destructive",
                                     ),
                                     style={"width": f"{row['load']}%"},

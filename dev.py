@@ -7,6 +7,9 @@ import questionary
 DOCS_DIR = Path("docs")
 
 
+MIN_DOC_PARTS = 2  # section directory + page name
+
+
 def build_index() -> dict[str, list[str]]:
     """Builds:
     {
@@ -20,7 +23,7 @@ def build_index() -> dict[str, list[str]]:
         rel = file.relative_to(DOCS_DIR)
         parts = rel.with_suffix("").parts
 
-        if len(parts) < 2:
+        if len(parts) < MIN_DOC_PARTS:
             continue
 
         section = parts[0].replace("_", "-")
@@ -144,7 +147,7 @@ def run_reflex(env: str, pages: list[str] | None) -> str | None:
 
     cmd = ["uv", "run", "reflex", "run", "--env", env]
 
-    process = subprocess.Popen(
+    process = subprocess.Popen(  # noqa: S603 - fixed argv, no shell
         cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,

@@ -1,8 +1,10 @@
 import re
 from typing import Any
 
-
 # --- Simple frontmatter parser. ---
+FRONTMATTER_PARTS = 3  # text before, frontmatter, body
+
+
 def parse_frontmatter(content: str) -> tuple[dict[str, Any], str]:
     """A simple frontmatter parser."""
     metadata: dict[str, Any] = {}
@@ -10,7 +12,7 @@ def parse_frontmatter(content: str) -> tuple[dict[str, Any], str]:
         return metadata, content
 
     parts = content.split("---", 2)
-    if len(parts) < 3:
+    if len(parts) < FRONTMATTER_PARTS:
         return metadata, content
 
     frontmatter = parts[1]
