@@ -3,7 +3,7 @@ from typing import Any, cast
 import reflex as rx
 
 from app.utils.links import external_link, is_external_href
-from app.www.style import markdown_component_map
+from app.www.markdown_render import markdown_component_map
 
 
 def test_external_link_uses_document_navigation_and_preserves_attributes() -> None:

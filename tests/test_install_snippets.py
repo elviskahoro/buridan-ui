@@ -35,6 +35,8 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from app.www import (  # noqa: E402
     constants,
+)
+from app.www import (
     parser as parser_module,
 )
 from app.www.parser import DocParser  # noqa: E402

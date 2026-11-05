@@ -4,7 +4,7 @@ from urllib.parse import quote
 import reflex as rx
 
 from app.utils.links import external_link, is_external_href
-from app.www.wrapper import generate_component_id
+from app.www.ids import generate_component_id
 from components.icons.hugeicon import hi
 from components.ui.tooltip import tooltip
 

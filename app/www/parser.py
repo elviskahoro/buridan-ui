@@ -9,13 +9,12 @@ from typing import TYPE_CHECKING, Any, cast
 import reflex as rx
 
 from app.registry.components import COMPONENT_REGISTRY
-from app.www.style import (
-    HeadingIdRegistry,
-    iter_heading_segments,
+from app.www.markdown_render import (
     markdown_component_map,
     render_heading,
     render_parse_error,
 )
+from app.www.style import HeadingIdRegistry, iter_heading_segments
 from app.www.wrapper import (
     chart_util_wrapper,
     cli_and_manual_installation_wrapper,

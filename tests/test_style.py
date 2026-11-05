@@ -37,7 +37,7 @@ sys.path.insert(0, str(ROOT_DIR))
 import reflex as rx  # noqa: E402
 
 from app.www import wrapper  # noqa: E402
-from app.www.style import markdown_component_map, render_pre  # noqa: E402
+from app.www.markdown_render import markdown_component_map, render_pre  # noqa: E402
 
 PRISM_CALL = "Prism.highlightAll()"
 
