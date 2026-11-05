@@ -149,8 +149,8 @@ convention = "google"
 "app/examples/**" = ["A004"]
 "app/templates/**" = ["A004"]
 # Example modules are discovered by directory scan and imported dynamically
-# (app/www/parser.py), so they need no __init__.py. A004 as above.
-"app/www/library/examples/**" = ["INP001", "A001", "A004", "S311", "PLR2004"]
+# (app/www/parser.py). A004 as above.
+"app/www/library/examples/**" = ["A001", "A004", "S311", "PLR2004"]
 # ClientStateVar handles are intentionally capitalized.
 "app/www/library/charts/**" = ["N806", "S311"]
 
