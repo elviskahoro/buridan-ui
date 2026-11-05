@@ -1,0 +1,52 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6MVNZK7VBPY5YP9PN7QVE31",
+  "strategy": "manual-commit",
+  "branch": "w-755/gh290-issue",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".trunk/configs/ruff.toml",
+    "app/hooks.py",
+    "app/www/library/blocks/bar_chart_01.py",
+    "app/www/library/blocks/bar_chart_03.py",
+    "app/www/library/examples/bubble_show_more.py",
+    "app/www/library/examples/input_group_button.py",
+    "app/www/library/examples/menu_checkboxes.py",
+    "app/www/library/examples/menu_checkboxes_icons.py",
+    "app/www/library/examples/select_align_items.py",
+    "components/ui/autocomplete.py",
+    "components/ui/scroll_area.py",
+    "components/ui/select.py",
+    "scripts/linear_cli.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 32,
+    "cache_creation_tokens": 19535,
+    "cache_read_tokens": 422629,
+    "output_tokens": 3434,
+    "api_call_count": 15
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 2,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
