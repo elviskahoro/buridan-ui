@@ -17,11 +17,3 @@ project-includes = [
 project-excludes = ["tmp/**", "node_modules/**", "venv/**"]
 search-path = ["."]
 python-interpreter-path = ".venv/bin/python"
-
-# Components index untyped Var wrappers (`bad-index`); relax it for the
-# component library until the 34 findings in components/ui are fixed (#292).
-[[sub-config]]
-matches = "components/**"
-
-[sub-config.errors]
-bad-index = false
