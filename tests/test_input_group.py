@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the ``input_group`` controls' ``unstyled`` contract.
 
 ``InputGroupInput``, ``InputGroupTextarea``, and ``InputGroupButton`` used to

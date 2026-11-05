@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import ast
 import importlib
 import inspect
@@ -30,7 +31,7 @@ if TYPE_CHECKING:
 
 def get_all_dependencies(name: str, registry: dict[str, Any]) -> list[str]:
     """Recursively get all dependencies for a component in correct order."""
-    deps = []
+    deps: list[str] = []
 
     def resolve(comp_name: str) -> None:
         comp = registry.get(comp_name.lower())
@@ -70,7 +71,7 @@ def _render_install(name: object) -> rx.Component:
             f"Component '{name}' not found in registry",
         )
 
-    files_data = []
+    files_data: list[tuple[str, str]] = []
     for dep in all_deps:
         comp_info = COMPONENT_REGISTRY[dep]
         for f_path in comp_info.get("files", []):

@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression guard: page templates render a single navbar ``<header>`` landmark.
 
 ``navbar()`` returns its own ``rx.el.header(...)`` (the implicit ARIA ``banner``

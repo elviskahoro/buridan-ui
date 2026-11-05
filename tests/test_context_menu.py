@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import sys
 from pathlib import Path
 
