@@ -3,7 +3,7 @@ from typing import Any
 
 import reflex as rx
 
-from app.www.style import HeadingIdRegistry, slugify  # noqa: F401
+from app.www.style import slugify
 
 PARAGRAPH_CLASS = "text-sm leading-7 mb-4"
 
