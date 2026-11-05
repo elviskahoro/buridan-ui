@@ -144,9 +144,6 @@ convention = "google"
   "ANN202",
   "ANN206",
 ]
-# ANN002/ANN003: components/ui's create() overrides and helper builders are
-# now annotated (`*children: Any, **props: Any`); not yet true here.
-"components/icons/hugeicon.py" = ["ANN002", "ANN003"]
 # A004: these compose the `input` component from components/ui.
 "app/anatomy_src/**" = ["A004"]
 "app/examples/**" = ["A004"]

@@ -5,6 +5,7 @@ from pathlib import Path
 
 import reflex as rx
 from reflex.compiler.utils import compile_imports
+from reflex.utils.imports import ImportVar
 
 from components.icons.hugeicon import hi
 from components.ui import core
@@ -22,7 +23,7 @@ def test_cn_composes_clsx_and_tailwind_merge_for_all_inputs() -> None:
     )
 
 
-def _cn_imports(*args: str):
+def _cn_imports(*args: str) -> dict[str, list[ImportVar]]:
     var_data = core.cn(*args)._get_all_var_data()  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
     assert var_data is not None
     return {name: list(refs) for name, refs in var_data.imports}
