@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6MVWP0JSE2YYAHERDREB5X1",
+  "session_id": "6816b807-8af5-4aa1-b4f7-67e71a7a5bbf",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-05T03:26:28.67244046Z",
+  "branch": "w-749/gh297-issue",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "assets/docs/charts/area-chart.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "4988ed093382",
+  "checkpoint_transcript_start": 93,
+  "transcript_lines_at_start": 93,
+  "compact_transcript_start": 16,
+  "token_usage": {
+    "input_tokens": 18,
+    "cache_creation_tokens": 3682,
+    "cache_read_tokens": 265651,
+    "output_tokens": 1376,
+    "api_call_count": 8
+  },
+  "redaction": {
+    "replacements": 5,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 2,
+      "key_context": 3,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 2
+  }
+}
