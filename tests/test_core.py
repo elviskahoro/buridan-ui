@@ -14,7 +14,7 @@ ROOT_DIR = Path(__file__).parent.parent
 
 
 def test_cn_composes_clsx_and_tailwind_merge_for_all_inputs() -> None:
-    dynamic_class = rx.Var("dynamicClass")
+    dynamic_class = rx.Var("dynamicClass")  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
     result = str(core.cn("p-2", ["p-4", None], ("text-sm",), dynamic_class))
 

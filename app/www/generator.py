@@ -11,7 +11,7 @@ parser = DocParser(
 
 
 def generate_docs_library() -> list[constants.DocDataStruct]:
-    docs = []
+    docs: list[constants.DocDataStruct] = []
     dev_mode = os.environ.get("BURIDAN_DEV_MODE") == "true"
 
     if not constants.DOCS_BASE_DIR.exists():

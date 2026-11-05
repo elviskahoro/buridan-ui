@@ -62,7 +62,7 @@ def test_collision_avoidance_accepts_object_form(positioner_cls: type) -> None:
     collections.abc.Mapping[str, str]`` raised when the prop was typed as
     ``Var[Literal[...]]`` or ``Var[str]``.
     """
-    component = positioner_cls.create(collision_avoidance={"side": "none"})
+    component = positioner_cls.create(collision_avoidance={"side": "none"})  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
     rendered_props = " ".join(component.render()["props"])
     assert "collisionAvoidance:" in rendered_props
@@ -82,7 +82,7 @@ def test_collision_avoidance_dict_renders_as_js_object(positioner_cls: type) -> 
     as ``collisionAvoidance.side`` (which is ``undefined``) and therefore silently
     ignores. The dict form must instead emit a JS object the library can consume.
     """
-    component = positioner_cls.create(collision_avoidance={"side": "none"})
+    component = positioner_cls.create(collision_avoidance={"side": "none"})  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     rendered_props = " ".join(component.render()["props"])
 
     # The serialized form is `collisionAvoidance:({ ["side"] : "none" })` — the
@@ -109,7 +109,7 @@ def test_collision_avoidance_accepts_full_collision_avoidance_object(
     ``fallbackAxisSide``; each key must survive the round-trip into the rendered
     JS object so the library can read it via ``collisionAvoidance.<key>``.
     """
-    component = positioner_cls.create(
+    component = positioner_cls.create(  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
         collision_avoidance={
             "side": "flip",
             "align": "shift",
@@ -138,7 +138,7 @@ def test_collision_avoidance_string_form_still_accepted(positioner_cls: type) ->
     passed a plain string to ``SelectPositioner`` / ``PopoverPositioner`` (which
     were typed ``Var[str]``) must continue to compile without error.
     """
-    component = positioner_cls.create(collision_avoidance="flip")
+    component = positioner_cls.create(collision_avoidance="flip")  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     rendered_props = " ".join(component.render()["props"])
 
     assert 'collisionAvoidance:"flip"' in rendered_props
@@ -159,7 +159,7 @@ def test_collision_avoidance_bool_form_still_accepted_on_menu(
     pre-fix ``True`` form accepted (it remains a dead prop at runtime, like any
     bare non-object value, but it must not raise at component-creation time).
     """
-    component = positioner_cls.create(collision_avoidance=True)
+    component = positioner_cls.create(collision_avoidance=True)  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     rendered_props = " ".join(component.render()["props"])
 
     # The bool is forwarded as a literal (lowercased by the serializer) rather

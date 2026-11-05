@@ -2,7 +2,7 @@ from typing import Any, Literal, Self
 
 from reflex.components.component import ComponentNamespace
 from reflex.vars.base import Var
-from reflex_components_core.core.foreach import foreach
+from reflex_components_core.core.foreach import foreach  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 from reflex_components_core.el import (
     Caption,
     Div,

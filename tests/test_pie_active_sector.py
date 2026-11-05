@@ -132,7 +132,7 @@ def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
     # defaultIndex must be a custom_attr (real JSX prop), never a style key
     # (style keys are rendered by recharts as `wrapperStyle`, which the Tooltip
     # ignores for active-index purposes).
-    assert "defaultIndex" not in {str(k) for k in (tooltip.style or {})}
+    assert "defaultIndex" not in {str(k) for k in (tooltip.style or {})}  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert tooltip.custom_attrs.get("defaultIndex") == "1"
     assert 'defaultIndex:"1"' in str(tooltip.render())
 

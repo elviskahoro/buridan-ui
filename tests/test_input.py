@@ -27,7 +27,7 @@ class _InputTestState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
 
 def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
     """Capture props passed to the underlying Reflex input component."""
-    captured = {}
+    captured: dict[str, Any] = {}
 
     def create(_cls: type, *_children: Any, **props: Any) -> dict[str, Any]:
         captured.update(props)
@@ -38,11 +38,11 @@ def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
 
 
 def _on_change_arg(comp: rx.Component) -> Var[Any]:  # noqa: ANN401
-    chain = comp.event_triggers["on_change"]
+    chain = comp.event_triggers["on_change"]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert isinstance(chain, EventChain)
-    spec = chain.events[0]
+    spec = chain.events[0]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert isinstance(spec, EventSpec)
-    return spec.args[0][1]
+    return spec.args[0][1]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
 
 def _capture_typed_create_props(
@@ -263,9 +263,9 @@ def test_typed_dispatch_normalizes_value_like_upstream() -> None:
         assert type(wrapper_comp) is type(upstream_comp), input_type
 
         def _value_prop(comp: rx.Component, *, input_type: str) -> str:
-            for prop in comp.render()["props"]:
+            for prop in comp.render()["props"]:  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
                 if prop.startswith("value:"):
-                    return prop
+                    return prop  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
             msg = f"no value prop on {input_type}"
             raise AssertionError(msg)
 

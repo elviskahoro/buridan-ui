@@ -129,7 +129,7 @@ def _parse_table_rows(lines: list[str]) -> list[list[str]]:
 
 def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
     """Calculate the width needed for each column."""
-    col_widths = []
+    col_widths: list[int] = []
     max_cols = max(len(row) for row in rows)
     for col_idx in range(max_cols):
         max_width = max(
@@ -287,10 +287,10 @@ def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
         )
     except (ValueError, SyntaxError) as e:
         return f"\n> **Error in {cmd}: {e}**\n"
-    name = val[0] if isinstance(val, list) else val
+    name = val[0] if isinstance(val, list) else val  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     # Optional second list item: code language or install CLI command.
     has_option = isinstance(val, list) and len(val) > 1
-    option = val[1] if has_option else None
+    option = val[1] if has_option else None  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
     if cmd == "anatomy":
         return _anatomy_block(name)

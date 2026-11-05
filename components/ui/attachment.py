@@ -233,7 +233,7 @@ def attachment_trigger(
     **props: Any,
 ) -> rx.Component:
 
-    component_fn = rx.el.a if link else rx.el.button
+    component_fn = rx.el.a if link else rx.el.button  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
     props.setdefault("data-slot", "attachment-trigger")
     props.setdefault("class_name", cn(ClassNames.TRIGGER, class_name))

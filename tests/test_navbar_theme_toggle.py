@@ -85,7 +85,7 @@ def _on_click_chain(component: Component) -> EventChain:
     require a runtime narrowing before ``.events`` can be accessed.
     """
     assert "on_click" in component.event_triggers
-    chain = component.event_triggers["on_click"]
+    chain = component.event_triggers["on_click"]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert isinstance(chain, EventChain)
     return chain
 
@@ -107,7 +107,7 @@ def test_toggle_on_click_is_single_call_script_event() -> None:
     chain = _on_click_chain(button)
 
     assert len(chain.events) == 1
-    [event] = chain.events
+    [event] = chain.events  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")
 
@@ -132,7 +132,7 @@ def test_navbar_toggle_matches_sidebar_light_dark_dispatch() -> None:
     rendered = str(sidebar_item)
 
     assert len(chain.events) == 1
-    [event] = chain.events
+    [event] = chain.events  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")
     for marker in (

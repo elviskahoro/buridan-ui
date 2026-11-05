@@ -29,7 +29,7 @@ from components.ui.tooltip import (
 
 def _walk(component: rx.Component) -> Iterable[rx.Component]:
     yield component
-    for child in getattr(component, "children", None) or []:
+    for child in getattr(component, "children", None) or []:  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
         yield from _walk(child)
 
 

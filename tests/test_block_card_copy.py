@@ -61,7 +61,7 @@ def test_block_card_copy_feedback_targets_only_command_text_span(
 
     assert button is not None
     assert len(scripts) == 1
-    script = scripts[0]
+    script = scripts[0]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
     text_id = f"text-{button.id}"
 
     text_variable_match = re.search(

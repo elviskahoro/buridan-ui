@@ -66,7 +66,7 @@ def test_preview_cards_use_repository_paths_from_another_working_directory(
 
     monkeypatch.setattr(ImageFont, "truetype", fake_truetype)
     preview_cards = importlib.import_module("scripts.generate_preview_cards")
-    generated_paths = []
+    generated_paths: list[Path] = []
 
     def fake_create_social_card(**kwargs: Any) -> None:
         generated_paths.append(kwargs["output_path"])

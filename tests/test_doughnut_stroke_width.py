@@ -39,7 +39,7 @@ def _find_pie(component: Component) -> Component:
 
 
 def _rendered_props(pie: Component) -> str:
-    return " ".join(str(prop) for prop in pie.render()["props"])
+    return " ".join(str(prop) for prop in pie.render()["props"])  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
 
 def test_doughnutchart_v1_pie_emits_top_level_stroke_width() -> None:

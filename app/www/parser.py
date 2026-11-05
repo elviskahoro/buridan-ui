@@ -30,7 +30,7 @@ if TYPE_CHECKING:
 
 def get_all_dependencies(name: str, registry: dict[str, Any]) -> list[str]:
     """Recursively get all dependencies for a component in correct order."""
-    deps = []
+    deps: list[str] = []
 
     def resolve(comp_name: str) -> None:
         comp = registry.get(comp_name.lower())
@@ -162,7 +162,7 @@ class DocParser:
                 if arg and any(arg.startswith(c) for c in "[{'\"")
                 else arg
             )
-            name = val[0] if isinstance(val, list) else val
+            name = val[0] if isinstance(val, list) else val  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
 
             registry_entry = self.registry.get(str(name).lower())
             if not registry_entry and cmd != "install":

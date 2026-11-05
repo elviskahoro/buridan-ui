@@ -24,7 +24,7 @@
   "reportUnknownLambdaType": "error",
   "reportUnknownMemberType": "none",
   "reportUnknownParameterType": "none",
-  "reportUnknownVariableType": "none",
+  "reportUnknownVariableType": "error",
   "reportUntypedBaseClass": "error",
   "reportUntypedFunctionDecorator": "error",
   "reportUntypedClassDecorator": "error",
