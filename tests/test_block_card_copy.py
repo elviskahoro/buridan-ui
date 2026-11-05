@@ -4,7 +4,9 @@ import json
 import re
 import sys
 from pathlib import Path
-from typing import Any
+
+import pytest
+import reflex as rx
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -15,11 +17,11 @@ SAMPLE_COMMAND = "uv run buridan add sample_block"
 
 
 @example_utils.block_card
-def sample_block() -> Any:
+def sample_block() -> rx.Component:
     return example_utils.rx.el.div("content")
 
 
-def _find_button(component: Any) -> Any:
+def _find_button(component: rx.Component) -> rx.Component | None:
     if getattr(component, "tag", None) == "button":
         return component
 
@@ -38,19 +40,19 @@ def test_block_card_keeps_terminal_icon_separate_from_command_text() -> None:
     assert len(button.children) == 2
 
     icon, command_text = button.children
-    assert "TerminalIcon" in str(icon.icon)
+    assert "TerminalIcon" in str(getattr(icon, "icon"))  # noqa: B009
     assert getattr(command_text, "tag", None) == "span"
     assert json.loads(str(command_text.children[0])) == SAMPLE_COMMAND
-    assert command_text.id == f"text-{button.id}"
+    assert getattr(command_text, "id") == f"text-{button.id}"  # noqa: B009
 
 
 def test_block_card_copy_feedback_targets_only_command_text_span(
-    monkeypatch: Any,
+    monkeypatch: pytest.MonkeyPatch,
 ) -> None:
     scripts = []
     call_script = example_utils.rx.call_script
 
-    def capture_script(script: str) -> Any:
+    def capture_script(script: str) -> object:
         scripts.append(script)
         return call_script(script)
 

@@ -1,14 +1,15 @@
 """Regression tests for the interactive chart demo selectors."""
 
 from collections.abc import Callable
-from typing import Any
+
+import reflex as rx
 
 from app.www.library.charts.area.v5 import areachart_v5
 from app.www.library.charts.bar.v5 import barchart_v5
 from app.www.library.charts.line.v7 import linechart_v7
 
 
-def _find_select(component: Any) -> Any:
+def _find_select(component: rx.Component) -> rx.Component:
     pending = [component]
     while pending:
         current = pending.pop()
@@ -24,23 +25,26 @@ def _find_select(component: Any) -> Any:
 
 
 def _assert_select_wiring(
-    factory: Callable[[], Any],
+    factory: Callable[[], rx.Component],
     expected_default: str,
     expected_values: list[str],
 ) -> None:
     select = _find_select(factory())
 
-    assert select.default_value._var_value == expected_default  # noqa: SLF001
+    assert getattr(select, "default_value")._var_value == expected_default  # noqa: B009, SLF001
     assert [
-        option.value._var_value  # noqa: SLF001
+        getattr(option, "value")._var_value  # noqa: B009, SLF001
         for option in select.children
     ] == expected_values
     assert "on_change" in select.event_triggers
-    on_change_js = select.event_triggers["on_change"].events[0]._js_expr  # noqa: SLF001
+    on_change_js = getattr(select.event_triggers["on_change"], "events")[0]._js_expr  # noqa: B009, SLF001
     assert "_client_state_set" in on_change_js
     assert "target" in on_change_js
     assert "value" in on_change_js
-    assert all("on_click" not in option.event_triggers for option in select.children)
+    assert all(
+        "on_click" not in getattr(option, "event_triggers")  # noqa: B009
+        for option in select.children
+    )
 
 
 def test_area_chart_range_selector_uses_parent_change_event() -> None:
