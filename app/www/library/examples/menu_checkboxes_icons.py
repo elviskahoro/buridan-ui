@@ -5,9 +5,9 @@ from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.menu import menu
 
-email_notif = ClientStateVar.create("email_notif", True)
-sms_notif = ClientStateVar.create("sms_notif", False)
-push_notif = ClientStateVar.create("push_notif", True)
+email_notif = ClientStateVar.create("email_notif", default=True)
+sms_notif = ClientStateVar.create("sms_notif", default=False)
+push_notif = ClientStateVar.create("push_notif", default=True)
 
 
 def menu_checkboxes_icons() -> rx.Component:

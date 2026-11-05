@@ -150,7 +150,7 @@ class SelectPositioner(SelectBaseComponent):
 
     position_method: Var[LiteralPosition]
 
-    align_item_with_trigger: Var[bool] = Var.create(False)
+    align_item_with_trigger: Var[bool] = Var.create(value=False)
 
     disable_anchor_tracking: Var[bool]
 

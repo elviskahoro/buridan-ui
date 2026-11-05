@@ -5,7 +5,10 @@ from components.icons.hugeicon import hi
 from components.ui.select import select
 from components.ui.switch import switch
 
-align_with_item_trigger = ClientStateVar.create("align_with_item_trigger", False)
+align_with_item_trigger = ClientStateVar.create(
+    "align_with_item_trigger",
+    default=False,
+)
 
 items = ["apple", "banana", "orange", "grape", "blueberry", "pineapple"]
 

@@ -440,7 +440,7 @@ class BuridanAutocomplete(Component):
 
     separator_class: Var[str]
 
-    set_query_on_select: Var[bool] = Var.create(True)
+    set_query_on_select: Var[bool] = Var.create(value=True)
 
     on_change_query: Annotated[EventHandler, passthrough_event_spec(str)]
 

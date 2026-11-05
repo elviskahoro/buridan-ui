@@ -30,7 +30,7 @@ from __future__ import annotations
 
 import enum
 import json
-from typing import Any, NoReturn
+from typing import Annotated, Any, NoReturn
 
 import typer
 from gtm_linear import (
@@ -152,11 +152,13 @@ def _print_issues(issues: list[Any], *, as_json: bool, verbose: bool = False) ->
 @app.command()
 def viewer(
     *,
-    as_json: bool = typer.Option(
-        False,
-        "--json",
-        help="Emit JSON instead of human-readable output.",
-    ),
+    as_json: Annotated[
+        bool,
+        typer.Option(
+            "--json",
+            help="Emit JSON instead of human-readable output.",
+        ),
+    ] = False,
 ) -> None:
     """Auth check: print the user the API key belongs to."""
     with _workflow() as linear:
@@ -175,11 +177,13 @@ def viewer(
 @app.command()
 def teams(
     *,
-    as_json: bool = typer.Option(
-        False,
-        "--json",
-        help="Emit JSON instead of human-readable output.",
-    ),
+    as_json: Annotated[
+        bool,
+        typer.Option(
+            "--json",
+            help="Emit JSON instead of human-readable output.",
+        ),
+    ] = False,
 ) -> None:
     """List teams (key, name, id)."""
     # Not wrapped by the SDK, so this uses the raw GraphQL escape hatch.
@@ -209,17 +213,21 @@ def issues(
         help=f"Max issues to fetch (1-{MAX_PAGE_SIZE}, default 25).",
     ),
     *,
-    verbose: bool = typer.Option(
-        False,
-        "--verbose",
-        "-v",
-        help="Also print descriptions.",
-    ),
-    as_json: bool = typer.Option(
-        False,
-        "--json",
-        help="Emit JSON instead of human-readable output.",
-    ),
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            "--verbose",
+            "-v",
+            help="Also print descriptions.",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option(
+            "--json",
+            help="Emit JSON instead of human-readable output.",
+        ),
+    ] = False,
 ) -> None:
     """List a team's issues, newest updated first."""
     with _workflow() as linear:
@@ -242,11 +250,13 @@ def issues(
 def issue(
     identifier: str = typer.Argument(help="Issue identifier, e.g. ENG-123."),
     *,
-    as_json: bool = typer.Option(
-        False,
-        "--json",
-        help="Emit JSON instead of human-readable output.",
-    ),
+    as_json: Annotated[
+        bool,
+        typer.Option(
+            "--json",
+            help="Emit JSON instead of human-readable output.",
+        ),
+    ] = False,
 ) -> None:
     """Fetch one issue by its human identifier."""
     identifier = identifier.upper()
@@ -282,17 +292,21 @@ def search(
         help=f"Max results (1-{MAX_PAGE_SIZE}, default 10).",
     ),
     *,
-    verbose: bool = typer.Option(
-        False,
-        "--verbose",
-        "-v",
-        help="Also print descriptions.",
-    ),
-    as_json: bool = typer.Option(
-        False,
-        "--json",
-        help="Emit JSON instead of human-readable output.",
-    ),
+    verbose: Annotated[
+        bool,
+        typer.Option(
+            "--verbose",
+            "-v",
+            help="Also print descriptions.",
+        ),
+    ] = False,
+    as_json: Annotated[
+        bool,
+        typer.Option(
+            "--json",
+            help="Emit JSON instead of human-readable output.",
+        ),
+    ] = False,
 ) -> None:
     """Free-text issue search across the workspace."""
     with _workflow() as linear:

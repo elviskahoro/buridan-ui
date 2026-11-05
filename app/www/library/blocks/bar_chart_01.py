@@ -6,7 +6,7 @@ from components.ui.card import card
 from components.ui.checkbox import checkbox
 from components.ui.field import field
 
-ShowComparison = ClientStateVar.create("show_comparison", False)
+ShowComparison = ClientStateVar.create("show_comparison", default=False)
 
 data = [
     {"date": "Jan 23", "This Year": 68560, "Last Year": 28560},

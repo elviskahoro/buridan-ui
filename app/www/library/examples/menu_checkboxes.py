@@ -4,9 +4,9 @@ from reflex.experimental import ClientStateVar
 from components.ui.button import button
 from components.ui.menu import menu
 
-show_status_bar = ClientStateVar.create("show_status_bar", True)
-show_activity_bar = ClientStateVar.create("show_activity_bar", False)
-show_panel = ClientStateVar.create("show_panel", False)
+show_status_bar = ClientStateVar.create("show_status_bar", default=True)
+show_activity_bar = ClientStateVar.create("show_activity_bar", default=False)
+show_panel = ClientStateVar.create("show_panel", default=False)
 
 
 def menu_checkboxes() -> rx.Component:

@@ -25,8 +25,8 @@ _running_avg = round(sum(d["Running"] for d in data) / len(data))
 _cycling_avg = round(sum(d["Cycling"] for d in data) / len(data))
 _overall_avg = round((_running_avg + _cycling_avg) / 2)
 
-ShowRunning = ClientStateVar.create("show_running", True)
-ShowCycling = ClientStateVar.create("show_cycling", True)
+ShowRunning = ClientStateVar.create("show_running", default=True)
+ShowCycling = ClientStateVar.create("show_cycling", default=True)
 AvgBPM = ClientStateVar.create("avg_bpm", _overall_avg)
 
 

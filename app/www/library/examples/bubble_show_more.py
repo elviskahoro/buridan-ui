@@ -5,7 +5,7 @@ from components.icons.hugeicon import hi
 from components.ui.bubble import bubble
 from components.ui.collapsible import collapsible
 
-open_var = ClientStateVar.create("open_var", False)
+open_var = ClientStateVar.create("open_var", default=False)
 text_val = "The accessibility review found two focus states that were visually too subtle in dark mode.\n\nI checked the dialog, menu, and drawer paths because each one renders focusable controls inside a layered surface.\n\nThe dialog and drawer are fine. The menu needs the hover and focus tokens split so keyboard focus stays visible when the pointer is not involved.\n\nI also recommend keeping the change in the style file instead of the primitive so the other themes can choose their own focus treatment later."
 
 

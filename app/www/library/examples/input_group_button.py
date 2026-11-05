@@ -4,8 +4,8 @@ from reflex.experimental import ClientStateVar
 from components.icons.hugeicon import hi
 from components.ui.input_group import input_group
 
-_input_copy = ClientStateVar.create("_input_copy", False)
-_input_star = ClientStateVar.create("_input_star", False)
+_input_copy = ClientStateVar.create("_input_copy", default=False)
+_input_star = ClientStateVar.create("_input_star", default=False)
 
 
 def input_group_button() -> rx.Component:

@@ -70,7 +70,7 @@ class ScrollAreaScrollbar(ScrollAreaBaseComponent):
 
     orientation: Var[LiteralOrientation] = Var.create("vertical")
 
-    keep_mounted: Var[bool] = Var.create(False)
+    keep_mounted: Var[bool] = Var.create(value=False)
 
     render_: Var[Component]
 
@@ -119,7 +119,7 @@ class ScrollAreaCorner(ScrollAreaBaseComponent):
 class HighLevelScrollArea(ScrollAreaRoot):
     orientation: Var[LiteralOrientation] = Var.create("vertical")
 
-    keep_mounted: Var[bool] = Var.create(False)
+    keep_mounted: Var[bool] = Var.create(value=False)
 
     _scrollbar_props: ClassVar[set[str]] = {"orientation", "keep_mounted"}
 

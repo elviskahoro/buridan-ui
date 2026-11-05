@@ -23,9 +23,9 @@ selected_radius_cs = ClientStateVar.create("selected_radius_cs", "Medium")
 
 seed = ClientStateVar.create("seed", "")
 
-darkmode = ClientStateVar.create("darkmode", False)
+darkmode = ClientStateVar.create("darkmode", default=False)
 
-copy_preset_value = ClientStateVar.create("copy_preset_value", False)
+copy_preset_value = ClientStateVar.create("copy_preset_value", default=False)
 
 theme_export_method = ClientStateVar.create("theme_export_method", "local")
 
@@ -33,13 +33,16 @@ theme_preset_option = ClientStateVar.create("theme_preset_option", "full")
 
 css_output = ClientStateVar.create("cssoutput", "")
 
-is_css_output_copied = ClientStateVar.create("is_css_output_copied", False)
+is_css_output_copied = ClientStateVar.create("is_css_output_copied", default=False)
 
-is_rxconfig_copied = ClientStateVar.create("is_rxconfig_copied", False)
+is_rxconfig_copied = ClientStateVar.create("is_rxconfig_copied", default=False)
 
-is_export_command_copied = ClientStateVar.create("is_export_command_copied", False)
+is_export_command_copied = ClientStateVar.create(
+    "is_export_command_copied",
+    default=False,
+)
 
-welcome_open = ClientStateVar.create("welcome_open", False)
+welcome_open = ClientStateVar.create("welcome_open", default=False)
 
 selected_component_category = ClientStateVar.create(
     "selected_component_category",
