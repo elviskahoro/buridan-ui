@@ -53,7 +53,7 @@ class ComponentFile:
     dotted_module: str  # e.g. components.ui.button
     package_dotted: str  # dotted package the file lives in, e.g. components.ui
     group: str  # top-level folder used for section headers, e.g. "components/ui"
-    dependencies: set[str] = field(default_factory=lambda: set[str]())
+    dependencies: set[str] = field(default_factory=set[str])
 
 
 def discover_files(repo_root: Path, roots: list[str]) -> list[Path]:

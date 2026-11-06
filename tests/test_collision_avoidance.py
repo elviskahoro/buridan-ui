@@ -58,7 +58,9 @@ POSITIONER_CLASSES = [
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_accepts_object_form(positioner_cls: type[Component]) -> None:
+def test_collision_avoidance_accepts_object_form(
+    positioner_cls: type[Component],
+) -> None:
     """The dict form ``{'side': 'none'}`` must not raise at component-creation time.
 
     Regression for the original ``TypeError: Invalid var passed for prop
@@ -77,7 +79,9 @@ def test_collision_avoidance_accepts_object_form(positioner_cls: type[Component]
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_dict_renders_as_js_object(positioner_cls: type[Component]) -> None:
+def test_collision_avoidance_dict_renders_as_js_object(
+    positioner_cls: type[Component],
+) -> None:
     """The dict form must compile to a JS object literal, not a bare JS string.
 
     Regression for the silent-dead-prop side of the bug: when the prop accepted
@@ -135,7 +139,9 @@ def test_collision_avoidance_accepts_full_collision_avoidance_object(
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_string_form_still_accepted(positioner_cls: type[Component]) -> None:
+def test_collision_avoidance_string_form_still_accepted(
+    positioner_cls: type[Component],
+) -> None:
     """The ``str`` half of ``Var[str | dict[str, str]]`` remains accepted.
 
     The fix widens the type rather than narrowing it; consumers that previously
