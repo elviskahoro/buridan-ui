@@ -1,4 +1,6 @@
-from app.pages.components import _get_component_link_data  # pyright: ignore[reportPrivateUsage]
+from app.pages.components import (
+    _get_component_link_data,  # pyright: ignore[reportPrivateUsage]
+)
 from app.utils.routes import ALL_ROUTES
 
 
