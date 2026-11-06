@@ -12,8 +12,8 @@ producing invalid nested-interactive HTML on every page (duplicate tab stops,
 double focus rings, and duplicated button semantics for screen-reader users).
 """
 
-from typing import cast
 from collections.abc import Callable, Iterable
+from typing import cast
 
 import pytest
 import reflex as rx
