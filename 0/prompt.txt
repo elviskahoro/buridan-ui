@@ -1,0 +1,14 @@
+Fix this
+Pyright 1.1.414 reports 0 errors, 0 warnings. It also printed “venv .venv subdirectory not found in venv path …/configs”, so it may not have resolved dependencies. Since the issue says missing dependencies can cause spurious unknowns, a clean run with the CI venv would be a firmer check.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+Resolve the merge conflicts.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
