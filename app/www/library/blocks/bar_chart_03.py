@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, cast
 
 import reflex as rx
 from reflex.experimental import ClientStateVar
@@ -37,7 +37,7 @@ def _legend_item(label: str, color: str, is_active: ClientStateVar) -> rx.Compon
             rx.el.p(label, class_name="text-sm text-muted-foreground"),
             class_name="flex items-center gap-1.5",
         ),
-        on_click=is_active.set_value(~is_active.value),
+        on_click=cast("rx.Var[Any]", is_active.set_value(~is_active.value)),
         class_name=rx.cond(
             is_active.value,
             "text-left opacity-100 cursor-pointer",

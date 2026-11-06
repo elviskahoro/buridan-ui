@@ -1,3 +1,5 @@
+from typing import Any, cast
+
 import reflex as rx
 
 from app.engine.actions import ADD_SWATCHES_JS, FORMAT_CSS_JS
@@ -384,7 +386,10 @@ def theme_export_compiler() -> rx.Component:
                                                             ),
                                                         ),
                                                         rx.set_clipboard(
-                                                            css_output.value,
+                                                            cast(
+                                                                "rx.Var[Any]",
+                                                                css_output.value,
+                                                            ),
                                                         ),
                                                     ],
                                                     on_mouse_down=rx.call_function(

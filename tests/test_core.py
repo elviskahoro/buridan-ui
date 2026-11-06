@@ -2,6 +2,7 @@
 
 import json
 from pathlib import Path
+from typing import Any, cast
 
 import reflex as rx
 from reflex.compiler.utils import compile_imports
@@ -16,7 +17,9 @@ ROOT_DIR = Path(__file__).parent.parent
 def test_cn_composes_clsx_and_tailwind_merge_for_all_inputs() -> None:
     dynamic_class = rx.Var("dynamicClass")
 
-    result = str(core.cn("p-2", ["p-4", None], ("text-sm",), dynamic_class))
+    result = str(
+        core.cn("p-2", ["p-4", None], ("text-sm",), cast("Any", dynamic_class)),
+    )
 
     assert result == (
         '(twMerge((clsx("p-2", ["p-4", null], ["text-sm"], dynamicClass))))'

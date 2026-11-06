@@ -1,4 +1,5 @@
 # ruff: noqa: INP001
+# pyright: reportUnknownMemberType=false
 
 """Regression tests for the doughnut chart slice-separation stroke width.
 
@@ -16,6 +17,7 @@ from reflex.components.component import Component
 
 from app.www.library.charts.doughnut.v1 import doughnutchart_v1
 from app.www.library.charts.doughnut.v2 import doughnutchart_v2
+from tests.render_helpers import render_props
 
 EXPECTED_STROKE_WIDTH = 5
 EXPECTED_PADDING_ANGLE = 3
@@ -39,7 +41,7 @@ def _find_pie(component: Component) -> Component:
 
 
 def _rendered_props(pie: Component) -> str:
-    return " ".join(str(prop) for prop in pie.render()["props"])
+    return " ".join(str(prop) for prop in render_props(pie))
 
 
 def test_doughnutchart_v1_pie_emits_top_level_stroke_width() -> None:

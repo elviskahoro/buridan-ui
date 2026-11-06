@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Toggle wrapper's ``icon_variant`` styling prop.
 
 ``Toggle.icon_variant`` is a wrapper-only styling prop: it selects a pressed-icon
@@ -17,10 +18,11 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.core import BaseUIComponent  # noqa: E402
 from components.ui.toggle import ClassNames, Toggle  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:
-    return " ".join(component.render()["props"])
+    return " ".join(render_props(component))
 
 
 def test_toggle_icon_variant_still_declared_and_applied_for_styling() -> None:

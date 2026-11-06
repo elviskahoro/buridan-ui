@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the "Pie Chart - Active" demo (``piechart_v6``).
 
 recharts 3 (pinned via ``reflex.lock/package.json`` -> ``recharts@3.10.1``)
@@ -21,7 +22,7 @@ from __future__ import annotations
 
 import pathlib
 import sys
-from typing import TYPE_CHECKING
+from typing import TYPE_CHECKING, Any, cast
 
 ROOT_DIR = pathlib.Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -29,6 +30,7 @@ sys.path.insert(0, str(ROOT_DIR))
 from reflex.components.component import Component  # noqa: E402
 
 from app.www.library.charts.pie.v6 import piechart_v6  # noqa: E402
+from tests.render_helpers import render_text  # noqa: E402
 
 PIE_TAG = "Pie"
 TOOLTIP_TAG = "Tooltip"
@@ -74,8 +76,8 @@ def test_pie_keeps_active_shape_enlarged_geometry() -> None:
     sector geometry, so it must remain on the Pie with ``outerRadius: 110``.
     """
     pie = _find(piechart_v6(), PIE_TAG)
-    assert "outerRadius" in str(pie.custom_attrs.get("activeShape", ""))
-    rendered_pie = str(pie.render())
+    assert "outerRadius" in str(cast("Any", pie.custom_attrs).get("activeShape", ""))
+    rendered_pie = render_text(pie)
     assert "activeShape" in rendered_pie
     assert "outerRadius" in rendered_pie
     assert "110" in rendered_pie
@@ -132,9 +134,11 @@ def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
     # defaultIndex must be a custom_attr (real JSX prop), never a style key
     # (style keys are rendered by recharts as `wrapperStyle`, which the Tooltip
     # ignores for active-index purposes).
-    assert "defaultIndex" not in {str(k) for k in (tooltip.style or {})}
+    assert "defaultIndex" not in {
+        str(k) for k in cast("dict[str, Any]", tooltip.style or {})
+    }
     assert tooltip.custom_attrs.get("defaultIndex") == "1"
-    assert 'defaultIndex:"1"' in str(tooltip.render())
+    assert 'defaultIndex:"1"' in render_text(tooltip)
 
 
 def test_docs_snippet_does_not_advertise_inert_active_index_pattern() -> None:
