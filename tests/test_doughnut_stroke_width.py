@@ -12,7 +12,6 @@ the SVG default of ~1px. Passing ``strokeWidth`` through ``custom_attrs`` lands 
 as a real top-level JSX prop on ``<Pie>``, which recharts honors on every sector.
 """
 
-
 import reflex as rx
 from reflex.components.component import Component
 
