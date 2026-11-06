@@ -14,4 +14,4 @@ def external_link(*children: Any, href: str, **props: Any) -> rx.Component:
     props.setdefault("reload_document", True)
     if props.get("target") == "_blank":
         props.setdefault("rel", "noopener noreferrer")
-    return rx.el.a(*children, href=href, **props)  # pyright: ignore[reportUnknownMemberType]
+    return rx.el.a(*children, href=href, **props)

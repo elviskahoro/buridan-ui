@@ -4,7 +4,7 @@ The docs site builds every component documentation page from markdown in three
 stages:
 
 * ``app/www/generator.py`` extracts the page's h1/h2 headings into TOC data,
-* ``app/www/markdown_render.py`` renders those headings into DOM elements (with ids),
+* ``app/www/markup/markdown_render.py`` renders those headings into DOM elements (with ids),
 * ``app/templates/toc.py`` renders the "On This Page" TOC links + scrollspy.
 
 When two headings normalize to the same slug (e.g. ``# Badge`` and ``## badge``
