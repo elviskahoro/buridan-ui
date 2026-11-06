@@ -1,5 +1,15 @@
 {
   "extends": "./configs/pyrightconfig.json",
   "venvPath": ".",
-  "venv": ".venv"
+  "venv": ".venv",
+  // #325: reportUnknownMemberType is "error" everywhere except app/, components/ and tests/. ~95% of findings there come
+  // from Reflex's partially-unknown element/chart stubs (rx.el.div, p, span, .render, ...), which
+  // are not fixable in this repo. Those trees are still type-checked for every other rule.
+  // Environments match first-wins, so the catch-all "." must stay last.
+  "executionEnvironments": [
+    { "root": "app", "reportUnknownMemberType": "none" },
+    { "root": "components", "reportUnknownMemberType": "none" },
+    { "root": "tests", "reportUnknownMemberType": "none" },
+    { "root": "." }
+  ]
 }
