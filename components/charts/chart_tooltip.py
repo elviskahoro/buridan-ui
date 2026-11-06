@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 from typing import Any, Literal
 
 import reflex as rx
@@ -111,7 +112,7 @@ class _ChartTooltipContent:
                 )
             ]
 
-        lines = []
+        lines: list[str] = []
         for i, color_idx in enumerate(name_sorted_colors, 1):
             if swatch == "line":
                 lines.append(f"""

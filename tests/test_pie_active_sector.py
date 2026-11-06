@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the "Pie Chart - Active" demo (``piechart_v6``).
 
 recharts 3 (pinned via ``reflex.lock/package.json`` -> ``recharts@3.10.1``)

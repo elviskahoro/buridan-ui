@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import json
 from typing import Any, cast
 
@@ -27,7 +28,7 @@ class _InputTestState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
 
 def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
     """Capture props passed to the underlying Reflex input component."""
-    captured = {}
+    captured: dict[str, Any] = {}
 
     def create(_cls: type, *_children: Any, **props: Any) -> dict[str, Any]:
         captured.update(props)

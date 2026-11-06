@@ -67,7 +67,7 @@ FRONTMATTER_SPLIT_PARTS = 2
 def align_markdown_tables(content: str) -> str:
     """Align pipes in markdown tables to meet MD060 requirements."""
     lines = content.split("\n")
-    result = []
+    result: list[str] = []
     i = 0
     in_fence = False
 
@@ -129,7 +129,7 @@ def _parse_table_rows(lines: list[str]) -> list[list[str]]:
 
 def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
     """Calculate the width needed for each column."""
-    col_widths = []
+    col_widths: list[int] = []
     max_cols = max(len(row) for row in rows)
     for col_idx in range(max_cols):
         max_width = max(

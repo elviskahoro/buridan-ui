@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression coverage for the navbar light/dark theme toggle.
 
 The navbar's ``light_and_dark_toggle`` previously bound two independent,

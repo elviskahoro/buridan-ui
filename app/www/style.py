@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import re
 from collections.abc import Callable, Iterator
 from typing import Any

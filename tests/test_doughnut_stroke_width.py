@@ -1,4 +1,5 @@
 # ruff: noqa: INP001
+# pyright: reportUnknownMemberType=false
 
 """Regression tests for the doughnut chart slice-separation stroke width.
 

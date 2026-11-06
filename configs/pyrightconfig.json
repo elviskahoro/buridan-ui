@@ -19,10 +19,10 @@
   "reportMissingModuleSource": "warning",
   "reportMissingParameterType": "error",
   "reportMissingTypeArgument": "error",
-  "reportPrivateUsage": "warning",
+  "reportPrivateUsage": "error",
   "reportUnknownArgumentType": "none",
   "reportUnknownLambdaType": "error",
-  "reportUnknownMemberType": "none",
+  "reportUnknownMemberType": "error",
   "reportUnknownParameterType": "error",
   "reportUnknownVariableType": "none",
   "reportUntypedBaseClass": "error",
@@ -51,5 +51,13 @@
   "reportUnusedFunction": "error",
   "reportUnusedVariable": "error",
   "reportDuplicateImport": "error",
-  "reportInvalidStringEscapeSequence": "error"
+  "reportInvalidStringEscapeSequence": "error",
+  "executionEnvironments": [
+    {"root": "../app/www/library", "reportUnknownMemberType": "none"},
+    {"root": "../app/examples", "reportUnknownMemberType": "none"},
+    {"root": "../app/templates", "reportUnknownMemberType": "none"},
+    {"root": "../app/pages", "reportUnknownMemberType": "none"},
+    {"root": "../components/ui", "reportUnknownMemberType": "none"},
+    {"root": ".."}
+  ]
 }
