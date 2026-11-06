@@ -1,0 +1,65 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6RZNF7TARJXRZ26ATTGHYRD",
+  "strategy": "manual-commit",
+  "branch": "issue-327",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "app/app.py",
+    "app/export.py",
+    "app/pages/head.py",
+    "app/pages/not_found.py",
+    "app/pages/site_export.py",
+    "app/utils/doc_titles.py",
+    "app/utils/links.py",
+    "app/utils/routes.py",
+    "app/www/generator.py",
+    "app/www/markdown_render.py",
+    "app/www/markup/__init__.py",
+    "app/www/markup/anatomy.py",
+    "app/www/markup/markdown_render.py",
+    "app/www/markup/wrapper.py",
+    "app/www/parser.py",
+    "app/www/wrapper.py",
+    "cli/main.py",
+    "configs/pyrightconfig.json",
+    "rxconfig.py",
+    "scripts/generate_markdown.py",
+    "scripts/generate_preview_cards.py",
+    "scripts/generate_search_index.py",
+    "tests/test_external_links.py",
+    "tests/test_render_pre.py",
+    "tests/test_style.py",
+    "tests/test_wrapper.py"
+  ],
+  "sessions": [
+    {
+      "metadata": "/0/metadata.json",
+      "transcript": "/0/full.jsonl",
+      "compact_transcript": "/0/transcript.jsonl",
+      "content_hash": "/0/content_hash.txt",
+      "prompt": "/0/prompt.txt"
+    }
+  ],
+  "token_usage": {
+    "input_tokens": 50,
+    "cache_creation_tokens": 57067,
+    "cache_read_tokens": 1302689,
+    "output_tokens": 10905,
+    "api_call_count": 25
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 2,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  }
+}
