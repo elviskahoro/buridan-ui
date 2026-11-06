@@ -1,0 +1,20 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/t2Uwlt/Fix errors instructions.md (20.9 KB)
+</system_instruction>
+
+
+
+Fix the failing CI actions. I've attached the failure logs. .context/attachments/t2Uwlt/Fix errors instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+you can read the cli logs just use rwx we have an access token that you can use with the CLI to authenticate
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
