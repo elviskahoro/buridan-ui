@@ -52,7 +52,7 @@ def _issue(
     )
 
 
-def _patch_workflow(inner: mock.MagicMock) -> "mock._patch[mock.MagicMock]":
+def _patch_workflow(inner: mock.MagicMock) -> "mock._patch[mock.MagicMock]":  # pyright: ignore[reportPrivateUsage]
     """Patch ``linear_cli._workflow`` so its context yields ``inner``.
 
     ``__exit__`` must return False so exceptions raised inside the ``with``
