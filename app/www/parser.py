@@ -10,20 +10,20 @@ from typing import TYPE_CHECKING, Any, cast
 import reflex as rx
 
 from app.registry.components import COMPONENT_REGISTRY
-from app.www.style import (
-    HeadingIdRegistry,
-    iter_heading_segments,
+from app.www.markup.anatomy import render_anatomy_block
+from app.www.markup.markdown_render import (
     markdown_component_map,
     render_heading,
     render_parse_error,
 )
-from app.www.wrapper import (
+from app.www.markup.wrapper import (
     chart_util_wrapper,
     cli_and_manual_installation_wrapper,
     demo_wrapper,
     tooltip_wrapper,
     usage_wrapper,
 )
+from app.www.style import HeadingIdRegistry, iter_heading_segments
 
 if TYPE_CHECKING:
     from collections.abc import Callable
@@ -102,19 +102,7 @@ def _render_anatomy(name: object) -> rx.Component:
     src = ANATOMY.get(str(name).lower())
     if not src:
         return render_parse_error(f"No anatomy found for '{name}'")
-    return rx.el.div(
-        rx.el.code(
-            src,
-            style={
-                "white-space": "pre",
-                "color": "var(--foreground)",
-                "font-size": "13px",
-                "padding": "1rem 0.75rem",
-                "display": "block",
-            },
-        ),
-        class_name="overflow-x-auto overflow-y-auto scrollbar-none w-full mt-4 mb-8 rounded-[1rem] outline outline-input flex-1 min-h-0 flex flex-col bg-secondary dark:bg-card",
-    )
+    return render_anatomy_block(src)
 
 
 class DocParser:

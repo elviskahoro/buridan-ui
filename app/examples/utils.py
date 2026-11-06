@@ -6,7 +6,7 @@ import reflex as rx
 
 from app.hooks import selected_blocks_category, selected_component_category
 from app.utils.links import external_link
-from app.www.wrapper import generate_component_id
+from app.www.ids import generate_component_id
 from components.icons.hugeicon import hi
 from components.ui.button import button
 from components.ui.tooltip import tooltip

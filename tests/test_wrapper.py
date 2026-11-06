@@ -24,7 +24,7 @@ sys.path.insert(0, str(ROOT_DIR))
 import reflex as rx  # noqa: E402
 from reflex.components.component import Component  # noqa: E402
 
-from app.www import wrapper  # noqa: E402
+from app.www.markup import wrapper  # noqa: E402
 
 WRAPPER_PATH = Path(wrapper.__file__)
 EXPECTED_PREVIEW_CLASS_NAME = (
@@ -62,7 +62,7 @@ def test_demo_wrapper_preview_class_name_is_exactly_the_fixed_value() -> None:
 
 
 def test_wrapper_module_has_no_malformed_important_variant_tokens() -> None:
-    """Scan ``app/www/wrapper.py`` for the malformed ``!<variant>:`` shape.
+    """Scan ``app/www/markup/wrapper.py`` for the malformed ``!<variant>:`` shape.
 
     Tailwind silently ignores ``!<variant>:`` tokens (e.g. ``!sm:p-6``) -- no
     CSS is emitted. Valid forms are ``!p-2`` (bare important, no colon) and

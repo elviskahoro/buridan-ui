@@ -1,11 +1,10 @@
 # pyright: reportUnknownMemberType=false
 import json
-import random
-import string
 from typing import Any, Literal
 
 import reflex as rx
 
+from app.www.ids import generate_component_id
 from components.icons.hugeicon import hi
 
 Swatch = Literal["square", "line", "border"]
@@ -34,11 +33,6 @@ def styled_tab_trigger(label: str, value: str) -> rx.Component:
     }
 
     return rx.tabs.trigger(rx.el.p(label), value=value, style=base_tab_style)
-
-
-def generate_component_id() -> str:
-    """Generate a unique component ID."""
-    return "".join(random.choices(string.ascii_letters + string.digits, k=10))  # noqa: S311  # nosec B311
 
 
 def create_copy_button(content: str) -> rx.Component:

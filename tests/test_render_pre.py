@@ -11,7 +11,7 @@ from typing import Any, cast
 import pytest
 import reflex as rx
 
-from app.www.style import markdown_component_map, render_pre
+from app.www.markup.markdown_render import markdown_component_map, render_pre
 from tests.render_helpers import render_text
 
 MIN_CSS_PROPERTIES = 30
