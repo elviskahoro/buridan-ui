@@ -6,7 +6,7 @@ import re
 import shutil
 import sys
 from collections.abc import Callable
-from typing import Any
+from typing import Any, cast
 
 from reflex.components.component import ComponentNamespace
 
@@ -287,7 +287,7 @@ def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
         )
     except (ValueError, SyntaxError) as e:
         return f"\n> **Error in {cmd}: {e}**\n"
-    items: list[Any] = val if isinstance(val, list) else [val]
+    items = cast("list[Any]", val if isinstance(val, list) else [val])
     name = str(items[0])
     # Optional second list item: code language or install CLI command.
     has_option = isinstance(val, list) and len(items) > 1

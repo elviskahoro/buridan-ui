@@ -1,4 +1,4 @@
-from typing import Any, ClassVar, Literal
+from typing import Any, ClassVar, Literal, cast
 
 import reflex as rx
 from reflex.components.component import ComponentNamespace
@@ -233,7 +233,7 @@ def attachment_trigger(
     **props: Any,
 ) -> rx.Component:
 
-    component_fn = rx.el.a if link else rx.el.button
+    component_fn = cast("Any", rx.el.a if link else rx.el.button)
 
     props.setdefault("data-slot", "attachment-trigger")
     props.setdefault("class_name", cn(ClassNames.TRIGGER, class_name))

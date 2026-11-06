@@ -76,7 +76,7 @@ def test_render_pre_filename_and_section_labels_keep_python(language: str) -> No
 
 
 def test_render_pre_production_var_emits_runtime_language_conditional() -> None:
-    language = rx.Var(_js_expr="_language", _var_type=str)
+    language: rx.Var[str] = rx.Var(_js_expr="_language", _var_type=str)
     rendered = render_text(render_pre("x", language=language))
 
     assert "_language" in rendered
@@ -93,7 +93,7 @@ def test_render_pre_production_var_emits_runtime_language_conditional() -> None:
 
 
 def test_render_pre_language_conditional_does_not_emit_pyor_helper() -> None:
-    language = rx.Var(_js_expr="_language", _var_type=str)
+    language: rx.Var[str] = rx.Var(_js_expr="_language", _var_type=str)
     rendered = render_text(render_pre("x", language=language))
 
     assert "pyOr" not in rendered

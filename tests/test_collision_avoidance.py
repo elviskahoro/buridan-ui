@@ -35,6 +35,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 import pytest  # noqa: E402
+from reflex.components.component import Component  # noqa: E402
 
 from components.ui.context_menu import ContextMenuPositioner  # noqa: E402
 from components.ui.menu import MenuPositioner  # noqa: E402
@@ -57,7 +58,9 @@ POSITIONER_CLASSES = [
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_accepts_object_form(positioner_cls: type) -> None:
+def test_collision_avoidance_accepts_object_form(
+    positioner_cls: type[Component],
+) -> None:
     """The dict form ``{'side': 'none'}`` must not raise at component-creation time.
 
     Regression for the original ``TypeError: Invalid var passed for prop
@@ -76,7 +79,9 @@ def test_collision_avoidance_accepts_object_form(positioner_cls: type) -> None:
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_dict_renders_as_js_object(positioner_cls: type) -> None:
+def test_collision_avoidance_dict_renders_as_js_object(
+    positioner_cls: type[Component],
+) -> None:
     """The dict form must compile to a JS object literal, not a bare JS string.
 
     Regression for the silent-dead-prop side of the bug: when the prop accepted
@@ -104,7 +109,7 @@ def test_collision_avoidance_dict_renders_as_js_object(positioner_cls: type) -> 
     ids=lambda cls: cls.__name__,
 )
 def test_collision_avoidance_accepts_full_collision_avoidance_object(
-    positioner_cls: type,
+    positioner_cls: type[Component],
 ) -> None:
     """A complete ``CollisionAvoidance`` object with all three keys is accepted.
 
@@ -134,7 +139,9 @@ def test_collision_avoidance_accepts_full_collision_avoidance_object(
     POSITIONER_CLASSES,
     ids=lambda cls: cls.__name__,
 )
-def test_collision_avoidance_string_form_still_accepted(positioner_cls: type) -> None:
+def test_collision_avoidance_string_form_still_accepted(
+    positioner_cls: type[Component],
+) -> None:
     """The ``str`` half of ``Var[str | dict[str, str]]`` remains accepted.
 
     The fix widens the type rather than narrowing it; consumers that previously
@@ -153,7 +160,7 @@ def test_collision_avoidance_string_form_still_accepted(positioner_cls: type) ->
     ids=lambda cls: cls.__name__,
 )
 def test_collision_avoidance_bool_form_still_accepted_on_menu(
-    positioner_cls: type,
+    positioner_cls: type[Component],
 ) -> None:
     """``MenuPositioner`` previously typed ``collision_avoidance`` as
     ``Var[bool | LiteralCollisionAvoidance]``, so ``collision_avoidance=True``

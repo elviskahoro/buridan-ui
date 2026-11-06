@@ -169,7 +169,7 @@ class DocParser:
                 if arg and any(arg.startswith(c) for c in "[{'\"")
                 else arg
             )
-            items: list[Any] = val if isinstance(val, list) else [val]
+            items = cast("list[Any]", val if isinstance(val, list) else [val])
             name = str(items[0])
 
             registry_entry = self.registry.get(str(name).lower())

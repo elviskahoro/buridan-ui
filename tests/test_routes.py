@@ -103,7 +103,7 @@ def test_generate_doc_routes_sorts_by_frontmatter_order_and_url_ties(
         paths.append(path)
 
     # Reverse both tied URL groups to prove tie ordering ignores glob order.
-    glob_order = [paths[2], paths[4], paths[0], paths[3], paths[1]]
+    glob_order: list[Path] = [paths[2], paths[4], paths[0], paths[3], paths[1]]
 
     def fake_glob(_self: Path, _pattern: str) -> Iterator[Path]:
         return iter(glob_order)

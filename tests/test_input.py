@@ -40,11 +40,11 @@ def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
 
 
 def _on_change_arg(comp: rx.Component) -> Var[Any]:  # noqa: ANN401
-    chain = comp.event_triggers["on_change"]
+    chain = cast("Any", comp.event_triggers["on_change"])
     assert isinstance(chain, EventChain)
-    spec = chain.events[0]
+    spec = cast("EventSpec", chain.events[0])
     assert isinstance(spec, EventSpec)
-    return spec.args[0][1]
+    return cast("Var[Any]", spec.args[0][1])
 
 
 def _capture_typed_create_props(

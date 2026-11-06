@@ -10,13 +10,13 @@ PACKAGE_NAME = "@base-ui/react"
 PACKAGE_VERSION = "1.6.0"
 PACKAGE_CLSX = "clsx@2.1.1"
 PACKAGE_TAILWIND_MERGE = "tailwind-merge@3.7.0"
-CLSX = Var(
+CLSX = Var(  # pyright: ignore[reportUnknownVariableType]  # Var.to(FunctionVar) infers FunctionVar[Unknown]
     "clsx",
     _var_data=VarData(
         imports={PACKAGE_CLSX: ImportVar(tag="clsx", package_path="")},
     ),
 ).to(FunctionVar)
-TW_MERGE = Var(
+TW_MERGE = Var(  # pyright: ignore[reportUnknownVariableType]  # Var.to(FunctionVar) infers FunctionVar[Unknown]
     "twMerge",
     _var_data=VarData(
         imports={

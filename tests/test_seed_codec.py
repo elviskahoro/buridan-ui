@@ -255,7 +255,7 @@ def test_generate_from_seed_canonicalises_b0_collision_partner() -> None:
         captured.append(s)
         return s
 
-    orig_script = rx.script
+    orig_script = cast("Any", rx.script)
     rx.script = cast("Any", _spy)
     try:
         seed_engine()
@@ -335,7 +335,7 @@ def _assert_init_load_noop_popstate_contract(*, stub_set_theme: bool) -> None:
 
     # Capture the rendered url_sync + seed scripts the components actually ship.
     captured: dict[str, list[str]] = {}
-    orig_script = rx.script
+    orig_script = cast("Any", rx.script)
 
     def spy(s: str) -> str:
         captured.setdefault("s", []).append(s)

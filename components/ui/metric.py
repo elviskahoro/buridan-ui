@@ -32,7 +32,7 @@ def high_level_metric(
     trend_direction: Var[LiteralTrendDirection] | LiteralTrendDirection = "neutral",
     **props: Any,
 ) -> MetricRoot:
-    trend_color = rx.match(
+    trend_color = rx.match(  # pyright: ignore[reportUnknownVariableType]  # rx.match overload yields Var[Unknown]
         trend_direction,
         ("up", "text-emerald-600 bg-emerald-500/10 dark:text-emerald-400"),
         ("down", "text-destructive bg-destructive/10"),

@@ -65,7 +65,7 @@ def test_var_orientation_emits_reactive_ternary() -> None:
 def test_root_forwards_var_data_orientation() -> None:
     # A Var-bound orientation must forward a Var to `data-orientation`, not a
     # coerced bool/string that would silently break the attribute's reactivity.
-    data_orientation = button_group.root(orientation=_State.layout).custom_attrs[
+    data_orientation = button_group.root(orientation=_State.layout).custom_attrs[  # pyright: ignore[reportUnknownVariableType]  # custom_attrs values are Unknown in the stub
         "data-orientation"
     ]
     assert isinstance(data_orientation, Var)
