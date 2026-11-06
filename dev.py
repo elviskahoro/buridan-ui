@@ -145,9 +145,13 @@ def run_reflex(env: str, pages: list[str] | None) -> str | None:
         os.environ.pop("BURIDAN_DEV_MODE", None)
         os.environ.pop("BURIDAN_DEV_PAGES", None)
 
+    if env not in {"dev", "prod"}:
+        msg = f"unexpected run mode: {env}"
+        raise ValueError(msg)
+
     cmd = ["uv", "run", "reflex", "run", "--env", env]
 
-    process = subprocess.Popen(  # noqa: S603 - fixed argv, no shell
+    process = subprocess.Popen(  # noqa: S603 - fixed-choice args, env validated above
         cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT,
