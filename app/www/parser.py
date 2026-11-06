@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import ast
 import importlib
 import inspect
@@ -30,7 +31,7 @@ if TYPE_CHECKING:
 
 def get_all_dependencies(name: str, registry: dict[str, Any]) -> list[str]:
     """Recursively get all dependencies for a component in correct order."""
-    deps = []
+    deps: list[str] = []
 
     def resolve(comp_name: str) -> None:
         comp = registry.get(comp_name.lower())
@@ -70,7 +71,7 @@ def _render_install(name: object) -> rx.Component:
             f"Component '{name}' not found in registry",
         )
 
-    files_data = []
+    files_data: list[tuple[str, str]] = []
     for dep in all_deps:
         comp_info = COMPONENT_REGISTRY[dep]
         for f_path in comp_info.get("files", []):
@@ -119,11 +120,17 @@ def _render_anatomy(name: object) -> rx.Component:
 class DocParser:
     """Minimal markdown parser for Reflex documentation."""
 
-    def __init__(  # noqa: D107 - args are documented on the class
+    def __init__(
         self,
         registry: dict[str, Any] | None = None,
         dynamic_load_dirs: list[str] | None = None,
     ) -> None:
+        """Initialize the parser.
+
+        Args:
+            registry: Optional mapping of component names to render targets.
+            dynamic_load_dirs: Optional directories (within the repo) to load dynamically.
+        """
         self.registry: dict[str, Any] = registry or {}
         root = pathlib.Path(__file__).resolve().parents[2]
         for d in dynamic_load_dirs or []:

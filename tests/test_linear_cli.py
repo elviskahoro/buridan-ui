@@ -5,17 +5,20 @@ exercises the real pydantic-settings resolution against an empty directory
 (no env var, no .env files).
 """
 
-import contextlib
 import json
 import os
 import sys
 import types
 from pathlib import Path
+from typing import TYPE_CHECKING
 from unittest import mock
 
 import pytest
 from pydantic import ValidationError
 from typer.testing import CliRunner
+
+if TYPE_CHECKING:
+    import contextlib
 
 # ---------------------------------------------------------------------------
 # Import the script under test — the repo root is not a package, and `scripts`
@@ -55,7 +58,7 @@ def _issue(
 
 def _patch_workflow(
     inner: mock.MagicMock,
-) -> contextlib.AbstractContextManager[mock.MagicMock]:
+) -> "contextlib.AbstractContextManager[mock.MagicMock]":
     """Patch ``linear_cli._workflow`` so its context yields ``inner``.
 
     ``__exit__`` must return False so exceptions raised inside the ``with``

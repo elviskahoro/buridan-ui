@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the interactive chart demo selectors."""
 
 from collections.abc import Callable

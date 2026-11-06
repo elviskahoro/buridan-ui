@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the ToggleGroup wrapper around the pinned
 ``@base-ui/react`` dependency (``1.6.0``; see ``components/ui/core.py``).
 
