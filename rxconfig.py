@@ -7,7 +7,7 @@ config = rx.Config(
     show_built_with_reflex=False,
     disable_plugins=[SitemapPlugin],
     plugins=[
-        rx.plugins.RadixThemesPlugin(theme=rx.theme(appearance="light")),
+        rx.plugins.RadixThemesPlugin(theme=rx.theme(appearance="light")),  # pyright: ignore[reportUnknownMemberType]
         rx.plugins.TailwindV4Plugin(
             TailwindConfig(
                 darkMode="class",

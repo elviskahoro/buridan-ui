@@ -1,4 +1,6 @@
 import os
+from pathlib import Path
+from typing import Any
 
 from app.www import constants
 from app.www.frontmatter import parse_frontmatter
@@ -11,7 +13,7 @@ parser = DocParser(
 
 
 def generate_docs_library() -> list[constants.DocDataStruct]:
-    docs = []
+    docs: list[constants.DocDataStruct] = []
     dev_mode = os.environ.get("BURIDAN_DEV_MODE") == "true"
 
     if not constants.DOCS_BASE_DIR.exists():
@@ -20,7 +22,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
 
     # Create a mapping from URL slug to file path for all markdown files
     all_md_files = list(constants.DOCS_BASE_DIR.glob("**/*.md"))
-    slug_to_path_map = {}
+    slug_to_path_map: dict[str, Path] = {}
     for md_file in all_md_files:
         relative_path = md_file.relative_to(constants.DOCS_BASE_DIR)
         slug = "/".join(
@@ -28,7 +30,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
         )
         slug_to_path_map[slug] = md_file
 
-    md_files_to_process = []
+    md_files_to_process: list[Path] = []
     if dev_mode:
         print("--- Development Mode Enabled ---")
         pages_str = os.environ.get("BURIDAN_DEV_PAGES", "")
@@ -67,7 +69,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
         # the TOC and the rendered DOM see precisely the same headings — even
         # ``#``-lines inside fenced code blocks never become phantom sections.
         heading_registry = HeadingIdRegistry()
-        toc_data = []
+        toc_data: list[dict[str, Any]] = []
         for kind, payload in iter_heading_segments(md_content):
             if kind != "heading":
                 continue

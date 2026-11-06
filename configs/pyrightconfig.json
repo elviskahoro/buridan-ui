@@ -22,7 +22,7 @@
   "reportPrivateUsage": "warning",
   "reportUnknownArgumentType": "none",
   "reportUnknownLambdaType": "error",
-  "reportUnknownMemberType": "none",
+  "reportUnknownMemberType": "error",
   "reportUnknownParameterType": "none",
   "reportUnknownVariableType": "none",
   "reportUntypedBaseClass": "error",
@@ -51,5 +51,46 @@
   "reportUnusedFunction": "error",
   "reportUnusedVariable": "error",
   "reportDuplicateImport": "error",
-  "reportInvalidStringEscapeSequence": "error"
+  "reportInvalidStringEscapeSequence": "error",
+  "executionEnvironments": [
+    {
+      "root": "../app/pages",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/templates",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/examples",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/anatomy_src",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/engine",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/www/library",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../app/www/markup",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../components",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": "../tests",
+      "reportUnknownMemberType": "none"
+    },
+    {
+      "root": ".."
+    }
+  ]
 }

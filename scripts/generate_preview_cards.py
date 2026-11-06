@@ -58,7 +58,7 @@ def wrap_text(
 ) -> str:
     words = text.split()
 
-    lines = []
+    lines: list[str] = []
     current_line = ""
 
     for word in words:

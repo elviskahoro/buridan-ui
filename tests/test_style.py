@@ -8,7 +8,7 @@ rAF); after a client-side route change the newly mounted ``<pre><code>`` blocks
 are mounted after that one-shot highlight has already fired, so they render as
 plain untokenized text unless something re-triggers highlighting on mount.
 
-The sibling wrappers in ``app/www/wrapper.py`` (``demo_wrapper``,
+The sibling wrappers in ``app/www/markup/wrapper.py`` (``demo_wrapper``,
 ``chart_util_wrapper``) already attach ``on_mount=rx.call_script("Prism.highlightAll()")``
 to their ``<code>`` element, which re-highlights the page on mount. The
 markdown path historically lacked this trigger, so docs pages reached via
@@ -36,8 +36,8 @@ sys.path.insert(0, str(ROOT_DIR))
 
 import reflex as rx  # noqa: E402
 
-from app.www import wrapper  # noqa: E402
-from app.www.markdown_render import markdown_component_map, render_pre  # noqa: E402
+from app.www.markup import wrapper  # noqa: E402
+from app.www.markup.markdown_render import markdown_component_map, render_pre  # noqa: E402
 
 PRISM_CALL = "Prism.highlightAll()"
 
@@ -86,7 +86,7 @@ def test_render_pre_code_element_re_invokes_prism_on_mount() -> None:
     This is the in-memory Reflex-tree surface of the fix: the ``<code>`` element
     produced by ``render_pre`` carries an ``on_mount`` ``EventChain`` whose
     event args embed the literal ``Prism.highlightAll()`` script, matching the
-    established ``app/www/wrapper.py`` pattern. Without this trigger, the
+    established ``app/www/markup/wrapper.py`` pattern. Without this trigger, the
     vendored Prism bundle's one-shot DOMContentLoaded highlight is the only
     highlight that ever fires, so code fences mounted by client-side
     navigation are never tokenized.
