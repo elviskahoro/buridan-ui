@@ -6,7 +6,7 @@ import re
 import shutil
 import sys
 from collections.abc import Callable
-from typing import Any
+from typing import Any, cast
 
 from reflex.components.component import ComponentNamespace
 
@@ -287,10 +287,10 @@ def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
         )
     except (ValueError, SyntaxError) as e:
         return f"\n> **Error in {cmd}: {e}**\n"
-    name = val[0] if isinstance(val, list) else val  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    name = cast("Any", val[0] if isinstance(val, list) else val)
     # Optional second list item: code language or install CLI command.
     has_option = isinstance(val, list) and len(val) > 1
-    option = val[1] if has_option else None  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    option = cast("Any", val[1] if has_option else None)
 
     if cmd == "anatomy":
         return _anatomy_block(name)

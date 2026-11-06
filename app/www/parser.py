@@ -162,7 +162,7 @@ class DocParser:
                 if arg and any(arg.startswith(c) for c in "[{'\"")
                 else arg
             )
-            name = val[0] if isinstance(val, list) else val  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+            name = cast("Any", val[0] if isinstance(val, list) else val)
 
             registry_entry = self.registry.get(str(name).lower())
             if not registry_entry and cmd != "install":

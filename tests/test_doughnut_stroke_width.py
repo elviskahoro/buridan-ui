@@ -11,6 +11,8 @@ the SVG default of ~1px. Passing ``strokeWidth`` through ``custom_attrs`` lands 
 as a real top-level JSX prop on ``<Pie>``, which recharts honors on every sector.
 """
 
+from typing import cast
+
 import reflex as rx
 from reflex.components.component import Component
 
@@ -39,7 +41,8 @@ def _find_pie(component: Component) -> Component:
 
 
 def _rendered_props(pie: Component) -> str:
-    return " ".join(str(prop) for prop in pie.render()["props"])  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    props = cast("list[str]", pie.render()["props"])
+    return " ".join(props)
 
 
 def test_doughnutchart_v1_pie_emits_top_level_stroke_width() -> None:

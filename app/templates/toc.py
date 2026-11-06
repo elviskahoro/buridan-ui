@@ -1,4 +1,4 @@
-from typing import Any
+from typing import Any, cast
 from urllib.parse import quote
 
 import reflex as rx
@@ -103,7 +103,7 @@ Help me understand how to use it. Be ready to explain concepts, give examples, o
         href: str,
         icon_size: str = "size-4",
     ) -> rx.Component:
-        link_component = external_link if is_external_href(href) else rx.el.a  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+        link_component = cast("Any", external_link if is_external_href(href) else rx.el.a)
         return tooltip.provider(
             tooltip.root(
                 tooltip.trigger(

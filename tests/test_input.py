@@ -38,11 +38,11 @@ def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
 
 
 def _on_change_arg(comp: rx.Component) -> Var[Any]:  # noqa: ANN401
-    chain = comp.event_triggers["on_change"]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    chain = cast("Any", comp.event_triggers["on_change"])
     assert isinstance(chain, EventChain)
-    spec = chain.events[0]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    spec = cast("EventSpec", chain.events[0])
     assert isinstance(spec, EventSpec)
-    return spec.args[0][1]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    return cast("Var[Any]", spec.args[0][1])
 
 
 def _capture_typed_create_props(
@@ -263,9 +263,10 @@ def test_typed_dispatch_normalizes_value_like_upstream() -> None:
         assert type(wrapper_comp) is type(upstream_comp), input_type
 
         def _value_prop(comp: rx.Component, *, input_type: str) -> str:
-            for prop in comp.render()["props"]:  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+            props = cast("list[str]", comp.render()["props"])
+            for prop in props:
                 if prop.startswith("value:"):
-                    return prop  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+                    return prop
             msg = f"no value prop on {input_type}"
             raise AssertionError(msg)
 

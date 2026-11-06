@@ -12,6 +12,7 @@ producing invalid nested-interactive HTML on every page (duplicate tab stops,
 double focus rings, and duplicated button semantics for screen-reader users).
 """
 
+from typing import cast
 from collections.abc import Callable, Iterable
 
 import pytest
@@ -29,7 +30,8 @@ from components.ui.tooltip import (
 
 def _walk(component: rx.Component) -> Iterable[rx.Component]:
     yield component
-    for child in getattr(component, "children", None) or []:  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    children = cast("list[rx.Component]", getattr(component, "children", None) or [])
+    for child in children:
         yield from _walk(child)
 
 

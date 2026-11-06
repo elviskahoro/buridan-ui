@@ -11,6 +11,7 @@ silently dropping it and leaking ``trackAnchor`` onto the rendered DOM.
 import re
 import sys
 from pathlib import Path
+from typing import cast
 
 import pytest
 from reflex.components.component import Component
@@ -125,11 +126,11 @@ def test_positioner_legacy_track_anchor_no_longer_leaks_to_dom(
     payload rather than reaching the JSX prop list.
     """
     positioner = positioner_cls.create(track_anchor=True)
-    props = positioner.render()["props"]  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    props = cast("list[str]", positioner.render()["props"])
 
     # No element of the rendered prop list may be a top-level `trackAnchor:...`
     # JSX prop (which is what the original bug produced).
-    assert not any(prop.startswith("trackAnchor:") for prop in props)  # pyright: ignore[reportUnknownVariableType]  # Reflex/getattr stub returns Unknown
+    assert not any(prop.startswith("trackAnchor:") for prop in props)
 
 
 def test_all_five_positioner_wrappers_are_covered() -> None:
