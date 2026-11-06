@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 
 """Regression tests for the ``table`` component's ``striped`` handling.
 
@@ -25,21 +26,22 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from app.examples.components import card_twenty_two  # noqa: E402
 from components.ui.table import TableRoot, table  # noqa: E402
+from tests.render_helpers import render_text  # noqa: E402
 
 
 def test_card_twenty_two_applies_striping_class_to_body_rows() -> None:
-    assert "even:bg-secondary/30" in str(card_twenty_two().render())
+    assert "even:bg-secondary/30" in render_text(card_twenty_two())
 
 
 def test_high_level_table_striped_true_adds_striping() -> None:
-    rendered = str(table(data=[{"a": str(i)} for i in range(4)], striped=True).render())
+    rendered = render_text(table(data=[{"a": str(i)} for i in range(4)], striped=True))
     assert "even:bg-secondary/30" in rendered
     assert "striped" not in rendered
 
 
 def test_high_level_table_default_has_no_striping() -> None:
-    assert "even:bg-secondary/30" not in str(
-        table(data=[{"a": str(i)} for i in range(4)]).render(),
+    assert "even:bg-secondary/30" not in render_text(
+        table(data=[{"a": str(i)} for i in range(4)]),
     )
 
 
@@ -64,4 +66,4 @@ def test_passing_striped_to_table_root_leaks_into_style() -> None:
         class_name="border-none",
     )
     assert "striped" in dict(getattr(root, "style", {}) or {})
-    assert "striped" in str(root.render())
+    assert "striped" in render_text(root)

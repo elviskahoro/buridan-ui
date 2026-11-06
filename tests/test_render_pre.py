@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Prism language class wired by ``render_pre``."""  # noqa: INP001
 
 import json
@@ -11,6 +12,7 @@ import pytest
 import reflex as rx
 
 from app.www.style import markdown_component_map, render_pre
+from tests.render_helpers import render_text
 
 MIN_CSS_PROPERTIES = 30
 MIN_CSS_ATRULES = 10
@@ -35,7 +37,7 @@ PYTHON_CONTENT_LABELS = [
 
 
 def _resolve_language_class(language: str) -> str:
-    rendered = str(render_pre("x", language=language).render())
+    rendered = render_text(render_pre("x", language=language))
     winning = re.search(r'true \? "(language-[^"]+)"', rendered)
     if winning:
         return winning.group(1)
@@ -75,7 +77,7 @@ def test_render_pre_filename_and_section_labels_keep_python(language: str) -> No
 
 def test_render_pre_production_var_emits_runtime_language_conditional() -> None:
     language = rx.Var(_js_expr="_language", _var_type=str)
-    rendered = str(render_pre("x", language=language).render())
+    rendered = render_text(render_pre("x", language=language))
 
     assert "_language" in rendered
     assert '=== "bash"' in rendered
@@ -92,7 +94,7 @@ def test_render_pre_production_var_emits_runtime_language_conditional() -> None:
 
 def test_render_pre_language_conditional_does_not_emit_pyor_helper() -> None:
     language = rx.Var(_js_expr="_language", _var_type=str)
-    rendered = str(render_pre("x", language=language).render())
+    rendered = render_text(render_pre("x", language=language))
 
     assert "pyOr" not in rendered
 

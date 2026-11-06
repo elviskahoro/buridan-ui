@@ -71,7 +71,7 @@ def crawl_folder(
     if depth > 0:
         time.sleep(0.15)
 
-    results = []
+    results: list[dict[str, Any]] = []
     for item in items:
         name = item.get("name", "")
         itype = item.get("type", "")
@@ -134,7 +134,7 @@ def file_to_title(filename: str) -> str:
 def buridan_entries(
     routes: dict[str, list[dict[str, Any]]],
 ) -> list[dict[str, Any]]:
-    entries = []
+    entries: list[dict[str, Any]] = []
     for section, pages in routes.items():
         for page in pages:
             entries.append(
@@ -155,7 +155,7 @@ def reflex_entries(token: str | None) -> list[dict[str, Any]]:
     files = crawl_folder(REFLEX_FOLDER, token)
     print(f"  Found {len(files)} doc files")
 
-    entries = []
+    entries: list[dict[str, Any]] = []
     for f in files:
         path = f["path"]
         name = f["name"]

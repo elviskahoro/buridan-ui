@@ -408,7 +408,7 @@ def cmd_init() -> None:
 
     # ── append utilities that aren't already present ──────────────────────────
     current_css = css_path.read_text()
-    added = []
+    added: list[str] = []
 
     for name, css in UTILITIES_BUNDLE:
         sentinel = UTILITY_SENTINELS[name]

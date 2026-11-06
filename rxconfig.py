@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import reflex as rx
 from reflex.plugins.shared_tailwind import TailwindConfig
 from reflex.plugins.sitemap import SitemapPlugin

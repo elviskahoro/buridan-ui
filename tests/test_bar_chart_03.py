@@ -61,7 +61,7 @@ def _cond_wrapped_bars(chart: Any) -> list[Any]:  # noqa: ANN401
     an empty ``Fragment`` so the series is fully removed (not merely dimmed) when
     toggled off — that removal is what excludes it from the tooltip and axis.
     """
-    wrapped = []
+    wrapped: list[Any] = []
     for cond in _find_by_type_name(chart, "Cond"):
         branches = list(getattr(cond, "children", ()))
         if len(branches) == 2 and _find_by_type_name(branches[0], "Bar"):  # noqa: PLR2004

@@ -1,4 +1,5 @@
 # ruff: noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression tests for the ``collision_avoidance`` prop on Base UI positioner wrappers.
 
 ``@base-ui/react@1.6.0`` defines ``collisionAvoidance`` as a ``CollisionAvoidance``
@@ -28,6 +29,7 @@ tests pin that contract across all five positioner wrappers
 
 import sys
 from pathlib import Path
+from typing import Any, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -39,6 +41,7 @@ from components.ui.menu import MenuPositioner  # noqa: E402
 from components.ui.popover import PopoverPositioner  # noqa: E402
 from components.ui.select import SelectPositioner  # noqa: E402
 from components.ui.tooltip import TooltipPositioner  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 POSITIONER_CLASSES = [
     ContextMenuPositioner,
@@ -62,9 +65,9 @@ def test_collision_avoidance_accepts_object_form(positioner_cls: type) -> None:
     collections.abc.Mapping[str, str]`` raised when the prop was typed as
     ``Var[Literal[...]]`` or ``Var[str]``.
     """
-    component = positioner_cls.create(collision_avoidance={"side": "none"})
+    component = cast("Any", positioner_cls).create(collision_avoidance={"side": "none"})
 
-    rendered_props = " ".join(component.render()["props"])
+    rendered_props = " ".join(render_props(component))
     assert "collisionAvoidance:" in rendered_props
 
 
@@ -82,8 +85,8 @@ def test_collision_avoidance_dict_renders_as_js_object(positioner_cls: type) -> 
     as ``collisionAvoidance.side`` (which is ``undefined``) and therefore silently
     ignores. The dict form must instead emit a JS object the library can consume.
     """
-    component = positioner_cls.create(collision_avoidance={"side": "none"})
-    rendered_props = " ".join(component.render()["props"])
+    component = cast("Any", positioner_cls).create(collision_avoidance={"side": "none"})
+    rendered_props = " ".join(render_props(component))
 
     # The serialized form is `collisionAvoidance:({ ["side"] : "none" })` — the
     # leading `(` and quoted `["side"]` key prove an object literal was emitted.
@@ -109,14 +112,14 @@ def test_collision_avoidance_accepts_full_collision_avoidance_object(
     ``fallbackAxisSide``; each key must survive the round-trip into the rendered
     JS object so the library can read it via ``collisionAvoidance.<key>``.
     """
-    component = positioner_cls.create(
+    component = cast("Any", positioner_cls).create(
         collision_avoidance={
             "side": "flip",
             "align": "shift",
             "fallbackAxisSide": "none",
         },
     )
-    rendered_props = " ".join(component.render()["props"])
+    rendered_props = " ".join(render_props(component))
 
     assert '["side"]' in rendered_props
     assert '["align"]' in rendered_props
@@ -138,8 +141,8 @@ def test_collision_avoidance_string_form_still_accepted(positioner_cls: type) ->
     passed a plain string to ``SelectPositioner`` / ``PopoverPositioner`` (which
     were typed ``Var[str]``) must continue to compile without error.
     """
-    component = positioner_cls.create(collision_avoidance="flip")
-    rendered_props = " ".join(component.render()["props"])
+    component = cast("Any", positioner_cls).create(collision_avoidance="flip")
+    rendered_props = " ".join(render_props(component))
 
     assert 'collisionAvoidance:"flip"' in rendered_props
 
@@ -159,8 +162,8 @@ def test_collision_avoidance_bool_form_still_accepted_on_menu(
     pre-fix ``True`` form accepted (it remains a dead prop at runtime, like any
     bare non-object value, but it must not raise at component-creation time).
     """
-    component = positioner_cls.create(collision_avoidance=True)
-    rendered_props = " ".join(component.render()["props"])
+    component = cast("Any", positioner_cls).create(collision_avoidance=True)
+    rendered_props = " ".join(render_props(component))
 
     # The bool is forwarded as a literal (lowercased by the serializer) rather
     # than raising a TypeError, matching the pre-fix behavior where
