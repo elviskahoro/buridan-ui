@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import json
 import random
 import string

@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression tests for the anchor-tracking prop on the Base UI positioners.
 
 The pinned ``@base-ui/react`` library renamed ``trackAnchor`` (beta.4) to the

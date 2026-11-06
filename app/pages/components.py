@@ -9,7 +9,7 @@ from components.ui.button import button
 BASE_PATH = Path("components/ui")
 
 
-def _get_component_link_data() -> list[tuple[str, str]]:
+def get_component_link_data() -> list[tuple[str, str]]:
     links: list[tuple[str, str]] = []
     for file in BASE_PATH.glob("*.py"):
         if file.name in (
@@ -31,7 +31,7 @@ def _get_component_link_data() -> list[tuple[str, str]]:
 
 
 def get_component_links() -> list[rx.Component]:
-    links = _get_component_link_data()
+    links = get_component_link_data()
 
     return [
         rx.el.a(

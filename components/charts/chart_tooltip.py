@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 from typing import Any, Literal, cast
 
 import reflex as rx

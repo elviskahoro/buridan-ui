@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Toggle wrapper's ``icon_variant`` styling prop.
 
 ``Toggle.icon_variant`` is a wrapper-only styling prop: it selects a pressed-icon

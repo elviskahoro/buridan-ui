@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the command-copy button rendered by ``block_card``."""
 
 import json

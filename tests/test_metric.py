@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 import sys
 from pathlib import Path
 

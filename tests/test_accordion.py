@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression guards for the Accordion double-header bug.
 
 Since v0.9.1 (commit ``755f3ed``) ``AccordionTrigger.create`` in

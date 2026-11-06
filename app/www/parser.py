@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import ast
 import importlib
 import inspect
@@ -30,7 +31,7 @@ if TYPE_CHECKING:
 
 def get_all_dependencies(name: str, registry: dict[str, Any]) -> list[str]:
     """Recursively get all dependencies for a component in correct order."""
-    deps = []
+    deps: list[str] = []
 
     def resolve(comp_name: str) -> None:
         comp = registry.get(comp_name.lower())

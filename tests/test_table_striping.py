@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 
 """Regression tests for the ``table`` component's ``striped`` handling.
 

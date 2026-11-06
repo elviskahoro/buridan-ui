@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression tests for ``button_group`` orientation handling.
 
 ``ButtonGroupRoot`` selects a horizontal vs. vertical Tailwind variant from its

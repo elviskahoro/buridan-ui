@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression guards for the markdown code-block renderer in ``render_pre``.
 
 ``render_pre`` (the ``"pre"`` entry of ``markdown_component_map``) renders every

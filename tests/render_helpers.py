@@ -10,7 +10,7 @@ if TYPE_CHECKING:
 
 def render_dict(component: BaseComponent) -> dict[str, Any]:
     """Return ``component.render()`` typed as ``dict[str, Any]``."""
-    return cast("dict[str, Any]", component.render())
+    return cast("dict[str, Any]", cast("Any", component).render())
 
 
 def render_props(component: BaseComponent) -> list[str]:

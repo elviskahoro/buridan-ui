@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import json
 from typing import Any, cast
 

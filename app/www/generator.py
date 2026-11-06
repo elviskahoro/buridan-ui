@@ -1,10 +1,13 @@
 import os
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 from app.www.parser import DocParser
 from app.www.style import HeadingIdRegistry, iter_heading_segments
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 parser = DocParser(
     dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],
@@ -12,7 +15,7 @@ parser = DocParser(
 
 
 def generate_docs_library() -> list[constants.DocDataStruct]:
-    docs = []
+    docs: list[constants.DocDataStruct] = []
     dev_mode = os.environ.get("BURIDAN_DEV_MODE") == "true"
 
     if not constants.DOCS_BASE_DIR.exists():
@@ -21,7 +24,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
 
     # Create a mapping from URL slug to file path for all markdown files
     all_md_files = list(constants.DOCS_BASE_DIR.glob("**/*.md"))
-    slug_to_path_map = {}
+    slug_to_path_map: dict[str, Path] = {}
     for md_file in all_md_files:
         relative_path = md_file.relative_to(constants.DOCS_BASE_DIR)
         slug = "/".join(
@@ -29,7 +32,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
         )
         slug_to_path_map[slug] = md_file
 
-    md_files_to_process: list[Any] = []
+    md_files_to_process: list[Path] = []
     if dev_mode:
         print("--- Development Mode Enabled ---")
         pages_str = os.environ.get("BURIDAN_DEV_PAGES", "")

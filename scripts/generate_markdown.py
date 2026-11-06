@@ -129,7 +129,7 @@ def _parse_table_rows(lines: list[str]) -> list[list[str]]:
 
 def _calculate_col_widths(rows: list[list[str]]) -> list[int]:
     """Calculate the width needed for each column."""
-    col_widths = []
+    col_widths: list[int] = []
     max_cols = max(len(row) for row in rows)
     for col_idx in range(max_cols):
         max_width = max(

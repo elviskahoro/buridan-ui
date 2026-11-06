@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression coverage for default classes forwarded to custom render targets."""
 
 import reflex as rx

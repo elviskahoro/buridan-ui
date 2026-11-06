@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Tests for the field getting-started demo."""
 
 import re

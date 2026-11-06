@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Popover wrapper's audit of dead Base UI 1.6.0 props.
 
 ``PopoverRoot`` previously declared ``open_on_hover``, ``delay`` and
