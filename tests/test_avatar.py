@@ -35,6 +35,7 @@ from components.ui.avatar import (  # noqa: E402
     AvatarRoot,
     ClassNames,
 )
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -76,7 +77,7 @@ def test_avatar_root_unstyled_keeps_custom_class_name() -> None:
 def test_avatar_root_defaults_data_slot_and_size() -> None:
     root = AvatarRoot.create("X")
 
-    rendered_props = " ".join(root.render()["props"])
+    rendered_props = " ".join(render_props(root))
 
     assert '"data-slot":"avatar"' in rendered_props
     assert '"data-size":"default"' in rendered_props
@@ -85,7 +86,7 @@ def test_avatar_root_defaults_data_slot_and_size() -> None:
 def test_avatar_root_preserves_explicit_size() -> None:
     root = AvatarRoot.create("X", size="lg")
 
-    assert '"data-size":"lg"' in " ".join(root.render()["props"])
+    assert '"data-size":"lg"' in " ".join(render_props(root))
 
 
 def test_avatar_root_var_unstyled_toggles_classes_dynamically() -> None:
@@ -122,7 +123,7 @@ def test_avatar_root_render_skips_default_class_merge() -> None:
         render_=rx.el.div("x"),
         class_name="custom-root",
     )
-    rendered_props = " ".join(root.render()["props"])
+    rendered_props = " ".join(render_props(root))
 
     assert ClassNames.ROOT not in rendered_props
     assert "custom-root" in rendered_props
@@ -133,7 +134,7 @@ def test_avatar_root_render_without_class_name_yields_no_class() -> None:
     root = AvatarRoot.create(render_=rx.el.div("x"))
 
     assert root.class_name is None
-    assert ClassNames.ROOT not in " ".join(root.render()["props"])
+    assert ClassNames.ROOT not in " ".join(render_props(root))
 
 
 # ---------------------------------------------------------------------------
@@ -177,7 +178,7 @@ def test_avatar_image_render_skips_default_class_merge() -> None:
     image = AvatarImage.create(render_=rx.el.img(src="https://example.com/x.png"))
 
     assert image.class_name is None
-    assert ClassNames.IMAGE not in " ".join(image.render()["props"])
+    assert ClassNames.IMAGE not in " ".join(render_props(image))
 
 
 # ---------------------------------------------------------------------------
@@ -214,7 +215,7 @@ def test_avatar_fallback_render_skips_default_class_merge() -> None:
     fallback = AvatarFallback.create(render_=rx.el.div("AB"))
 
     assert fallback.class_name is None
-    assert ClassNames.FALLBACK not in " ".join(fallback.render()["props"])
+    assert ClassNames.FALLBACK not in " ".join(render_props(fallback))
 
 
 # ---------------------------------------------------------------------------
@@ -329,7 +330,7 @@ def test_avatar_badge_var_unstyled_toggles_classes_dynamically() -> None:
 
 def test_avatar_root_unstyled_not_rendered_to_dom() -> None:
     root = AvatarRoot.create("X", class_name="custom-root", unstyled=True)
-    rendered_props = " ".join(root.render()["props"])
+    rendered_props = " ".join(render_props(root))
 
     assert "unstyled" not in rendered_props
     assert '"data-slot":"avatar"' in rendered_props

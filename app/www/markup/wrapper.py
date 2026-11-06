@@ -434,7 +434,7 @@ def tooltip_wrapper_demo(
     items: list[dict[str, Any]],
     swatch: Swatch = "square",
 ) -> rx.Component:
-    children = []
+    children: list[rx.Component] = []
 
     if label:
         children.append(

@@ -23,10 +23,11 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.core import BaseUIComponent  # noqa: E402
 from components.ui.dialog import DialogRoot  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:
-    return " ".join(component.render()["props"])
+    return " ".join(render_props(component))
 
 
 def test_dialog_root_does_not_declare_dismissible() -> None:

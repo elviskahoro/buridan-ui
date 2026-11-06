@@ -2,6 +2,7 @@
 """Regression tests for the interactive chart demo selectors."""
 
 from collections.abc import Callable
+from typing import Any, cast
 
 import reflex as rx
 
@@ -38,7 +39,7 @@ def _assert_select_wiring(
         for option in select.children
     ] == expected_values
     assert "on_change" in select.event_triggers
-    on_change_js = getattr(select.event_triggers["on_change"], "events")[0]._js_expr  # noqa: B009, SLF001
+    on_change_js = cast("Any", select.event_triggers["on_change"]).events[0]._js_expr  # noqa: SLF001
     assert "_client_state_set" in on_change_js
     assert "target" in on_change_js
     assert "value" in on_change_js

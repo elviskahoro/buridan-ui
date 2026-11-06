@@ -41,7 +41,7 @@ buridan add chart_tooltip
 ### Manual Installation
 
 ```python
-from typing import Any, Literal
+from typing import Any, Literal, cast
 
 import reflex as rx
 
@@ -53,7 +53,7 @@ def _deep_merge(base: dict[str, Any], override: dict[str, Any]) -> dict[str, Any
     result = base.copy()
     for key, value in override.items():
         if isinstance(result.get(key), dict) and isinstance(value, dict):
-            result[key] = _deep_merge(result[key], value)
+            result[key] = _deep_merge(result[key], cast("dict[str, Any]", value))
         else:
             result[key] = value
     return result
@@ -153,7 +153,7 @@ class _ChartTooltipContent:
                 )
             ]
 
-        lines = []
+        lines: list[str] = []
         for i, color_idx in enumerate(name_sorted_colors, 1):
             if swatch == "line":
                 lines.append(f"""
