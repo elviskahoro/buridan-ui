@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Avatar component's ``unstyled`` contract.
 
 Mirrors ``tests/test_kbd.py`` (PR #112) and ``tests/test_tooltip.py``: every

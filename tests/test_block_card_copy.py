@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the command-copy button rendered by ``block_card``."""
 
 import json
@@ -49,7 +50,7 @@ def test_block_card_keeps_terminal_icon_separate_from_command_text() -> None:
 def test_block_card_copy_feedback_targets_only_command_text_span(
     monkeypatch: pytest.MonkeyPatch,
 ) -> None:
-    scripts = []
+    scripts: list[str] = []
     call_script = example_utils.rx.call_script
 
     def capture_script(script: str) -> object:

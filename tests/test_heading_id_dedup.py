@@ -157,7 +157,7 @@ def test_toc_links_href_uses_precomputed_slug_verbatim() -> None:
         {"text": "Badge", "id": "badge", "level": 1},
         {"text": "badge", "id": "badge-1", "level": 2},
     ]
-    rendered = str(_create_markdown_toc_links("docs/components/badge", toc_data))
+    rendered = str(_create_markdown_toc_links(toc_data))
 
     hrefs = re.findall(r'to:"#([^"]+)"', rendered)
     assert hrefs == ["badge", "badge-1"]

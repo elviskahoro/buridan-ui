@@ -1,11 +1,13 @@
 import os
-from pathlib import Path
-from typing import Any
+from typing import TYPE_CHECKING, Any
 
 from app.www import constants
 from app.www.frontmatter import parse_frontmatter
 from app.www.parser import DocParser
 from app.www.style import HeadingIdRegistry, iter_heading_segments
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 parser = DocParser(
     dynamic_load_dirs=[constants.DOCS_LIBRARY_ROOT, constants.COMPONENTS_ROOT],

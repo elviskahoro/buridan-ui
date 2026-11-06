@@ -19,7 +19,7 @@
   "reportMissingModuleSource": "warning",
   "reportMissingParameterType": "error",
   "reportMissingTypeArgument": "error",
-  "reportPrivateUsage": "warning",
+  "reportPrivateUsage": "error",
   "reportUnknownArgumentType": "none",
   "reportUnknownLambdaType": "error",
   "reportUnknownMemberType": "error",

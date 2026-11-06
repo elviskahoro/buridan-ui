@@ -59,7 +59,6 @@ def create_copy_button(url: str) -> rx.Component:
 
 
 def _create_markdown_toc_links(
-    url: str,  # noqa: ARG001 - kept for call-site compatibility
     toc_data: list[dict[str, Any]],
 ) -> rx.Component:
     if not toc_data:
@@ -210,7 +209,7 @@ def table_of_content(url: str, toc_data: list[dict[str, Any]]) -> rx.Component:
                         class_name="text-xs text-muted-foreground font-medium pb-2",
                     ),
                     rx.el.div(
-                        _create_markdown_toc_links(url, toc_data),
+                        _create_markdown_toc_links(toc_data),
                         rx.el.div(class_name="py-2"),
                         class_name=(
                             "w-full flex flex-col "

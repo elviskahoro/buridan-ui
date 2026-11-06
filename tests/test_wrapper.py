@@ -1,4 +1,5 @@
 # noqa: INP001
+# pyright: reportUnknownMemberType=false
 """Regression guards for the demo preview container in ``demo_wrapper``.
 
 The preview ``class_name`` must use 8px padding on small screens and override
