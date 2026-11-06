@@ -24,7 +24,7 @@ def generate_docs_library() -> list[constants.DocDataStruct]:
 
     # Create a mapping from URL slug to file path for all markdown files
     all_md_files = list(constants.DOCS_BASE_DIR.glob("**/*.md"))
-    slug_to_path_map = {}
+    slug_to_path_map: dict[str, Path] = {}
     for md_file in all_md_files:
         relative_path = md_file.relative_to(constants.DOCS_BASE_DIR)
         slug = "/".join(

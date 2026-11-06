@@ -37,6 +37,7 @@ from components.ui.input_group import (  # noqa: E402
     InputGroupTextarea,
 )
 from components.ui.textarea import ClassNames as TextareaClassNames  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -81,7 +82,7 @@ def test_input_group_input_unstyled_without_custom_class_is_empty() -> None:
 
 def test_input_group_input_unstyled_not_rendered_to_dom() -> None:
     control = InputGroupInput.create(class_name="custom-input", unstyled=True)
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert "unstyled" not in rendered_props
 
@@ -102,7 +103,7 @@ def test_input_group_input_var_unstyled_toggles_classes_dynamically() -> None:
 
 def test_input_group_input_defaults_type_and_data_slot() -> None:
     control = InputGroupInput.create()
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert 'type:"text"' in rendered_props
     assert '"data-slot":"input-group-control"' in rendered_props
@@ -144,14 +145,14 @@ def test_input_group_textarea_unstyled_without_custom_class_is_empty() -> None:
 
 def test_input_group_textarea_unstyled_not_rendered_to_dom() -> None:
     control = InputGroupTextarea.create(class_name="custom-textarea", unstyled=True)
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert "unstyled" not in rendered_props
 
 
 def test_input_group_textarea_defaults_data_slot() -> None:
     control = InputGroupTextarea.create()
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert '"data-slot":"input-group-control"' in rendered_props
 
@@ -203,14 +204,14 @@ def test_input_group_button_unstyled_omits_wrapper_defaults() -> None:
 
 def test_input_group_button_unstyled_not_rendered_to_dom() -> None:
     control = InputGroupButton.create("Send", class_name="custom-btn", unstyled=True)
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert "unstyled" not in rendered_props
 
 
 def test_input_group_button_defaults_type_variant_and_size() -> None:
     control = InputGroupButton.create("Send")
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert 'type:"button"' in rendered_props
     assert '"data-size":"xs"' in rendered_props
@@ -219,7 +220,7 @@ def test_input_group_button_defaults_type_variant_and_size() -> None:
 def test_input_group_button_preserves_explicit_size() -> None:
     control = InputGroupButton.create("Send", size="icon-sm")
     class_name = str(control.class_name)
-    rendered_props = " ".join(control.render()["props"])
+    rendered_props = " ".join(render_props(control))
 
     assert '"data-size":"icon-sm"' in rendered_props
     assert "size-8" in class_name

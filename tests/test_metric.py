@@ -7,6 +7,7 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.metric import MetricRoot, metric  # noqa: E402
+from tests.render_helpers import render_text  # noqa: E402
 
 
 def test_metric_returns_metric_root_instance() -> None:
@@ -16,7 +17,7 @@ def test_metric_returns_metric_root_instance() -> None:
 
 
 def test_metric_renders_label_and_value() -> None:
-    rendered = str(metric(label="Revenue", value="$12,345").render())
+    rendered = render_text(metric(label="Revenue", value="$12,345"))
 
     assert "Revenue" in rendered
     assert "$12,345" in rendered
@@ -24,13 +25,13 @@ def test_metric_renders_label_and_value() -> None:
 
 
 def test_metric_without_trend_omits_trend_text() -> None:
-    rendered = str(metric(label="Revenue", value="$12,345").render())
+    rendered = render_text(metric(label="Revenue", value="$12,345"))
 
     assert "+12%" not in rendered
 
 
 def test_metric_with_trend_renders_trend_text() -> None:
-    rendered = str(metric(label="Revenue", value="$12,345", trend="+12%").render())
+    rendered = render_text(metric(label="Revenue", value="$12,345", trend="+12%"))
 
     assert "+12%" in rendered
 

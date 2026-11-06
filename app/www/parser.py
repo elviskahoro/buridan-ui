@@ -164,12 +164,13 @@ class DocParser:
     def _render(self, cmd: str, arg: str) -> rx.Component:
 
         try:
-            val = (
+            val: Any = (
                 ast.literal_eval(arg)
                 if arg and any(arg.startswith(c) for c in "[{'\"")
                 else arg
             )
-            name = val[0] if isinstance(val, list) else val
+            items: list[Any] = val if isinstance(val, list) else [val]
+            name = str(items[0])
 
             registry_entry = self.registry.get(str(name).lower())
             if not registry_entry and cmd != "install":

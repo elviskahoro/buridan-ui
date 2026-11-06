@@ -20,7 +20,7 @@
   "reportMissingParameterType": "error",
   "reportMissingTypeArgument": "error",
   "reportPrivateUsage": "error",
-  "reportUnknownArgumentType": "none",
+  "reportUnknownArgumentType": "error",
   "reportUnknownLambdaType": "error",
   "reportUnknownMemberType": "error",
   "reportUnknownParameterType": "none",

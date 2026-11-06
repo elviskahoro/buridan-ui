@@ -17,7 +17,7 @@ whose ``str()`` form embeds every literal input, so assertions are made against
 
 import sys
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal, cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -69,4 +69,4 @@ def test_root_forwards_var_data_orientation() -> None:
         "data-orientation"
     ]
     assert isinstance(data_orientation, Var)
-    assert "layout" in str(data_orientation)
+    assert "layout" in str(cast("Any", data_orientation))
