@@ -17,7 +17,7 @@ def generate_doc_routes(section_folder: str, base_path: str) -> list[dict[str, A
     Returns:
         A list of route dictionaries, sorted by the 'order' in metadata.
     """
-    routes = []
+    routes: list[dict[str, Any]] = []
     docs_path = f"{constants.DOCS_BASE_DIR}/{section_folder}"
 
     md_files = list(Path(docs_path).glob("**/*.md"))

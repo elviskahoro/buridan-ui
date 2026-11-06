@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Menu wrapper.
 
 Covers two audits of ``components/ui/menu.py``:

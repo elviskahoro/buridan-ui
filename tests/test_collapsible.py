@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Tests for the Collapsible panel's class_name shield.
 
 ``CollapsiblePanel`` carries the structural ``transition-[height]`` animation

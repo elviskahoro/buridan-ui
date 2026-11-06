@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import json  # noqa: INP001
 import re
 import sys

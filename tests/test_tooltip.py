@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Tooltip component wrapper around Base UI."""
 
 import typing

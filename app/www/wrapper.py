@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import json
 import random
 import string
@@ -398,7 +399,7 @@ def tooltip_row(
         row_style["paddingLeft"] = "8px"
         row_style["margin"] = "0"
 
-    children = []
+    children: list[rx.Component] = []
     if swatch != "border":
         children.append(tooltip_indicator(color, swatch))
 

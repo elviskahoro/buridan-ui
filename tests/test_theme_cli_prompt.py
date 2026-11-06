@@ -43,7 +43,7 @@ PRESET_OPTION_REF = "_client_state_dict_theme_preset_option"
 
 
 def _find_by_tag(component: Any, tag: Any) -> Any:  # noqa: ANN401
-    found = []
+    found: list[Any] = []
     if getattr(component, "tag", None) == tag:
         found.append(component)
     for child in getattr(component, "children", []) or []:

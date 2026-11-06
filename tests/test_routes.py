@@ -96,7 +96,7 @@ def test_generate_doc_routes_sorts_by_frontmatter_order_and_url_ties(
         "alpha.md": '---\ntitle: "Alpha"\ndescription: "Tie entry"\norder: 1\n---\n',
         "aardvark.md": '---\ntitle: "Aardvark"\ndescription: "Default-order tie"\norder: 0\n---\n',
     }
-    paths = []
+    paths: list[Path] = []
     for filename, content in markdown.items():
         path = docs_path / filename
         path.write_text(content, encoding="utf-8")
