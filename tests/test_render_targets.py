@@ -5,14 +5,10 @@ import reflex as rx
 
 from components.ui.accordion import (
     AccordionTrigger,
-)
-from components.ui.accordion import (
     ClassNames as AccordionClassNames,
 )
 from components.ui.dialog import (
     ClassNames as DialogClassNames,
-)
-from components.ui.dialog import (
     DialogClose,
 )
 from tests.render_helpers import render_text
