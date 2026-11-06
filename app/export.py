@@ -78,7 +78,7 @@ def export_site(app: rx.App) -> None:
         toc_content = table_of_content(doc.url, doc.table_of_content)
 
         title_s = doc.url.split("/")[-1].replace("-", " ").title()
-        title = f"{title_s} \u2013 buridan/ui"
+        title = f"{title_s} - buridan/ui"
         card_path = f"{doc.url.split('/')[-1]}.webp"
 
         app.add_page(
