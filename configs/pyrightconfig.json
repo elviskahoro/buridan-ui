@@ -23,7 +23,7 @@
   "reportUnknownArgumentType": "error",
   "reportUnknownLambdaType": "error",
   "reportUnknownMemberType": "error",
-  "reportUnknownParameterType": "none",
+  "reportUnknownParameterType": "error",
   "reportUnknownVariableType": "none",
   "reportUntypedBaseClass": "error",
   "reportUntypedFunctionDecorator": "error",
