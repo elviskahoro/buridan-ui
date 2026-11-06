@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Tests for the Collapsible panel's class_name shield.
 
 ``CollapsiblePanel`` carries the structural ``transition-[height]`` animation
@@ -29,6 +30,7 @@ from components.ui.collapsible import (
     CollapsibleTrigger,
 )
 from components.ui.core import BaseUIComponent
+from tests.render_helpers import render_props
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -162,7 +164,7 @@ def test_trigger_render_preserves_target_classes_without_component_defaults() ->
         render_=button("toggle"),
         class_name="custom-trigger",
     )
-    rendered_props = " ".join(trigger.render()["props"])
+    rendered_props = " ".join(render_props(trigger))
 
     assert ClassNames.TRIGGER not in rendered_props
     assert "custom-trigger" in rendered_props

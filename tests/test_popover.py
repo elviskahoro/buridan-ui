@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression tests for the Popover wrapper's audit of dead Base UI 1.6.0 props.
 
 ``PopoverRoot`` previously declared ``open_on_hover``, ``delay`` and
@@ -16,10 +17,11 @@ sys.path.insert(0, str(ROOT_DIR))
 
 from components.ui.core import BaseUIComponent  # noqa: E402
 from components.ui.popover import PopoverRoot, PopoverTrigger  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:
-    return " ".join(component.render()["props"])
+    return " ".join(render_props(component))
 
 
 def test_popover_root_no_longer_declares_dead_hover_props() -> None:

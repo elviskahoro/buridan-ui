@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 import sys
 from pathlib import Path
 
@@ -20,6 +21,7 @@ from components.ui.context_menu import (  # noqa: E402
     ContextMenuSubmenuTrigger,
 )
 from components.ui.core import BaseUIComponent  # noqa: E402
+from tests.render_helpers import render_props  # noqa: E402
 
 
 class _ContextMenuState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -30,7 +32,7 @@ class _ContextMenuState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
 
 
 def _rendered(component: BaseUIComponent) -> str:
-    return " ".join(component.render()["props"])
+    return " ".join(render_props(component))
 
 
 def test_context_menu_shortcut_uses_default_classes() -> None:
@@ -139,7 +141,7 @@ def test_context_menu_item_inset_and_variant_accept_state_vars() -> None:
         inset=_ContextMenuState.is_inset,
         variant=_ContextMenuState.item_variant,
     )
-    rendered_props = " ".join(item.render()["props"])
+    rendered_props = " ".join(render_props(item))
 
     assert '"data-inset":' in rendered_props
     assert '"data-variant":' in rendered_props
@@ -147,7 +149,7 @@ def test_context_menu_item_inset_and_variant_accept_state_vars() -> None:
 
 def test_context_menu_item_inset_and_variant_still_accept_literals() -> None:
     item = ContextMenuItem.create("Delete", inset=True, variant="destructive")
-    rendered_props = " ".join(item.render()["props"])
+    rendered_props = " ".join(render_props(item))
 
     assert '"data-inset":true' in rendered_props
     assert '"data-variant":"destructive"' in rendered_props
@@ -171,7 +173,7 @@ def test_context_menu_item_inset_false_does_not_trigger_padding_selector() -> No
         assert "data-[inset=true]:pl-7" in class_names
 
     item = ContextMenuItem.create("Delete", inset=False)
-    rendered_props = " ".join(item.render()["props"])
+    rendered_props = " ".join(render_props(item))
 
     assert '"data-inset":false' in rendered_props
 
@@ -179,7 +181,7 @@ def test_context_menu_item_inset_false_does_not_trigger_padding_selector() -> No
 def test_context_menu_group_label_inset_accepts_state_var() -> None:
     label = ContextMenuGroupLabel.create("Actions", inset=_ContextMenuState.is_inset)
 
-    assert '"data-inset":' in " ".join(label.render()["props"])
+    assert '"data-inset":' in " ".join(render_props(label))
 
 
 def test_context_menu_radio_item_inset_accepts_state_var() -> None:
@@ -189,7 +191,7 @@ def test_context_menu_radio_item_inset_accepts_state_var() -> None:
         inset=_ContextMenuState.is_inset,
     )
 
-    assert '"data-inset":' in " ".join(radio_item.render()["props"])
+    assert '"data-inset":' in " ".join(render_props(radio_item))
 
 
 def test_context_menu_checkbox_item_inset_accepts_state_var() -> None:
@@ -198,7 +200,7 @@ def test_context_menu_checkbox_item_inset_accepts_state_var() -> None:
         inset=_ContextMenuState.is_inset,
     )
 
-    assert '"data-inset":' in " ".join(checkbox_item.render()["props"])
+    assert '"data-inset":' in " ".join(render_props(checkbox_item))
 
 
 def test_context_menu_submenu_trigger_inset_accepts_state_var() -> None:
@@ -207,7 +209,7 @@ def test_context_menu_submenu_trigger_inset_accepts_state_var() -> None:
         inset=_ContextMenuState.is_inset,
     )
 
-    assert '"data-inset":' in " ".join(sub_trigger.render()["props"])
+    assert '"data-inset":' in " ".join(render_props(sub_trigger))
 
 
 # ---------------------------------------------------------------------------

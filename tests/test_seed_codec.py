@@ -1,3 +1,4 @@
+# pyright: reportUnknownMemberType=false
 """Regression coverage for the packed theme preset seed format."""
 
 import json

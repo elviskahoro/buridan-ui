@@ -67,7 +67,7 @@ FRONTMATTER_SPLIT_PARTS = 2
 def align_markdown_tables(content: str) -> str:
     """Align pipes in markdown tables to meet MD060 requirements."""
     lines = content.split("\n")
-    result = []
+    result: list[str] = []
     i = 0
     in_fence = False
 
@@ -280,17 +280,18 @@ def _process_delimiter(match: re.Match[str], registry: Registry) -> str:
 
     # Parse argument (handle strings or lists)
     try:
-        val = (
+        val: Any = (
             ast.literal_eval(arg)
             if arg and any(arg.startswith(c) for c in "[{'\"")
             else arg
         )
     except (ValueError, SyntaxError) as e:
         return f"\n> **Error in {cmd}: {e}**\n"
-    name = cast("Any", val[0] if isinstance(val, list) else val)
+    items = cast("list[Any]", val if isinstance(val, list) else [val])
+    name = str(items[0])
     # Optional second list item: code language or install CLI command.
-    has_option = isinstance(val, list) and len(val) > 1
-    option = cast("Any", val[1] if has_option else None)
+    has_option = isinstance(val, list) and len(items) > 1
+    option: str | None = str(items[1]) if has_option else None
 
     if cmd == "anatomy":
         return _anatomy_block(name)
