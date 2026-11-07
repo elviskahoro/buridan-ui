@@ -12,7 +12,7 @@ ROOT_DIR = Path(__file__).parent.parent
 def test_form_state_pattern_merges_username_into_existing_client_state() -> None:
     component = form_state_pattern_example()
 
-    on_change = cast("Any", component.event_triggers["on_change"]).events[0]
+    on_change = cast("Any", component.event_triggers["on_change"]).events[0]  # pyright: ignore[reportUnknownMemberType]  # reflex event_triggers values are Var[Unknown]
     expression = on_change._js_expr  # noqa: SLF001
 
     # The current form-state object is spread before the username field is updated.
