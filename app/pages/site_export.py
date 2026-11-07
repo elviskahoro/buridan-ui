@@ -14,7 +14,7 @@ from app.www.generator import generate_docs_library
 
 
 def export_site(app: rx.App) -> None:
-    app.add_page(
+    app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         component=mainpage(),
         route="/create",
         title="New Project - buridan/ui",
@@ -26,7 +26,7 @@ def export_site(app: rx.App) -> None:
         ),
     )
 
-    app.add_page(
+    app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         component=chart_page(),
         route="/charts",
         title="Charts - buridan/ui",
@@ -38,7 +38,7 @@ def export_site(app: rx.App) -> None:
         ),
     )
 
-    app.add_page(
+    app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         component=blocks_page(),
         route="/blocks",
         title="Building Blocks for Dashboards - buridan/ui",
@@ -50,7 +50,7 @@ def export_site(app: rx.App) -> None:
         ),
     )
 
-    app.add_page(
+    app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         component=components_page(),
         route="/components",
         title="Components - buridan/ui",
@@ -62,7 +62,7 @@ def export_site(app: rx.App) -> None:
         ),
     )
 
-    app.add_page(
+    app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         component=landing_page(),
         route="/",
         title="The UI Library for Reflex Developers - buridan/ui",
@@ -75,12 +75,12 @@ def export_site(app: rx.App) -> None:
     )
 
     for doc in generate_docs_library():
-        main_content = rx.el.div(*doc.component, class_name="w-full")
+        main_content = rx.el.div(*doc.component, class_name="w-full")  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
         toc_content = table_of_content(doc.url, doc.table_of_content)
 
         title_s, title, card_path = doc_page_strings(doc.url)
 
-        app.add_page(
+        app.add_page(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
             docpage(main_content, toc_content),
             route=f"/{doc.url}",
             title=title,
@@ -92,4 +92,4 @@ def export_site(app: rx.App) -> None:
             ),
         )
 
-    app.add_page(component=not_found_page(), route="/404", title="buridan/ui")
+    app.add_page(component=not_found_page(), route="/404", title="buridan/ui")  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
