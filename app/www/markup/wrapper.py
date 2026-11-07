@@ -1,3 +1,8 @@
+# Load-bearing: Trunk's pyright gate lints changed files at top-level
+# severities and ignores the executionEnvironments carve-out for
+# app/www/markup, so removing this resurfaces the Reflex factory findings
+# (#356). Remove only alongside the #327-style markup extraction.
+# pyright: reportUnknownMemberType=false
 import json
 from typing import Any, Literal
 
