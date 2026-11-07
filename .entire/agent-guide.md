@@ -56,3 +56,5 @@ source inspection. Do not automatically install, configure, or repair tools.
 ## Type checks without a .venv
 
 Use `rwx run .rwx/pyright.yml --wait` or `.rwx/pyrefly.yml` (optional `--init paths="a.py b.py"`) instead of retrying locally. The default pyright run is whole-repo in strict mode and can take minutes — past probes have seen `app/www/style.py` hang pyright outright, so narrow with `--init paths` when iterating. See CONTRIBUTING.md.
+
+The `rwx` CLI is available to agents. It reads only `$RWX_ACCESS_TOKEN`; if that is unset but per-org variables such as `RWX_ACCESS_TOKEN_ELVISKAHORO` exist, pass one explicitly: `rwx run .rwx/pyright.yml --wait --access-token "$RWX_ACCESS_TOKEN_ELVISKAHORO"`. A bare `403 Forbidden` from `rwx run` means no token was supplied, not that RWX is unavailable.
