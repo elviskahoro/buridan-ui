@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6TY6G2807JS54RF8HXHC4R1",
+  "session_id": "101414f1-3d3d-4007-a80c-d965b04524d5",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-07T12:02:14.294522706Z",
+  "branch": "w-789/gh348-issue",
+  "checkpoints_count": 1,
+  "files_touched": [
+    "components/charts/chart_tooltip.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "caa6abbc635c",
+  "checkpoint_transcript_start": 129,
+  "transcript_lines_at_start": 129,
+  "compact_transcript_start": 19,
+  "token_usage": {
+    "input_tokens": 20,
+    "cache_creation_tokens": 6323,
+    "cache_read_tokens": 330599,
+    "output_tokens": 2079,
+    "api_call_count": 9
+  },
+  "redaction": {
+    "replacements": 4,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 4,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 3
+  }
+}
