@@ -70,7 +70,7 @@ tasks:
       echo "$HOME/.local/lib/nodejs/bin" >> "$RWX_ENV/PATH"
 
   - key: pytest
-    use: [deps, node-install, code]
+    use: [code, deps, node-install]
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false
