@@ -63,6 +63,8 @@ rwx run .rwx/pyright.yml --wait --init paths="app/foo.py app/bar.py"
 
 These pipelines are manual only (no PR/push trigger) and are not required statuses. `tests.yml` and `trunk-check.yml` also work with `rwx run`.
 
+The default pyright run is whole-repo in strict mode and can take minutes; narrow it with `--init paths` when iterating. Past repo probes have seen `app/www/style.py` hang pyright outright at the pinned version, so a whole-repo run may never complete.
+
 ## Adding Components
 
 - New components should be added to `app/base_ui/components/base/`.

@@ -55,4 +55,4 @@ source inspection. Do not automatically install, configure, or repair tools.
 
 ## Type checks without a .venv
 
-Use `rwx run .rwx/pyright.yml --wait` or `.rwx/pyrefly.yml` (optional `--init paths="a.py b.py"`) instead of retrying locally. See CONTRIBUTING.md.
+Use `rwx run .rwx/pyright.yml --wait` or `.rwx/pyrefly.yml` (optional `--init paths="a.py b.py"`) instead of retrying locally. The default pyright run is whole-repo in strict mode and can take minutes — past probes have seen `app/www/style.py` hang pyright outright, so narrow with `--init paths` when iterating. See CONTRIBUTING.md.
