@@ -58,7 +58,7 @@ tasks:
     run: uv sync --frozen --no-install-project --group dev
 
   - key: validate
-    use: [deps, code]
+    use: [code, deps]
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false

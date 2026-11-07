@@ -110,7 +110,7 @@ tasks:
       trunk install --ci < /dev/null
 
   - key: lint
-    use: [deps, trunk-tools, code]
+    use: [code, deps, trunk-tools]
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false
