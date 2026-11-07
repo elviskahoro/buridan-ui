@@ -70,18 +70,6 @@
       "reportUnknownMemberType": "none"
     },
     {
-      "root": "../app/anatomy_src",
-      "reportUnknownMemberType": "none"
-    },
-    {
-      "root": "../app/engine",
-      "reportUnknownMemberType": "none"
-    },
-    {
-      "root": "../app/www/library",
-      "reportUnknownMemberType": "none"
-    },
-    {
       "root": "../app/www/markup",
       "reportUnknownMemberType": "none"
     },
@@ -90,7 +78,7 @@
       "reportUnknownMemberType": "none"
     },
     {
-      "root": "../tests",
+      "root": "../app/www/library",
       "reportUnknownMemberType": "none"
     },
     {
