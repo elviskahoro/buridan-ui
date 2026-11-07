@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the Prism language class wired by ``render_pre``."""  # noqa: INP001
 
 import json

@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the "Pie Chart - Active" demo (``piechart_v6``).
 
 recharts 3 (pinned via ``reflex.lock/package.json`` -> ``recharts@3.10.1``)
@@ -30,7 +29,7 @@ sys.path.insert(0, str(ROOT_DIR))
 from reflex.components.component import Component  # noqa: E402
 
 from app.www.library.charts.pie.v6 import piechart_v6  # noqa: E402
-from tests.render_helpers import render_text  # noqa: E402
+from tests.render_helpers import custom_attrs, render_text  # noqa: E402
 
 PIE_TAG = "Pie"
 TOOLTIP_TAG = "Tooltip"
@@ -76,7 +75,7 @@ def test_pie_keeps_active_shape_enlarged_geometry() -> None:
     sector geometry, so it must remain on the Pie with ``outerRadius: 110``.
     """
     pie = _find(piechart_v6(), PIE_TAG)
-    assert "outerRadius" in str(cast("Any", pie.custom_attrs).get("activeShape", ""))
+    assert "outerRadius" in str(cast("Any", custom_attrs(pie)).get("activeShape", ""))
     rendered_pie = render_text(pie)
     assert "activeShape" in rendered_pie
     assert "outerRadius" in rendered_pie
@@ -98,7 +97,7 @@ def test_tooltip_carries_default_index_prop_for_static_active_sector() -> None:
     first paint without any hover interaction.
     """
     tooltip = _find(piechart_v6(), TOOLTIP_TAG)
-    assert tooltip.custom_attrs.get("defaultIndex") == "1"
+    assert custom_attrs(tooltip).get("defaultIndex") == "1"
     rendered = str(piechart_v6())
     assert 'defaultIndex:"1"' in rendered
 
@@ -115,7 +114,7 @@ def test_tooltip_disables_active_box_so_it_does_not_render_on_first_paint() -> N
     stays enlarged, box stays hidden on first paint (and on hover).
     """
     tooltip = _find(piechart_v6(), TOOLTIP_TAG)
-    assert tooltip.custom_attrs.get("active") is False
+    assert custom_attrs(tooltip).get("active") is False
     rendered = str(piechart_v6())
     assert '"active":false' in rendered or "active:false" in rendered
 
@@ -137,7 +136,7 @@ def test_default_index_is_a_real_prop_not_leaked_into_wrapper_style() -> None:
     assert "defaultIndex" not in {
         str(k) for k in cast("dict[str, Any]", tooltip.style or {})
     }
-    assert tooltip.custom_attrs.get("defaultIndex") == "1"
+    assert custom_attrs(tooltip).get("defaultIndex") == "1"
     assert 'defaultIndex:"1"' in render_text(tooltip)
 
 

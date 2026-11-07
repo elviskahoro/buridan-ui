@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Tests for the Collapsible panel's class_name shield.
 
 ``CollapsiblePanel`` carries the structural ``transition-[height]`` animation
@@ -19,7 +18,6 @@ for the established assertion convention.
 
 from typing import Any, cast
 
-import reflex as rx
 from reflex.components.component import Component
 
 from components.ui.accordion import AccordionPanel
@@ -30,7 +28,7 @@ from components.ui.collapsible import (
     CollapsibleTrigger,
 )
 from components.ui.core import BaseUIComponent
-from tests.render_helpers import render_props
+from tests.render_helpers import el, render_props
 
 # ---------------------------------------------------------------------------
 # Helpers
@@ -40,8 +38,8 @@ from tests.render_helpers import render_props
 def _panel(class_name: str | None = None, **props: Any) -> BaseUIComponent:
     """Build a panel with a single child, optionally passing class_name."""
     if class_name is None:
-        return CollapsiblePanel.create(rx.el.div("content"), **props)
-    return CollapsiblePanel.create(rx.el.div("content"), class_name=class_name, **props)
+        return CollapsiblePanel.create(el("div", "content"), **props)
+    return CollapsiblePanel.create(el("div", "content"), class_name=class_name, **props)
 
 
 def _inner_div(panel: BaseUIComponent) -> Component:
@@ -151,9 +149,9 @@ def test_panel_render_skips_default_class_merge() -> None:
     default class, while the user's class_name still routes to the inner wrapper.
     """
     panel = CollapsiblePanel.create(
-        rx.el.div("content"),
+        el("div", "content"),
         class_name="transition-[opacity]",
-        render_=rx.el.div("replacement"),
+        render_=el("div", "replacement"),
     )
     assert panel.class_name is None
     assert "transition-[opacity]" in str(_inner_div(panel).class_name)
@@ -184,11 +182,11 @@ def test_panel_shield_matches_accordion_panel_shield() -> None:
     between them is exactly what introduced this bug.
     """
     cpanel = CollapsiblePanel.create(
-        rx.el.div("c"),
+        el("div", "c"),
         class_name="transition-[opacity] duration-500",
     )
     apanel = AccordionPanel.create(
-        rx.el.div("a"),
+        el("div", "a"),
         class_name="transition-[opacity] duration-500",
     )
 

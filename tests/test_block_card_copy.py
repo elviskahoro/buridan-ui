@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the command-copy button rendered by ``block_card``."""
 
 import json
@@ -13,13 +12,14 @@ ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
 from app.examples import utils as example_utils  # noqa: E402
+from tests.render_helpers import el  # noqa: E402
 
 SAMPLE_COMMAND = "uv run buridan add sample_block"
 
 
 @example_utils.block_card
 def sample_block() -> rx.Component:
-    return example_utils.rx.el.div("content")
+    return el("div", "content")
 
 
 def _find_button(component: rx.Component) -> rx.Component | None:

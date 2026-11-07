@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression tests for the Avatar component's ``unstyled`` contract.
 
 Mirrors ``tests/test_kbd.py`` (PR #112) and ``tests/test_tooltip.py``: every
@@ -35,7 +34,7 @@ from components.ui.avatar import (  # noqa: E402
     AvatarRoot,
     ClassNames,
 )
-from tests.render_helpers import render_props  # noqa: E402
+from tests.render_helpers import el, render_props  # noqa: E402
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -120,7 +119,7 @@ def test_avatar_root_render_skips_default_class_merge() -> None:
     unchanged.
     """
     root = AvatarRoot.create(
-        render_=rx.el.div("x"),
+        render_=el("div", "x"),
         class_name="custom-root",
     )
     rendered_props = " ".join(render_props(root))
@@ -131,7 +130,7 @@ def test_avatar_root_render_skips_default_class_merge() -> None:
 
 
 def test_avatar_root_render_without_class_name_yields_no_class() -> None:
-    root = AvatarRoot.create(render_=rx.el.div("x"))
+    root = AvatarRoot.create(render_=el("div", "x"))
 
     assert root.class_name is None
     assert ClassNames.ROOT not in " ".join(render_props(root))
@@ -175,7 +174,7 @@ def test_avatar_image_unstyled_keeps_custom_class_name() -> None:
 
 
 def test_avatar_image_render_skips_default_class_merge() -> None:
-    image = AvatarImage.create(render_=rx.el.img(src="https://example.com/x.png"))
+    image = AvatarImage.create(render_=el("img", src="https://example.com/x.png"))
 
     assert image.class_name is None
     assert ClassNames.IMAGE not in " ".join(render_props(image))
@@ -212,7 +211,7 @@ def test_avatar_fallback_unstyled_keeps_custom_class_name() -> None:
 
 
 def test_avatar_fallback_render_skips_default_class_merge() -> None:
-    fallback = AvatarFallback.create(render_=rx.el.div("AB"))
+    fallback = AvatarFallback.create(render_=el("div", "AB"))
 
     assert fallback.class_name is None
     assert ClassNames.FALLBACK not in " ".join(render_props(fallback))

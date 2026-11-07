@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression tests for ``button_group`` orientation handling.
 
 ``ButtonGroupRoot`` selects a horizontal vs. vertical Tailwind variant from its
@@ -30,6 +29,7 @@ from components.ui.button_group import (  # noqa: E402
     ClassNames,
     button_group,
 )
+from tests.render_helpers import custom_attrs  # noqa: E402
 
 
 class _State(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -65,7 +65,7 @@ def test_var_orientation_emits_reactive_ternary() -> None:
 def test_root_forwards_var_data_orientation() -> None:
     # A Var-bound orientation must forward a Var to `data-orientation`, not a
     # coerced bool/string that would silently break the attribute's reactivity.
-    data_orientation = button_group.root(orientation=_State.layout).custom_attrs[  # pyright: ignore[reportUnknownVariableType]  # custom_attrs values are Unknown in the stub
+    data_orientation = custom_attrs(button_group.root(orientation=_State.layout))[
         "data-orientation"
     ]
     assert isinstance(data_orientation, Var)

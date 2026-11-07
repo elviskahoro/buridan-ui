@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the Menu wrapper.
 
 Covers two audits of ``components/ui/menu.py``:
@@ -44,7 +43,7 @@ from components.ui.menu import (  # noqa: E402
     MenuTrigger,
     menu,
 )
-from tests.render_helpers import render_props  # noqa: E402
+from tests.render_helpers import custom_attrs, render_props  # noqa: E402
 
 
 def _rendered(component: BaseUIComponent) -> str:
@@ -128,7 +127,7 @@ def test_menu_submenu_root_no_longer_declares_dead_render() -> None:
 def test_menu_item_converts_variant_to_data_attribute() -> None:
     item = menu.item("Delete", variant="destructive")
 
-    assert item.custom_attrs["data-variant"] == "destructive"
+    assert custom_attrs(item)["data-variant"] == "destructive"
     rendered = " ".join(render_props(item))
     assert '"data-variant":"destructive"' in rendered
     # The bug folded the kwarg into an Emotion css style object instead of
@@ -140,7 +139,7 @@ def test_menu_item_converts_variant_to_data_attribute() -> None:
 def test_menu_item_converts_inset_to_data_attribute() -> None:
     item = menu.item("Profile", inset=True)
 
-    assert item.custom_attrs["data-inset"] is True
+    assert custom_attrs(item)["data-inset"] is True
     rendered = " ".join(render_props(item))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
@@ -154,15 +153,15 @@ def test_menu_item_parity_with_context_menu_item() -> None:
     m_item = menu.item("Delete", variant="destructive", inset=True)
     c_item = context_menu.item("Delete", variant="destructive", inset=True)
 
-    assert m_item.custom_attrs["data-variant"] == c_item.custom_attrs["data-variant"]
-    assert m_item.custom_attrs["data-inset"] == c_item.custom_attrs["data-inset"]
+    assert custom_attrs(m_item)["data-variant"] == custom_attrs(c_item)["data-variant"]
+    assert custom_attrs(m_item)["data-inset"] == custom_attrs(c_item)["data-inset"]
 
 
 def test_menu_group_label_converts_inset_to_data_attribute() -> None:
     label = menu.group_label("Group", inset=True)
 
-    assert label.custom_attrs["data-slot"] == "menu-group-label"
-    assert label.custom_attrs["data-inset"] is True
+    assert custom_attrs(label)["data-slot"] == "menu-group-label"
+    assert custom_attrs(label)["data-inset"] is True
     rendered = " ".join(render_props(label))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
@@ -171,8 +170,8 @@ def test_menu_group_label_converts_inset_to_data_attribute() -> None:
 def test_menu_submenu_trigger_converts_inset_to_data_attribute() -> None:
     trigger = menu.submenu_trigger("More", inset=True)
 
-    assert trigger.custom_attrs["data-slot"] == "menu-submenu-trigger"
-    assert trigger.custom_attrs["data-inset"] is True
+    assert custom_attrs(trigger)["data-slot"] == "menu-submenu-trigger"
+    assert custom_attrs(trigger)["data-inset"] is True
     rendered = " ".join(render_props(trigger))
     assert '"data-inset":true' in rendered
     assert '["inset"]' not in rendered
@@ -181,7 +180,7 @@ def test_menu_submenu_trigger_converts_inset_to_data_attribute() -> None:
 def test_menu_submenu_trigger_converts_variant_to_data_attribute() -> None:
     trigger = menu.submenu_trigger("Danger", variant="destructive")
 
-    assert trigger.custom_attrs["data-variant"] == "destructive"
+    assert custom_attrs(trigger)["data-variant"] == "destructive"
     rendered = " ".join(render_props(trigger))
     assert '"data-variant":"destructive"' in rendered
     # The bug folded the kwarg into an Emotion css style object instead of
@@ -205,7 +204,7 @@ def test_menu_icons_example_renders_destructive_item() -> None:
     destructive = [
         c
         for c in _walk(menu_icons.menu_icons())
-        if c.custom_attrs.get("data-variant") == "destructive"
+        if custom_attrs(c).get("data-variant") == "destructive"
     ]
 
     assert len(destructive) == 1
@@ -220,7 +219,7 @@ def test_button_group_dropdown_example_renders_destructive_item() -> None:
     destructive = [
         c
         for c in _walk(button_group_dropdown.button_group_dropdown())
-        if c.custom_attrs.get("data-variant") == "destructive"
+        if custom_attrs(c).get("data-variant") == "destructive"
     ]
 
     assert len(destructive) == 1

@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression guard: page templates render a single navbar ``<header>`` landmark.
 
 ``navbar()`` returns its own ``rx.el.header(...)`` (the implicit ARIA ``banner``
@@ -19,11 +18,11 @@ from typing import Any
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import reflex as rx  # noqa: E402
 
 from app.templates.docpage import docpage  # noqa: E402
 from app.templates.layout import layout_decorator  # noqa: E402
 from app.templates.navbar import navbar  # noqa: E402
+from tests.render_helpers import el  # noqa: E402
 
 
 def _walk(component: Any) -> Iterator[Any]:  # noqa: ANN401
@@ -50,7 +49,7 @@ def test_docpage_renders_a_single_header() -> None:
     """``docpage`` must render ``navbar()`` directly, not re-wrapped in a
     ``<header>`` (one banner per docs page; a single header cannot be nested).
     """
-    page = docpage(rx.el.div("content"), rx.el.div("toc"))
+    page = docpage(el("div", "content"), el("div", "toc"))
     assert _count_tag(page, "header") == 1
 
 
@@ -62,6 +61,6 @@ def test_layout_decorator_renders_a_single_header() -> None:
 
     @decorator
     def page() -> Any:  # noqa: ANN401
-        return rx.el.div("content")
+        return el("div", "content")
 
     assert _count_tag(page(), "header") == 1

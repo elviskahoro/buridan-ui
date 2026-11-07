@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the Tooltip component wrapper around Base UI."""
 
 import typing
@@ -14,7 +13,7 @@ from components.ui.tooltip import (
     TooltipRoot,
     TooltipTrigger,
 )
-from tests.render_helpers import render_props
+from tests.render_helpers import el, render_props
 
 
 class _UnstyledState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -31,7 +30,7 @@ def test_tooltip_trigger_keeps_default_classes_without_render_target() -> None:
 
 
 def test_tooltip_trigger_keeps_default_classes_with_native_render_targets() -> None:
-    for target in (rx.el.div("target"), rx.el.a("target", href="#")):
+    for target in (el("div", "target"), el("a", "target", href="#")):
         trigger = TooltipTrigger.create(render_=target)
         rendered_props = " ".join(render_props(trigger))
 
@@ -41,7 +40,7 @@ def test_tooltip_trigger_keeps_default_classes_with_native_render_targets() -> N
 
 def test_tooltip_trigger_merges_custom_class_with_render_target() -> None:
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"),
+        render_=el("div", "target"),
         class_name="custom-trigger",
     )
     rendered_props = " ".join(render_props(trigger))
@@ -52,7 +51,7 @@ def test_tooltip_trigger_merges_custom_class_with_render_target() -> None:
 
 def test_tooltip_trigger_unstyled_omits_default_with_render_target() -> None:
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"),
+        render_=el("div", "target"),
         class_name="custom-trigger",
         unstyled=True,
     )
@@ -81,7 +80,7 @@ def test_tooltip_trigger_render_with_var_unstyled_does_not_crash() -> None:
     Python ``bool(<Var>)`` truthiness check that raises ``VarTypeError``.
     """
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"),
+        render_=el("div", "target"),
         unstyled=_UnstyledState.flag,
     )
     rendered_props = " ".join(render_props(trigger))
@@ -106,7 +105,7 @@ def test_tooltip_trigger_var_unstyled_toggles_classes_dynamically() -> None:
     when the Var is true and the merged defaults otherwise.
     """
     trigger = TooltipTrigger.create(
-        render_=rx.el.div("target"),
+        render_=el("div", "target"),
         class_name="custom",
         unstyled=_UnstyledState.flag,
     )
@@ -141,7 +140,7 @@ def test_tooltip_popup_render_with_var_unstyled_does_not_crash() -> None:
     passed as ``unstyled`` must still be tolerated (parity with the pre-#66 path).
     """
     popup = TooltipPopup.create(
-        render_=rx.el.div("popup"),
+        render_=el("div", "popup"),
         unstyled=_UnstyledState.flag,
     )
     rendered_props = " ".join(render_props(popup))
