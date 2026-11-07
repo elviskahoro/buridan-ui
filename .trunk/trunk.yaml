@@ -69,7 +69,6 @@ lint:
     - name: pyright
       commands:
         - name: lint
-          run_from: ${root_or_parent_with_any_config}
           run: pyright --pythonpath ${workspace}/.venv/bin/python --project ${workspace}/pyrightconfig.json --outputjson ${target}
       direct_configs:
         - pyrightconfig.json
