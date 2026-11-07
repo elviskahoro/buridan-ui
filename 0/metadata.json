@@ -1,0 +1,43 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6TZYM0ZV5F73J1ENTV7PNP4",
+  "session_id": "4480e3bf-f1d0-4617-8ab8-79187a9fa64d",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-07T12:32:52.135469216Z",
+  "branch": "w-796/buridan-ui-issue-357",
+  "checkpoints_count": 3,
+  "save_step_count": 3,
+  "files_touched": [
+    ".rwx/pyrefly.yml",
+    ".rwx/pyright.yml",
+    "CONTRIBUTING.md"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "fa7487f31c4e",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 34,
+    "cache_creation_tokens": 20708,
+    "cache_read_tokens": 368346,
+    "output_tokens": 4516,
+    "api_call_count": 14
+  },
+  "redaction": {
+    "replacements": 5,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 5,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 3
+  }
+}
