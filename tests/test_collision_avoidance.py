@@ -1,5 +1,4 @@
 # ruff: noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression tests for the ``collision_avoidance`` prop on Base UI positioner wrappers.
 
 ``@base-ui/react@1.6.0`` defines ``collisionAvoidance`` as a ``CollisionAvoidance``

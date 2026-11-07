@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Tests for field components."""
 
 import sys
