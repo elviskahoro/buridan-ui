@@ -1,9 +1,8 @@
-# pyright: reportUnknownMemberType=false
 import reflex as rx
 
 
 def url_sync_engine() -> rx.Component:
-    return rx.script("""
+    script_src = """
         window.__getPresetFromURL = function() {
             const params = new URLSearchParams(window.location.search);
             return params.get('preset');
@@ -113,4 +112,5 @@ def url_sync_engine() -> rx.Component:
 
             if (window.__syncSidebar) window.__syncSidebar(config);
         });
-    """)
+    """
+    return rx.script(script_src)  # pyright: ignore[reportUnknownMemberType]  # reflex rx.script overloads are partially unknown
