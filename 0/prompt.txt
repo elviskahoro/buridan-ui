@@ -1,0 +1,46 @@
+Fix the failing CI checks.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<task-notification>
+<task-id>bh7xnyl14</task-id>
+<tool-use-id>toolu_01EXaJbH7gx9tR6wnMkKdTPu</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/c87c52db-649a-4826-81d2-1e9620f0bee3/tasks/bh7xnyl14.output</output-file>
+<status>completed</status>
+<summary>Background command "uv run --with pyright pyright --project pyrightconfig.json 2&gt;&amp;1 | tail -15; ruff check . 2&gt;&amp;1 | tail -3; ruff format --check app/www/markup 2&gt;&amp;1 | tail -3" completed (exit code 0)</summary>
+</task-notification>
+
+---
+
+<task-notification>
+<task-id>bsa83109m</task-id>
+<tool-use-id>toolu_01DsL9PMNMMGk3KbpNMWsjg6</tool-use-id>
+<output-file>/tmp/claude-1000/-home-vercel-sandbox-buridan-ui/c87c52db-649a-4826-81d2-1e9620f0bee3/tasks/bsa83109m.output</output-file>
+<status>completed</status>
+<summary>Monitor "wait for full pyright result" stream ended</summary>
+<event>0 errors, 0 warnings, 0 informations
+Found 237 errors.
+[*] 236 fixable with `--fix`.
+4 files already formatted
+[exited with code 0]</event>
+</task-notification>
+
+---
+
+The template is the create_pr prompt in .conductor/settings.toml, which I missed on my first pass.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+Resolve the merge conflicts.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
