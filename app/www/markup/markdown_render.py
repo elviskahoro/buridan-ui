@@ -48,7 +48,7 @@ def render_heading(
                     "after:content-['#'] after:ml-2 after:opacity-0 hover:after:opacity-100 after:text-muted-foreground"
                 ),
             ),
-            class_name=HEADING_1_CLASS if level == 1 else HEADING_2_CLASS,
+            class_name=HEADING_1_CLASS,
             id=normalized_id,
         )
 
@@ -63,7 +63,7 @@ def render_heading(
                 "after:content-['#'] after:ml-2 after:opacity-0 hover:after:opacity-100 after:text-muted-foreground"
             ),
         ),
-        class_name=HEADING_1_CLASS if level == 1 else HEADING_2_CLASS,
+        class_name=HEADING_2_CLASS,
         id=normalized_id,
     )
 
