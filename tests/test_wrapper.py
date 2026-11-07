@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression guards for the demo preview container in ``demo_wrapper``.
 
 The preview ``class_name`` must use 8px padding on small screens and override
@@ -21,10 +20,10 @@ from typing import cast
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
 
-import reflex as rx  # noqa: E402
 from reflex.components.component import Component  # noqa: E402
 
 from app.www.markup import wrapper  # noqa: E402
+from tests.render_helpers import el  # noqa: E402
 
 WRAPPER_PATH = Path(wrapper.__file__)
 EXPECTED_PREVIEW_CLASS_NAME = (
@@ -57,7 +56,7 @@ def test_demo_wrapper_preview_class_name_is_exactly_the_fixed_value() -> None:
     malformed ``!sm:p-6`` token is absent -- ``!sm:p-6`` is dropped by Tailwind,
     leaving ``!p-2`` (8px) to win at every viewport.
     """
-    demo = wrapper.demo_wrapper(rx.el.div("hello"), source='print("hi")')
+    demo = wrapper.demo_wrapper(el("div", "hello"), source='print("hi")')
     assert str(_preview_div(demo).class_name) == EXPECTED_PREVIEW_CLASS_NAME
 
 

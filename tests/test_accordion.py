@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression guards for the Accordion double-header bug.
 
 Since v0.9.1 (commit ``755f3ed``) ``AccordionTrigger.create`` in
@@ -23,7 +22,6 @@ from pathlib import Path
 from typing import cast
 
 import pytest
-import reflex as rx
 from reflex.components.component import Component
 
 from components.ui.accordion import (
@@ -32,6 +30,7 @@ from components.ui.accordion import (
     AccordionTrigger,
     accordion,
 )
+from tests.render_helpers import el
 
 ROOT_DIR = Path(__file__).parent.parent
 
@@ -136,7 +135,7 @@ def test_trigger_render_escape_hatch_still_self_wraps() -> None:
     must still be produced (otherwise the trigger would render without a
     heading wrapper). The double-wrap guard must not interfere.
     """
-    trigger = accordion.trigger(render_=rx.el.button("toggle"))
+    trigger = accordion.trigger(render_=el("button", "toggle"))
     assert isinstance(trigger, AccordionHeader)
     assert isinstance(trigger.children[0], AccordionTrigger)
     assert _count_nested_headers(trigger) == 0
@@ -162,7 +161,7 @@ def test_header_rejects_wrapping_an_explicit_header() -> None:
     also catches the general ``accordion.header(accordion.header(...))`` shape
     -- not just the trigger-derived form.
     """
-    inner = AccordionHeader.create(rx.el.div("X"))
+    inner = AccordionHeader.create(el("div", "X"))
     with pytest.raises(TypeError, match=_HEADER_TAG_RE):
         AccordionHeader.create(inner)
 
@@ -173,7 +172,7 @@ def test_header_accepts_non_header_children() -> None:
     trigger). The guard only rejects ``AccordionHeader`` children, not plain
     elements/text.
     """
-    header_with_div = accordion.header(rx.el.div("just a heading"))
+    header_with_div = accordion.header(el("div", "just a heading"))
     assert isinstance(header_with_div, AccordionHeader)
     assert _count_nested_headers(header_with_div) == 0
 

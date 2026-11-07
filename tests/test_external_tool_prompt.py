@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import json  # noqa: INP001
 import re
 import sys
@@ -11,10 +10,11 @@ sys.path.insert(0, str(ROOT_DIR))
 from app.templates.toc import (  # noqa: E402
     _create_external_tool_links,  # pyright: ignore[reportPrivateUsage]
 )
+from tests.render_helpers import render_dict  # noqa: E402
 
 
 def _rendered(url: str = "docs/components/button") -> str:
-    return json.dumps(_create_external_tool_links(url).render(), default=str)
+    return json.dumps(render_dict(_create_external_tool_links(url)), default=str)
 
 
 def _extract_href(rendered: str, host: str) -> str:

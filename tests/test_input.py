@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import json
 from typing import Any, cast
 
@@ -13,7 +12,7 @@ from components.ui.input import (
     ClassNames,
     InputComponent,
 )
-from tests.render_helpers import render_props
+from tests.render_helpers import chain_events, event_triggers, render_dict, render_props
 
 
 class _InputTestState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -40,11 +39,11 @@ def _capture_input_props(monkeypatch: pytest.MonkeyPatch) -> dict[str, Any]:
 
 
 def _on_change_arg(comp: rx.Component) -> Var[Any]:  # noqa: ANN401
-    chain = cast("Any", comp.event_triggers["on_change"])
+    chain = event_triggers(comp)["on_change"]
     assert isinstance(chain, EventChain)
-    spec = cast("EventSpec", chain.events[0])
+    spec = cast("EventSpec", chain_events(chain)[0])
     assert isinstance(spec, EventSpec)
-    return cast("Var[Any]", spec.args[0][1])
+    return cast("Var[Any]", cast("Any", spec).args[0][1])
 
 
 def _capture_typed_create_props(
@@ -119,7 +118,7 @@ def test_checkbox_input_dispatches_with_boolean_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "BooleanCastedVar"
-    assert arg._var_type is bool  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
+    assert arg._var_type is bool  # noqa: SLF001  # pyright: ignore[reportPrivateUsage, reportUnknownMemberType]  # _var_type is partially unknown in the Reflex stub
 
 
 def test_number_input_dispatches_with_number_payload() -> None:
@@ -129,7 +128,7 @@ def test_number_input_dispatches_with_number_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "NumberCastedVar"
-    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
+    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage, reportUnknownMemberType]  # _var_type is partially unknown in the Reflex stub
 
 
 def test_range_input_dispatches_with_number_payload() -> None:
@@ -139,7 +138,7 @@ def test_range_input_dispatches_with_number_payload() -> None:
 
     arg = _on_change_arg(comp)
     assert type(arg).__name__ == "NumberCastedVar"
-    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
+    assert arg._var_type is float  # noqa: SLF001  # pyright: ignore[reportPrivateUsage, reportUnknownMemberType]  # _var_type is partially unknown in the Reflex stub
 
 
 def test_non_typed_inputs_stay_input_component_with_string_payload() -> None:
@@ -151,7 +150,7 @@ def test_non_typed_inputs_stay_input_component_with_string_payload() -> None:
         assert isinstance(comp, InputComponent), input_type
         arg = _on_change_arg(comp)
         assert type(arg).__name__ == "StringCastedVar", input_type
-        assert arg._var_type is str, input_type  # noqa: SLF001  # pyright: ignore[reportPrivateUsage]
+        assert arg._var_type is str, input_type  # noqa: SLF001  # pyright: ignore[reportPrivateUsage, reportUnknownMemberType]  # _var_type is partially unknown in the Reflex stub
 
     default_comp = InputComponent.create(on_change=_InputTestState.set_v)
     assert isinstance(default_comp, InputComponent)
@@ -221,7 +220,7 @@ def test_typed_inputs_unstyled_does_not_leak_onto_dom() -> None:
             class_name="custom-input",
         )
 
-        rendered = json.dumps(comp.render())
+        rendered = json.dumps(render_dict(comp))
 
         assert isinstance(comp, (CheckboxInput, ValueNumberInput))
         assert "unstyled" not in rendered, input_type
@@ -238,7 +237,7 @@ def test_typed_dispatch_matches_upstream_contract() -> None:
     ):
         on_change = cast("Any", _InputTestState.set_v)
         wrapper_comp = InputComponent.create(type=input_type, on_change=on_change)
-        upstream_comp = BaseInput.create(
+        upstream_comp = BaseInput.create(  # pyright: ignore[reportUnknownMemberType]  # Reflex element factory stub is partially unknown
             type=cast("Any", input_type),
             on_change=on_change,
         )
@@ -257,7 +256,7 @@ def test_typed_dispatch_normalizes_value_like_upstream() -> None:
     """
     for input_type in ("checkbox", "number", "range"):
         wrapper_comp = InputComponent.create(type=input_type, value=_InputTestState.v)
-        upstream_comp = BaseInput.create(
+        upstream_comp = BaseInput.create(  # pyright: ignore[reportUnknownMemberType]  # Reflex element factory stub is partially unknown
             type=cast("Any", input_type),
             value=_InputTestState.v,
         )

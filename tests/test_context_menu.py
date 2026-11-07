@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import sys
 from pathlib import Path
 
@@ -21,7 +20,7 @@ from components.ui.context_menu import (  # noqa: E402
     ContextMenuSubmenuTrigger,
 )
 from components.ui.core import BaseUIComponent  # noqa: E402
-from tests.render_helpers import render_props  # noqa: E402
+from tests.render_helpers import el, render_props  # noqa: E402
 
 
 class _ContextMenuState(rx.State):  # pyright: ignore[reportUntypedBaseClass]
@@ -224,7 +223,7 @@ def test_context_menu_radio_item_indicator_injects_default_tick_when_bare() -> N
 
 
 def test_context_menu_radio_item_indicator_preserves_custom_children() -> None:
-    custom_icon = rx.el.span("custom")
+    custom_icon = el("span", "custom")
     indicator = ContextMenuRadioItemIndicator.create(custom_icon)
 
     assert len(indicator.children) == 1
@@ -238,7 +237,7 @@ def test_context_menu_checkbox_item_indicator_injects_default_tick_when_bare() -
 
 
 def test_context_menu_checkbox_item_indicator_preserves_custom_children() -> None:
-    custom_icon = rx.el.span("custom")
+    custom_icon = el("span", "custom")
     indicator = ContextMenuCheckboxItemIndicator.create(custom_icon)
 
     assert len(indicator.children) == 1

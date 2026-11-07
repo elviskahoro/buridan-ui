@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression guards for the markdown code-block renderer in ``render_pre``.
 
 ``render_pre`` (the ``"pre"`` entry of ``markdown_component_map``) renders every
@@ -42,6 +41,7 @@ from app.www.markup.markdown_render import (  # noqa: E402
     markdown_component_map,
     render_pre,
 )
+from tests.render_helpers import el  # noqa: E402
 
 PRISM_CALL = "Prism.highlightAll()"
 
@@ -146,7 +146,7 @@ def test_render_pre_shares_prism_on_mount_contract_with_wrappers() -> None:
     pages without a demo/chart wrapper are not silently left unhighlighted.
     """
     render_pre_code = _first_code(render_pre("x = 1", language="python"))
-    demo_code = _first_code(wrapper.demo_wrapper(rx.el.div("hi"), source="print(1)"))
+    demo_code = _first_code(wrapper.demo_wrapper(el("div", "hi"), source="print(1)"))
     chart_code = _first_code(wrapper.chart_util_wrapper(source="print(1)"))
 
     assert PRISM_CALL in _on_mount_script(render_pre_code)

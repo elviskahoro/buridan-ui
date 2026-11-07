@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression coverage for the navbar light/dark theme toggle.
 
 The navbar's ``light_and_dark_toggle`` previously bound two independent,
@@ -21,7 +20,7 @@ toggle and the navbar/sidebar divergence cannot be re-introduced.
 
 import sys
 from pathlib import Path
-from typing import Any, cast
+from typing import cast
 
 ROOT_DIR = Path(__file__).parent.parent
 sys.path.insert(0, str(ROOT_DIR))
@@ -31,6 +30,7 @@ from reflex_base.event import EventChain, EventSpec  # noqa: E402
 
 from app.templates.navbar import light_and_dark_toggle  # noqa: E402
 from app.templates.options import menu_panel  # noqa: E402
+from tests.render_helpers import chain_events, event_triggers  # noqa: E402
 
 
 def _find_button(component: Component) -> Component | None:
@@ -82,12 +82,12 @@ def _item_text_is(component: Component, label: str) -> bool:
 def _on_click_chain(component: Component) -> EventChain:
     """Return ``component``'s ``on_click`` chain narrowed to ``EventChain``.
 
-    ``Component.event_triggers`` is annotated ``dict[str, EventChain | Var]``
+    ``event_triggers(Component)`` is annotated ``dict[str, EventChain | Var]``
     (a Var-typed value can be assigned in user code), so strict type checkers
     require a runtime narrowing before ``.events`` can be accessed.
     """
-    assert "on_click" in component.event_triggers
-    chain = cast("EventChain", component.event_triggers["on_click"])
+    assert "on_click" in event_triggers(component)
+    chain = cast("EventChain", event_triggers(component)["on_click"])
     assert isinstance(chain, EventChain)
     return chain
 
@@ -108,8 +108,8 @@ def test_toggle_on_click_is_single_call_script_event() -> None:
     assert button is not None
     chain = _on_click_chain(button)
 
-    assert len(cast("list[Any]", chain.events)) == 1
-    [event] = cast("list[EventSpec]", chain.events)
+    assert len(chain_events(chain)) == 1
+    [event] = cast("list[EventSpec]", chain_events(chain))
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")
 
@@ -133,8 +133,8 @@ def test_navbar_toggle_matches_sidebar_light_dark_dispatch() -> None:
     chain = _on_click_chain(sidebar_item)
     rendered = str(sidebar_item)
 
-    assert len(cast("list[Any]", chain.events)) == 1
-    [event] = cast("list[EventSpec]", chain.events)
+    assert len(chain_events(chain)) == 1
+    [event] = cast("list[EventSpec]", chain_events(chain))
     assert isinstance(event, EventSpec)
     assert "call_script" in getattr(event.handler.fn, "__qualname__", "")
     for marker in (

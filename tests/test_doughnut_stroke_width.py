@@ -1,5 +1,4 @@
 # ruff: noqa: INP001
-# pyright: reportUnknownMemberType=false
 
 """Regression tests for the doughnut chart slice-separation stroke width.
 
@@ -17,7 +16,7 @@ from reflex.components.component import Component
 
 from app.www.library.charts.doughnut.v1 import doughnutchart_v1
 from app.www.library.charts.doughnut.v2 import doughnutchart_v2
-from tests.render_helpers import render_props
+from tests.render_helpers import custom_attrs, render_props
 
 EXPECTED_STROKE_WIDTH = 5
 EXPECTED_PADDING_ANGLE = 3
@@ -52,9 +51,9 @@ def test_doughnutchart_v1_pie_emits_top_level_stroke_width() -> None:
     assert "strokeWidth:5" in props
     assert "wrapperStyle" not in props
     assert pie.style == {}
-    assert pie.custom_attrs["strokeWidth"] == EXPECTED_STROKE_WIDTH
-    assert pie.custom_attrs["paddingAngle"] == EXPECTED_PADDING_ANGLE
-    assert pie.custom_attrs["cornerRadius"] == EXPECTED_CORNER_RADIUS
+    assert custom_attrs(pie)["strokeWidth"] == EXPECTED_STROKE_WIDTH
+    assert custom_attrs(pie)["paddingAngle"] == EXPECTED_PADDING_ANGLE
+    assert custom_attrs(pie)["cornerRadius"] == EXPECTED_CORNER_RADIUS
     assert 'stroke:"var(--background)"' in props
     assert "paddingAngle:3" in props
     assert "cornerRadius:5" in props
@@ -70,7 +69,7 @@ def test_doughnutchart_v2_pie_emits_top_level_stroke_width() -> None:
     assert "strokeWidth:5" in props
     assert "wrapperStyle" not in props
     assert pie.style == {}
-    assert pie.custom_attrs["strokeWidth"] == EXPECTED_STROKE_WIDTH
+    assert custom_attrs(pie)["strokeWidth"] == EXPECTED_STROKE_WIDTH
     assert 'stroke:"var(--background)"' in props
     assert "innerRadius:60" in props
     assert "isAnimationActive:false" in props
@@ -84,7 +83,7 @@ def test_pie_silently_routes_stroke_width_to_wrapper_style() -> None:
     recharts' ``Pie`` ignores. This pins the bug mechanism so a future cleanup that
     moves ``strokeWidth`` back to a bare ``stroke_width`` kwarg fails loudly here.
     """
-    pie = rx.recharts.pie(
+    pie = rx.recharts.pie(  # pyright: ignore[reportUnknownMemberType]  # Reflex chart factory stub is partially unknown
         data=[{"browser": "chrome", "visitors": 275}],
         data_key="visitors",
         name_key="browser",

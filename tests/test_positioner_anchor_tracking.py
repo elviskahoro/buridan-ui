@@ -1,5 +1,4 @@
 # noqa: INP001
-# pyright: reportUnknownMemberType=false
 """Regression tests for the anchor-tracking prop on the Base UI positioners.
 
 The pinned ``@base-ui/react`` library renamed ``trackAnchor`` (beta.4) to the
@@ -43,7 +42,7 @@ def _rendered_props(cls: type[Component], **props: object) -> str:
     """Build a positioner of ``cls`` with ``props`` and return its JSX props as
     the rendered space-joined string used throughout this repo's test suite.
     """
-    positioner = cls.create(**props)
+    positioner = cls.create(**props)  # pyright: ignore[reportUnknownMemberType]  # create is partially unknown in the Reflex stub
     return " ".join(render_props(positioner))
 
 
@@ -126,7 +125,7 @@ def test_positioner_legacy_track_anchor_no_longer_leaks_to_dom(
     not a declared Var anymore, so it is re-routed to Reflex's ``css`` custom-attrs
     payload rather than reaching the JSX prop list.
     """
-    positioner = positioner_cls.create(track_anchor=True)
+    positioner = positioner_cls.create(track_anchor=True)  # pyright: ignore[reportUnknownMemberType]  # create is partially unknown in the Reflex stub
     props = render_props(positioner)
 
     # No element of the rendered prop list may be a top-level `trackAnchor:...`

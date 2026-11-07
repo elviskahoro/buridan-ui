@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the ``attach_tooltip`` helper in ``app/templates/utils.py``.
 
 ``attach_tooltip`` is the shared helper that attaches a tooltip to the navbar and

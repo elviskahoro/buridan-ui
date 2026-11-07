@@ -1,7 +1,4 @@
-# pyright: reportUnknownMemberType=false
 """Regression coverage for default classes forwarded to custom render targets."""
-
-import reflex as rx
 
 from components.ui.accordion import (
     AccordionTrigger,
@@ -11,11 +8,11 @@ from components.ui.dialog import (
     ClassNames as DialogClassNames,
     DialogClose,
 )
-from tests.render_helpers import render_text
+from tests.render_helpers import el, render_text
 
 
 def test_accordion_trigger_keeps_styled_render_target_unchanged() -> None:
-    target = rx.el.button("toggle", class_name="custom-accordion-trigger")
+    target = el("button", "toggle", class_name="custom-accordion-trigger")
     trigger = AccordionTrigger.create(render_=target, class_name="caller-class")
     rendered_tree = render_text(trigger)
 
@@ -26,7 +23,7 @@ def test_accordion_trigger_keeps_styled_render_target_unchanged() -> None:
 
 
 def test_dialog_close_keeps_styled_render_target_unchanged() -> None:
-    target = rx.el.button("close", class_name="custom-dialog-close")
+    target = el("button", "close", class_name="custom-dialog-close")
     close = DialogClose.create(render_=target)
     rendered_tree = render_text(close)
 
@@ -37,7 +34,7 @@ def test_dialog_close_keeps_styled_render_target_unchanged() -> None:
 
 def test_dialog_close_preserves_caller_classes_with_render_target() -> None:
     close = DialogClose.create(
-        render_=rx.el.button("cancel"),
+        render_=el("button", "cancel"),
         class_name="flex-1",
         unstyled=True,
     )

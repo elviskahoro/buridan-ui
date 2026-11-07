@@ -1,14 +1,13 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the interactive chart demo selectors."""
 
 from collections.abc import Callable
-from typing import Any, cast
 
 import reflex as rx
 
 from app.www.library.charts.area.v5 import areachart_v5
 from app.www.library.charts.bar.v5 import barchart_v5
 from app.www.library.charts.line.v7 import linechart_v7
+from tests.render_helpers import event_triggers
 
 
 def _find_select(component: rx.Component) -> rx.Component:
@@ -38,8 +37,8 @@ def _assert_select_wiring(
         getattr(option, "value")._var_value  # noqa: B009, SLF001
         for option in select.children
     ] == expected_values
-    assert "on_change" in select.event_triggers
-    on_change_js = cast("Any", select.event_triggers["on_change"]).events[0]._js_expr  # noqa: SLF001
+    assert "on_change" in event_triggers(select)
+    on_change_js = event_triggers(select)["on_change"].events[0]._js_expr  # noqa: SLF001
     assert "_client_state_set" in on_change_js
     assert "target" in on_change_js
     assert "value" in on_change_js

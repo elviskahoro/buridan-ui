@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 """Regression tests for the Dialog wrapper around the pinned ``@base-ui/react``
 dependency (``1.6.0``; see ``components/ui/core.py``).
 
