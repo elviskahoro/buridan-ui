@@ -1,4 +1,6 @@
 # pyright: reportUnknownMemberType=false
+# Reason (#348): Reflex stubs leave rx.recharts.graphing_tooltip partially unknown;
+# the components/ carve-out in configs/pyrightconfig.json is not applied under Trunk.
 from typing import Any, Literal, cast
 
 import reflex as rx
