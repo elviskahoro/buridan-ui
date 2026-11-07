@@ -1,0 +1,74 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6V13DR36W7M02P50SV5M1QK",
+  "session_id": "d62f52aa-350a-49e0-8540-645f42b7eee7",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-07T12:52:59.101155352Z",
+  "branch": "w-800/gh357-issue",
+  "checkpoints_count": 3,
+  "files_touched": [
+    "app/zz_probe.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "3acce4aee603",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 46,
+    "cache_creation_tokens": 22078,
+    "cache_read_tokens": 566452,
+    "output_tokens": 4658,
+    "api_call_count": 19
+  },
+  "redaction": {
+    "replacements": 5,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 1,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 4,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01R6mejHVPA1KLPitbtHZtin",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "rwx"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "3acce4aee603",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 54,
+        "end": 55,
+        "entry_ids": [
+          "226fbb18-7e03-4196-b3ed-0785669185b7"
+        ],
+        "tool_use_id": "toolu_01R6mejHVPA1KLPitbtHZtin"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01R6mejHVPA1KLPitbtHZtin"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: rwx",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 3
+  }
+}
