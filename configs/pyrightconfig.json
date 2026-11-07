@@ -52,6 +52,10 @@
   "reportUnusedVariable": "error",
   "reportDuplicateImport": "error",
   "reportInvalidStringEscapeSequence": "error",
+  // reportUnknownMemberType is disabled for the roots below because Reflex
+  // stubs leave the element/chart factories partially unknown, producing
+  // findings that can't be fixed in this repo (#325, #327). The rule stays
+  // "error" everywhere else, and every other rule still applies in these roots.
   "executionEnvironments": [
     {
       "root": "../app/pages",
