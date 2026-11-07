@@ -67,3 +67,9 @@ side only (ruleset `main - PR requirements` plus classic branch protection on
 Read .entire/agent-guide.md for this repository's workflow, source inspection, and verification guidance.
 @.entire/agent-guide.md
 <!-- entire-agent:end -->
+
+## PR descriptions
+
+Use `.github/pull_request_template.md`. The full conventions are the
+`create_pr` prompt in `.conductor/settings.toml`; see "Opening or editing a PR"
+in `.entire/agent-guide.md`.
