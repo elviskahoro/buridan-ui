@@ -1,4 +1,6 @@
 # pyright: reportUnknownMemberType=false
+# Reason (#348): Reflex stubs leave rx.theme/rx.plugins partially unknown, and the
+# repo-root execution environment cannot be carved out per file.
 import reflex as rx
 from reflex.plugins.shared_tailwind import TailwindConfig
 from reflex.plugins.sitemap import SitemapPlugin
