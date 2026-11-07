@@ -56,6 +56,10 @@
   // stubs leave the element/chart factories partially unknown, producing
   // findings that can't be fixed in this repo (#325, #327). The rule stays
   // "error" everywhere else, and every other rule still applies in these roots.
+  // NOTE: these carve-outs apply to direct CLI/editor runs only. Trunk's
+  // sandboxed pyright run does not honor them (verified in #358 even with
+  // `run_from` at the repo root), so the gate applies the top-level severity
+  // and relies on per-line ignores / file pragmas in these roots.
   "executionEnvironments": [
     {
       "root": "../app/pages",

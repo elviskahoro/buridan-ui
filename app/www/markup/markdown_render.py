@@ -1,14 +1,14 @@
-# Load-bearing: Trunk's pyright gate lints changed files at top-level
-# severities and ignores the executionEnvironments carve-out for
-# app/www/markup, so removing this resurfaces the Reflex factory findings
-# (#356). Remove only alongside the #327-style markup extraction.
-# pyright: reportUnknownMemberType=false
 from collections.abc import Callable
 from typing import Any
 
 import reflex as rx
 
 from app.www.style import slugify
+
+# Reflex's component factories (rx.el.*, rx.cond, ...) are untyped, so pyright
+# reports reportUnknownMemberType on every call. Route calls through an Any alias;
+# keep `rx` for real annotations like rx.Component.
+_rx: Any = rx
 
 PARAGRAPH_CLASS = "text-sm leading-7 mb-4"
 
@@ -30,7 +30,7 @@ LINK_CLASS = (
 
 # --- Helper error functions during parsing ---
 def render_parse_error(msg: str) -> rx.Component:
-    return rx.el.p(msg, class_name="text-sm text-red-500")
+    return _rx.el.p(msg, class_name="text-sm text-red-500")
 
 
 def render_heading(
@@ -41,9 +41,9 @@ def render_heading(
     normalized_id = heading_id if heading_id is not None else slugify(text)
 
     if level == 1:
-        return rx.el.h1(
-            rx.el.a(
-                rx.el.span(
+        return _rx.el.h1(
+            _rx.el.a(
+                _rx.el.span(
                     text,
                     class_name="hover:underline hover:underline-offset-6",
                 ),
@@ -56,9 +56,9 @@ def render_heading(
             id=normalized_id,
         )
 
-    return rx.el.h2(
-        rx.el.a(
-            rx.el.span(
+    return _rx.el.h2(
+        _rx.el.a(
+            _rx.el.span(
                 text,
                 class_name="hover:underline hover:underline-offset-6",
             ),
@@ -73,11 +73,11 @@ def render_heading(
 
 
 def render_paragraph(text: str) -> rx.Component:
-    return rx.el.p(text, class_name=PARAGRAPH_CLASS)
+    return _rx.el.p(text, class_name=PARAGRAPH_CLASS)
 
 
 def render_list_item(text: str) -> rx.Component:
-    return rx.list_item(rx.el.p(text, class_name=LIST_ITEM_CLASS))
+    return _rx.list_item(_rx.el.p(text, class_name=LIST_ITEM_CLASS))
 
 
 def render_heading_1(text: str) -> rx.Component:
@@ -89,13 +89,13 @@ def render_heading_2(text: str) -> rx.Component:
 
 
 def render_code(text: str) -> rx.Component:
-    return rx.el.span(text, class_name="bg-secondary rounded-md p-1")
+    return _rx.el.span(text, class_name="bg-secondary rounded-md p-1")
 
 
 def render_table(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.div(
-        rx.el.div(
-            rx.el.table(
+    return _rx.el.div(
+        _rx.el.div(
+            _rx.el.table(
                 *children,
                 **props,
                 class_name="w-max min-w-full",
@@ -107,7 +107,7 @@ def render_table(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_thead(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.thead(
+    return _rx.el.thead(
         *children,
         **props,
         class_name="border-input border-b",
@@ -115,7 +115,7 @@ def render_thead(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_tbody(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.tbody(
+    return _rx.el.tbody(
         *children,
         **props,
         class_name="divide-input divide-y",
@@ -123,7 +123,7 @@ def render_tbody(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_tr(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.tr(
+    return _rx.el.tr(
         *children,
         **props,
         class_name="m-0 p-0",
@@ -131,7 +131,7 @@ def render_tr(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_th(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.th(
+    return _rx.el.th(
         *children,
         **props,
         class_name=(
@@ -144,7 +144,7 @@ def render_th(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_td(*children: Any, **props: Any) -> rx.Component:
-    return rx.el.td(
+    return _rx.el.td(
         *children,
         **props,
         class_name=(
@@ -159,31 +159,31 @@ def render_td(*children: Any, **props: Any) -> rx.Component:
 def render_link(*args: Any, **props: Any) -> rx.Component:
     # Reflex builds Markdown map callbacks without the runtime href; ReactMarkdown
     # supplies it through the props spread, which keeps this a native Radix link.
-    return rx.link(*args, class_name=LINK_CLASS, **props)
+    return _rx.link(*args, class_name=LINK_CLASS, **props)
 
 
 def render_pre(*children: Any, **props: Any) -> rx.Component:
     language = props.get("language")
 
-    code_class = rx.cond(
+    code_class = _rx.cond(
         language == "bash",
         "language-bash",
-        rx.cond(
+        _rx.cond(
             language == "uv",
             "language-bash",
-            rx.cond(
+            _rx.cond(
                 language == "css",
                 "language-css",
-                rx.cond(
+                _rx.cond(
                     language == "assets/globals.css",
                     "language-css",
-                    rx.cond(
+                    _rx.cond(
                         language == "toml",
                         "language-toml",
-                        rx.cond(
+                        _rx.cond(
                             language == "pyproject.toml",
                             "language-toml",
-                            rx.cond(
+                            _rx.cond(
                                 language == "text",
                                 "language-text",
                                 "language-python",
@@ -195,21 +195,21 @@ def render_pre(*children: Any, **props: Any) -> rx.Component:
         ),
     )
 
-    return rx.el.div(
-        rx.el.div(
-            rx.cond(
+    return _rx.el.div(
+        _rx.el.div(
+            _rx.cond(
                 language != "python",
-                rx.el.div(
-                    rx.el.p(
+                _rx.el.div(
+                    _rx.el.p(
                         language,
                         class_name="text-muted-foreground text-sm font-normal px-[1rem] py-2",
                     ),
                     class_name="w-full border-b border-input/70 flex flex-row items-center justify-between",
                 ),
             ),
-            rx.el.div(
-                rx.el.pre(
-                    rx.el.code(
+            _rx.el.div(
+                _rx.el.pre(
+                    _rx.el.code(
                         *children,
                         style={
                             "white-space": "pre",
@@ -219,7 +219,7 @@ def render_pre(*children: Any, **props: Any) -> rx.Component:
                             "display": "block",
                         },
                         class_name=code_class,
-                        on_mount=rx.call_script("Prism.highlightAll()"),
+                        on_mount=_rx.call_script("Prism.highlightAll()"),
                     ),
                 ),
                 class_name="overflow-x-auto overflow-y-auto scrollbar-none flex-1 min-h-0 pr-[1rem]",
@@ -231,7 +231,7 @@ def render_pre(*children: Any, **props: Any) -> rx.Component:
 
 
 def render_blockquote(*children: Any) -> rx.Component:
-    return rx.el.div(
+    return _rx.el.div(
         *children,
         class_name="w-full rounded-[1rem] bg-secondary dark:bg-card flex items-center justify-center p-4 mb-4 "
         "[&>p]:mb-0 [&>p]:leading-6",

@@ -1,8 +1,3 @@
-# Load-bearing: Trunk's pyright gate lints changed files at top-level
-# severities and ignores the executionEnvironments carve-out for
-# app/www/markup, so removing this resurfaces the Reflex factory findings
-# (#356). Remove only alongside the #327-style markup extraction.
-# pyright: reportUnknownMemberType=false
 import json
 from typing import Any, Literal
 
@@ -10,6 +5,8 @@ import reflex as rx
 
 from app.www.ids import generate_component_id
 from components.icons.hugeicon import hi
+
+_rx: Any = rx
 
 Swatch = Literal["square", "line", "border"]
 
@@ -36,7 +33,7 @@ def styled_tab_trigger(label: str, value: str) -> rx.Component:
         },
     }
 
-    return rx.tabs.trigger(rx.el.p(label), value=value, style=base_tab_style)
+    return _rx.tabs.trigger(_rx.el.p(label), value=value, style=base_tab_style)
 
 
 def create_copy_button(content: str) -> rx.Component:
@@ -47,11 +44,11 @@ def create_copy_button(content: str) -> rx.Component:
     tick_icon_svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" color="currentColor" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 14.5C5 14.5 6.5 14.5 8.5 18C8.5 18 14.0588 8.83333 19 7"/></svg>'
     safe_content = json.dumps(content)
 
-    return rx.el.button(
+    return _rx.el.button(
         hi("Copy01Icon", id=icon_id, class_name="size-4"),
         id=btn_id,
         class_name="px-[0.75rem]",
-        on_click=rx.call_script(
+        on_click=_rx.call_script(
             f"""
                 const icon = document.getElementById('{icon_id}');
                 navigator.clipboard.writeText({safe_content});
@@ -75,13 +72,13 @@ def file_codeblock(file_path: str, source: str) -> rx.Component:
     dir_part = parts[0] + "/" if len(parts) > 1 else ""
     file_part = parts[1] if len(parts) > 1 else parts[0]
 
-    return rx.el.div(
-        rx.el.div(
+    return _rx.el.div(
+        _rx.el.div(
             create_copy_button(content=source),
             class_name="absolute right-0 translate-y-2/3 bg-secondary dark:bg-card z-20",
         ),
-        rx.el.div(
-            rx.el.code(
+        _rx.el.div(
+            _rx.el.code(
                 dir_part + file_part,
                 style={
                     "white-space": "pre",
@@ -104,22 +101,22 @@ def file_codeblock_full(file_path: str, source: str) -> rx.Component:
     dir_part = parts[0] + "/" if len(parts) > 1 else ""
     file_part = parts[1] if len(parts) > 1 else parts[0]
 
-    return rx.el.div(
-        rx.el.div(
-            rx.el.div(
-                rx.el.p(
+    return _rx.el.div(
+        _rx.el.div(
+            _rx.el.div(
+                _rx.el.p(
                     dir_part,
-                    rx.el.span(rx.el.strong(file_part)),
+                    _rx.el.span(_rx.el.strong(file_part)),
                     class_name="text-muted-foreground text-sm font-normal",
                 ),
                 class_name="flex px-[0.75rem] py-2",
             ),
-            rx.el.div(
-                rx.el.button(
+            _rx.el.div(
+                _rx.el.button(
                     "Expand",
                     class_name="!text-xs text-muted-foreground hover:text-foreground",
                     id=f"trigger-{toggle_height_id}",
-                    on_click=rx.call_script(
+                    on_click=_rx.call_script(
                         f"""
                         const panel = document.getElementById('code-panel-{toggle_height_id}');
                         const btn = document.getElementById('trigger-{toggle_height_id}');
@@ -145,8 +142,8 @@ def file_codeblock_full(file_path: str, source: str) -> rx.Component:
             ),
             class_name="w-full border-b border-input flex flex-row items-center justify-between",
         ),
-        rx.el.div(
-            rx.el.code(
+        _rx.el.div(
+            _rx.el.code(
                 source,
                 style={
                     "white-space": "pre",
@@ -171,19 +168,19 @@ def file_codeblock_full(file_path: str, source: str) -> rx.Component:
 
 
 def chart_util_wrapper(source: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.div(
-            rx.el.div(
+    return _rx.el.div(
+        _rx.el.div(
+            _rx.el.div(
                 create_copy_button(content=source),
                 class_name="absolute top-2 right-2 z-10 bg-secondary dark:bg-card",
             ),
-            rx.el.div(
-                rx.el.div(
-                    rx.el.pre(
-                        rx.el.code(
+            _rx.el.div(
+                _rx.el.div(
+                    _rx.el.pre(
+                        _rx.el.code(
                             source,
                             class_name="language-python",
-                            on_mount=rx.call_script("Prism.highlightAll()"),
+                            on_mount=_rx.call_script("Prism.highlightAll()"),
                         ),
                         style={
                             "padding": "1rem 0.75rem",
@@ -201,22 +198,22 @@ def chart_util_wrapper(source: str) -> rx.Component:
 
 def demo_wrapper(component: rx.Component, source: str) -> rx.Component:
 
-    return rx.el.div(
-        rx.el.div(
+    return _rx.el.div(
+        _rx.el.div(
             component,
             class_name="w-full min-h-[250px] flex items-center justify-center !p-2 sm:!p-6 my-10",
         ),
-        rx.el.div(
-            rx.el.div(
+        _rx.el.div(
+            _rx.el.div(
                 create_copy_button(content=source),
                 class_name="absolute top-2 right-2 z-10 bg-secondary dark:bg-card",
             ),
-            rx.el.div(
-                rx.el.pre(
-                    rx.el.code(
+            _rx.el.div(
+                _rx.el.pre(
+                    _rx.el.code(
                         source,
                         class_name="language-python",
-                        on_mount=rx.call_script("Prism.highlightAll()"),
+                        on_mount=_rx.call_script("Prism.highlightAll()"),
                     ),
                     style={
                         "padding": "1rem 0.75rem",
@@ -233,8 +230,8 @@ def demo_wrapper(component: rx.Component, source: str) -> rx.Component:
 
 def usage_wrapper(import_path: str) -> rx.Component:
     """Wrapper for the usage section showing how to import the component."""
-    return rx.el.div(
-        rx.el.code(
+    return _rx.el.div(
+        _rx.el.code(
             import_path,
             style={
                 "white-space": "pre",
@@ -259,17 +256,17 @@ def cli_and_manual_installation_wrapper(
         "background": "transparent",
     }
 
-    return rx.tabs.root(
-        rx.tabs.list(
+    return _rx.tabs.root(
+        _rx.tabs.list(
             styled_tab_trigger("Command", "cli"),
             styled_tab_trigger("Manual", "manual"),
             style=tab_list_style,
         ),
-        rx.tabs.content(
-            rx.el.div(
-                rx.el.div(
-                    rx.el.div(
-                        rx.el.p(
+        _rx.tabs.content(
+            _rx.el.div(
+                _rx.el.div(
+                    _rx.el.div(
+                        _rx.el.p(
                             "uv",
                             style={
                                 "font-size": "0.875rem",
@@ -282,8 +279,8 @@ def cli_and_manual_installation_wrapper(
                         create_copy_button(content=cli_command),
                         class_name="w-full border-b border-input flex flex-row items-center justify-between pl-[0.75rem] py-2",
                     ),
-                    rx.el.div(
-                        rx.el.code(
+                    _rx.el.div(
+                        _rx.el.code(
                             cli_command,
                             style={
                                 "white-space": "pre",
@@ -302,21 +299,21 @@ def cli_and_manual_installation_wrapper(
             value="cli",
             class_name="mt-6",
         ),
-        rx.tabs.content(
-            rx.el.div(
-                rx.el.div(
-                    rx.el.p(
+        _rx.tabs.content(
+            _rx.el.div(
+                _rx.el.div(
+                    _rx.el.p(
                         "1. Copy and paste the following dependencies into your project.",
                         class_name="text-sm font-medium",
                     ),
-                    rx.el.div(
+                    _rx.el.div(
                         *[file_codeblock(file[0], file[1]) for file in files[:-1]],
                         class_name="w-full flex flex-col gap-y-4",
                     ),
                     class_name="w-full flex flex-col gap-y-4",
                 ),
-                rx.el.div(
-                    rx.el.p(
+                _rx.el.div(
+                    _rx.el.p(
                         "2. Copy and paste the following component code into your project.",
                         class_name="text-sm font-medium",
                     ),
@@ -337,7 +334,7 @@ def cli_and_manual_installation_wrapper(
 
 def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
     if swatch == "square":
-        return rx.el.span(
+        return _rx.el.span(
             style={
                 "width": "12px",
                 "height": "12px",
@@ -348,8 +345,8 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
             },
         )
     if swatch == "line":
-        return rx.el.span(
-            rx.el.span(
+        return _rx.el.span(
+            _rx.el.span(
                 style={
                     "width": "3px",
                     "height": "3px",
@@ -358,7 +355,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                     "display": "block",
                 },
             ),
-            rx.el.span(
+            _rx.el.span(
                 style={
                     "width": "3px",
                     "height": "3px",
@@ -367,7 +364,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
                     "display": "block",
                 },
             ),
-            rx.el.span(
+            _rx.el.span(
                 style={
                     "width": "3px",
                     "height": "3px",
@@ -378,7 +375,7 @@ def tooltip_indicator(color: str, swatch: Swatch) -> rx.Component:
             ),
             style={"display": "flex", "flexDirection": "column", "gap": "2px"},
         )
-    return rx.fragment()
+    return _rx.fragment()
 
 
 def tooltip_row(
@@ -402,7 +399,7 @@ def tooltip_row(
         children.append(tooltip_indicator(color, swatch))
 
     children += [
-        rx.el.span(
+        _rx.el.span(
             name,
             style={
                 "fontSize": "13px",
@@ -410,13 +407,13 @@ def tooltip_row(
                 "minWidth": "72px",
             },
         ),
-        rx.el.span(
+        _rx.el.span(
             value,
             style={"fontSize": "13px", "color": "var(--color-text-primary)"},
         ),
     ]
 
-    return rx.el.div(*children, style=row_style)
+    return _rx.el.div(*children, style=row_style)
 
 
 def tooltip_label(label: str, color: str, swatch: Swatch) -> rx.Component:
@@ -430,7 +427,7 @@ def tooltip_label(label: str, color: str, swatch: Swatch) -> rx.Component:
     if swatch == "border":
         label_style["borderLeft"] = f"2px solid {color}"
 
-    return rx.el.p(label, style=label_style)
+    return _rx.el.p(label, style=label_style)
 
 
 def tooltip_wrapper_demo(
@@ -455,7 +452,7 @@ def tooltip_wrapper_demo(
             ),
         )
 
-    return rx.el.div(
+    return _rx.el.div(
         *children,
         style={
             "background": "var(--bg-card)",
@@ -469,7 +466,7 @@ def tooltip_wrapper_demo(
 
 
 def tooltip_wrapper() -> rx.Component:
-    mobile_container = rx.el.div(
+    mobile_container = _rx.el.div(
         tooltip_wrapper_demo(
             label="Page Views",
             items=[
@@ -498,8 +495,8 @@ def tooltip_wrapper() -> rx.Component:
         class_name="!flex md:!hidden border border-input rounded-[1rem]",
     )
 
-    desktop_container = rx.el.div(
-        rx.el.div(
+    desktop_container = _rx.el.div(
+        _rx.el.div(
             tooltip_wrapper_demo(
                 label="Page Views",
                 items=[
@@ -516,7 +513,7 @@ def tooltip_wrapper() -> rx.Component:
             },
             class_name="transition-all duration-200 ease-out hover:-translate-y-1",
         ),
-        rx.el.div(
+        _rx.el.div(
             tooltip_wrapper_demo(
                 label="Page Views",
                 items=[{"name": "Desktop", "value": "12,486", "color": "#3B82F6"}],
@@ -529,7 +526,7 @@ def tooltip_wrapper() -> rx.Component:
             },
             class_name="transition-all duration-200 ease-out hover:-translate-y-1",
         ),
-        rx.el.div(
+        _rx.el.div(
             tooltip_wrapper_demo(
                 label=None,
                 items=[{"name": "Chrome", "value": "1,286", "color": "#93C5FD"}],
@@ -550,4 +547,4 @@ def tooltip_wrapper() -> rx.Component:
         class_name="!hidden md:!block rounded-[1rem] border border-input",
     )
 
-    return rx.el.div(mobile_container, desktop_container)
+    return _rx.el.div(mobile_container, desktop_container)
