@@ -7,9 +7,9 @@ description: Run RWX CI pipelines and read logs from the CLI using the injected 
 
 CI definitions live in `.rwx/` (`tests.yml`, `trunk-check.yml`, `validate-assets.yml`, `trunk-impacted-targets.yml`, `pyright.yml`, `pyrefly.yml`). Each has an `on.cli` trigger, so it can be started locally.
 
-## Auth: two injected tokens, one per RWX workspace
+## Auth: injected tokens, one per RWX workspace
 
-Two env vars are injected into the environment, named `RWX_ACCESS_TOKEN_<SUFFIX>`. Each token is scoped to one RWX workspace. List the names without values:
+Env vars named `RWX_ACCESS_TOKEN_<SUFFIX>` or `RWC_ACCESS_TOKEN_<SUFFIX>` are injected into the environment. Each token is scoped to one RWX workspace. List the names without values:
 
 ```bash
 env | grep -E '^RW[XC]_ACCESS_TOKEN_' | cut -d= -f1
