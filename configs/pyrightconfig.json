@@ -59,30 +59,37 @@
   "executionEnvironments": [
     {
       "root": "../app/pages",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
       "root": "../app/templates",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
       "root": "../app/examples",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
       "root": "../app/www/markup",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
       "root": "../components",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
       "root": "../app/www/library",
+      "extraPaths": [".."],
       "reportUnknownMemberType": "none"
     },
     {
-      "root": ".."
+      "root": "..",
+      "extraPaths": [".."]
     }
   ]
 }
