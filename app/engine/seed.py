@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import json
 
 import reflex as rx
@@ -17,7 +16,7 @@ def seed_engine() -> rx.Script:
     font_registry_js = json.dumps(FONT_REGISTRY)
     radius_options_js = json.dumps(RADIUS_OPTIONS)
 
-    return rx.script(f"""
+    script_src = f"""
     function hashStringToInt(str) {{
         let hash = 0;
         for (let i = 0; i < str.length; i++) {{
@@ -206,4 +205,5 @@ def seed_engine() -> rx.Script:
     window.__rebuildTheme     = rebuildTheme;
     window.__flattenVars      = flattenVars;
     window.__decodeSeed       = decodeSeed;
-    """)
+    """
+    return rx.script(script_src)  # pyright: ignore[reportUnknownMemberType]  # reflex rx.script overloads are partially unknown

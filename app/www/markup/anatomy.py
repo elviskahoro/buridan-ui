@@ -1,10 +1,9 @@
-# pyright: reportUnknownMemberType=false
 import reflex as rx
 
 
 def render_anatomy_block(src: str) -> rx.Component:
-    return rx.el.div(
-        rx.el.code(
+    return rx.el.div(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
+        rx.el.code(  # pyright: ignore[reportUnknownMemberType]  # reflex component factories are partially unknown
             src,
             style={
                 "white-space": "pre",
