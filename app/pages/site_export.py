@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import reflex as rx
 
 from app.pages.blocks import blocks_page

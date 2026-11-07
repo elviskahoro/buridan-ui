@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import reflex as rx
 
 from app.export import export_site

@@ -1,4 +1,3 @@
-# pyright: reportUnknownMemberType=false
 import ast
 import importlib
 import inspect
