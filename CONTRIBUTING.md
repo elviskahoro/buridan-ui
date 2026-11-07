@@ -50,6 +50,19 @@ cannot be upgraded without a Reflex version bump:
 - **KaTeX, postcss-selector-parser**: Patched via security overrides in the
   manifest's `overrides` section.
 
+## Type checking on RWX
+
+Workspaces may have no `.venv`, and full local pyright runs can run out of memory. Run the checkers on RWX instead; `rwx run` uploads your working tree, including uncommitted and untracked files (push HEAD first so the base commit resolves):
+
+```sh
+rwx run .rwx/pyright.yml --wait
+rwx run .rwx/pyrefly.yml --wait
+# narrow to specific files
+rwx run .rwx/pyright.yml --wait --init paths="app/foo.py app/bar.py"
+```
+
+These pipelines are manual only (no PR/push trigger) and are not required statuses. `tests.yml` and `trunk-check.yml` also work with `rwx run`.
+
 ## Adding Components
 
 - New components should be added to `app/base_ui/components/base/`.

@@ -52,3 +52,7 @@ If an ordinary task query fails, continue with useful remaining tools or direct
 source inspection. Do not automatically install, configure, or repair tools.
 
 <!-- entire-agent-activation: {"schema_version":1,"enabled":["graph","brain"]} -->
+
+## Type checks without a .venv
+
+Use `rwx run .rwx/pyright.yml --wait` or `.rwx/pyrefly.yml` (optional `--init paths="a.py b.py"`) instead of retrying locally. See CONTRIBUTING.md.
