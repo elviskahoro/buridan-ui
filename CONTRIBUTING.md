@@ -54,7 +54,7 @@ cannot be upgraded without a Reflex version bump:
 
 Workspaces may have no `.venv`, and full local pyright runs can run out of memory. Run the checkers on RWX instead; `rwx run` uploads your working tree, including uncommitted and untracked files (push HEAD first so the base commit resolves):
 
-```
+```sh
 rwx run .rwx/pyright.yml --wait
 rwx run .rwx/pyrefly.yml --wait
 # narrow to specific files
