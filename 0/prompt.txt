@@ -1,0 +1,44 @@
+Close with comprehensive comment
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+Let's update the skill with the new pipeline into
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+Info
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/assets/9f863881-746d-4140-bfe4-fe2a7c7c45ba/PR instructions.md (1.1 KB)
+</system_instruction>
+
+
+
+
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/assets/9f863881-746d-4140-bfe4-fe2a7c7c45ba/PR instructions.md (1.1 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/assets/9f863881-746d-4140-bfe4-fe2a7c7c45ba/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>

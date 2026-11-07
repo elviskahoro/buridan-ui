@@ -1,0 +1,74 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M6V1NFNTRK6Q9RA7JRGGAWJE",
+  "session_id": "d62f52aa-350a-49e0-8540-645f42b7eee7",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-07T13:02:51.37974977Z",
+  "branch": "w-800/gh357-issue",
+  "checkpoints_count": 3,
+  "files_touched": [],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "e5b5d3e5bbba",
+  "checkpoint_transcript_start": 132,
+  "transcript_lines_at_start": 132,
+  "compact_transcript_start": 26,
+  "token_usage": {
+    "input_tokens": 28,
+    "cache_creation_tokens": 7478,
+    "cache_read_tokens": 439867,
+    "output_tokens": 4260,
+    "api_call_count": 11
+  },
+  "redaction": {
+    "replacements": 12,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 5,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 7,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "skill_events_version": 1,
+  "skill_events": [
+    {
+      "id": "claude-skill-toolu_01R6mejHVPA1KLPitbtHZtin",
+      "event_type": "tool_invocation",
+      "skill": {
+        "name": "rwx"
+      },
+      "source": {
+        "agent": "claude-code",
+        "signal": "skill_tool_use",
+        "confidence": "explicit"
+      },
+      "turn_id": "3acce4aee603",
+      "transcript_anchor": {
+        "unit": "line",
+        "start": 54,
+        "end": 55,
+        "entry_ids": [
+          "226fbb18-7e03-4196-b3ed-0785669185b7"
+        ],
+        "tool_use_id": "toolu_01R6mejHVPA1KLPitbtHZtin"
+      },
+      "native": {
+        "tool_name": "Skill",
+        "tool_use_id": "toolu_01R6mejHVPA1KLPitbtHZtin"
+      },
+      "collapse": {
+        "target": "tool_pair",
+        "label": "Skill: rwx",
+        "default_collapsed": true
+      }
+    }
+  ],
+  "session_metrics": {
+    "turn_count": 6
+  }
+}
