@@ -79,12 +79,13 @@ tasks:
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false
-    # pytest-reportlog is injected with --with so uv.lock stays untouched;
-    # Captain parses its report log.
+    # pytest-reportlog is injected with --with so uv.lock stays untouched, and
+    # pinned so a new PyPI release can't fail the required gate with no code
+    # change. Captain parses its report log.
     run: |
       captain run buridan-ui-pytest \
-        --command "uv run --with pytest-reportlog pytest -q --report-log=tmp/log.json" \
-        --retry-command "uv run --with pytest-reportlog pytest -q --report-log=tmp/log.json {{ tests }}" \
+        --command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json" \
+        --retry-command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json {{ tests }}" \
         --retries 1 \
         --test-results "tmp/log.json" \
         --print-summary
