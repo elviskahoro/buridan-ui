@@ -28,7 +28,7 @@ from app.templates.compiler import theme_cli_prompt  # noqa: E402
 # Literal prefixes — the unique discriminator between the buggy and fixed
 # local-mode clipboard payload.  ``uv run buridan init --preset `` only ever
 # appeared in the stale local clipboard branch (the online branch prefixes its
-# ``init`` with ``pip install buridan-create and buridan init --preset ``).
+# ``init`` with ``pip install gtm-buridan and buridan init --preset ``).
 FIXED_LOCAL_PREFIX = "uv run buridan apply --preset "
 BUGGY_LOCAL_PREFIX = "uv run buridan init --preset "
 

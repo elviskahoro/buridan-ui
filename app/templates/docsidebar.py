@@ -47,7 +47,7 @@ SIDEBAR_SECTIONS = [
         routes=[
             {
                 "title": "pypi 0.1.19",
-                "url": "https://pypi.org/project/buridan-create/",
+                "url": "https://pypi.org/project/gtm-buridan/",
             },
         ],
     ),

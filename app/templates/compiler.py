@@ -158,7 +158,7 @@ def theme_cli_prompt() -> rx.Component:
                         external_link(
                             "Open in Reflex Build",
                             class_name="text-xs font-light text-foreground",
-                            href=f"https://build.reflex.dev/?prompt=Install and run pip install buridan-create and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
+                            href=f"https://build.reflex.dev/?prompt=Install and run pip install gtm-buridan and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
                             target="_blank",
                             rel="noopener noreferrer",
                         ),
@@ -183,7 +183,7 @@ def theme_cli_prompt() -> rx.Component:
                                 rx.cond(
                                     theme_export_method.value == "local",
                                     f"uv run buridan apply --preset {seed.value}",
-                                    f"https://build.reflex.dev/?prompt=Install and run pip install buridan-create and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
+                                    f"https://build.reflex.dev/?prompt=Install and run pip install gtm-buridan and buridan init --preset {seed.value} --include {theme_preset_option.value} then add app = rx.App(stylesheets=['globals.css'])",
                                 ),
                             ),
                         ],
@@ -200,7 +200,7 @@ def theme_cli_prompt() -> rx.Component:
                     rx.cond(
                         theme_export_method.value == "local",
                         f"uv run buridan apply --preset {seed.value}",
-                        f"Run this in the project terminal: `pip install buridan-create && buridan init && buridan apply --preset {seed.value}` Then add this to the main app file: `app = rx.App(stylesheets=['globals.css'])`",
+                        f"Run this in the project terminal: `pip install gtm-buridan && buridan init && buridan apply --preset {seed.value}` Then add this to the main app file: `app = rx.App(stylesheets=['globals.css'])`",
                     ),
                     style={
                         "white-space": "pre",

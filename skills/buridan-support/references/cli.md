@@ -1,6 +1,6 @@
 # Buridan UI CLI Reference
 
-The Buridan UI CLI (`buridan-create`) is the primary tool for managing the design system in a Reflex project.
+The Buridan UI CLI (`gtm-buridan`) is the primary tool for managing the design system in a Reflex project.
 
 ## Core Commands
 
