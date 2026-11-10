@@ -40,7 +40,7 @@ Finally, a command line interface was needed to make everything accessible to en
 The CLI package is available on PyPI and can be added to any Reflex project.
 
 ```uv
-uv add gtm-buridan
+uv add gtm-ui-buridan
 ```
 
 In conjunction with the CLI, as the site documentation began to grow, local development was an area of concern, mainly because running or hot-reloading the entire site after each change would take a few seconds, even more as more documentation pages were being added. 

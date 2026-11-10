@@ -111,7 +111,7 @@ def block_card(
                     icon_light="/svg/reflex/reflex_light.svg",
                     icon_dark="/svg/reflex/reflex_dark.svg",
                     tooltip_content="Open in Reflex Build",
-                    href=f"https://build.reflex.dev/?prompt=Install and run pip install gtm-buridan and buridan init. Then run the following command: buridan add {func.__qualname__}",
+                    href=f"https://build.reflex.dev/?prompt=Install and run pip install gtm-ui-buridan and buridan init. Then run the following command: buridan add {func.__qualname__}",
                 ),
                 class_name="flex flex-row gap-x-2 items-center justify-end px-6 sm:px-2",
             ),

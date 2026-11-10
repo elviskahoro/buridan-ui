@@ -11,7 +11,7 @@ Use the buridan CLI to add components, apply themes, and manage your Buridan UI 
 ## Installation
 
 ```bash
-pip install gtm-buridan
+pip install gtm-ui-buridan
 ```
 
 All commands must be run from your Reflex project root, where `rxconfig.py` is located.

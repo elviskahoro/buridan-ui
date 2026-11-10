@@ -79,3 +79,30 @@ tasks:
         value: ${{ vaults.buridan-ui.secrets.PYPI_TOKEN }}
         cache-key: excluded
     run: uv publish dist/*
+
+  # Creates the GitHub release (and notes) for the tag once PyPI has the
+  # upload. Provision with:
+  #   rwx vaults secrets set --vault buridan-ui GITHUB_TOKEN=<token with contents:write>
+  - key: release
+    use: [publish]
+    if: ${{ starts-with(event.git.ref, 'refs/tags/v') }}
+    cache: false
+    env:
+      GH_TOKEN:
+        value: ${{ vaults.buridan-ui.secrets.GITHUB_TOKEN }}
+        cache-key: excluded
+      GIT_REF: ${{ event.git.ref }}
+    run: |
+      set -euo pipefail
+      repo=elviskahoro/buridan-ui
+      if ! command -v gh >/dev/null; then
+        SUDO=""; [ "$(id -u)" -eq 0 ] || SUDO="sudo"
+        ${SUDO} apt-get update -qq && ${SUDO} apt-get install -y -qq gh
+      fi
+      tag="${GIT_REF#refs/tags/}"
+      # Idempotent: a re-run after a partial failure completes the upload.
+      if gh release view "${tag}" --repo "${repo}" >/dev/null 2>&1; then
+        gh release upload "${tag}" dist/* --repo "${repo}" --clobber
+      else
+        gh release create "${tag}" --repo "${repo}" --generate-notes dist/*
+      fi
