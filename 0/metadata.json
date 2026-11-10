@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M73DETNY86PPJFFTETR268YQ",
+  "session_id": "acc8c371-baf5-4284-9018-e89da5f8241a",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-10T19:02:51.354802624Z",
+  "branch": "w-1139/buridan-pypi-publishing",
+  "checkpoints_count": 3,
+  "files_touched": [
+    ".rwx/publish.yml",
+    "app/examples/utils.py",
+    "app/templates/compiler.py",
+    "app/templates/docsidebar.py",
+    "assets/docs/getting-started/changelog.md",
+    "assets/docs/getting-started/cli.md",
+    "assets/docs/getting-started/installation.md",
+    "docs/getting_started/changelog.md",
+    "docs/getting_started/cli.md",
+    "docs/getting_started/installation.md",
+    "skills/buridan-support/SKILL.md",
+    "skills/buridan-support/references/cli.md",
+    "tests/test_mobile_sidebar.py",
+    "tests/test_theme_cli_prompt.py",
+    "uv.lock"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "dd80a18496b6",
+  "checkpoint_transcript_start": 135,
+  "transcript_lines_at_start": 135,
+  "compact_transcript_start": 25,
+  "token_usage": {
+    "input_tokens": 18,
+    "cache_creation_tokens": 42143,
+    "cache_read_tokens": 400114,
+    "output_tokens": 2521,
+    "api_call_count": 9
+  },
+  "redaction": {
+    "replacements": 16,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 10,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 6,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 6
+  }
+}
