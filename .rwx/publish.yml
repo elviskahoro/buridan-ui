@@ -71,6 +71,8 @@ tasks:
   # cache: false so a publish is never skipped by a cache hit.
   - key: publish
     use: [build]
+    # Tag runs only; manual `rwx run` dispatch builds but never uploads.
+    if: ${{ event.git.ref =~ '^refs/tags/v' }}
     cache: false
     env:
       UV_PUBLISH_TOKEN:
