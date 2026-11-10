@@ -3,8 +3,8 @@
 
 The mobile ``mobile_menu`` (rendered for ``< lg`` viewports) previously routed
 every ``SIDEBAR_SECTIONS`` entry through a single ``rx.el.a(..., to=f"/{route['url']}")``
-branch. For the external ``pypi 0.1.19`` entry this produced
-``to="/https://pypi.org/project/gtm-buridan/"`` with no ``reload_document``,
+branch. For the external ``pypi`` entry this produced
+``to="/https://pypi.org/project/gtm-ui-buridan/"`` with no ``reload_document``,
 i.e. client-side routing to an unregistered in-app pathname that the catch-all
 404 route renders. The companion desktop renderer ``create_menu_item`` was
 already fixed to special-case external (pypi) and static-asset (llms.txt) links;
@@ -25,7 +25,7 @@ from app.templates.docsidebar import (  # noqa: E402
     mobile_menu,
 )
 
-PYPI_ROUTE = {"title": "pypi 0.1.19", "url": "https://pypi.org/project/gtm-buridan/"}
+PYPI_ROUTE = {"title": "pypi", "url": "https://pypi.org/project/gtm-ui-buridan/"}
 LLMS_ROUTE = {"title": "llms.txt", "url": "llms.txt"}
 INTERNAL_ROUTE = {
     "title": "Introduction",
@@ -38,8 +38,8 @@ def test_pypi_mobile_link_navigates_externally_with_document_reload() -> None:
     rendered = str(link)
 
     assert "reloadDocument:true" in rendered
-    assert 'to:"https://pypi.org/project/gtm-buridan/"' in rendered
-    assert 'to:"/https://pypi.org/project/gtm-buridan/"' not in rendered
+    assert 'to:"https://pypi.org/project/gtm-ui-buridan/"' in rendered
+    assert 'to:"/https://pypi.org/project/gtm-ui-buridan/"' not in rendered
     assert 'to:"/https' not in rendered
 
 
@@ -78,7 +78,7 @@ def test_mobile_pypi_entry_matches_desktop_create_menu_item_navigation_props() -
 
     for needle in (
         "reloadDocument:true",
-        'to:"https://pypi.org/project/gtm-buridan/"',
+        'to:"https://pypi.org/project/gtm-ui-buridan/"',
     ):
         assert needle in mobile_rendered
         assert needle in desktop_rendered

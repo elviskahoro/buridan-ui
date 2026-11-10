@@ -20,10 +20,10 @@ It's recommended to use the [uv](https://docs.astral.sh/uv/) package manager whe
 
 The following page provides a step-by-step [installation](https://reflex.dev/docs/getting-started/installation/) guide for Reflex apps. 
 
-After setting up your Reflex environment, you can install the `gtm-buridan` package by adding it to your `pyproject.toml` file.
+After setting up your Reflex environment, you can install the `gtm-ui-buridan` package by adding it to your `pyproject.toml` file.
 
 ```toml
-dependencies = ["gtm-buridan=={current version}"]
+dependencies = ["gtm-ui-buridan=={current version}"]
 ```
 
 After adding the package with the latest version, you can run the following command to install it. 

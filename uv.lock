@@ -175,7 +175,7 @@ reload = [
 ]
 
 [[package]]
-name = "gtm-buridan"
+name = "gtm-ui-buridan"
 version = "0.1.21"
 source = { editable = "." }
 

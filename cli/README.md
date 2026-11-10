@@ -2,6 +2,18 @@
 
 A command line interface (CLI) for adding components and themes to your project.
 
+## Install
+
+Install from PyPI as [`gtm-ui-buridan`](https://pypi.org/project/gtm-ui-buridan/); the CLI command is `buridan`.
+
+```bash
+uv add gtm-ui-buridan
+# or
+pip install gtm-ui-buridan
+```
+
+**Package names.** This repo publishes `gtm-ui-buridan`. `buridan` (from [LineIndent/native](https://github.com/LineIndent/native)) and the legacy `buridan-create` (from LineIndent/ui) also install a `buridan` command, so installing more than one in the same environment overwrites the entry point. Install only one.
+
 ## create
 
 Opens the Buridan UI theme builder in your browser. Use it to customize your design system and generate a unique preset ID.

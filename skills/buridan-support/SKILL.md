@@ -1,6 +1,6 @@
 ---
 name: buridan-support
-description: Specialized support for Buridan UI. Use when building Reflex apps with Buridan UI components, managing themes, or using the gtm-buridan CLI.
+description: Specialized support for Buridan UI. Use when building Reflex apps with Buridan UI components, managing themes, or using the gtm-ui-buridan CLI.
 ---
 
 # Buridan UI Support
