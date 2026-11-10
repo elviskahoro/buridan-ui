@@ -61,41 +61,6 @@ wheels = [
 ]
 
 [[package]]
-name = "buridan-create"
-version = "0.1.21"
-source = { editable = "." }
-
-[package.dev-dependencies]
-dev = [
-    { name = "gtm-linear" },
-    { name = "httpx2" },
-    { name = "pillow" },
-    { name = "pytest" },
-    { name = "pyyaml" },
-    { name = "questionary" },
-    { name = "reflex" },
-    { name = "reflex-hosting-cli" },
-    { name = "typer" },
-    { name = "types-pyyaml" },
-]
-
-[package.metadata]
-
-[package.metadata.requires-dev]
-dev = [
-    { name = "gtm-linear", specifier = ">=0.2.1" },
-    { name = "httpx2", specifier = ">=2.13.1" },
-    { name = "pillow", specifier = ">=12.2.0" },
-    { name = "pytest", specifier = ">=9.1.1" },
-    { name = "pyyaml", specifier = ">=6.0.3" },
-    { name = "questionary", specifier = ">=2.1.1" },
-    { name = "reflex", specifier = "==0.10.0" },
-    { name = "reflex-hosting-cli", specifier = ">=0.1.67" },
-    { name = "typer", specifier = ">=0.27.2" },
-    { name = "types-pyyaml", specifier = ">=6.0.3" },
-]
-
-[[package]]
 name = "certifi"
 version = "2026.5.20"
 source = { registry = "https://pypi.org/simple" }
@@ -207,6 +172,41 @@ wheels = [
 [package.optional-dependencies]
 reload = [
     { name = "watchfiles" },
+]
+
+[[package]]
+name = "gtm-buridan"
+version = "0.1.21"
+source = { editable = "." }
+
+[package.dev-dependencies]
+dev = [
+    { name = "gtm-linear" },
+    { name = "httpx2" },
+    { name = "pillow" },
+    { name = "pytest" },
+    { name = "pyyaml" },
+    { name = "questionary" },
+    { name = "reflex" },
+    { name = "reflex-hosting-cli" },
+    { name = "typer" },
+    { name = "types-pyyaml" },
+]
+
+[package.metadata]
+
+[package.metadata.requires-dev]
+dev = [
+    { name = "gtm-linear", specifier = ">=0.2.1" },
+    { name = "httpx2", specifier = ">=2.13.1" },
+    { name = "pillow", specifier = ">=12.2.0" },
+    { name = "pytest", specifier = ">=9.1.1" },
+    { name = "pyyaml", specifier = ">=6.0.3" },
+    { name = "questionary", specifier = ">=2.1.1" },
+    { name = "reflex", specifier = "==0.10.0" },
+    { name = "reflex-hosting-cli", specifier = ">=0.1.67" },
+    { name = "typer", specifier = ">=0.27.2" },
+    { name = "types-pyyaml", specifier = ">=6.0.3" },
 ]
 
 [[package]]
