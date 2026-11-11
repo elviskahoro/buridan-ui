@@ -9,17 +9,27 @@ on:
       if: ${{ event.github.pull_request.pull_request.base.ref == 'main' }}
       init:
         commit-sha: ${{ event.git.sha }}
+        pr-author: ${{ event.github.pull_request.pull_request.user.login }}
+        pr-number: ${{ event.github.pull_request.pull_request.number }}
+        branch: ${{ event.git.branch }}
       status-checks:
         name: tests
     push:
       - if: ${{ event.git.branch == 'main' || starts-with(event.git.branch, 'trunk-merge/') || starts-with(event.git.branch, 'trunk-merge-beta/') }}
         init:
           commit-sha: ${{ event.git.sha }}
+          # main and merge-queue branches are owner-controlled, so trusted.
+          pr-author: elviskahoro
+          pr-number: ""
+          branch: ${{ event.git.branch }}
         status-checks:
           name: tests
   cli:
     init:
       commit-sha: ${{ event.git.sha }}
+      pr-author: ""
+      pr-number: ""
+      branch: ""
 
 base:
   image: ubuntu:24.04
@@ -74,6 +84,16 @@ tasks:
   - key: captain
     call: rwx/install-captain 1.2.0
 
+  # Trunk analytics uploader, checksum-pinned like the other installers.
+  - key: trunk-analytics-install
+    run: |
+      set -euo pipefail
+      curl -fsSLO https://github.com/trunk-io/analytics-cli/releases/download/0.16.3/trunk-analytics-cli-x86_64-unknown-linux.tar.gz
+      echo "1ea62c660a5ec271746aad93b8109bd41645fab9a72043ec70ea94f4883c04c4  trunk-analytics-cli-x86_64-unknown-linux.tar.gz" | sha256sum -c -
+      mkdir -p "$HOME/.local/bin"
+      tar -xzf trunk-analytics-cli-x86_64-unknown-linux.tar.gz -C "$HOME/.local/bin" trunk-analytics-cli
+      echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
+
   - key: pytest
     use: [code, deps, node-install, captain]
     # Uncached so the required status is never a replayed verdict (a same-head
@@ -81,11 +101,62 @@ tasks:
     cache: false
     # pytest-reportlog is injected with --with so uv.lock stays untouched, and
     # pinned so a new PyPI release can't fail the required gate with no code
-    # change. Captain parses its report log.
+    # change. Captain parses its report log; the JUnit XML (xunit1 keeps file
+    # paths on testcases) is exported for the Trunk upload task below. The
+    # retry writes its own file so the original failure (the flaky signal)
+    # isn't overwritten by the passing retry.
     run: |
       captain run buridan-ui-pytest \
-        --command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json" \
-        --retry-command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json {{ tests }}" \
+        --command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json --junitxml=tmp/junit/original.xml -o junit_family=xunit1" \
+        --retry-command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json --junitxml=tmp/junit/retry.xml -o junit_family=xunit1 {{ tests }}" \
         --retries 1 \
         --test-results "tmp/log.json" \
         --print-summary
+    outputs:
+      artifacts:
+        - key: junit
+          path: tmp/junit
+
+  # Trunk Flaky Tests upload. Separate from `pytest` so the required `tests`
+  # check never depends on the vault or on Trunk. Runs after pytest finishes
+  # (pass or fail). Owner-only, like trunk-impacted-targets.yml: vault grants
+  # match repo + ref, never author, and the repo is public, so non-owner PR
+  # legs (forks, Dependabot, bots) must not see the token. TRUNK_API_TOKEN lives
+  # in the `buridan-ui-trunk-flaky` vault (Flaky Tests token only); cache: false + cache-key: excluded keep it
+  # out of the cache fingerprint.
+  - key: trunk-upload
+    after: ${{ pytest.finished }}
+    use: [code, trunk-analytics-install]
+    if: ${{ init.pr-author == 'elviskahoro' }}
+    cache: false
+    env:
+      TRUNK_API_TOKEN:
+        value: ${{ vaults.buridan-ui-trunk-flaky.secrets.TRUNK_API_TOKEN }}
+        cache-key: excluded
+      TRUNK_ORG_URL_SLUG: sanhedrin
+      JUNIT_DIR: ${{ tasks.pytest.artifacts.junit }}
+      HEAD_SHA: ${{ init.commit-sha }}
+      HEAD_BRANCH: ${{ init.branch }}
+      PR_NUMBER: ${{ init.pr-number }}
+      HEAD_AUTHOR: ${{ init.pr-author }}
+    run: |
+      set -euo pipefail
+      if [ -z "${TRUNK_API_TOKEN}" ]; then
+        echo "warning: TRUNK_API_TOKEN is unavailable; skipping upload"
+        exit 0
+      fi
+      # The clone's .git is stripped (code.cleanup-git-dir), so pass the git
+      # metadata explicitly instead of letting the uploader read it.
+      args=(
+        --junit-paths "${JUNIT_DIR}/*.xml"
+        --use-uncloned-repo
+        --repo-url https://github.com/elviskahoro/buridan-ui.git
+        --repo-head-sha "${HEAD_SHA}"
+        --repo-head-branch "${HEAD_BRANCH:-unknown}"
+        --repo-head-author-name "${HEAD_AUTHOR}"
+        --repo-head-commit-epoch "$(date +%s)"
+      )
+      if [ -n "${PR_NUMBER}" ]; then
+        args+=(--pr-number "${PR_NUMBER}")
+      fi
+      trunk-analytics-cli upload "${args[@]}"
