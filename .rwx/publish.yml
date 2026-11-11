@@ -4,6 +4,7 @@ on:
       init:
         commit-sha: ${{ event.git.sha }}
         repository: https://github.com/elviskahoro/buridan-ui.git
+        ref: ${{ event.git.ref }}
       if: ${{ starts-with(event.git.ref, 'refs/tags/v') }}
   cli:
     # Manual `rwx run` dispatch for validation. Publishing still needs the
@@ -11,6 +12,7 @@ on:
     init:
       commit-sha: ${{ event.git.sha }}
       repository: https://github.com/elviskahoro/buridan-ui.git
+      ref: ${{ event.git.ref }}
 
 base:
   image: ubuntu:24.04
@@ -72,7 +74,7 @@ tasks:
   - key: publish
     use: [build]
     # Tag runs only; manual `rwx run` dispatch builds but never uploads.
-    if: ${{ starts-with(event.git.ref, 'refs/tags/v') }}
+    if: ${{ starts-with(init.ref, 'refs/tags/v') }}
     cache: false
     env:
       UV_PUBLISH_TOKEN:
@@ -85,13 +87,13 @@ tasks:
   #   rwx vaults secrets set --vault buridan-ui GITHUB_TOKEN=<token with contents:write>
   - key: release
     use: [publish]
-    if: ${{ starts-with(event.git.ref, 'refs/tags/v') }}
+    if: ${{ starts-with(init.ref, 'refs/tags/v') }}
     cache: false
     env:
       GH_TOKEN:
         value: ${{ vaults.buridan-ui.secrets.GITHUB_TOKEN }}
         cache-key: excluded
-      GIT_REF: ${{ event.git.ref }}
+      GIT_REF: ${{ init.ref }}
     run: |
       set -euo pipefail
       repo=elviskahoro/buridan-ui
