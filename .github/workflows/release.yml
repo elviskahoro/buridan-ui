@@ -1,0 +1,29 @@
+name: release
+
+# Creates the GitHub release for each version tag. PyPI publishing stays in
+# .rwx/publish.yml; RWX's github.token is read-only, so releases live here
+# where the built-in GITHUB_TOKEN can write them.
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          # Idempotent: re-running a tag must not fail on an existing release.
+          if gh release view "${TAG}" --repo "${GITHUB_REPOSITORY}" >/dev/null 2>&1; then
+            echo "Release ${TAG} already exists"
+          else
+            gh release create "${TAG}" --repo "${GITHUB_REPOSITORY}" --verify-tag --generate-notes
+          fi
