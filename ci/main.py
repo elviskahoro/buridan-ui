@@ -90,7 +90,7 @@ async def test(pytest_args: list[str], junit_name: str) -> int:
     )
     code = await _run(ctr, "test")
     # Export results even on failure so Captain / Trunk can read them.
-    await ctr.directory(Path(APP) / "tmp").export(str(out))
+    await ctr.directory(f"{APP}/tmp").export(str(out))
     return code
 
 
