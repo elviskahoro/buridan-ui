@@ -4,6 +4,6 @@
 set -euo pipefail
 cd "$(dirname "$0")/.."
 if [ -n "${CI_PYTHON:-}" ]; then
-  exec dagger run "$CI_PYTHON" ci/main.py "$@"
+	exec dagger run "$CI_PYTHON" ci/main.py "$@"
 fi
 exec dagger run uv run --project ci python ci/main.py "$@"

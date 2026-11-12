@@ -238,6 +238,15 @@ lint:
       paths:
         - "*.ipynb"
 
+    # ci/ is its own locked uv project (the Dagger CI program): neither the
+    # root lint venv nor the container venv ships dagger-io, so pyright
+    # floods reportMissingImports there and ty reports unresolved-import.
+    # pyrefly already omits ci/ (pyrefly.toml project-includes); ruff,
+    # bandit, shellcheck, shfmt, taplo, and osv-scanner still cover it.
+    - linters: [pyright, ty]
+      paths:
+        - ci/**
+
     # Documentation MDX mixes JSX components with fenced code blocks, which
     # markdownlint misreads as inconsistent code-block styles (MD046).
     - linters: [markdownlint, markdownlint-cli2]

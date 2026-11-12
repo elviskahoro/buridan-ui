@@ -22,8 +22,17 @@ PYRIGHT_VERSION = "1.1.414"
 PYREFLY_VERSION = "1.3.1"
 APP = "/app"
 EXCLUDE = [
-    ".git", ".venv", "**/node_modules", "**/__pycache__", ".context", ".web",
-    ".states", "tmp", "ci-out", "**/.pytest_cache",
+    ".git",
+    ".venv",
+    "**/node_modules",
+    "**/__pycache__",
+    ".context",
+    ".web",
+    ".states",
+    "tmp",
+    "ci-out",
+    "ci/.venv",
+    "**/.pytest_cache",
 ]
 LOCK_FILES = ["pyproject.toml", "uv.lock", ".python-version"]
 
@@ -60,18 +69,28 @@ async def _run(ctr: dagger.Container, name: str) -> int:
 
 async def test(pytest_args: list[str], junit_name: str) -> int:
     out = Path(os.environ.get("CI_OUT_DIR", REPO / "ci-out"))
-    out.mkdir(parents=True, exist_ok=True)
+    await asyncio.to_thread(out.mkdir, parents=True, exist_ok=True)
     cmd = [
-        "uv", "run", "--with", "pytest-reportlog==1.0.0", "pytest", "-q",
-        "--report-log=tmp/log.json", f"--junitxml=tmp/junit/{junit_name}",
-        "-o", "junit_family=xunit1", *pytest_args,
+        "uv",
+        "run",
+        "--with",
+        "pytest-reportlog==1.0.0",
+        "pytest",
+        "-q",
+        "--report-log=tmp/log.json",
+        f"--junitxml=tmp/junit/{junit_name}",
+        "-o",
+        "junit_family=xunit1",
+        *pytest_args,
     ]
-    ctr = with_source(base()).with_exec(["mkdir", "-p", "tmp/junit"]).with_exec(
-        cmd, expect=dagger.ReturnType.ANY
+    ctr = (
+        with_source(base())
+        .with_exec(["mkdir", "-p", "tmp/junit"])
+        .with_exec(cmd, expect=dagger.ReturnType.ANY)
     )
     code = await _run(ctr, "test")
     # Export results even on failure so Captain / Trunk can read them.
-    await ctr.directory(f"{APP}/tmp").export(str(out))
+    await ctr.directory(Path(APP) / "tmp").export(str(out))
     return code
 
 
@@ -92,7 +111,10 @@ async def validate() -> int:
 
 async def checker(name: str, pkg: str, version: str, args: list[str]) -> int:
     ctr = with_source(base()).with_exec(["uv", "tool", "install", f"{pkg}=={version}"])
-    ctr = ctr.with_env_variable("PATH", "/root/.local/bin:" + await ctr.env_variable("PATH"))
+    ctr = ctr.with_env_variable(
+        "PATH",
+        "/root/.local/bin:" + await ctr.env_variable("PATH"),
+    )
     return await _run(ctr.with_exec(args, expect=dagger.ReturnType.ANY), name)
 
 
@@ -115,10 +137,26 @@ async def main() -> int:
         if a.cmd == "validate":
             return await validate()
         if a.cmd == "pyright":
-            return await checker("pyright", "pyright", PYRIGHT_VERSION,
-                ["pyright", "--pythonpath", ".venv/bin/python", "--project", "pyrightconfig.json", *a.paths])
+            return await checker(
+                "pyright",
+                "pyright",
+                PYRIGHT_VERSION,
+                [
+                    "pyright",
+                    "--pythonpath",
+                    ".venv/bin/python",
+                    "--project",
+                    "pyrightconfig.json",
+                    *a.paths,
+                ],
+            )
         if a.cmd == "pyrefly":
-            return await checker("pyrefly", "pyrefly", PYREFLY_VERSION, ["pyrefly", "check", *a.paths])
+            return await checker(
+                "pyrefly",
+                "pyrefly",
+                PYREFLY_VERSION,
+                ["pyrefly", "check", *a.paths],
+            )
         results = [await test([], "original.xml"), await validate()]
         return int(any(results))
 

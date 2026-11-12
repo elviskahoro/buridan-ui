@@ -31,8 +31,6 @@ tasks:
     with:
       repository: https://github.com/elviskahoro/buridan-ui.git
       ref: ${{ init.commit-sha }}
-      # git diff --exit-code below needs a real .git dir.
-      preserve-git-dir: true
 
   # Checksum-pinned uv installer: fails closed if the script at the versioned
   # URL ever changes. No packaged uv/install leaf exists in the RWX catalog.
