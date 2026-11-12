@@ -12,6 +12,8 @@ on:
         pr-author: ${{ event.github.pull_request.pull_request.user.login }}
         pr-number: ${{ event.github.pull_request.pull_request.number }}
         branch: ${{ event.git.branch }}
+        # PR refs aren't granted the Flaky Tests vault; touching it fails the run.
+        upload-trunk: "false"
       status-checks:
         name: tests
     push:
@@ -22,6 +24,7 @@ on:
           pr-author: elviskahoro
           pr-number: ""
           branch: ${{ event.git.branch }}
+          upload-trunk: "true"
         status-checks:
           name: tests
   cli:
@@ -30,6 +33,7 @@ on:
       pr-author: ""
       pr-number: ""
       branch: ""
+      upload-trunk: "false"
 
 base:
   image: ubuntu:24.04
@@ -127,7 +131,7 @@ tasks:
   - key: trunk-upload
     after: ${{ pytest.finished }}
     use: [code, trunk-analytics-install]
-    if: ${{ init.pr-author == 'elviskahoro' }}
+    if: ${{ init.pr-author == 'elviskahoro' && init.upload-trunk == 'true' }}
     cache: false
     env:
       TRUNK_API_TOKEN:
