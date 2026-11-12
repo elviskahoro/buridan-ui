@@ -1,0 +1,6 @@
+[project]
+name = "buridan-ci"
+version = "0.0.0"
+description = "Dagger SDK program that runs buridan-ui CI checks locally and on RWX."
+requires-python = ">=3.11"
+dependencies = ["dagger-io==0.21.8"]

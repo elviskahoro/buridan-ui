@@ -46,25 +46,40 @@ tasks:
       sh "${script}"
       echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
 
-  # Filtered to the lockfile inputs so this stays cached across ordinary
-  # commits. --no-install-project: sources are outside the filter; `uv run`
-  # installs the project itself.
-  - key: deps
+
+  # --- Dagger toolchain (Layer A): no `use: code`, so these cache across commits.
+  - key: dagger-cli-install
+    run: |
+      set -euo pipefail
+      curl -fsSLO https://dl.dagger.io/dagger/releases/0.21.8/dagger_v0.21.8_linux_amd64.tar.gz
+      echo "53e226c7da8fb75171e58c35759d736d961ce8b3a12db0baa7b7107954fccc5a  dagger_v0.21.8_linux_amd64.tar.gz" | sha256sum -c -
+      mkdir -p "$HOME/.local/bin"
+      tar -xzf dagger_v0.21.8_linux_amd64.tar.gz -C "$HOME/.local/bin" dagger
+      echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
+
+  # Locked Dagger SDK venv, filtered to ci/ lock inputs only.
+  - key: dagger-sdk-install
     use: [uv-install, code]
     filter:
-      - pyproject.toml
-      - uv.lock
-      - .python-version
-    run: uv sync --frozen --no-install-project --group dev
+      - ci/pyproject.toml
+      - ci/uv.lock
+    run: |
+      uv sync --frozen --project ci
+      echo "$PWD/ci/.venv/bin" >> "$RWX_ENV/PATH"
+
+  - key: dagger-engine-warm
+    use: [dagger-cli-install]
+    docker: preserve-data
+    run: |
+      set -euo pipefail
+      for i in 1 2 3; do docker pull registry.dagger.io/engine:v0.21.8 && exit 0; sleep 5; done
+      exit 1
 
   - key: validate
-    use: [code, deps]
+    use: [code, dagger-cli-install, dagger-sdk-install, dagger-engine-warm]
+    docker: true
+    timeout: 30m
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false
-    run: |
-      set -euo pipefail
-      uv run python scripts/generate_anatomy.py --check
-      uv run python scripts/generate_markdown.py
-      git diff --exit-code assets/docs
-      uv run pytest tests/test_generated_assets.py tests/test_toc_scrollspy.py
+    run: dagger run python ci/main.py validate
