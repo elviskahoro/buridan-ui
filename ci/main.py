@@ -11,8 +11,8 @@ import os
 import sys
 from pathlib import Path
 
-import dagger
-from dagger import dag
+import dagger  # pyrefly: ignore[missing-import]
+from dagger import dag  # pyrefly: ignore[missing-import]
 
 REPO = Path(__file__).resolve().parent.parent
 PYTHON_IMAGE = "python:3.11-slim@sha256:07d4824036af339fa1b6ef769cc99d9c10a141769538b52b3b597c84f7a7b535"
@@ -21,6 +21,7 @@ UV_VERSION = "0.11.29"
 PYRIGHT_VERSION = "1.1.414"
 PYREFLY_VERSION = "1.3.1"
 APP = "/app"
+RESULTS_DIR = "tmp"
 EXCLUDE = [
     ".git",
     ".venv",
@@ -90,7 +91,7 @@ async def test(pytest_args: list[str], junit_name: str) -> int:
     )
     code = await _run(ctr, "test")
     # Export results even on failure so Captain / Trunk can read them.
-    await ctr.directory(f"{APP}/tmp").export(str(out))
+    await ctr.directory(f"{APP}/{RESULTS_DIR}").export(str(out))
     return code
 
 
