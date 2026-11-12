@@ -1,7 +1,9 @@
 # CI test suite.
 # Not path-filtered: a path-filtered required check does not report on every
 # PR and would deadlock the Trunk Merge Queue. PR and queue/main pushes share
-# one status-check name so a single check covers both.
+# one status-check name so a single check covers both. The name is bound to
+# the pytest task alone: the run's other task (the Trunk upload) must never
+# be able to red the required check.
 on:
   github:
     pull_request:
@@ -15,7 +17,11 @@ on:
         # PR refs aren't granted the Flaky Tests vault; touching it fails the run.
         upload-trunk: "false"
       status-checks:
-        name: tests
+        default:
+          enabled: false
+        custom:
+          - tasks: pytest
+            name: tests
     push:
       - if: ${{ event.git.branch == 'main' || starts-with(event.git.branch, 'trunk-merge/') || starts-with(event.git.branch, 'trunk-merge-beta/') }}
         init:
@@ -26,7 +32,11 @@ on:
           branch: ${{ event.git.branch }}
           upload-trunk: "true"
         status-checks:
-          name: tests
+          default:
+            enabled: false
+          custom:
+            - tasks: pytest
+              name: tests
   cli:
     init:
       commit-sha: ${{ event.git.sha }}
@@ -121,13 +131,18 @@ tasks:
         - key: junit
           path: tmp/junit
 
-  # Trunk Flaky Tests upload. Separate from `pytest` so the required `tests`
-  # check never depends on the vault or on Trunk. Runs after pytest finishes
-  # (pass or fail). Owner-only, like trunk-impacted-targets.yml: vault grants
-  # match repo + ref, never author, and the repo is public, so non-owner PR
-  # legs (forks, Dependabot, bots) must not see the token. TRUNK_API_TOKEN lives
-  # in the `buridan-ui-trunk-flaky` vault (Flaky Tests token only); cache: false + cache-key: excluded keep it
-  # out of the cache fingerprint.
+  # Trunk Flaky Tests upload. Separate from `pytest`, and `RWX: tests` is bound
+  # to the pytest task alone, so this task can never red the required check —
+  # not on a Trunk outage, not on a vault miss. Runs after pytest finishes
+  # (pass or fail). `upload-trunk` is only "true" on the push legs the vault
+  # grant covers (main and the merge-queue branches): on any other ref RWX
+  # fails vault-secret resolution before the script's empty-token guard can
+  # fire, and a skipped task is green for the run. The author gate stays
+  # alongside — vault grants match repo + ref, never author, and the repo is
+  # public, so non-owner PR legs (forks, Dependabot, bots) must not see the
+  # token even if the grant is widened. TRUNK_API_TOKEN lives in the
+  # `buridan-ui-trunk-flaky` vault (Flaky Tests token only); cache: false +
+  # cache-key: excluded keep it out of the cache fingerprint.
   - key: trunk-upload
     after: ${{ pytest.finished }}
     use: [code, trunk-analytics-install]
