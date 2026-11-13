@@ -68,30 +68,33 @@ tasks:
       sh "${script}"
       echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
 
-  # Filtered to the lockfile inputs so this stays cached across ordinary
-  # commits. --no-install-project: sources are outside the filter; `uv run`
-  # installs the project itself.
-  - key: deps
-    use: [uv-install, code]
-    filter:
-      - pyproject.toml
-      - uv.lock
-      - .python-version
-    run: uv sync --frozen --no-install-project --group dev
-
-  # Checksum-pinned node: GHA runners ship it, the rwx/base image may not, and
-  # five test files (seed_codec, heatmap, url_sync_popstate, autocomplete,
-  # render_pre) shell out to node and pytest.skip silently when it's absent —
-  # the status would go green while covering less than the GHA check it
-  # replaces. Fails closed if the tarball at the versioned URL ever changes.
-  - key: node-install
+  # --- Dagger toolchain (Layer A): no `use: code`, so these cache across commits.
+  - key: dagger-cli-install
     run: |
       set -euo pipefail
-      curl -fsSLO https://nodejs.org/dist/v22.23.4/node-v22.23.4-linux-x64.tar.gz
-      echo "b8492284c76a54baf58d61668dd0e41ee0fc98adabf9503d30f05d08f55b4406  node-v22.23.4-linux-x64.tar.gz" | sha256sum -c -
-      mkdir -p "$HOME/.local/lib/nodejs"
-      tar -xzf node-v22.23.4-linux-x64.tar.gz -C "$HOME/.local/lib/nodejs" --strip-components=1
-      echo "$HOME/.local/lib/nodejs/bin" >> "$RWX_ENV/PATH"
+      curl -fsSLO https://dl.dagger.io/dagger/releases/0.21.8/dagger_v0.21.8_linux_amd64.tar.gz
+      echo "53e226c7da8fb75171e58c35759d736d961ce8b3a12db0baa7b7107954fccc5a  dagger_v0.21.8_linux_amd64.tar.gz" | sha256sum -c -
+      mkdir -p "$HOME/.local/bin"
+      tar -xzf dagger_v0.21.8_linux_amd64.tar.gz -C "$HOME/.local/bin" dagger
+      echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
+
+  # Locked Dagger SDK venv, filtered to ci/ lock inputs only.
+  - key: dagger-sdk-install
+    use: [uv-install, code]
+    filter:
+      - ci/pyproject.toml
+      - ci/uv.lock
+    run: |
+      uv sync --frozen --project ci
+      echo "$PWD/ci/.venv/bin" >> "$RWX_ENV/PATH"
+
+  - key: dagger-engine-warm
+    use: [dagger-cli-install]
+    docker: preserve-data
+    run: |
+      set -euo pipefail
+      for i in 1 2 3; do docker pull registry.dagger.io/engine:v0.21.8 && exit 0; sleep 5; done
+      exit 1
 
   # Captain (rwx/install-captain) wraps pytest for flaky-test retries and
   # results in the RWX UI. RWX supplies its access token automatically.
@@ -109,20 +112,21 @@ tasks:
       echo "$HOME/.local/bin" >> "$RWX_ENV/PATH"
 
   - key: pytest
-    use: [code, deps, node-install, captain]
+    use: [code, dagger-cli-install, dagger-sdk-install, dagger-engine-warm, captain]
+    docker: true
+    timeout: 30m
     # Uncached so the required status is never a replayed verdict (a same-head
     # re-trigger once went green in ~530ms); upstream install caches stay.
     cache: false
-    # pytest-reportlog is injected with --with so uv.lock stays untouched, and
-    # pinned so a new PyPI release can't fail the required gate with no code
-    # change. Captain parses its report log; the JUnit XML (xunit1 keeps file
-    # paths on testcases) is exported for the Trunk upload task below. The
-    # retry writes its own file so the original failure (the flaky signal)
-    # isn't overwritten by the passing retry.
+    # The Dagger program (ci/main.py) runs pytest in a container with node
+    # present (pinned there) and pytest-reportlog pinned via --with; it exports
+    # tmp/ (log.json + junit) to ci-out/. Captain parses the report log. The
+    # retry writes its own JUnit file so the original failure is preserved.
     run: |
+      export CI_OUT_DIR="$PWD/tmp"
       captain run buridan-ui-pytest \
-        --command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json --junitxml=tmp/junit/original.xml -o junit_family=xunit1" \
-        --retry-command "uv run --with pytest-reportlog==1.0.0 pytest -q --report-log=tmp/log.json --junitxml=tmp/junit/retry.xml -o junit_family=xunit1 {{ tests }}" \
+        --command "dagger run python ci/main.py test" \
+        --retry-command "dagger run python ci/main.py test --junit-name retry.xml -- {{ tests }}" \
         --retries 1 \
         --test-results "tmp/log.json" \
         --print-summary

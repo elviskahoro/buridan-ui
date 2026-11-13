@@ -74,3 +74,7 @@ A skeleton lives in `.github/pull_request_template.md`. Key rules for small PRs:
 Use `rwx run .rwx/pyright.yml --wait` or `.rwx/pyrefly.yml` (optional `--init paths="a.py b.py"`) instead of retrying locally. The default pyright run is whole-repo in strict mode and can take minutes — past probes have seen `app/www/style.py` hang pyright outright, so narrow with `--init paths` when iterating. See CONTRIBUTING.md.
 
 The `rwx` CLI is available to agents. It reads only `$RWX_ACCESS_TOKEN`; if that is unset but per-org variables such as `RWX_ACCESS_TOKEN_ELVISKAHORO` exist, pass one explicitly: `rwx run .rwx/pyright.yml --wait --access-token "$RWX_ACCESS_TOKEN_ELVISKAHORO"`. A bare `403 Forbidden` from `rwx run` means no token was supplied, not that RWX is unavailable.
+
+## CI logic lives in `ci/`
+
+pytest, docs/asset validation and the pyright/pyrefly checks are Dagger SDK functions in `ci/main.py` (see `ci/README.md`; run `ci/run.sh <cmd>`). `.rwx/tests.yml` and `.rwx/validate-assets.yml` call them. Dagger needs Docker, so from a cloud workspace validate with `rwx run`, not locally.
