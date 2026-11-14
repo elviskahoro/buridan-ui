@@ -107,4 +107,6 @@ tasks:
     use: [preview]
     run: echo "$PREVIEW_URL"
     env:
-      PREVIEW_URL: ${{ tasks.preview.app.url }}
+      # Friendly URL tracks the latest build for the pr-<N> endpoint, so a
+      # shared link keeps working across pushes.
+      PREVIEW_URL: ${{ tasks.preview.app.url.friendly }}
