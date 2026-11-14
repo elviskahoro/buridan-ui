@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M7BR7GEYVRTCE4XJ2MWT7MY0",
+  "session_id": "0cb3f3a3-7bdb-46fc-98d8-29f4f08d18dc",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-14T00:45:01.544523024Z",
+  "branch": "conductor/rwx-preview-app-pipeline",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".rwx/preview.yml"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "39965c136029",
+  "checkpoint_transcript_start": 166,
+  "transcript_lines_at_start": 166,
+  "compact_transcript_start": 24,
+  "token_usage": {
+    "input_tokens": 2,
+    "cache_creation_tokens": 2082,
+    "cache_read_tokens": 67639,
+    "output_tokens": 527,
+    "api_call_count": 1
+  },
+  "redaction": {
+    "replacements": 2,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 2,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 1
+  }
+}
