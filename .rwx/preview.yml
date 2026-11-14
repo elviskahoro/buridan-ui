@@ -1,0 +1,110 @@
+# PR preview environment on RWX: https://www.rwx.com/blog/preview-your-web-apps-with-rwx
+# Serves the exported frontend and Reflex backend through Caddy on port 3000;
+# Caddy proxies /_event and /_upload to the backend.
+on:
+  github:
+    pull_request:
+      init:
+        commit-sha: ${{ event.git.sha }}
+        pull-request-number: ${{ event.github.pull_request.number }}
+      status-checks:
+        name: preview
+      if: ${{ event.github.pull_request.pull_request.base.ref == 'main' }}
+  cli:
+    init:
+      commit-sha: ${{ event.git.sha }}
+      pull-request-number: "0"
+
+base:
+  image: ubuntu:24.04
+  config: rwx/base 1.2.0
+
+tasks:
+  - key: code
+    call: git/clone 2.2.0
+    with:
+      repository: https://github.com/elviskahoro/buridan-ui.git
+      ref: ${{ init.commit-sha }}
+
+  - key: uv-install
+    run: |
+      set -euo pipefail
+      script="$(mktemp)"
+      trap 'rm -f "${script}"' EXIT
+      curl -LsSf https://astral.sh/uv/0.11.29/install.sh -o "${script}"
+      echo "504a79fd2ed0dcd47e7f04f0792cfd0871f62e24a7fe40fa8ae0f563a369f2bd  ${script}" | sha256sum -c -
+      sh "${script}"
+      echo "$HOME/.local/bin" >> $RWX_ENV/PATH
+
+  - key: deps
+    use: [code, uv-install]
+    filter:
+      - pyproject.toml
+      - uv.lock
+      # The root project is installed by uv sync; hatchling needs its readme and packages.
+      - cli
+      - app
+      - components
+    run: |
+      uv sync --frozen
+      echo "$PWD/.venv/bin" >> $RWX_ENV/PATH
+      echo "VIRTUAL_ENV=$PWD/.venv" >> $RWX_ENV/VIRTUAL_ENV
+
+  # Reflex's own bun download from GitHub releases returns 504 on RWX runners;
+  # pin bun here (checksum-verified installer) so reflex finds it.
+  - key: bun-install
+    use: [deps]
+    run: |
+      set -euo pipefail
+      script="$(mktemp)"
+      trap 'rm -f "${script}"' EXIT
+      curl -fsSL https://bun.sh/install -o "${script}"
+      echo "04882bf41679d49d9af108657a1e5515bf04fdf2940d12c0d0b1e5d79dc53be8  ${script}" | sha256sum -c -
+      bash "${script}" "bun-v1.4.3"
+      echo "$HOME/.bun/bin" >> $RWX_ENV/PATH
+
+  - key: reflex-export
+    use: [code, deps, bun-install]
+    run: |
+      uv run reflex init
+      uv run reflex export --frontend-only
+    env:
+      REFLEX_ENV: prod
+      PYTHONUNBUFFERED: "1"
+
+  - key: system-deps
+    run: |
+      sudo apt-get update
+      sudo apt-get install -y --no-install-recommends caddy unzip
+
+  - key: build
+    use: [reflex-export, system-deps]
+    run: |
+      set -euo pipefail
+      sudo mkdir -p /srv
+      sudo unzip -q frontend.zip -d /srv
+      rm frontend.zip
+      # The export bakes in http://localhost:8000; point it at the page origin
+      # instead (Caddy proxies /_event and /_upload to the backend).
+      f=$(grep -rl 'localhost:8000' /srv/assets | head -1 || true)
+      test -n "$f" || { echo "no asset contains localhost:8000; Reflex export layout changed" >&2; exit 1; }
+      printf '%s\n' \
+        'const o=location.origin,w=o.replace(/^http/,"ws");' \
+        'var e={PING:o+"/ping",EVENT:w+"/_event",UPLOAD:o+"/_upload",AUTH_CODESPACE:o+"/auth-codespace",HEALTH:o+"/_health",ALL_ROUTES:o+"/_all_routes",TRANSPORT:"websocket",TEST_MODE:!1};export{e as t};' \
+        | sudo tee "$f" > /dev/null
+
+  - key: preview
+    use: [build]
+    app:
+      endpoint: pr-${{ init.pull-request-number }}
+      port: 3000
+    run: |
+      export PORT=3000 REFLEX_ENV=prod
+      .venv/bin/reflex run --env prod --backend-only --backend-port 8000 &
+      exec caddy run --config Caddyfile --adapter caddyfile
+
+  - key: share-link
+    use: [preview]
+    run: echo "$PREVIEW_URL"
+    env:
+      PREVIEW_URL: ${{ tasks.preview.app.url }}
