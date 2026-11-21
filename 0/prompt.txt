@@ -1,0 +1,5 @@
+no rwx has support for using the authenticated app's gh token
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
