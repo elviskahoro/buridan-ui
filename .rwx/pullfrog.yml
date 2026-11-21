@@ -55,8 +55,8 @@ tasks:
       PR: ${{ init.pr }}
       PULLFROG_VERSION: 0.1.131
       GITHUB_REPOSITORY: elviskahoro/buridan-ui
-      # RWX GitHub app token. The runner refuses to start without one.
-      GH_TOKEN: ${{ github.token }}
+      # GitHub app token from the vault (the github context is not offered on this public repo). The runner refuses to start without one.
+      GH_TOKEN: ${{ vaults.buridan-ui-pullfrog.github-apps.rwx-automation-elviskahoro.token }}
       INPUT_MODEL: openai-compatible/byok
       # The verdict. The runner forces the agent to call set_output with this
       # shape (the run errors otherwise) and logs it as ::pullfrog-output::<b64>.
