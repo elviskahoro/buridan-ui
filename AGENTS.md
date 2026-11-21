@@ -73,3 +73,8 @@ Read .entire/agent-guide.md for this repository's workflow, source inspection, a
 Use `.github/pull_request_template.md`. The full conventions are the
 `create_pr` prompt in `.conductor/settings.toml`; see "Opening or editing a PR"
 in `.entire/agent-guide.md`.
+
+## PR issue links
+
+PR bodies need `Closes #N`, `Refs #N` (partial work) or `No issue: <reason>`.
+Bot PRs are skipped. The `check-pr-issue-link` RWX check enforces this.
