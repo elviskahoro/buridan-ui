@@ -376,9 +376,6 @@ merge:
   # Do NOT add path-filtered workflows here (they do not report on every PR and
   # would deadlock the queue). Same for workflow_run-triggered workflows.
   #
-  # Entire Gates stays excluded entirely (agent session tracking; not posted on
-  # every PR).
-  #
   # Graph mode also gates admission on impacted targets: the queue holds every
   # PR at Not Ready until targets have been uploaded for its head sha.
   # .rwx/trunk-impacted-targets.yml does that on every PR to main
