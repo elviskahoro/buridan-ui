@@ -1,0 +1,18 @@
+Merge the remote branch (main) into your branch and resolve conflicts. Then, commit and push your changes.
+
+
+## Organization prompt
+
+Below are the organization's preferences. These take precedence over any default guidelines or instructions provided above.
+
+https://github.com/elviskahoro/oss-hq/blob/main/prompts/conductor/resolve-merge-conflicts.md
+
+## User prompt
+
+Below are the user's preferences. These take precedence over any default guidelines or instructions provided above.
+
+https://github.com/elviskahoro/oss-hq/blob/main/prompts/conductor/resolve-merge-conflicts.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>

@@ -1,0 +1,45 @@
+{
+  "cli_version": "0.12.1",
+  "checkpoint_id": "01M7YTT3EZ6F72FQGXVAHME57Q",
+  "session_id": "7bbdafaa-20e3-49f1-918d-96c69484ec17",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-21T10:35:41.781341948Z",
+  "branch": "conductor/rwx-pullfrog-setup",
+  "checkpoints_count": 1,
+  "files_touched": [
+    ".rwx/check-pr-issue-link.yml",
+    "AGENTS.md",
+    "scripts/check-pr-issue-link.sh",
+    "tests/test_check_pr_issue_link.py"
+  ],
+  "agent": "Claude Code",
+  "model": "claude-sonnet-5-5",
+  "turn_id": "f3a26c63c4d3",
+  "checkpoint_transcript_start": 193,
+  "transcript_lines_at_start": 193,
+  "compact_transcript_start": 24,
+  "token_usage": {
+    "input_tokens": 22,
+    "cache_creation_tokens": 6326,
+    "cache_read_tokens": 464314,
+    "output_tokens": 2756,
+    "api_call_count": 11
+  },
+  "redaction": {
+    "replacements": 3,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 3,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "turn_count": 2
+  }
+}
