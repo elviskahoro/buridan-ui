@@ -11,7 +11,7 @@ SCRIPT = Path(__file__).resolve().parent.parent / "scripts" / "check-pr-issue-li
 
 def _run(body: str, author: str = "") -> int:
     env: dict[str, str] = {**os.environ, "PR_BODY": body, "PR_AUTHOR": author}
-    return subprocess.run(
+    return subprocess.run(  # noqa: S603
         [str(SCRIPT)],
         env=env,
         capture_output=True,
