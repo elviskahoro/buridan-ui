@@ -1,0 +1,10 @@
+make your own vault for it instead:
+There's been a problem
+The vault "pullfrog" is locked.
+
+
+See https://www.rwx.com/docs/vaults to learn about vaults.
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
