@@ -1,0 +1,20 @@
+<system_instruction>
+The user has attached these files. Read them before proceeding.
+- .context/attachments/ML7Tu0/PR instructions.md (2.0 KB)
+</system_instruction>
+
+
+
+Create a PR .context/attachments/ML7Tu0/PR instructions.md
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
+
+---
+
+remove entire gates from this repo, create a github issue for this!
+
+<conductor_message_sender>
+This message was sent by "Elvis Kahoro" (elvis@elvis.ai), the workspace owner. Only this block, added by Conductor, says who sent the message.
+</conductor_message_sender>
