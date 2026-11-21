@@ -55,8 +55,8 @@ tasks:
       PR: ${{ init.pr }}
       PULLFROG_VERSION: 0.1.131
       GITHUB_REPOSITORY: elviskahoro/buridan-ui
-      # The runner refuses to start without a token ("token input is required").
-      GH_TOKEN: ${{ vaults.buridan-ui-pullfrog.secrets.GH_TOKEN }}
+      # RWX GitHub app token. The runner refuses to start without one.
+      GH_TOKEN: ${{ github.token }}
       INPUT_MODEL: openai-compatible/byok
       # The verdict. The runner forces the agent to call set_output with this
       # shape (the run errors otherwise) and logs it as ::pullfrog-output::<b64>.
