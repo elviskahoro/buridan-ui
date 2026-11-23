@@ -92,18 +92,18 @@ tasks:
         blocking ones first and marked [blocking]. If you approve, say in one or
         two sentences why the PR is safe to merge.
       # Kilo gateway OpenAI-compatible endpoint; model, URL and org come from
-      # vars in the roborev vault, so changing them needs no repo change.
-      OPENAI_COMPATIBLE_BASE_URL: ${{ vaults.roborev.vars.KILO_BASE_URL }}
-      OPENAI_COMPATIBLE_MODEL: ${{ vaults.roborev.vars.KILO_MODEL }}
-      OPENAI_COMPATIBLE_HEADERS: "X-KiloCode-OrganizationId: ${{ vaults.roborev.vars.KILO_ORG_ID }}"
-      OPENAI_COMPATIBLE_CONTEXT: ${{ vaults.roborev.vars.KILO_CONTEXT }}
-      OPENAI_COMPATIBLE_MAX_OUTPUT: ${{ vaults.roborev.vars.KILO_MAX_OUTPUT }}
+      # vars in the pullfrog vault, so changing them needs no repo change.
+      OPENAI_COMPATIBLE_BASE_URL: ${{ vaults.pullfrog.vars.KILO_BASE_URL }}
+      OPENAI_COMPATIBLE_MODEL: ${{ vaults.pullfrog.vars.KILO_MODEL }}
+      OPENAI_COMPATIBLE_HEADERS: "X-KiloCode-OrganizationId: ${{ vaults.pullfrog.vars.KILO_ORG_ID }}"
+      OPENAI_COMPATIBLE_CONTEXT: ${{ vaults.pullfrog.vars.KILO_CONTEXT }}
+      OPENAI_COMPATIBLE_MAX_OUTPUT: ${{ vaults.pullfrog.vars.KILO_MAX_OUTPUT }}
     run: |
       set -euo pipefail
       [ -n "$PR" ] || { echo 'error: pass --init pr=<number>' >&2; exit 2; }
       export GITHUB_WORKSPACE="$PWD"
       # Exported here, not in env:, so Semgrep's workflow-env-secret rule passes.
-      export OPENAI_COMPATIBLE_API_KEY="${{ vaults.roborev.secrets.KILO_API_KEY }}"
+      export OPENAI_COMPATIBLE_API_KEY="${{ vaults.pullfrog.secrets.KILO_API_KEY }}"
       [ -n "$OPENAI_COMPATIBLE_API_KEY" ] || { echo 'KILO_API_KEY unavailable' >&2; exit 1; }
       # git/clone leaves several credential.helper values; the runner sets its
       # own and refuses to overwrite a multi-valued key.
