@@ -1,0 +1,78 @@
+# RoboRev review as a tool for the local agent. Dispatch-only (cli trigger): it
+# is not a PR check, posts no comment or status, and does not replace
+# pullfrog-approval. Run it before pushing:
+#   rwx run .rwx/roborev.yml --wait
+# It reviews local work (committed or not) against origin/main with the model in
+# .roborev.toml (pi + Fireworks) and fails when roborev reports findings.
+on:
+  cli:
+    init:
+      ref: ${{ event.git.sha }}
+      branch: ${{ event.git.branch }}
+
+# One review per branch: a new dispatch on the same branch replaces the stale run.
+# Pool ids are global to the RWX org, so the repo name is part of the id.
+concurrency-pools:
+  - id: elviskahoro/buridan-ui:roborev:${{ init.branch }}
+    capacity: 1
+    on-overflow: cancel-running
+
+base:
+  image: ubuntu:24.04
+  config: rwx/base 1.2.0
+
+tasks:
+  - key: code
+    call: git/clone 2.4.1
+    cache: false
+    with:
+      repository: https://github.com/elviskahoro/buridan-ui.git
+      ref: ${{ init.ref }}
+      submodules: false
+      preserve-git-dir: true
+
+  - key: node
+    call: nodejs/install 1.2.1
+    with:
+      node-version: 24.22.3
+
+  - key: roborev
+    use: [code, node]
+    cache: false
+    env:
+      ROBOREV_VERSION: 0.63.0
+      PI_VERSION: 1.4.0
+    run: |
+      set -euo pipefail
+      mkdir -p "$HOME/.local/bin"
+      curl -fsSL "https://github.com/kenn-io/roborev/releases/download/v${ROBOREV_VERSION}/roborev_${ROBOREV_VERSION}_linux_amd64.tar.gz" \
+        | tar -xz -C "$HOME/.local/bin" roborev
+      export PATH="$HOME/.local/bin:$PATH"
+      roborev version
+      # .roborev.toml selects the pi agent; roborev finds no agent without it.
+      npm install -g "@earendil-works/pi-coding-agent@${PI_VERSION}"
+      pi --version
+      # Key is exported here, not in env:, so Semgrep's workflow-env-secret passes.
+      export FIREWORKS_API_KEY="${{ vaults.buridan-ui-pullfrog.secrets.FIREWORKS_API_KEY }}"
+      [ -n "$FIREWORKS_API_KEY" ] || { echo "error: FIREWORKS_API_KEY unavailable" >&2; exit 1; }
+      # A pushed commit is cloned shallow, so merge-base would find no shared
+      # history with main; unshallow while fetching main.
+      unshallow=()
+      [ "$(git rev-parse --is-shallow-repository)" = true ] && unshallow=(--unshallow)
+      git fetch --no-tags "${unshallow[@]}" origin main:refs/remotes/origin/main
+      # `rwx run` ships local work as a patch on top of the nearest pushed
+      # commit; commit it so roborev (committed ranges only) sees the diff.
+      if [ -n "$(git status --porcelain)" ]; then
+        git add -A
+        git -c user.name=roborev-ci -c user.email=roborev-ci@localhost commit -q -m "local changes under review"
+      fi
+      base="$(git merge-base origin/main HEAD)"
+      echo "reviewing ${base}..HEAD"
+      git diff --stat "${base}..HEAD" | tail -5
+      # `roborev ci review` exits 0 even with findings, so gate on the verdict
+      # header. Fails closed if no verdict is printed.
+      roborev ci review --ref "${base}..HEAD" 2>&1 | tee roborev-output.txt
+      if ! grep -q "roborev: Review Passed" roborev-output.txt; then
+        echo "roborev did not pass: see findings above" >&2
+        exit 1
+      fi
