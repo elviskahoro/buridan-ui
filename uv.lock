@@ -1,5 +1,5 @@
 version = 1
-revision = 3
+revision = 5
 requires-python = ">=3.11"
 resolution-markers = [
     "python_full_version >= '3.12' and sys_platform == 'emscripten'",
@@ -175,20 +175,6 @@ reload = [
 ]
 
 [[package]]
-name = "gtm-linear"
-version = "0.2.1"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "httpx" },
-    { name = "pydantic" },
-    { name = "pydantic-settings" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/05/1c/f2bd0b47b7d7f0a7d67c895dff9fc4b419611ae1c5a4eef666f38f03d2dd/gtm_linear-0.2.1.tar.gz", hash = "sha256:3924da8a422f30292cf8a4a8a01e3286dc058de01d53855c069d97b19e8ce286", size = 248678, upload-time = "2026-09-29T18:29:55.27Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/1e/21/842ddc0bb3bc0eebee2de949d536d2a7d7387003973e120fcc62a910f6e1/gtm_linear-0.2.1-py3-none-any.whl", hash = "sha256:330f257af7dd7689d621c19272ca131e3caaa02d157b64e44979de5fcd9812b2", size = 35303, upload-time = "2026-09-29T18:29:53.802Z" },
-]
-
-[[package]]
 name = "gtm-ui-buridan"
 version = "0.1.21"
 source = { editable = "." }
@@ -221,6 +207,20 @@ dev = [
     { name = "reflex-hosting-cli", specifier = ">=0.1.67" },
     { name = "typer", specifier = ">=0.27.2" },
     { name = "types-pyyaml", specifier = ">=6.0.3" },
+]
+
+[[package]]
+name = "gtm-linear"
+version = "0.2.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "httpx" },
+    { name = "pydantic" },
+    { name = "pydantic-settings" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/05/1c/f2bd0b47b7d7f0a7d67c895dff9fc4b419611ae1c5a4eef666f38f03d2dd/gtm_linear-0.2.1.tar.gz", hash = "sha256:3924da8a422f30292cf8a4a8a01e3286dc058de01d53855c069d97b19e8ce286", size = 248678, upload-time = "2026-09-29T18:29:55.27Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1e/21/842ddc0bb3bc0eebee2de949d536d2a7d7387003973e120fcc62a910f6e1/gtm_linear-0.2.1-py3-none-any.whl", hash = "sha256:330f257af7dd7689d621c19272ca131e3caaa02d157b64e44979de5fcd9812b2", size = 35303, upload-time = "2026-09-29T18:29:53.802Z" },
 ]
 
 [[package]]
