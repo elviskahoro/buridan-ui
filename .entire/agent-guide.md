@@ -78,3 +78,9 @@ The `rwx` CLI is available to agents. It reads only `$RWX_ACCESS_TOKEN`; if that
 ## CI logic lives in `ci/`
 
 pytest, docs/asset validation and the pyright/pyrefly checks are Dagger SDK functions in `ci/main.py` (see `ci/README.md`; run `ci/run.sh <cmd>`). `.rwx/tests.yml` and `.rwx/validate-assets.yml` call them. Dagger needs Docker, so from a cloud workspace validate with `rwx run`, not locally.
+
+## Merging PRs
+
+Merge PRs directly once checks are green. Use the Trunk merge queue only for a
+batch of PRs landed together, and only via manual dispatch. Never offer to
+queue a single PR. See `AGENTS.md` ("Landing PRs").

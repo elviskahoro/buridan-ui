@@ -14,12 +14,16 @@ from the Conductor clone — do not re-add it.
 
 ## Landing PRs
 
-PRs land through the Trunk Merge Queue, not the GitHub Merge button.
+Default: merge a single PR directly (`gh pr merge`) once its checks are green
+and the user has approved. Do not offer to queue single PRs.
+
+The Trunk Merge Queue is only for landing a batch of PRs together, and only via
+a manual dispatch. The rules below apply to that batch case.
 
 - Submit: `trunk merge <pr-number>` (a number, not a URL or branch name).
 - Check once: `trunk merge status <pr-number>`. States: Queued, Testing,
   Tests Passed, Merged. Report the state and stop. Never poll in a loop.
-- Never use `gh pr merge` or the GitHub Merge button. They bypass the queue.
+- For a batch, never use `gh pr merge` or the GitHub Merge button. They bypass the queue.
 - Never use `--force`, `pause` or `resume`.
 - Leave priority at the default (`medium`). `urgent` and `high` are for
   incidents and need an explicit reason from the user.
