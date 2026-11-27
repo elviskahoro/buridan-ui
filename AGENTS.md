@@ -14,16 +14,17 @@ from the Conductor clone — do not re-add it.
 
 ## Landing PRs
 
-Default: merge a single PR directly (`gh pr merge`) once its checks are green
-and the user has approved. Do not offer to queue single PRs.
+Agents merge PRs directly with `gh pr merge <pr-number> --squash` once every
+required check is green and the user has said to merge. Do not offer to queue a
+single PR.
 
-The Trunk Merge Queue is only for landing a batch of PRs together, and only via
-a manual dispatch. The rules below apply to that batch case.
+The Trunk Merge Queue is only for landing a batch of PRs together, and only by
+manual dispatch when the user asks for it.
 
-- Submit: `trunk merge <pr-number>` (a number, not a URL or branch name).
+- Submit (batch only): `trunk merge <pr-number>` (a number, not a URL or branch
+  name).
 - Check once: `trunk merge status <pr-number>`. States: Queued, Testing,
   Tests Passed, Merged. Report the state and stop. Never poll in a loop.
-- For a batch, never use `gh pr merge` or the GitHub Merge button. They bypass the queue.
 - Never use `--force`, `pause` or `resume`.
 - Leave priority at the default (`medium`). `urgent` and `high` are for
   incidents and need an explicit reason from the user.
@@ -32,13 +33,8 @@ a manual dispatch. The rules below apply to that batch case.
   blindly in a loop.
 - Auth failure: run `trunk login` once and retry.
 - Refuse to queue from main or a protected branch.
-- A `Closes #N` line in the PR body auto-closes the issue when the queue lands
-  the PR. Do not close the issue by hand beforehand.
-
-Because the queue auto-merges once its predictive CI passes, the user's "yes"
-on the final PR preview is the explicit human authorization to merge — after
-it, submit with `trunk merge <pr-number>` without re-prompting. There is no
-second gate before the merge lands.
+- A `Closes #N` line in the PR body auto-closes the issue when the PR merges.
+  Do not close the issue by hand beforehand.
 
 The queue's required statuses live in `.trunk/trunk.yaml`
 (`merge.required_statuses`) and must be live GitHub check names posted on
